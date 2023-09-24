@@ -1,0 +1,137 @@
+#pragma once
+
+
+
+
+// 頂点構造体
+struct VERTEX_3D
+{
+	D3DXVECTOR3 Position;
+	D3DXVECTOR3 Normal;
+	D3DXVECTOR3 Tangent;
+	D3DXVECTOR3 Binormal;
+	D3DXVECTOR4 Diffuse;
+	D3DXVECTOR2 TexCoord;
+};
+
+
+// マテリアル(材質)構造体
+struct MATERIAL
+{
+	D3DXCOLOR	Ambient;	//環境光
+	D3DXCOLOR	Diffuse;	//拡散光
+	D3DXCOLOR	Specular;	//反射光
+	D3DXCOLOR	Emission;	//自己発光色
+	float		Shininess;	//反射光の強度
+	BOOL		TextureEnable;
+	float		Dummy[2];//16byte境界用
+};
+
+// マテリアル構造体
+struct DX11_MODEL_MATERIAL
+{
+	MATERIAL		Material;
+	class CTexture* Texture;
+};
+
+
+// 描画サブセット構造体
+struct DX11_SUBSET
+{
+	unsigned int	StartIndex;
+	unsigned int	IndexNum;
+	DX11_MODEL_MATERIAL	Material;
+};
+
+
+struct LIGHT
+{
+	BOOL		Enable;
+	BOOL		Dummy[3];
+	D3DXVECTOR4	Direction;
+	D3DXCOLOR	Diffuse;
+	D3DXCOLOR	Ambient;
+};
+
+struct CAMERA
+{
+	D3DXVECTOR4	Position;
+	D3DXVECTOR4	FogParam;//x FogStart, y FogEnd, z FogHeight
+	D3DXCOLOR	FogColor;
+	D3DXCOLOR	GroundFogColor;
+};
+
+struct PARAMETER
+{
+	D3DXVECTOR4 hitpoint;
+	D3DXCOLOR	baseColor;//HPバーの色
+	D3DXCOLOR	lostColor;//減少したHPバーの色
+	D3DXCOLOR	diffColor;//一時表示HPバーの色
+};
+
+
+class VertexBuffer;
+class IndexBuffer;
+class Texture;
+
+
+
+class Renderer
+{
+private:
+
+	static D3D_FEATURE_LEVEL       m_FeatureLevel;
+
+	static ID3D11Device* m_Device;
+	static ID3D11DeviceContext* m_DeviceContext;
+	static IDXGISwapChain* m_SwapChain;
+	static ID3D11RenderTargetView* m_RenderTargetView;
+	static ID3D11DepthStencilView* m_DepthStencilView;
+
+	static ID3D11Buffer* m_WorldBuffer;
+	static ID3D11Buffer* m_ViewBuffer;
+	static ID3D11Buffer* m_ProjectionBuffer;
+	static ID3D11Buffer* m_MaterialBuffer;
+	static ID3D11Buffer* m_LightBuffer;
+	static ID3D11Buffer* m_CameraBuffer;
+	static ID3D11Buffer* m_ParameterBuffer;
+
+
+	static ID3D11DepthStencilState* m_DepthStateEnable;
+	static ID3D11DepthStencilState* m_DepthStateDisable;
+
+	static ID3D11BlendState* m_BlendState;
+	static ID3D11BlendState* m_BlendStateATC;
+
+
+
+public:
+	static void Init();
+	static void Uninit();
+	static void Begin();
+	static void End();
+
+	static void SetDepthEnable(bool Enable);
+	static void SetATCEnable(bool Enable);
+	static void SetWorldViewProjection2D();
+	static void SetWorldMatrix(D3DXMATRIX* WorldMatrix);
+	static void SetViewMatrix(D3DXMATRIX* ViewMatrix);
+	static void SetProjectionMatrix(D3DXMATRIX* ProjectionMatrix);
+	static void SetMaterial(MATERIAL Material);
+	static void SetLight(LIGHT Light);
+
+
+	static void SetCameraPosition(CAMERA Camera);
+	static void SetParameter(PARAMETER param);
+
+
+	static ID3D11Device* GetDevice(void) { return m_Device; }
+	static ID3D11DeviceContext* GetDeviceContext(void) { return m_DeviceContext; }
+
+
+
+	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
+	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
+
+
+};

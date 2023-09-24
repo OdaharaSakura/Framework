@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Scene_Game">
+      <UniqueIdentifier>{3fbb0a16-59e0-4b18-bc88-856b1fc591e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene_Result">
+      <UniqueIdentifier>{4bbf2ebc-4de9-4899-ba7b-6e10a1f6176f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{7e00729a-c65a-4ea2-9e18-f112cff9bf02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{cef55315-c113-4921-9457-415ea1bb7983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene_Tutorial">
+      <UniqueIdentifier>{225aa52d-987b-4042-bbcb-bb7454c6982e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene_Title">
+      <UniqueIdentifier>{079c4666-20d4-4f82-9e62-be43169c0e4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Main">
+      <UniqueIdentifier>{0f2d3cb6-0c05-4c41-a809-257d6139977d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\player">
+      <UniqueIdentifier>{454833b3-02e0-4d63-9ab3-a9417666c23d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="titlelogo.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorial.cpp">
+      <Filter>Scene_Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>1_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>1_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="resultscreen.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>1_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>1_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="tree.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="box.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cylinder.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="explosion.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gauge.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon2D.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="titlebg.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="titlecursor.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="titleselect.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="titleenter.cpp">
+      <Filter>Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>1_Main</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="debugmanager.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="collision.cpp" />
+    <ClCompile Include="playerGauge.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="earth.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="treasureBox.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="countdown.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="child.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="animationModel.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameover.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="resultcamera.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="resultPlayer.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="resultsky.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="gameoverlogo.cpp">
+      <Filter>Scene_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="gamelogo.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="player.cpp">
+      <Filter>GameObject\player</Filter>
+    </ClCompile>
+    <ClCompile Include="meshField.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="title.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="titlelogo.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorial.h">
+      <Filter>Scene_Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="resultscreen.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="box.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cylinder.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="field.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gauge.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon2D.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="titlebg.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="titlecursor.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="titleselect.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="titleenter.h">
+      <Filter>Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>1_Main</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="debugmanager.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="collision.h" />
+    <ClInclude Include="playerGauge.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="earth.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="treasureBox.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="countdown.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="child.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="animationModel.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="resultcamera.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="gameover.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="resultsky.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="resultPlayer.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="gameoverlogo.h">
+      <Filter>Scene_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="gamelogo.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="player.h">
+      <Filter>GameObject\player</Filter>
+    </ClInclude>
+    <ClInclude Include="meshField.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\vertexLightingVS.hlsl" />
+    <FxCompile Include="Shader\common.hlsl" />
+    <FxCompile Include="Shader\unlitTexturePS.hlsl" />
+    <FxCompile Include="Shader\unlitTextureVS.hlsl" />
+    <FxCompile Include="Shader\vertexLightingPS.hlsl" />
+    <FxCompile Include="Shader\normalMappingPS.hlsl" />
+    <FxCompile Include="Shader\normalMappingVS.hlsl" />
+    <FxCompile Include="Shader\gaugePS.hlsl" />
+    <FxCompile Include="Shader\gaugeVS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+  </ItemGroup>
+</Project>
