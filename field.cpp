@@ -12,6 +12,7 @@ void Field::Init()
 	float takasa = 0.0f;//ランダムで作成する高さの最大値
 	float sizeX = 5.0f;//ポリゴンの横幅
 	float sizeZ = 5.0f;//ポリゴンの高さ
+	m_IsDisplayShadow = true;
 
 	//必要な頂点数を計算する
 	m_numVertex = (yoko + 1) * (tate + 1);
@@ -111,21 +112,21 @@ void Field::Init()
 		NULL);
 	assert(m_Texture);
 
-	// テクスチャ読み込み
-	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
-		"asset\\texture\\fieldnormal.png",
-		NULL,
-		NULL,
-		&m_TextureNormal,
-		NULL);
-	assert(m_TextureNormal);
+	//// テクスチャ読み込み
+	//D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
+	//	"asset\\texture\\fieldnormal.png",
+	//	NULL,
+	//	NULL,
+	//	&m_TextureNormal,
+	//	NULL);
+	//assert(m_TextureNormal);
 
 	m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "Shader\\normalMappingVS.cso");
-	Renderer::CreatePixelShader(&m_PixelShader, "Shader\\normalMappingPS.cso");
+	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
+	Renderer::CreatePixelShader(&m_PixelShader, "shader\\PercentageCloserFilteringPS.cso");
 }
 
 
@@ -135,7 +136,7 @@ void Field::Uninit()
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
 	m_Texture->Release();
-	m_TextureNormal->Release();
+	//m_TextureNormal->Release();
 
 	m_VertexLayout->Release();
 	m_VertexShader->Release();
@@ -181,7 +182,11 @@ void Field::Draw()
 
 	// テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, &m_TextureNormal);
+	//シャドウバッファテクスチャを１番へセット
+	ID3D11ShaderResourceView* depthShadowTexture =
+		Renderer::GetDepthShadowTexture();
+	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
+		&depthShadowTexture);
 
 	// プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

@@ -43,6 +43,9 @@ struct LIGHT
 	float4 Direction;
 	float4 Diffuse;
 	float4 Ambient;
+
+	matrix View; //ライトカメラのビュー行列
+	matrix Projection; //ライトカメラのプロジェクション行列
 };
 
 cbuffer LightBuffer : register(b4)
@@ -91,4 +94,6 @@ struct PS_IN
 	float4 Binormal			: BINORMAL0;
 	float4 Diffuse			: COLOR0;
 	float2 TexCoord			: TEXCOORD0;
+
+	float4 ShadowPosition	: TEXCOORD1; //ライトカメラから見たピクセルの座標
 };

@@ -16,6 +16,8 @@
 #include "gameover.h"
 #include "earth.h"
 #include "meshField.h"
+#include "camera.h"
+#include "collider.h"
 
 
 void Player::Init()
@@ -35,18 +37,20 @@ void Player::Init()
 	m_AnimationName = "Idol";
 	m_NextAnimationName = "Idol";
 
+	m_IsDisplayShadow = true;
+
 	m_Scale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\vertexLightingPS.cso");
+		"shader\\PercentageCloserFilteringPS.cso");
 
 
 	 m_ShotSE = AddComponent<Audio>();
 	 m_ShotSE->Load("asset\\audio\\剣で斬る3.wav");
 
-	 m_Shadow = AddComponent<Shadow>();
+	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
 	 
 
 	 m_AttackDelaynum = 0;
@@ -120,7 +124,7 @@ void Player::Update()
 	}
 
 	//移動
-	m_Position += m_Velocity;
+	m_Position += m_Velocity;//オイラー法
 
 	//障害物との衝突判定↓↓=====================================
 	float groundHeight;
@@ -237,25 +241,26 @@ void Player::Update()
 	}
 
 
-
-
-
-
-
-	//影の移動
-	D3DXVECTOR3 shadowPosition = m_Position;
-	shadowPosition.y = groundHeight;
-	m_Shadow->SetPosition(shadowPosition);
+	////影の移動
+	//D3DXVECTOR3 shadowPosition = m_Position;
+	//shadowPosition.y = groundHeight;
+	//m_Shadow->SetPosition(shadowPosition);
 
 	if (m_Hp <= 0)
 	{
-		Manager::SetScene<GameOver>();
+		//Manager::SetScene<GameOver>();
 	}
 }
 
 void Player::Draw()
 {
 	GameObject::Draw();
+
+	//視錘台カリング
+	Scene* scene = Manager::GetScene();
+	Camera* camera = scene->GetGameObject<Camera>();
+
+	if (!camera->CheckView(m_Position)) return;
 
 	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
@@ -266,12 +271,19 @@ void Player::Draw()
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
+	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
+	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
 	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
 	matrix = scale * rot * trans;
 	m_Matrix = matrix;
 
 	Renderer::SetWorldMatrix(&matrix);
+
+	//シャドウバッファテクスチャを１番へセット
+	ID3D11ShaderResourceView* depthShadowTexture =
+	Renderer::GetDepthShadowTexture();
+	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
+		&depthShadowTexture);
 	
 	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
 
@@ -284,6 +296,10 @@ void Player::Draw()
 void Player::UpdateGround()
 {
 	Scene* scene = Manager::GetScene();
+	Camera* camera = scene->GetGameObject<Camera>();
+	D3DXVECTOR3 cameraForward = camera->GetForward();
+	cameraForward.y = 0.0f;
+	D3DXVec3Normalize(&cameraForward, &cameraForward);
 	bool move = false;
 
 	////トップビュー
@@ -320,7 +336,15 @@ void Player::UpdateGround()
 			m_NextAnimationName = "LeftRun";
 			m_BlendRate = 0.0f;
 		}
-		moveVec -= GetRight();
+		//moveVec -= GetRight();
+		m_Position.x -= 0.1f;
+
+		D3DXQUATERNION quat;
+		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		D3DXQuaternionRotationAxis(&quat, &axis, -D3DX_PI / 2.0f);//(左方向に90度)
+		//m_Quaternion = quat;
+		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);//球面変形補間
+
 		move = true;
 
 	}
@@ -332,7 +356,14 @@ void Player::UpdateGround()
 			m_NextAnimationName = "RightRun";
 			m_BlendRate = 0.0f;
 		}
-		moveVec += GetRight();
+		
+		//moveVec += GetRight();
+
+		D3DXQUATERNION quat;
+		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI / 2.0f);//(左方向に90度)
+		//m_Quaternion = quat;
+		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
 
 	}
@@ -346,8 +377,16 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 
-		moveVec += GetForward();
-		//if (m_AttackDelaynum == 0)m_AnimeState = RUN
+		//moveVec += GetForward();
+		m_Position += cameraForward * 0.1f;
+
+		D3DXQUATERNION quat;
+		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+
+		float angle = atan2f(cameraForward.x, cameraForward.z);
+		D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
+		//m_Quaternion = quat;
+		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
 	}
 
@@ -360,12 +399,19 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 
-		moveVec -= GetForward();
+		//moveVec -= GetForward();
+		m_Position.z -= 0.1f;
+
+		D3DXQUATERNION quat;
+		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI);//(左方向に90度)
+		//m_Quaternion = quat;
+		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
 	}
 
-	D3DXVec3Normalize(&moveVec, &moveVec);
-	m_Position += moveVec * 0.1f;
+	//D3DXVec3Normalize(&moveVec, &moveVec);
+	//m_Position += moveVec * 0.1f;
 
 
 

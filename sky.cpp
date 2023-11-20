@@ -17,9 +17,9 @@ void Sky::Init()
 
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\unlitTextureVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\unlitTexturePS.cso");
+		"shader\\unlitTexturePS.cso");
 }
 
 void Sky::Uninit()

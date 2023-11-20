@@ -1,25 +1,33 @@
 #pragma once
 #include "gameObject.h"
+#include "collision.h"
 
 #include <list>
 #include <typeinfo>
 #include <vector>
 
 
-
+enum ObjectLayer
+{
+	CAMERA_LAYER,
+	OBJECT_3D_LAYER,
+	COLLIDER_LAYER,
+	OBJECT_2D_LAYER,
+	MAX_LAYER
+};
 
 class Scene
 {
 protected:
 
-	std::list<GameObject*> m_GameObject[3];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
+	std::list<GameObject*> m_GameObject[MAX_LAYER];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
 
 public:
 	virtual void Init() {}
 
 	virtual void Uninit()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_LAYER; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -33,7 +41,7 @@ public:
 
 	virtual void Update()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_LAYER; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -42,12 +50,11 @@ public:
 			m_GameObject[i].remove_if([](GameObject* object)
 				{return object->Destroy();});//ラムダ式
 		}
-		
 	}
 
 	virtual void Draw() 
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_LAYER; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -69,7 +76,7 @@ public:
 	template <typename T>//テンプレート関数
 	T* GetGameObject()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_LAYER; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
@@ -87,7 +94,7 @@ public:
 	std::vector<T*> GetGameObjects()
 	{
 		std::vector<T*> objects;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_LAYER; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
@@ -98,6 +105,20 @@ public:
 			}
 		}
 		return objects;
+	}
+
+	void DepthPath()
+	{
+		for (int i = 0; i < MAX_LAYER; i++)
+		{
+			for (auto var : m_GameObject[i])
+			{
+				if (var->GetDepthShadow() == true)
+				{
+					var->Draw();
+				}
+			}
+		}
 	}
 
 };

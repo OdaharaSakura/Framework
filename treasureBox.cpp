@@ -29,9 +29,9 @@ void TreasureBox::Init()
 	Scene* scene = Manager::GetScene();
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\vertexLightingVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\vertexLightingPS.cso");
+		"shader\\vertexLightingPS.cso");
 
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
@@ -83,7 +83,7 @@ void TreasureBox::Update()
 		if (enemy->GetAttackflg())
 		{
 			m_Hp -= 50;
-			enemy->SetnonAttackflg();
+			enemy->SetNonAttackflg();
 		}
 
 		D3DXVECTOR3 position = enemy->GetPosition();
@@ -107,7 +107,7 @@ void TreasureBox::Update()
 
 	if (m_Hp == 0)
 	{
-		Manager::SetScene<GameOver>();//ゲームオーバー
+		//Manager::SetScene<GameOver>();//ゲームオーバー
 	}
 
 

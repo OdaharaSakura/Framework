@@ -12,4 +12,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 	outDiffuse = g_Texture.Sample(g_SamplerState, In.TexCoord);	
     outDiffuse *= In.Diffuse;
 
+	////αクリップ（α値が0だと描画しない）
+	//if (outDiffuse.a < 0.1f) discard;
+
 }

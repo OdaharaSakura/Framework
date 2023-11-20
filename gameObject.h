@@ -2,6 +2,8 @@
 
 #include "component.h"
 #include <list>
+#include <string>
+
 
 class GameObject
 {
@@ -12,7 +14,11 @@ protected:
 	D3DXVECTOR3 m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	D3DXMATRIX m_Matrix{};
+	GameObject* m_Parent = nullptr;
 
+	bool m_IsDisplayShadow = false;
+
+	std::string m_Tag{};
 
 	std::list<Component*>  m_Component;
 
@@ -40,7 +46,12 @@ public:
 
 
 
-	void SetPosition(D3DXVECTOR3 position){m_Position = position;}
+	void SetPosition(D3DXVECTOR3 position){ m_Position = position; }
+
+	void SetPositionX(float positionX) { m_Position.x = positionX; }
+	void SetPositionY(float positionY) { m_Position.y = positionY; }
+	void SetPositionZ(float positionZ) { m_Position.z = positionZ; }
+
 
 	void SetScale(D3DXVECTOR3 scale){m_Scale = scale;}
 
@@ -59,15 +70,11 @@ public:
 		m_Scale = scale;
 	}
 
-	D3DXVECTOR3 GetPosition()
-	{
-		return m_Position;
-	}
+	D3DXVECTOR3 GetPosition() { return m_Position; }
 
-	D3DXVECTOR3 GetScale()
-	{
-		return m_Scale;
-	}
+	D3DXVECTOR3 GetRotation() { return m_Rotation; }
+
+	D3DXVECTOR3 GetScale() { return m_Scale; }
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
 	{
@@ -142,4 +149,31 @@ public:
 
 		return (T*)component;
 	}
+
+
+	template <typename T>//テンプレート関数
+	T* GetComponent()
+	{
+		for (Component* component : m_Component)
+		{
+			if (typeid(*component) == typeid(T))//型を調べる(RTTI動的型情報)
+			{
+				return (T*)component;
+			}
+		}
+		return nullptr;
+	}
+
+	bool GetDepthShadow()
+	{
+		return m_IsDisplayShadow;
+	}
+
+	void SetParent(GameObject * Parent)
+	{
+		m_Parent = Parent;
+	}
+
+	GameObject* GetParent(){ return m_Parent; }
+
 };

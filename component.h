@@ -1,9 +1,12 @@
 #pragma once
 
+
+
 class Component
 {
 protected:
 	
+	//class GameObject* m_GameObject;
 
 
 public:

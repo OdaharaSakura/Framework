@@ -9,10 +9,10 @@
 void TitleEnter::Init()
 {
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\unlitTextureVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\unlitTexturePS.cso");
+		"shader\\unlitTexturePS.cso");
 	//Sprite* sprite = AddComponent<Sprite>();
 	//sprite->Init(0.0f, 0.0f, 200.0f, 200.0f, "asset/texture/field004.jpg");
 

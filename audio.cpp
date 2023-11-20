@@ -3,9 +3,6 @@
 #include "audio.h"
 
 
-
-
-
 IXAudio2*				Audio::m_Xaudio = NULL;
 IXAudio2MasteringVoice*	Audio::m_MasteringVoice = NULL;
 
@@ -138,18 +135,20 @@ void Audio::Play(bool Loop)
 
 	m_SourceVoice->SubmitSourceBuffer(&bufinfo, NULL);
 
-	m_SourceVoice->SetVolume(0.1f);
-/*
+
+
 	float outputMatrix[4] = { 0.0f , 0.0f, 1.0f , 0.0f };
 	m_SourceVoice->SetOutputMatrix(m_MasteringVoice, 2, 2, outputMatrix);
-	//m_SourceVoice->SetVolume(0.1f);
-*/
+	m_SourceVoice->SetVolume(0.1f);
+
 
 
 	// Ä¶
 	m_SourceVoice->Start();
 
 }
+
+
 
 
 

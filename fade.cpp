@@ -6,10 +6,10 @@
 void Fade::Init()
 {
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\unlitTextureVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\unlitTexturePS.cso");
+		"shader\\unlitTexturePS.cso");
 
 	m_Sprite = AddComponent<Sprite>();
 	m_Sprite->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset/texture/black.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢

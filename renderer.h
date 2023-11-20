@@ -51,6 +51,8 @@ struct LIGHT
 	D3DXVECTOR4	Direction;
 	D3DXCOLOR	Diffuse;
 	D3DXCOLOR	Ambient;
+	D3DXMATRIX ViewMatrix;			//追加　ライトカメラ行列
+	D3DXMATRIX ProjectionMatrix;	//追加　ライトプロジェクション行列
 };
 
 struct CAMERA
@@ -103,6 +105,9 @@ private:
 	static ID3D11BlendState* m_BlendState;
 	static ID3D11BlendState* m_BlendStateATC;
 
+	static ID3D11DepthStencilView* m_DepthShadowDepthStencilView;//
+	static ID3D11ShaderResourceView* m_DepthShadowShaderResourceView;//
+
 
 
 public:
@@ -133,5 +138,19 @@ public:
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
+	static ID3D11ShaderResourceView* GetDepthShadowTexture()
+	{
+		return	m_DepthShadowShaderResourceView;
+	}
 
+	static void BeginDepth()//新規関数追加
+	{
+		//シャドウバッファを深度バッファに設定し、内容を1で塗りつぶしておく
+		m_DeviceContext->OMSetRenderTargets(0, NULL, m_DepthShadowDepthStencilView);
+		m_DeviceContext->ClearDepthStencilView(m_DepthShadowDepthStencilView,
+			D3D11_CLEAR_DEPTH, 1.0f, 0);
+	}
+
+	static void SetDefaultViewPort();
+	static void SetDepthViewPort();
 };

@@ -9,7 +9,8 @@ void Sprite::Init(float x, float y, float Width, float Height, const char* Textu
 	vertex[0].Position = D3DXVECTOR3(x, y, 0.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
+	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);//0-1の間繰り返して貼りたいときはサンプラーステートの設定をD3D11_TEXTURE_ADDRESS_WRAP;にして1以上の値でも繰り返し貼るようにする
+
 
 	vertex[1].Position = D3DXVECTOR3(x + Width, y, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);

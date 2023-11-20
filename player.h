@@ -17,16 +17,15 @@ private:
 	int m_PlayerState = PLAYER_STATE_GROUND;
 	bool m_IsGround{};
 
-	class AnimationModel* m_Model{};
 
 	ID3D11VertexShader* m_VertexShader{};
 	ID3D11PixelShader* m_PixelShader{};
 	ID3D11InputLayout* m_VertexLayout{};
 
 	D3DXVECTOR3			m_Velocity{};
+	D3DXQUATERNION		m_Quaternion{};
 
 	class Audio* m_ShotSE{};
-	class Shadow* m_Shadow{};
 	class MeshField* m_MeshField{};
 
 	int m_Hp;
@@ -55,6 +54,8 @@ private:
 	};
 
 public:
+	class AnimationModel* m_Model{};
+
 	void Init();
 	void Uninit();
 	void Update();
@@ -66,7 +67,7 @@ public:
 	int GetHp() { return m_Hp;}
 	int GetHpMax() {return m_HpMax;}
 	bool GetAttackflg() { return m_Attackflg; }
-	void SetnonAttackflg() { m_Attackflg = false; }
+	void SetNonAttackflg() { m_Attackflg = false; }
 
 
 };

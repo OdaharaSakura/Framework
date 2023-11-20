@@ -16,7 +16,7 @@ private:
 	ID3D11InputLayout*			m_VertexLayout{};
 
 
-	VERTEX_3D	m_Vertex[21][21]{};
+
 
 
 

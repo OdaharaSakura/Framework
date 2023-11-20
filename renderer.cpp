@@ -31,6 +31,9 @@ ID3D11BlendState* Renderer::m_BlendStateATC{};
 static ID3D11RenderTargetView* m_BGRenderTargetView;
 static ID3D11ShaderResourceView* m_BGShaderResourceView;
 
+ID3D11DepthStencilView* Renderer::m_DepthShadowDepthStencilView = NULL;
+ID3D11ShaderResourceView* Renderer::m_DepthShadowShaderResourceView = NULL;
+
 
 void Renderer::Init()
 {
@@ -49,7 +52,7 @@ void Renderer::Init()
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.OutputWindow = GetWindow();
-	swapChainDesc.SampleDesc.Count = 1;
+	swapChainDesc.SampleDesc.Count = 8;//1->8マルチサンプルアンチエイリアシング(zバッファのみ8ピクセルで計算)
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.Windowed = TRUE;
 
@@ -96,7 +99,7 @@ void Renderer::Init()
 	// デプスステンシルビュー作成
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
 	depthStencilViewDesc.Format = textureDesc.Format;
-	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;//D3D11_DSV_DIMENSION_TEXTURE2D→D3D11_DSV_DIMENSION_TEXTURE2DMSマルチサンプルアンチエイリアシングに設定
 	depthStencilViewDesc.Flags = 0;
 	m_Device->CreateDepthStencilView(depthStencile, &depthStencilViewDesc, &m_DepthStencilView);
 	depthStencile->Release();
@@ -181,18 +184,43 @@ void Renderer::Init()
 	// サンプラーステート設定
 	D3D11_SAMPLER_DESC samplerDesc{};
 	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	//D3D11_FILTER_ANISOTROPIC//高画質
+	//D3D11_FILTER_MIN_MAG_MIP_POINT//低解像度
+	// D3D11_FILTER_MIN_MAG_MIP_LINEAR//他のゲームエンジンでは、トライリニアフィルタリング
+	//ミップマップ
+
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;//テクスチャをどのように貼るか
+	//D3D11_TEXTURE_ADDRESS_WRAP//テクスチャ座標の0-1の範囲外にも繰り返しポリゴンを張る
+	//D3D11_TEXTURE_ADDRESS_CLAMP//端を引き延ばして貼る
+	//D3D11_TEXTURE_ADDRESS_BORDER//0-1の範囲内でしか貼らない
+	//D3D11_TEXTURE_ADDRESS_MIRROR//鏡合わせで貼る
 	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.MaxAnisotropy = 4;
+	samplerDesc.MaxAnisotropy = 4;//16が最大//GPUによって対応してないものもある、無難なのは4
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+	//samplerDesc.MaxLODミップマップの何段階目まで使うか0は128*128のみ
 
 	ID3D11SamplerState* samplerState{};
 	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
 
 	m_DeviceContext->PSSetSamplers(0, 1, &samplerState);
 
+	// 比較サンプラーステート設定
+	D3D11_SAMPLER_DESC samplerDescCompare;
+	ZeroMemory(&samplerDescCompare, sizeof(samplerDescCompare));
+	samplerDescCompare.Filter = D3D11_FILTER_COMPARISON_ANISOTROPIC;
+	samplerDescCompare.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDescCompare.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDescCompare.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDescCompare.MipLODBias = 0;
+	samplerDescCompare.MaxAnisotropy = 1;
+	samplerDescCompare.ComparisonFunc = D3D11_COMPARISON_GREATER;
+	samplerDescCompare.MinLOD = 0;
+	samplerDescCompare.MaxLOD = D3D11_FLOAT32_MAX;
 
+	ID3D11SamplerState* samplerStateCompare = NULL;
+	m_Device->CreateSamplerState(&samplerDescCompare, &samplerStateCompare);
+	m_DeviceContext->PSSetSamplers(1, 1, &samplerStateCompare);
 
 	// 定数バッファ生成
 	D3D11_BUFFER_DESC bufferDesc{};
@@ -258,7 +286,40 @@ void Renderer::Init()
 	SetMaterial(material);
 
 
+	{
+		//シャドウバッファ作成
+		ID3D11Texture2D* depthTexture = NULL;
+		D3D11_TEXTURE2D_DESC td;
+		ZeroMemory(&td, sizeof(td));
+		td.Width = SCREEN_WIDTH * 4;
+		td.Height = SCREEN_HEIGHT * 4;
+		td.MipLevels = 1;
+		td.ArraySize = 1;
+		td.Format = DXGI_FORMAT_R32_TYPELESS;//32bitの自由な形式のデータとする
+		td.SampleDesc = textureDesc.SampleDesc;
+		td.Usage = D3D11_USAGE_DEFAULT; // ↓デプス＆ステンシルバッファとして作成
+		td.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
+		td.CPUAccessFlags = 0;
+		td.MiscFlags = 0;
+		m_Device->CreateTexture2D(&td, NULL, &depthTexture);
 
+		//デプスステンシルターゲットビュー作成
+		D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+		ZeroMemory(&dsvd, sizeof(dsvd));
+		dsvd.Format = DXGI_FORMAT_D32_FLOAT;//ピクセルフォーマットは32BitFLOAT型
+		dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		m_Device->CreateDepthStencilView(depthTexture, &dsvd,
+			&m_DepthShadowDepthStencilView);
+
+		//シェーダーリソースビュー作成
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+		ZeroMemory(&srvd, sizeof(srvd));
+		srvd.Format = DXGI_FORMAT_R32_FLOAT;//ピクセルフォーマットは32BitFLOAT型
+		srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvd.Texture2D.MipLevels = 1;
+		m_Device->CreateShaderResourceView(depthTexture, &srvd,
+			&m_DepthShadowShaderResourceView);
+	}
 
 }
 
@@ -287,6 +348,9 @@ void Renderer::Uninit()
 
 void Renderer::Begin()
 {
+	//デフォルトのバックバッファと深度バッファへ復帰させておく
+	m_DeviceContext->OMSetRenderTargets(1, &m_RenderTargetView,
+		m_DepthStencilView);
 	// バックバッファクリア
 	float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	m_DeviceContext->ClearRenderTargetView(m_RenderTargetView, clearColor);//クリアカラーに画面表示
@@ -376,6 +440,9 @@ void Renderer::SetMaterial(MATERIAL Material)
 
 void Renderer::SetLight(LIGHT Light)
 {
+	//シェーダー側の都合上で行列を転置しておく
+	D3DXMatrixTranspose(&Light.ViewMatrix, &Light.ViewMatrix);
+	D3DXMatrixTranspose(&Light.ProjectionMatrix, &Light.ProjectionMatrix);
 	m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, &Light, 0, 0);
 }
 
@@ -450,4 +517,29 @@ void Renderer::CreatePixelShader(ID3D11PixelShader** PixelShader, const char* Fi
 	delete[] buffer;
 }
 
+void Renderer::SetDefaultViewPort()
+{
+	// ビューポート設定
+	D3D11_VIEWPORT vp;
+	vp.Width = (FLOAT)SCREEN_WIDTH;
+	vp.Height = (FLOAT)SCREEN_HEIGHT;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	m_DeviceContext->RSSetViewports(1, &vp);
+}
+
+void Renderer::SetDepthViewPort()
+{
+	// ビューポート設定
+	D3D11_VIEWPORT vp;
+	vp.Width = (FLOAT)SCREEN_WIDTH * 4;
+	vp.Height = (FLOAT)SCREEN_HEIGHT * 4;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 15;
+	m_DeviceContext->RSSetViewports(1, &vp);
+}
 

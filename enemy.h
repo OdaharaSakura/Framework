@@ -55,7 +55,7 @@ public:
 	int GetHpMax() { return m_HpMax; }
 
 	bool GetAttackflg() { return m_Attackflg; }
-	void SetnonAttackflg() { m_Attackflg = false; }
+	void SetNonAttackflg() { m_Attackflg = false; }
 
 	D3DXMATRIX* CalcLookAtMatrixAxisFix(
 		D3DXMATRIX* pout,

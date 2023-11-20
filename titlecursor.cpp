@@ -14,10 +14,10 @@ void TitleCursor::Init()
 {
 	Scene* scene = Manager::GetScene();
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\unlitTextureVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\unlitTexturePS.cso");
+		"shader\\unlitTexturePS.cso");
 
 	m_Fade = scene->AddGameObject<Fade>(2);
 

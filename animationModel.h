@@ -23,6 +23,7 @@ struct DEFORM_VERTEX
 struct BONE
 {
 	aiMatrix4x4 Matrix;
+	aiMatrix4x4 WorldMatrix;
 	aiMatrix4x4 AnimationMatrix;
 	aiMatrix4x4 OffsetMatrix;
 };
@@ -52,4 +53,6 @@ public:
 	void Update(const char *AnimationName1, int Frame1,
 				const char* AnimationName2, int Frame2, float BlendRate);
 	void Draw();
+
+	std::unordered_map<std::string, BONE> GetBone() { return m_Bone; }
 };

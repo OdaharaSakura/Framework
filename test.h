@@ -6,6 +6,9 @@ class Test : public Scene
 {
 private:
 	class Fade* m_Fade = nullptr;
+	class SphereCollider* m_SphereCollider = nullptr;
+
+	
 
 public:
 	void Load();

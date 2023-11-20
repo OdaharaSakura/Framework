@@ -24,10 +24,10 @@ void PlayerGauge::Init()
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\gaugeVS.cso");
+		&m_VertexLayout, "shader\\gaugeVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\gaugePS.cso");
+		"shader\\gaugePS.cso");
 	m_Scale.x = SCREEN_WIDTH / 3;
 	m_Scale.y = SCREEN_HEIGHT / 3 * 2;
 

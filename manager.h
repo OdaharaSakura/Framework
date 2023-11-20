@@ -15,6 +15,8 @@ public:
 	static void Update();
 	static void Draw();
 
+	static void LightInitialize(LIGHT* light, D3DXVECTOR3 position);
+
 	static Scene* GetScene() { return m_Scene; }
 	static Renderer* GetRenderer() { return m_Renderer; }
 

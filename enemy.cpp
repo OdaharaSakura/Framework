@@ -31,9 +31,9 @@ void Enemy::Init()
 	Scene* scene = Manager::GetScene();
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\vertexLightingVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\vertexLightingPS.cso");
+		"shader\\vertexLightingPS.cso");
 
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
@@ -46,6 +46,9 @@ void Enemy::Init()
 	m_AttackDelaynum = 0;
 	m_IsAttackflg = false;
 	m_Attackflg = false;
+
+	//AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
+
 	m_Hp = m_HpMax;
 
 	m_Hp = m_HpMax;
@@ -97,7 +100,7 @@ void Enemy::Update()
 	if (player->GetAttackflg())
 	{
 		m_Hp -= 50;
-		player->SetnonAttackflg();
+		player->SetNonAttackflg();
 	}
 
 

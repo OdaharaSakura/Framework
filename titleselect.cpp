@@ -6,10 +6,10 @@
 void TitleSelect::Init()
 {
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\unlitTextureVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\unlitTexturePS.cso");
+		"shader\\unlitTexturePS.cso");
 
 	m_Scale.x = SCREEN_WIDTH / 3;
 	m_Scale.y = SCREEN_HEIGHT / 3;

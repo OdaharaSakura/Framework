@@ -6,23 +6,24 @@
 //グローバル変数以外も検討する
 //const int g_IndexNumX = 20;
 //const int g_IndexNumZ = 20;
- //const int g_IndexNum = 20;
+
+const int g_IndexNum = 25;
+
+VERTEX_3D	g_Vertex[g_IndexNum + 1][g_IndexNum + 1]{};
 	
-float g_FieldHeight[21][21] =
+float g_FieldHeight[g_IndexNum + 1][g_IndexNum + 1] =
 {
 	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 1.0f, 2.0f, 4.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 4.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f},
 	{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 1.0f, 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f},
@@ -39,79 +40,79 @@ void MeshField::Init()
 
 	// 頂点バッファ生成
 	{
-		for (int x = 0; x <= 20; x++)
+		for (int x = 0; x <= g_IndexNum; x++)
 		{
-			for (int z = 0; z <= 20; z++)
+			for (int z = 0; z <= g_IndexNum; z++)
 			{
-				m_Vertex[x][z].Position = D3DXVECTOR3((x - 10) * 5.0f, g_FieldHeight[z][x], (z - 10) * -5.0f);
-				m_Vertex[x][z].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);//法線ベクトル
-				m_Vertex[x][z].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-				m_Vertex[x][z].TexCoord = D3DXVECTOR2(x * 0.5f, z * 0.5f);
+				g_Vertex[x][z].Position = D3DXVECTOR3((x - 10) * 5.0f, g_FieldHeight[z][x], (z - 10) * -5.0f);
+				g_Vertex[x][z].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);//法線ベクトル
+				g_Vertex[x][z].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+				g_Vertex[x][z].TexCoord = D3DXVECTOR2(x * 0.5f, z * 0.5f);
 			}
 		}
 
 		//法線ベクトル算出
-		for (int x = 1; x <= 19; x++)//端は計算できないので端っこをぬいたfor文
+		for (int x = 1; x <= (g_IndexNum - 1); x++)//端は計算できないので端っこをぬいたfor文
 		{
-			for (int z = 1; z <= 19; z++)
+			for (int z = 1; z <= (g_IndexNum - 1); z++)
 			{
 				D3DXVECTOR3 vx, vz, vn;
-				vx = m_Vertex[x + 1][z].Position - m_Vertex[x - 1][z].Position;
-				vx = m_Vertex[x][z - 1].Position - m_Vertex[x][z + 1].Position;
+				vx = g_Vertex[x + 1][z].Position - g_Vertex[x - 1][z].Position;
+				vz = g_Vertex[x][z - 1].Position - g_Vertex[x][z + 1].Position;
 
 				D3DXVec3Cross(&vn, &vz, &vx);//外積
 				D3DXVec3Normalize(&vn, &vn);//正規化（長さ1にする）
-				m_Vertex[x][z].Normal = vn;
+				g_Vertex[x][z].Normal = vn;
 			}
 		}
 
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
 		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(VERTEX_3D) * 21 * 21;
+		bd.ByteWidth = sizeof(VERTEX_3D) * (g_IndexNum + 1) * (g_IndexNum + 1);
 		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA sd;
 		ZeroMemory(&sd, sizeof(sd));
-		sd.pSysMem = m_Vertex;
+		sd.pSysMem = g_Vertex;
 
 		Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 	}
 
-
+	m_IsDisplayShadow = true;
 
 
 	// インデックスバッファ生成
 	{
-		unsigned int index[(22 * 2) * 20 - 2 ];
+		unsigned int index[((g_IndexNum + 2) * 2) * g_IndexNum - 2 ];
 
 		int i = 0;
-		for (int x = 0; x < 20; x++)
+		for (int x = 0; x < g_IndexNum; x++)
 		{
-			for (int z = 0; z < 21; z++)
+			for (int z = 0; z < (g_IndexNum + 1); z++)
 			{
-				index[i] = x * 21 + z;
+				index[i] = x * (g_IndexNum + 1) + z;
 				i++;
 
-				index[i] = (x + 1) * 21 + z;
+				index[i] = (x + 1) * (g_IndexNum + 1) + z;
 				i++;
 			}
 
-			if (x == 19)
+			if (x == (g_IndexNum - 1))
 				break;
 
-			index[i] = (x + 1) * 21 + 20;
+			index[i] = (x + 1) * (g_IndexNum + 1) + g_IndexNum;
 			i++;
 
-			index[i] = (x + 1) * 21;
+			index[i] = (x + 1) * (g_IndexNum + 1);
 			i++;
 		}
 
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
 		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(unsigned int) * ((22 * 2) * 20 - 2);
+		bd.ByteWidth = sizeof(unsigned int) * (((g_IndexNum + 2) * 2) * g_IndexNum - 2);
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 
@@ -137,9 +138,9 @@ void MeshField::Init()
 
 
 
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\vertexLightingVS.cso");
+	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
 
-	Renderer::CreatePixelShader(&m_PixelShader, "shader\\vertexLightingPS.cso");
+	Renderer::CreatePixelShader(&m_PixelShader, "shader\\PercentageCloserFilteringPS.cso");
 
 
 }
@@ -203,11 +204,17 @@ void MeshField::Draw()
 	// テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
+	//シャドウバッファテクスチャを１番へセット
+	ID3D11ShaderResourceView* depthShadowTexture =
+		Renderer::GetDepthShadowTexture();
+	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
+		&depthShadowTexture);
+
 	// プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );
 
 	// ポリゴン描画
-	Renderer::GetDeviceContext()->DrawIndexed((22 * 2) * 20 - 2, 0, 0);
+	Renderer::GetDeviceContext()->DrawIndexed(((g_IndexNum + 2) * 2) * g_IndexNum - 2, 0, 0);
 
 }
 
@@ -217,14 +224,14 @@ float MeshField::GetHeight(D3DXVECTOR3 Position)
 
 	//ブロック番号算出
 	x = Position.x / 5.0f + 10.0f;
-	z = Position.z / 5.0f + 10.0f;
+	z = Position.z / -5.0f + 10.0f;
 
 	D3DXVECTOR3 pos0, pos1, pos2, pos3;
 
-	pos0 = m_Vertex[x][z].Position;
-	pos1 = m_Vertex[x + 1][z].Position;
-	pos2 = m_Vertex[x][z + 1].Position;
-	pos3 = m_Vertex[x + 1][z + 1].Position;
+	pos0 = g_Vertex[x][z].Position;
+	pos1 = g_Vertex[x + 1][z].Position;
+	pos2 = g_Vertex[x][z + 1].Position;
+	pos3 = g_Vertex[x + 1][z + 1].Position;
 
 	D3DXVECTOR3 v12, v1p, c;
 	v12 = pos2 - pos1;

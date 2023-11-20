@@ -71,11 +71,11 @@ void Game::Init()
 	AddGameObject<GameLogo>(2);
 
 	m_Fade = AddGameObject<Fade>(2);
-	//BGMçƒê∂
-	Audio* bgm;
-	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	bgm->Load("asset\\audio\\êÌÇ¢153_long_BPM165.wav");
-	bgm->Play(true);
+	////BGMçƒê∂
+	//Audio* bgm;
+	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//bgm->Load("asset\\audio\\êÌÇ¢153_long_BPM165.wav");
+	//bgm->Play(true);
 }
 
 void Game::Uninit()

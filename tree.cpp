@@ -22,9 +22,9 @@ void Tree::Init()
 {
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\vertexLightingVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\vertexLightingPS.cso");
+		"shader\\vertexLightingPS.cso");
 }
 
 void Tree::Uninit()

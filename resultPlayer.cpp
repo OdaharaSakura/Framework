@@ -28,9 +28,9 @@ void ResultPlayer::Init()
 	m_Scale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "Shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\vertexLightingVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"Shader\\vertexLightingPS.cso");
+		"shader\\vertexLightingPS.cso");
 
 }
 
