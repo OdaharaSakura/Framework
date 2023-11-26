@@ -227,7 +227,6 @@ void Player::Update()
 	m_Velocity.y -= 0.015f;
 
 
-
 	//ê⁄ín
 	if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
 	{
@@ -239,12 +238,6 @@ void Player::Update()
 	{
 		m_IsGround = false;
 	}
-
-
-	////âeÇÃà⁄ìÆ
-	//D3DXVECTOR3 shadowPosition = m_Position;
-	//shadowPosition.y = groundHeight;
-	//m_Shadow->SetPosition(shadowPosition);
 
 	if (m_Hp <= 0)
 	{

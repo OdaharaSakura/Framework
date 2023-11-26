@@ -4,6 +4,7 @@
 #include "manager.h"
 #include "../imgui/imgui_impl_dx11.h"
 #include "../imgui/imgui_impl_win32.h"
+#include "player.h"
 
 Renderer* DebugManager::m_Renderer{};
 

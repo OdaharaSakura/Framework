@@ -4,6 +4,7 @@
 #include "main.h"
 #include "renderer.h"
 #include "model.h"
+#include "debugmanager.h"
 
 class TestObj : public GameObject//åpè≥
 {

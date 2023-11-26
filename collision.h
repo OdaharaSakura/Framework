@@ -22,7 +22,6 @@ public:
 					D3DXVECTOR3 distanceVec3 = gameobject1->GetPosition() - gameobject2->GetPosition();
 					float distance = D3DXVec3Length(&distanceVec3);
 
-					if (distance == 0) continue;
 
 					//Radius‚ð‘«‚·
 					float range =
@@ -31,9 +30,21 @@ public:
 
 					//‹——£ < radius‚ð‘«‚µ‚½‚à‚Ì
 					if ((distance * distance) <= (range * range))
-					{
+					{//“–‚½‚Á‚Ä‚¢‚é
 						gameobject1->GetComponent<SphereCollider>()->AddHitGameObjectlist(gameobject2);
 						gameobject2->GetComponent<SphereCollider>()->AddHitGameObjectlist(gameobject1);
+					}
+					else
+					{
+						auto gameobject1itr = std::find(gameobject1->GetComponent<SphereCollider>()->GetHitGameObjectlist().begin(),  gameobject1->GetComponent<SphereCollider>()->GetHitGameObjectlist().end(), gameobject1);
+						if (gameobject1itr != gameobject1->GetComponent<SphereCollider>()->GetHitGameObjectlist().end()) {
+							m_SphereColliderObjects.erase(gameobject1itr);
+						}
+
+						auto gameobject2itr = std::find(gameobject2->GetComponent<SphereCollider>()->GetHitGameObjectlist().begin(), gameobject2->GetComponent<SphereCollider>()->GetHitGameObjectlist().end(), gameobject2);
+						if (gameobject2itr != gameobject2->GetComponent<SphereCollider>()->GetHitGameObjectlist().end()) {
+							m_SphereColliderObjects.erase(gameobject2itr);
+						}
 					}
 				}
 			}

@@ -259,6 +259,7 @@
     <ClInclude Include="manager.h" />
     <ClInclude Include="meshField.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="modelContainer.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerGauge.h" />
     <ClInclude Include="polygon2D.h" />

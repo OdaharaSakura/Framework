@@ -66,7 +66,6 @@ void Game::Init()
 	playerGauge->SetPlayerParent(player);
 	AddGameObject<TreasureBox>(1)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
-	AddGameObject<CountDown>(2);
 	AddGameObject<Polygon2D>(2);
 	AddGameObject<GameLogo>(2);
 

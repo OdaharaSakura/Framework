@@ -1,8 +1,10 @@
 #pragma once
 #include "component.h"
 #include <string>
+#include <vector>
 
 class GameObject;
+
 
 class SphereCollider : public Component
 {
@@ -11,7 +13,7 @@ private:
 	class Model* m_Model{};
 	GameObject* m_AttachGameObject;
 
-	std::list<GameObject*> m_HitGameObjectlist;
+	std::vector<GameObject*> m_HitGameObjectlist;
 
 	ID3D11VertexShader* m_VertexShader{};
 	ID3D11PixelShader* m_PixelShader{};
@@ -48,6 +50,7 @@ public:
 	std::string GetHitObjectTag() { return m_HitObjectTag; }
 
 	void AddHitGameObjectlist(GameObject* gameobject) { m_HitGameObjectlist.push_back(gameobject); }
+	std::vector<GameObject*> GetHitGameObjectlist() { return m_HitGameObjectlist; }
 };
 
 

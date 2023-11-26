@@ -11,9 +11,6 @@
     <Filter Include="Component">
       <UniqueIdentifier>{cef55315-c113-4921-9457-415ea1bb7983}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_Main">
-      <UniqueIdentifier>{0f2d3cb6-0c05-4c41-a809-257d6139977d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\player">
       <UniqueIdentifier>{454833b3-02e0-4d63-9ab3-a9417666c23d}</UniqueIdentifier>
     </Filter>
@@ -47,6 +44,9 @@
     <Filter Include="Game\GameObj">
       <UniqueIdentifier>{3a647fae-fdbf-45de-942b-86b2ff238344}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Common">
+      <UniqueIdentifier>{0f2d3cb6-0c05-4c41-a809-257d6139977d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="title.cpp">
@@ -59,13 +59,13 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="manager.cpp">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="renderer.cpp">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="audio.cpp">
       <Filter>Component</Filter>
@@ -74,7 +74,7 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="model.cpp">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="tree.cpp">
       <Filter>GameObject</Filter>
@@ -116,7 +116,7 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="input.cpp">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="shadow.cpp">
       <Filter>Component</Filter>
@@ -224,8 +224,12 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Debug\ImGUI</Filter>
     </ClCompile>
-    <ClCompile Include="component.cpp" />
-    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="gameObject.cpp">
+      <Filter>1_Common</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>1_Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -238,22 +242,22 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="manager.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="gameObject.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="component.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="renderer.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="audio.h">
       <Filter>Component</Filter>
@@ -262,7 +266,7 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="model.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
       <Filter>GameObject</Filter>
@@ -304,7 +308,7 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
-      <Filter>1_Main</Filter>
+      <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="shadow.h">
       <Filter>Component</Filter>
@@ -420,6 +424,7 @@
       <Filter>Debug\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="testObj.h" />
+    <ClInclude Include="modelContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

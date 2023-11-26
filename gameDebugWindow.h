@@ -1,7 +1,7 @@
 //#pragma once
 //
 //
-//class GameDebugWindow
+//class DebugManager
 //{
 //private:
 //	static Renderer* m_Renderer;

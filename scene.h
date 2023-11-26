@@ -50,6 +50,8 @@ public:
 			m_GameObject[i].remove_if([](GameObject* object)
 				{return object->Destroy();});//ƒ‰ƒ€ƒ_Ž®
 		}
+
+		Collision::CheckSphereCollider();
 	}
 
 	virtual void Draw() 
