@@ -224,12 +224,11 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Debug\ImGUI</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
     <ClCompile Include="component.cpp">
       <Filter>1_Common</Filter>
     </ClCompile>
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="DirectWrite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -248,9 +247,6 @@
       <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
       <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="component.h">
@@ -425,6 +421,8 @@
     </ClInclude>
     <ClInclude Include="testObj.h" />
     <ClInclude Include="modelContainer.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="DirectWrite.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

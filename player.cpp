@@ -47,8 +47,8 @@ void Player::Init()
 		"shader\\PercentageCloserFilteringPS.cso");
 
 
-	 m_ShotSE = AddComponent<Audio>();
-	 m_ShotSE->Load("asset\\audio\\Œ•‚ÅŽa‚é3.wav");
+	 //m_ShotSE = AddComponent<Audio>();
+	 //m_ShotSE->Load("asset\\audio\\Œ•‚ÅŽa‚é3.wav");
 
 	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
 	 

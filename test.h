@@ -16,10 +16,5 @@ public:
 	void Uninit() override;
 	void Update() override;
 
-	void SetEnemy();
-
-	void SetTree();
-
-	void SetWall();
 
 };

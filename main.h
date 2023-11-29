@@ -7,8 +7,8 @@
 #include <windows.h>
 #include <assert.h>
 #include <functional>
-
-
+#include <dwrite.h>  
+#include <D2D1.h>
 
 #pragma warning(push)
 #pragma warning(disable:4005)
@@ -20,11 +20,14 @@
 #pragma warning(pop)
 
 
-
 #pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "d3dx9.lib")
 #pragma comment (lib, "d3dx11.lib")
+
+              
+#pragma comment(lib,"d2d1.lib")    
+#pragma comment(lib,"dwrite.lib")
 
 
 #define SCREEN_WIDTH	(1280)

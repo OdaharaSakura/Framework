@@ -51,7 +51,7 @@ public:
 				{return object->Destroy();});//ƒ‰ƒ€ƒ_Ž®
 		}
 
-		Collision::CheckSphereCollider();
+		//Collision::CheckSphereCollider();
 	}
 
 	virtual void Draw() 

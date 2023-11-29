@@ -163,6 +163,7 @@
     <ClCompile Include="countdown.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="debugmanager.cpp" />
+    <ClCompile Include="DirectWrite.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="explosion.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="countdown.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="debugmanager.h" />
+    <ClInclude Include="DirectWrite.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="explosion.h" />

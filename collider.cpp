@@ -29,7 +29,7 @@ void SphereCollider::Init()
 void SphereCollider::Uninit()
 {
 //#ifdef _DEBUG
-	/*if(m_VertexBuffer != nullptr)m_VertexBuffer->Release();*/
+	//if(m_VertexBuffer != nullptr)m_VertexBuffer->Release();*/
 
 //#endif
 }
