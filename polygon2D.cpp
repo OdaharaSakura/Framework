@@ -2,9 +2,20 @@
 #include "renderer.h"
 #include "polygon2D.h"
 #include "sprite.h"
+#include "DirectWrite.h"
 
 void Polygon2D::Init()
 {
+	FontData* data = new FontData();
+
+	data->fontSize = 40;
+	
+	Write = new DirectWrite(data);
+	
+	Write->Init();
+
+	testtext = "文字出力テスト";
+
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -45,6 +56,8 @@ void Polygon2D::Draw()
 
 	// マトリクス設定
 	Renderer::SetWorldViewProjection2D();
+
+	Write->DrawString(testtext, D2D1::RectF(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT), D2D1_DRAW_TEXT_OPTIONS_NONE);
 
 	//基底クラスのメソッド呼び出し
 	GameObject::Draw();

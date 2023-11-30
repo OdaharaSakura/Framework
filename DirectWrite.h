@@ -1,7 +1,8 @@
-#pragma once
-
-#include "main.h"		// main
+﻿#pragma once
+#include "main.h"
 #include <string>
+
+
 //=============================================================================
 //		フォントリスト
 //=============================================================================
@@ -9,7 +10,7 @@ enum class Font
 {
 	Meiryo,
 	Arial,
-	MeiryoUI
+	MeiryoUI,
 };
 
 //=============================================================================
@@ -21,7 +22,7 @@ namespace
 	{
 		L"メイリオ",
 		L"Arial",
-		L"Meiryo UI"
+		L"Meiryo UI",
 	};
 }
 
@@ -30,18 +31,18 @@ namespace
 //=============================================================================
 struct FontData
 {
-	Font font;					// フォント名
+	Font font;									// フォント名
 	IDWriteFontCollection* fontCollection;		// フォントコレクション
-	DWRITE_FONT_WEIGHT fontWeight;			// フォントの太さ
-	DWRITE_FONT_STYLE fontStyle;			// フォントスタイル
-	DWRITE_FONT_STRETCH fontStretch;		// フォントの幅
-	FLOAT fontSize;					// フォントサイズ
-	WCHAR const* localeName;			// ロケール名
+	DWRITE_FONT_WEIGHT fontWeight;				// フォントの太さ
+	DWRITE_FONT_STYLE fontStyle;				// フォントスタイル
+	DWRITE_FONT_STRETCH fontStretch;			// フォントの幅
+	FLOAT fontSize;								// フォントサイズ
+	WCHAR const* localeName;					// ロケール名
 	DWRITE_TEXT_ALIGNMENT textAlignment;		// テキストの配置
-	D2D1_COLOR_F Color;				// フォントの色
+	D2D1_COLOR_F Color;							// フォントの色
 
 	// デフォルト設定
-	FontData() 
+	FontData()
 	{
 		font = Font::Meiryo;
 		fontCollection = nullptr;
@@ -61,13 +62,13 @@ struct FontData
 class DirectWrite
 {
 private:
-	ID2D1Factory* pD2DFactory = NULL;
-	IDWriteFactory* pDWriteFactory = NULL;
-	IDWriteTextFormat* pTextFormat = NULL;
-	IDWriteTextLayout* pTextLayout = NULL;
-	ID2D1RenderTarget* pRT = NULL;
-	ID2D1SolidColorBrush* pSolidBrush = NULL;
-	IDXGISurface* pBackBuffer = NULL;
+	ID2D1Factory* pD2DFactory{};
+	IDWriteFactory* pDWriteFactory{};
+	IDWriteTextFormat* pTextFormat{};
+	IDWriteTextLayout* pTextLayout{};
+	ID2D1RenderTarget* pRT{};
+	ID2D1SolidColorBrush* pSolidBrush{};
+	IDXGISurface* pBackBuffer{};
 
 	// フォントデータ
 	FontData* Setting = new FontData();
@@ -81,7 +82,7 @@ public:
 
 	// コンストラクタ
 	// 第1引数：フォント設定
-	DirectWrite(FontData* set) :Setting(set) {};
+	DirectWrite(FontData* set) : Setting(set) {};
 
 	// コンストラクタ
 	// 第1引数：フォント名（L"メイリオ", L"Arial", L"Meiryo UI"等）
@@ -93,17 +94,28 @@ public:
 	// 第7引数：ロケール名（L"ja-jp"等）
 	// 第8引数：テキストの配置（DWRITE_TEXT_ALIGNMENT_LEADING：前, 等）
 	// 第9引数：フォントの色（D2D1::ColorF(D2D1::ColorF::Black)：黒, D2D1::ColorF(D2D1::ColorF(0.0f, 0.2f, 0.9f, 1.0f))：RGBA指定等）
-	DirectWrite(Font font,					// フォント名
-		    IDWriteFontCollection* fontCollection,	// フォントコレクション
-		    DWRITE_FONT_WEIGHT fontWeight,		// フォントの太さ
-		    DWRITE_FONT_STYLE fontStyle,		// フォントスタイル
-		    DWRITE_FONT_STRETCH fontStretch,		// フォントの幅
-		    FLOAT fontSize,				// フォントサイズ
-		    WCHAR const* localeName,			// ロケール名
-		    DWRITE_TEXT_ALIGNMENT textAlignment,	// テキストの配置
-		    D2D1_COLOR_F Color				// フォントの色
-		    );
-	
+	DirectWrite(Font font,									// フォント名
+		IDWriteFontCollection* fontCollection,		// フォントコレクション
+		DWRITE_FONT_WEIGHT fontWeight,				// フォントの太さ
+		DWRITE_FONT_STYLE fontStyle,				// フォントスタイル
+		DWRITE_FONT_STRETCH fontStretch,			// フォントの幅
+		FLOAT fontSize,								// フォントサイズ
+		WCHAR const* localeName,					// ロケール名
+		DWRITE_TEXT_ALIGNMENT textAlignment,		// テキストの配置
+		D2D1_COLOR_F Color							// フォントの色
+	)
+	{
+		Setting->font = font;
+		Setting->fontCollection = fontCollection;
+		Setting->fontWeight = fontWeight;
+		Setting->fontStyle = fontStyle;
+		Setting->fontStretch = fontStretch;
+		Setting->fontSize = fontSize;
+		Setting->localeName = localeName;
+		Setting->textAlignment = textAlignment;
+		Setting->Color = Color;
+	}
+
 	// フォント設定
 	// 第1引数：フォントデータ構造体
 	void SetFont(FontData* set);
@@ -118,20 +130,20 @@ public:
 	// 第7引数：ロケール名（L"ja-jp"等）
 	// 第8引数：テキストの配置（DWRITE_TEXT_ALIGNMENT_LEADING：前, 等）
 	// 第9引数：フォントの色（D2D1::ColorF(D2D1::ColorF::Black)：黒, D2D1::ColorF(D2D1::ColorF(0.0f, 0.2f, 0.9f, 1.0f))：RGBA指定等）
-	void SetFont(Font font,						// フォント名
-		     IDWriteFontCollection* fontCollection,		// フォントコレクション
-		     DWRITE_FONT_WEIGHT fontWeight,			// フォントの太さ
-		     DWRITE_FONT_STYLE fontStyle,			// フォントスタイル
-		     DWRITE_FONT_STRETCH fontStretch,			// フォントの幅
-		     FLOAT fontSize,					// フォントサイズ
-		     WCHAR const* localeName,				// ロケール名
-		     DWRITE_TEXT_ALIGNMENT textAlignment,		// テキストの配置
-		     D2D1_COLOR_F Color);				// フォントの色
+	void  SetFont(Font font,									// フォント名
+		IDWriteFontCollection* fontCollection,		// フォントコレクション
+		DWRITE_FONT_WEIGHT fontWeight,				// フォントの太さ
+		DWRITE_FONT_STYLE fontStyle,				// フォントスタイル
+		DWRITE_FONT_STRETCH fontStretch,			// フォントの幅
+		FLOAT fontSize,							// フォントサイズ
+		WCHAR const* localeName,					// ロケール名
+		DWRITE_TEXT_ALIGNMENT textAlignment,		// テキストの配置
+		D2D1_COLOR_F Color);						// フォントの色
 
-	// 文字描画
-	// string：文字列
-	// pos：描画ポジション
-	// options：テキストの整形
+// 文字描画
+// string：文字列
+// pos：描画ポジション
+// options：テキストの整形
 	void DrawString(std::string str, D3DXVECTOR2 pos, D2D1_DRAW_TEXT_OPTIONS options);
 
 	// 文字描画

@@ -1,7 +1,5 @@
 #pragma once
-
-
-
+#include "main.h"
 
 // í∏ì_ç\ë¢ëÃ
 struct VERTEX_3D
@@ -132,7 +130,8 @@ public:
 
 	static ID3D11Device* GetDevice(void) { return m_Device; }
 	static ID3D11DeviceContext* GetDeviceContext(void) { return m_DeviceContext; }
-	static IDXGISwapChain* GetSwapChain(void) { return m_SwapChain; }
+	static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
+	static ID3D11RenderTargetView* GetRenderTargetView() { return m_RenderTargetView; }
 
 
 

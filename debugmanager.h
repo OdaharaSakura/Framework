@@ -6,6 +6,10 @@ class DebugManager
 private:
 	static Renderer* m_Renderer;
 
+	static class  Player* m_Player;
+
+	static class  Polygon2D* m_Polygon2D;
+
 public:
 	static void Init();
 	static void Uninit();

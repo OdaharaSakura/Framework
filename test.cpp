@@ -124,7 +124,7 @@ void Test::Init()
 
 	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
 	AddGameObject<Polygon2D>(OBJECT_2D_LAYER);
-	AddGameObject<GameLogo>(OBJECT_2D_LAYER);
+	//AddGameObject<GameLogo>(OBJECT_2D_LAYER);
 
 	m_Fade = AddGameObject<Fade>(OBJECT_2D_LAYER);
 	////BGMçƒê∂
