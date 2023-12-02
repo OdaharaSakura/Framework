@@ -51,6 +51,11 @@ void Camera::Update()
 	//トップビュー
 	m_Target = player->GetPosition();
 	m_Position = m_Target + D3DXVECTOR3(sinf(m_Rotation)*5.0f, 3.0f, -cosf(m_Rotation)*5.0f);
+
+	//カメラシェイク
+	m_ShakeOffset = sinf(m_ShakeTime * 1.5f) * m_ShakeAmplitude;
+	m_ShakeTime++;
+	m_ShakeAmplitude *= 0.9f;
 }
 
 
@@ -58,7 +63,10 @@ void Camera::Draw()
 {
 	//ビューマトリクス設定
 	D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-	D3DXMatrixLookAtLH(&m_ViewMatrix, &m_Position, &m_Target, &up);
+
+	D3DXVECTOR3 position = m_Position + D3DXVECTOR3(0.0f, m_ShakeOffset, 0.0f);
+	D3DXVECTOR3 target = m_Target + D3DXVECTOR3(0.0f, m_ShakeOffset, 0.0f);
+	D3DXMatrixLookAtLH(&m_ViewMatrix, &position, &target, &up);
 
 	Renderer::SetViewMatrix(&m_ViewMatrix);
 

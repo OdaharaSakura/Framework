@@ -465,7 +465,10 @@ void Player::UpdateGround()
 		move = true;
 	}
 
-
+	if (Input::GetKeyPress('C'))
+	{
+		camera->Shake(1.5f);
+	}
 
 
 
@@ -485,6 +488,7 @@ void Player::UpdateJump()
 	if (m_IsGround == true)
 	{
 		m_PlayerState = PLAYER_STATE_GROUND;
+
 	}
 }
 
