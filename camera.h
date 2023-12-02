@@ -10,6 +10,11 @@ private:
 	D3DXMATRIX m_ViewMatrix{};
 	D3DXMATRIX m_ProjectionMatrix{};
 
+	float	m_ShakeAmplitude{};
+	int		m_ShakeTime{};
+	float	m_ShakeOffset{};
+
+
 public:
 	void Init() override;
 	void Update() override;
@@ -29,6 +34,12 @@ public:
 	}
 
 	D3DXMATRIX GetViewMatrix() { return m_ViewMatrix; }
+
+	void Shake(float Amplitude)
+	{
+		m_ShakeAmplitude = Amplitude;
+	}
+
 	bool CheckView(D3DXVECTOR3 Position);
 
 };
