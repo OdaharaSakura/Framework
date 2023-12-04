@@ -67,6 +67,8 @@ struct PARAMETER
 	float4	baseColor;//HPバーの色
 	float4	lostColor;//減少したHPバーの色
 	float4	diffColor;//一時表示HPバーの色
+	float	dissolveThreshold;
+	float	dissolveRange;
 };
 cbuffer ParamBuffer : register(b6)
 {

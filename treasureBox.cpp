@@ -36,7 +36,7 @@ void TreasureBox::Init()
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
 	Gauge* gauge = scene->AddGameObject<Gauge>(1);
-	gauge->SetPosition(D3DXVECTOR3(m_Position.x, 3.0f, m_Position.z));
+	gauge->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 3.0f, m_WorldPosition.z));
 	gauge->SetBoxParent(this);
 
 	m_Startflg = true;
@@ -65,7 +65,7 @@ void TreasureBox::Update()
 		m_Hp = m_HpMax;
 		m_Startflg = false;
 	}
-	m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	if (m_AnimeFrame >= 17 || m_AnimeFrame == 0)
 	{
@@ -73,7 +73,7 @@ void TreasureBox::Update()
 		m_AnimeFrame = 0;
 	}
 
-	D3DXVECTOR3 oldPosition = m_Position;
+	D3DXVECTOR3 oldPosition = m_WorldPosition;
 	Scene* scene = Manager::GetScene();
 
 	//“G“–‚½‚è”»’è
@@ -90,7 +90,7 @@ void TreasureBox::Update()
 		D3DXVECTOR3 scale = enemy->GetScale();
 		D3DXVECTOR3 scalexz = enemy->GetScale();
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
@@ -121,16 +121,16 @@ void TreasureBox::Update()
 
 
 
-		if (position.x - scale.x - 0.5f < m_Position.x + m_Scale.x &&
-			m_Position.x - m_Scale.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z + m_Scale.z &&
-			m_Position.z - m_Scale.z < position.z + scale.z + 0.5f)
+		if (position.x - scale.x - 0.5f < m_WorldPosition.x + m_Scale.x &&
+			m_WorldPosition.x - m_Scale.x < position.x + scale.x + 0.5f &&
+			position.z - scale.z - 0.5f < m_WorldPosition.z + m_Scale.z &&
+			m_WorldPosition.z - m_Scale.z < position.z + scale.z + 0.5f)
 		{
 
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0f‚Íƒ‚ƒfƒ‹‚Ì‘å‚«‚³‚‚³1‚¶‚á‚È‚­‚Ä2‚¾‚Æ‚±‚¤‚È‚é
+			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0f‚Íƒ‚ƒfƒ‹‚Ì‘å‚«‚³‚‚³1‚¶‚á‚È‚­‚Ä2‚¾‚Æ‚±‚¤‚È‚é
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			break;
@@ -156,7 +156,7 @@ void TreasureBox::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 

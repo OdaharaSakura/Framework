@@ -84,22 +84,22 @@ void PlayerGauge::Draw()
 	VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
 
 
-	vertex[0].Position = D3DXVECTOR3(m_Position.x, m_Position.y, 0.0f);
+	vertex[0].Position = D3DXVECTOR3(m_WorldPosition.x, m_WorldPosition.y, 0.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
-	vertex[1].Position = D3DXVECTOR3(m_Position.x + m_Scale.x, m_Position.y, 0.0f);
+	vertex[1].Position = D3DXVECTOR3(m_WorldPosition.x + m_Scale.x, m_WorldPosition.y, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
 
-	vertex[2].Position = D3DXVECTOR3(m_Position.x, m_Position.y + m_Scale.y, 0.0f);
+	vertex[2].Position = D3DXVECTOR3(m_WorldPosition.x, m_WorldPosition.y + m_Scale.y, 0.0f);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
 
-	vertex[3].Position = D3DXVECTOR3(m_Position.x + m_Scale.x, m_Position.y + m_Scale.y, 0.0f);
+	vertex[3].Position = D3DXVECTOR3(m_WorldPosition.x + m_Scale.x, m_WorldPosition.y + m_Scale.y, 0.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);

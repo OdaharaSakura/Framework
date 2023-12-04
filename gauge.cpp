@@ -101,7 +101,7 @@ void Gauge::Update()
 	{
 		m_Hp = m_PlayerParent->GetHp();
 		m_HpMax = m_PlayerParent->GetHpMax();
-		m_Position = D3DXVECTOR3 (
+		m_WorldPosition = D3DXVECTOR3 (
 			m_PlayerParent->GetPosition().x,
 			m_PlayerParent->GetPosition().y + 3.0f,
 			m_PlayerParent->GetPosition().z);//ほんとはマトリックスで接続したい、期限過ぎたらやる
@@ -111,7 +111,7 @@ void Gauge::Update()
 	{
 		m_Hp = m_EnemyParent->GetHp();
 		m_HpMax = m_EnemyParent->GetHpMax();
-		m_Position = D3DXVECTOR3(
+		m_WorldPosition = D3DXVECTOR3(
 			m_EnemyParent->GetPosition().x,
 			m_EnemyParent->GetPosition().y + m_EnemyParent->GetScale().y,
 			m_EnemyParent->GetPosition().z
@@ -122,7 +122,7 @@ void Gauge::Update()
 	{
 		m_Hp = m_BoxParent->GetHp();
 		m_HpMax = m_BoxParent->GetHpMax();
-		m_Position = D3DXVECTOR3(
+		m_WorldPosition = D3DXVECTOR3(
 			m_BoxParent->GetPosition().x,
 			m_BoxParent->GetPosition().y + m_BoxParent->GetScale().y,
 			m_BoxParent->GetPosition().z
@@ -195,7 +195,7 @@ void Gauge::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * invView * trans;
 
 	Renderer::SetWorldMatrix(&world);

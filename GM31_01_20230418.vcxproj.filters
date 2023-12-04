@@ -458,7 +458,17 @@
     <FxCompile Include="Shader\PercentageCloserFilteringVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Shader\litTextureColorPS.hlsl" />
-    <FxCompile Include="Shader\litTextureColorVS.hlsl" />
+    <FxCompile Include="shader\dissolvePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\litTextureColorPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\litTextureColorVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\wipePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
