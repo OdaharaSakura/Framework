@@ -42,12 +42,12 @@ void Earth::Update()
 	//oŒ»
 
 
-	if (m_Position.y >= m_Scale.y / 2)
+	if (m_WorldPosition.y >= m_Scale.y / 2)
 	{
 		m_CountUpNum++;
-		m_Position.y = m_Scale.y / 2;
+		m_WorldPosition.y = m_Scale.y / 2;
 	}
-	else 	m_Position.y += 0.1f;
+	else 	m_WorldPosition.y += 0.1f;
 
 	//
 	if (m_CountUpNum != 0)
@@ -70,7 +70,7 @@ void Earth::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);

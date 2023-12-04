@@ -74,7 +74,7 @@ void Player::Update()
 {
 	GameObject::Update();
 	Scene* scene = Manager::GetScene();
-	D3DXVECTOR3 oldPosition = m_Position;
+	D3DXVECTOR3 oldPosition = m_WorldPosition;
 
 	m_IsAttackflg = false;
 	
@@ -90,17 +90,17 @@ void Player::Update()
 		D3DXVECTOR3 scale = enemy->GetScale();
 		D3DXVECTOR3 scalexz = enemy->GetScale();
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if (length < lengthxz)
 		{
-			if (m_Position.y + m_Scale.y < position.y + scale.y - 0.5f)
+			if (m_WorldPosition.y + m_Scale.y < position.y + scale.y - 0.5f)
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 				m_Hp -= 3;
 			}
 		}
@@ -124,13 +124,13 @@ void Player::Update()
 	}
 
 	//移動
-	m_Position += m_Velocity;//オイラー法
+	m_WorldPosition += m_Velocity;//オイラー法
 
 	//障害物との衝突判定↓↓=====================================
 	float groundHeight;
 
 	MeshField* meshfield = scene->GetGameObject<MeshField>();
-	groundHeight = meshfield->GetHeight(m_Position);
+	groundHeight = meshfield->GetHeight(m_WorldPosition);
 
 	//円柱
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
@@ -140,17 +140,17 @@ void Player::Update()
 		D3DXVECTOR3 scale = cylinder->GetScale();
 		D3DXVECTOR3 scalexz = cylinder->GetScale();
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if (length < lengthxz)
 		{
-			if (m_Position.y < position.y + scale.y - 0.5f)
+			if (m_WorldPosition.y < position.y + scale.y - 0.5f)
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			else
@@ -173,15 +173,15 @@ void Player::Update()
 
 
 
-		if (position.x - scale.x - 0.5f < m_Position.x &&
-			m_Position.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z &&
-			m_Position.z < position.z + scale.z + 0.5f)
+		if (position.x - scale.x - 0.5f < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + scale.x + 0.5f &&
+			position.z - scale.z - 0.5f < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + scale.z + 0.5f)
 		{
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			else
@@ -202,15 +202,15 @@ void Player::Update()
 
 
 
-		if (position.x - scale.x - 0.5f < m_Position.x &&
-			m_Position.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z &&
-			m_Position.z < position.z + scale.z + 0.5f)
+		if (position.x - scale.x - 0.5f < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + scale.x + 0.5f &&
+			position.z - scale.z - 0.5f < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + scale.z + 0.5f)
 		{
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			else
@@ -228,9 +228,9 @@ void Player::Update()
 
 
 	//接地
-	if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
+	if (m_WorldPosition.y < groundHeight && m_Velocity.y < 0.0f)
 	{
-		m_Position.y = groundHeight;
+		m_WorldPosition.y = groundHeight;
 		m_Velocity.y = 0.0f;
 		m_IsGround = true;
 	}
@@ -253,7 +253,7 @@ void Player::Draw()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	if (!camera->CheckView(m_Position)) return;
+	if (!camera->CheckView(m_WorldPosition)) return;
 
 	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
@@ -266,7 +266,7 @@ void Player::Draw()
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
 	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	matrix = scale * rot * trans;
 	m_Matrix = matrix;
 
@@ -330,7 +330,7 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 		//moveVec -= GetRight();
-		m_Position.x -= 0.1f;
+		m_WorldPosition.x -= 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -371,7 +371,7 @@ void Player::UpdateGround()
 		}
 
 		//moveVec += GetForward();
-		m_Position += cameraForward * 0.1f;
+		m_WorldPosition += cameraForward * 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -393,7 +393,7 @@ void Player::UpdateGround()
 		}
 
 		//moveVec -= GetForward();
-		m_Position.z -= 0.1f;
+		m_WorldPosition.z -= 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -445,7 +445,7 @@ void Player::UpdateGround()
 	if (Input::GetKeyPress('L'))
 	{
 		D3DXVECTOR3 earthPosition;
-		earthPosition = m_Position + this->GetForward() * 2.0f;
+		earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
 		scene->AddGameObject<Earth>(1)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
 
 	}

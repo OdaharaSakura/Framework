@@ -24,11 +24,11 @@ void TitleCursor::Init()
 	m_Scale.x = SCREEN_WIDTH / 3;
 	m_Scale.y = SCREEN_HEIGHT / 3;
 
-	m_Position.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
-	m_Position.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
+	m_WorldPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
+	m_WorldPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
 
 	m_Sprite = AddComponent<Sprite>();
-	m_Sprite->Init(m_Position.x, m_Position.y, m_Scale.x, m_Scale.y, "asset/texture/titlecursor.png");
+	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titlecursor.png");
 
 	//初めの位置を保存
 	m_StartPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
@@ -94,10 +94,10 @@ void TitleCursor::Update()
 	switch (m_NextPhase)
 	{
 	case Select::HAJIME:
-		m_Position.y = m_StartPosition.y;
+		m_WorldPosition.y = m_StartPosition.y;
 		break;
 	case Select::UNINIT:
-		m_Position.y = (m_StartPosition.y + m_MoveRange);
+		m_WorldPosition.y = (m_StartPosition.y + m_MoveRange);
 		break;
 	default:
 		break;
@@ -126,7 +126,7 @@ void TitleCursor::Update()
 	{
 		Manager::SetScene<Game>();//エンターキーを押したらゲームシーンに移行	
 	}
-	m_Sprite->SetPositionY(m_Position.y);
+	m_Sprite->SetPositionY(m_WorldPosition.y);
 	
 	m_Sprite->SetColor(m_Color);
 }

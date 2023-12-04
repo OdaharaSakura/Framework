@@ -38,7 +38,7 @@ void Enemy::Init()
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
 	Gauge* gauge = scene->AddGameObject<Gauge>(1);
-	gauge->SetPosition(D3DXVECTOR3(m_Position.x, 3.0f, m_Position.z));
+	gauge->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 3.0f, m_WorldPosition.z));
 	gauge->SetEnemyParent(this);
 
 	m_Startflg = true;
@@ -69,7 +69,7 @@ void Enemy::Update()
 
 	if (m_Startflg)
 	{
-		m_StartPosition = m_Position;
+		m_StartPosition = m_WorldPosition;
 		m_StartScale = m_Scale;
 		m_Startflg = false;
 	}
@@ -80,7 +80,7 @@ void Enemy::Update()
 		m_AnimeFrame = 0;
 	}
 
-	D3DXVECTOR3 oldPosition = m_Position;
+	D3DXVECTOR3 oldPosition = m_WorldPosition;
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 
@@ -106,7 +106,7 @@ void Enemy::Update()
 
 
 	//移動処理（プレイヤーに向かってくる）
-	D3DXVec3Lerp(&m_Position,&m_Position, &position,test);
+	D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
 
 	//土
 	std::vector<Earth*> Earths = scene->GetGameObjects<Earth>();
@@ -117,16 +117,16 @@ void Enemy::Update()
 
 
 
-		if (position.x - scale.x - 0.5f < m_Position.x + m_Scale.x&&
-			m_Position.x - m_Scale.x  < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z + m_Scale.z &&
-			m_Position.z - m_Scale.z  < position.z + scale.z + 0.5f)
+		if (position.x - scale.x - 0.5f < m_WorldPosition.x + m_Scale.x&&
+			m_WorldPosition.x - m_Scale.x  < position.x + scale.x + 0.5f &&
+			position.z - scale.z - 0.5f < m_WorldPosition.z + m_Scale.z &&
+			m_WorldPosition.z - m_Scale.z  < position.z + scale.z + 0.5f)
 		{
 
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			break;
@@ -137,15 +137,15 @@ void Enemy::Update()
 		D3DXVECTOR3 playerposition = player->GetPosition();
 		D3DXVECTOR3 playerscale = player->GetScale();
 
-		D3DXVECTOR3 direction = m_Position - playerposition;
+		D3DXVECTOR3 direction = m_WorldPosition - playerposition;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		playerscale.y = 0.0f;
 		float scalexz = D3DXVec3Length(&playerscale) * 100.0f;//プレイヤーのスケールを100分の1にしているため
 		if (length < scalexz)
 		{
-			m_Position.x = oldPosition.x;
-			m_Position.z = oldPosition.z;
+			m_WorldPosition.x = oldPosition.x;
+			m_WorldPosition.z = oldPosition.z;
 		}
 		if (length < scalexz * scalexz + 3.0f)
 		{
@@ -177,8 +177,8 @@ void Enemy::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_ModelScale.x, m_ModelScale.y, m_ModelScale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	CalcLookAtMatrixAxisFix(&rot, &m_Position, &target, &up);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	CalcLookAtMatrixAxisFix(&rot, &m_WorldPosition, &target, &up);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 
