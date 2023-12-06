@@ -229,6 +229,10 @@
     </ClCompile>
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="DirectWrite.cpp" />
+    <ClCompile Include="networkTest.cpp" />
+    <ClCompile Include="CNetwork_WS.cpp" />
+    <ClCompile Include="playerNetwork.cpp" />
+    <ClCompile Include="write.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -423,6 +427,11 @@
     <ClInclude Include="modelContainer.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="DirectWrite.h" />
+    <ClInclude Include="networkTest.h" />
+    <ClInclude Include="CNetwork.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="playerNetwork.h" />
+    <ClInclude Include="write.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
@@ -460,5 +469,10 @@
     </FxCompile>
     <FxCompile Include="Shader\litTextureColorPS.hlsl" />
     <FxCompile Include="Shader\litTextureColorVS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WSock.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

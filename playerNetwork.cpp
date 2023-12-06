@@ -1,5 +1,6 @@
 #include "main.h"
 #include "renderer.h"
+#include "playerNetWork.h"
 #include "player.h"
 #include "input.h"
 #include "bullet.h"
@@ -19,10 +20,10 @@
 #include "camera.h"
 #include "collider.h"
 #include "write.h"
-#include "playerNetwork.h"
 
 
-void Player::Init()
+
+void PlayerNetWork::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
@@ -44,10 +45,6 @@ void Player::Init()
 	m_modelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
-	m_Write = scene->AddGameObject<Write>(OBJECT_2D_LAYER);
-
-	m_Write->SetPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
-
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
@@ -58,6 +55,10 @@ void Player::Init()
 	 //m_ShotSE->Load("asset\\audio\\剣で斬る3.wav");
 
 	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
+
+	m_Write = scene->AddGameObject<Write>(OBJECT_2D_LAYER);
+
+	m_Write->SetPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
 	 
 
 	 m_AttackDelaynum = 0;
@@ -66,7 +67,7 @@ void Player::Init()
 	 m_Hp = m_HpMax;
 }
 
-void Player::Uninit()
+void PlayerNetWork::Uninit()
 {
 	GameObject::Uninit();
 	m_Model->Unload();
@@ -77,49 +78,35 @@ void Player::Uninit()
 	m_PixelShader->Release();
 }
 
-void Player::Update()
+void PlayerNetWork::Update()
 {
 	GameObject::Update();
 	Scene* scene = Manager::GetScene();
 	D3DXVECTOR3 oldPosition = m_Position;
 
-	m_IsAttackflg = false;
-	
 
 	//メモ：当たり判定コンポーネントにする（判定の仕方ごとに関数変える）
 	//ImGUIのカメラに映せるように変更したい
 
-	//敵当たり判定
-	std::vector<Enemy*> enemies = scene->GetGameObjects<Enemy>();
-	for (Enemy* enemy : enemies)
+	switch (m_PlayerState)
 	{
-		D3DXVECTOR3 position = enemy->GetPosition();
-		D3DXVECTOR3 scale = enemy->GetScale();
-		D3DXVECTOR3 scalexz = enemy->GetScale();
-
-		D3DXVECTOR3 direction = m_Position - position;
-		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
-		scalexz.y = 0.0f;
-		float lengthxz = D3DXVec3Length(&scalexz);
-		if (length < lengthxz)
-		{
-			if (m_Position.y + m_Scale.y < position.y + scale.y - 0.5f)
-			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
-				m_Hp -= 3;
-			}
-		}
-		if (length < lengthxz * lengthxz)
-		{
-			m_IsAttackflg  = true;
-		}
+	case PLAYER_STATE_GROUND:
+		UpdateGround();
+		break;
+	case PLAYER_STATE_JUMP:
+		UpdateJump();
+		break;
+	case PLAYER_STATE_ATTACK:
+		UpdateAttack();
+		break;
 	}
 
-	//プレイヤー当たり判定
-	std::vector<PlayerNetWork*> players = scene->GetGameObjects<PlayerNetWork>();
-	for (PlayerNetWork* player : players)
+	//移動
+	m_Position += m_Velocity;//オイラー法
+
+		//プレイヤー当たり判定
+	std::vector<Player*> players = scene->GetGameObjects<Player>();
+	for (Player* player : players)
 	{
 		D3DXVECTOR3 position = player->GetPosition();
 		D3DXVECTOR3 scale = player->GetScale();
@@ -141,27 +128,12 @@ void Player::Update()
 		{
 			m_Write->SetText("");
 		}
+		
 		if (length < lengthxz * lengthxz)
 		{
 			m_IsAttackflg = true;
 		}
 	}
-
-	switch (m_PlayerState)
-	{
-	case PLAYER_STATE_GROUND:
-		UpdateGround();
-		break;
-	case PLAYER_STATE_JUMP:
-		UpdateJump();
-		break;
-	case PLAYER_STATE_ATTACK:
-		UpdateAttack();
-		break;
-	}
-
-	//移動
-	m_Position += m_Velocity;//オイラー法
 
 	//障害物との衝突判定↓↓=====================================
 	float groundHeight;
@@ -199,65 +171,7 @@ void Player::Update()
 		}
 	}
 
-
-
-	//直方体
-	std::vector<Box*> boxes = scene->GetGameObjects<Box>();
-	for (Box* box : boxes)
-	{
-		D3DXVECTOR3 position = box->GetPosition();
-		D3DXVECTOR3 scale = box->GetScale();
-
-
-
-		if (position.x - scale.x - 0.5f < m_Position.x &&
-			m_Position.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z &&
-			m_Position.z < position.z + scale.z + 0.5f)
-		{
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
-			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
-			}
-
-			else
-			{
-				groundHeight = position.y + scale.y * 2.0f;
-			}
-
-			break;
-		}
-	}
-
-	//土
-	std::vector<Earth*> Earths = scene->GetGameObjects<Earth>();
-	for (Earth* Earth : Earths)
-	{
-		D3DXVECTOR3 position = Earth->GetPosition();
-		D3DXVECTOR3 scale = Earth->GetScale();
-
-
-
-		if (position.x - scale.x - 0.5f < m_Position.x &&
-			m_Position.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_Position.z &&
-			m_Position.z < position.z + scale.z + 0.5f)
-		{
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
-			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
-			}
-
-			else
-			{
-				groundHeight = position.y + scale.y * 2.0f;
-			}
-
-			break;
-		}
-	}
+	
 	//障害物との衝突判定↑↑=====================================
 
 		//重力
@@ -282,7 +196,7 @@ void Player::Update()
 	}
 }
 
-void Player::Draw()
+void PlayerNetWork::Draw()
 {
 	GameObject::Draw();
 
@@ -323,7 +237,7 @@ void Player::Draw()
 	m_Model->Draw();
 }
 
-void Player::UpdateGround()
+void PlayerNetWork::UpdateGround()
 {
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
@@ -356,162 +270,99 @@ void Player::UpdateGround()
 
 
 	D3DXVECTOR3 moveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-
-	//サードパーソンビュー
-	if (Input::GetKeyPress('A'))
+	int key = 0;
+	key = m_PositionList.size();
+	if (key != 0)
 	{
-		if (m_NextAnimationName != "LeftRun")
+		if (m_PositionList[0] == m_Position)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "LeftRun";
-			m_BlendRate = 0.0f;
+			m_PositionList.erase(m_PositionList.begin());
 		}
-		//moveVec -= GetRight();
-		m_Position.x -= 0.1f;
-
-		D3DXQUATERNION quat;
-		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, -D3DX_PI / 2.0f);//(左方向に90度)
-		//m_Quaternion = quat;
-		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);//球面変形補間
-
-		move = true;
-		if (m_IsConnectNetWork) m_InputData = 'A';
-
-	}
-	if (Input::GetKeyPress('D'))
-	{
-		if (m_NextAnimationName != "RightRun")
+		else
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "RightRun";
-			m_BlendRate = 0.0f;
+			//サードパーソンビュー
+			if (m_PositionList[0].x < m_Position.x)
+			{
+				if (m_NextAnimationName != "LeftRun")
+				{
+					m_AnimationName = m_NextAnimationName;
+					m_NextAnimationName = "LeftRun";
+					m_BlendRate = 0.0f;
+				}
+				moveVec -= GetRight();
+				//m_Position.x -= 0.1f;
+
+				D3DXQUATERNION quat;
+				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				D3DXQuaternionRotationAxis(&quat, &axis, -D3DX_PI / 2.0f);//(左方向に90度)
+				//m_Quaternion = quat;
+				D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);//球面変形補間
+
+				move = true;
+
+			}
+			if (m_PositionList[0].x > m_Position.x)
+			{
+				if (m_NextAnimationName != "RightRun")
+				{
+					m_AnimationName = m_NextAnimationName;
+					m_NextAnimationName = "RightRun";
+					m_BlendRate = 0.0f;
+				}
+
+				moveVec += GetRight();
+
+				D3DXQUATERNION quat;
+				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI / 2.0f);//(左方向に90度)
+				//m_Quaternion = quat;
+				D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
+				move = true;
+			}
+			if (m_PositionList[0].z > m_Position.z)
+			{
+
+				if (m_NextAnimationName != "Run")
+				{
+					m_AnimationName = m_NextAnimationName;
+					m_NextAnimationName = "Run";
+					m_BlendRate = 0.0f;
+				}
+
+				moveVec += GetForward();
+				//m_Position += m_Position.z * 0.1f;
+
+				D3DXQUATERNION quat;
+				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+
+				float angle = atan2f(cameraForward.x, cameraForward.z);
+				D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
+				//m_Quaternion = quat;
+				D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
+				move = true;
+			}
+
+			if (m_PositionList[0].z < m_Position.z)
+			{
+				if (m_NextAnimationName != "BackRun")
+				{
+					m_AnimationName = m_NextAnimationName;
+					m_NextAnimationName = "BackRun";
+					m_BlendRate = 0.0f;
+				}
+
+				moveVec -= GetForward();
+
+				D3DXQUATERNION quat;
+				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI);//(左方向に90度)
+				//m_Quaternion = quat;
+				D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
+				move = true;
+			}
 		}
-		
-		//moveVec += GetRight();
-		m_Position.x += 0.1f;
-
-		D3DXQUATERNION quat;
-		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI / 2.0f);//(左方向に90度)
-		//m_Quaternion = quat;
-		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
-		move = true;
-		if (m_IsConnectNetWork) m_InputData = 'D';
 	}
-	if (Input::GetKeyPress('W'))
-	{
-
-		if (m_NextAnimationName != "Run")
-		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Run";
-			m_BlendRate = 0.0f;
-		}
-
-		//moveVec += GetForward();
-		m_Position += cameraForward * 0.1f;
-
-		D3DXQUATERNION quat;
-		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-		float angle = atan2f(cameraForward.x, cameraForward.z);
-		D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
-		//m_Quaternion = quat;
-		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
-		move = true;
-		if (m_IsConnectNetWork) m_InputData = 'W';
-	}
-
-	if (Input::GetKeyPress('S'))
-	{
-		if (m_NextAnimationName != "BackRun")
-		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "BackRun";
-			m_BlendRate = 0.0f;
-		}
-
-		//moveVec -= GetForward();
-		m_Position.z -= 0.1f;
-
-		D3DXQUATERNION quat;
-		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI);//(左方向に90度)
-		//m_Quaternion = quat;
-		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
-		move = true;
-		if (m_IsConnectNetWork) m_InputData = 'S';
-	}
-
-	//D3DXVec3Normalize(&moveVec, &moveVec);
-	//m_Position += moveVec * 0.1f;
-
-
-
-	if (Input::GetKeyPress('Q'))
-	{
-		m_Rotation.y -= 0.1f;
-	}
-	if (Input::GetKeyPress('E'))
-	{
-		m_Rotation.y += 0.1f;
-	}
-	if (m_AnimeFrame < 17 && m_AnimeState == ATTACK)
-	{
-		m_AnimeState = ATTACK;
-	}
-
-	//攻撃
-	if (Input::GetKeyPress('I'))
-	{
-
-		m_ShotSE->Play(false);
-		if (m_NextAnimationName != "Attack")
-		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Attack";
-			m_BlendRate = 0.0f;
-		}
-		move = true;
-		m_PlayerState = PLAYER_STATE_ATTACK;
-		if (m_IsAttackflg)
-		{
-			m_Attackflg = true;
-		}
-
-	}
-
-	//土魔法
-	if (Input::GetKeyPress('L'))
-	{
-		D3DXVECTOR3 earthPosition;
-		earthPosition = m_Position + this->GetForward() * 2.0f;
-		scene->AddGameObject<Earth>(1)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
-
-	}
-
-	//ジャンプ
-	if (Input::GetKeyPress('J') && m_Velocity.y == 0.0f)
-	{
-		m_Velocity.y = 0.35f;
-		m_PlayerState = PLAYER_STATE_JUMP;
-
-		if (m_NextAnimationName != "InPlaceJump")
-		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "InPlaceJump";
-			m_BlendRate = 0.0f;
-		}
-		move = true;
-	}
-
-	if (Input::GetKeyPress('C'))
-	{
-		camera->Shake(1.5f);
-	}
-
-
+	
 
 	if (move == false)
 	{
@@ -524,7 +375,7 @@ void Player::UpdateGround()
 	}
 }
 
-void Player::UpdateJump()
+void PlayerNetWork::UpdateJump()
 {
 	if (m_IsGround == true)
 	{
@@ -533,7 +384,7 @@ void Player::UpdateJump()
 	}
 }
 
-void Player::UpdateAttack()
+void PlayerNetWork::UpdateAttack()
 {
 	m_AttackDelaynum++;
 	if (m_AttackDelaynum > 25)
