@@ -18,6 +18,8 @@
 #include "meshField.h"
 #include "camera.h"
 #include "collider.h"
+#include "write.h"
+#include "playerNetwork.h"
 
 
 void Player::Init()
@@ -39,7 +41,12 @@ void Player::Init()
 
 	m_IsDisplayShadow = true;
 
-	m_Scale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_modelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
+	m_Write = scene->AddGameObject<Write>(OBJECT_2D_LAYER);
+
+	m_Write->SetPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
 
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
@@ -107,6 +114,36 @@ void Player::Update()
 		if (length < lengthxz * lengthxz)
 		{
 			m_IsAttackflg  = true;
+		}
+	}
+
+	//プレイヤー当たり判定
+	std::vector<PlayerNetWork*> players = scene->GetGameObjects<PlayerNetWork>();
+	for (PlayerNetWork* player : players)
+	{
+		D3DXVECTOR3 position = player->GetPosition();
+		D3DXVECTOR3 scale = player->GetScale();
+		D3DXVECTOR3 scalexz = player->GetScale();
+
+
+		D3DXVECTOR3 direction = m_Position - position;
+		direction.y = 0.0f;
+		float length = D3DXVec3Length(&direction);
+		scalexz.y = 0.0f;
+		float lengthxz = D3DXVec3Length(&scalexz);
+		if ((length * length) < (lengthxz * lengthxz))
+		{
+			m_Position.x = oldPosition.x;
+			m_Position.z = oldPosition.z;
+			m_Write->SetText("当たり！！");
+		}
+		else
+		{
+			m_Write->SetText("");
+		}
+		if (length < lengthxz * lengthxz)
+		{
+			m_IsAttackflg = true;
 		}
 	}
 
@@ -263,7 +300,7 @@ void Player::Draw()
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixScaling(&scale, m_modelScale.x, m_modelScale.y, m_modelScale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
 	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
@@ -339,6 +376,7 @@ void Player::UpdateGround()
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);//球面変形補間
 
 		move = true;
+		if (m_IsConnectNetWork) m_InputData = 'A';
 
 	}
 	if (Input::GetKeyPress('D'))
@@ -351,6 +389,7 @@ void Player::UpdateGround()
 		}
 		
 		//moveVec += GetRight();
+		m_Position.x += 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -358,7 +397,7 @@ void Player::UpdateGround()
 		//m_Quaternion = quat;
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
-
+		if (m_IsConnectNetWork) m_InputData = 'D';
 	}
 	if (Input::GetKeyPress('W'))
 	{
@@ -381,6 +420,7 @@ void Player::UpdateGround()
 		//m_Quaternion = quat;
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
+		if (m_IsConnectNetWork) m_InputData = 'W';
 	}
 
 	if (Input::GetKeyPress('S'))
@@ -401,6 +441,7 @@ void Player::UpdateGround()
 		//m_Quaternion = quat;
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
+		if (m_IsConnectNetWork) m_InputData = 'S';
 	}
 
 	//D3DXVec3Normalize(&moveVec, &moveVec);

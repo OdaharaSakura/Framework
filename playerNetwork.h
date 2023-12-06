@@ -2,25 +2,15 @@
 
 #include "model.h"
 #include "gameObject.h"
-
+#include "player.h"
 #include <string>
+#include <vector>
 
-
-enum PLAYER_STATE
-{
-	PLAYER_STATE_GROUND, 
-	PLAYER_STATE_JUMP,
-	PLAYER_STATE_ATTACK
-};
-
-class Player : public GameObject//継承
+class PlayerNetWork : public GameObject//継承
 {
 private:
 	int m_PlayerState = PLAYER_STATE_GROUND;
 	bool m_IsGround{};
-	bool m_IsConnectNetWork{};
-
-	char m_InputData{};
 
 
 	ID3D11VertexShader* m_VertexShader{};
@@ -49,6 +39,7 @@ private:
 	bool m_IsAttackflg{};//アタックできるか(敵の範囲内に入ったら)
 	bool m_Attackflg{};//攻撃したか
 
+	std::vector<D3DXVECTOR3> m_PositionList{};
 	class Write* m_Write = nullptr;
 
 	enum Animation {
@@ -99,7 +90,7 @@ public:
 	}
 
 
-	D3DXVECTOR3 GetUp()//上方向ベクトル取得
+	D3DXVECTOR3 GetTop()//上方向ベクトル取得
 	{
 		D3DXMATRIX rot;
 		//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -115,9 +106,7 @@ public:
 	int GetHp() { return m_Hp;}
 	int GetHpMax() {return m_HpMax;}
 	bool GetAttackflg() { return m_Attackflg; }
-	
 	void SetNonAttackflg() { m_Attackflg = false; }
-	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 
-	char GetInputData() { return m_InputData; }
+	void SetPositionList(D3DXVECTOR3 position) { m_PositionList.push_back(position); }
 };

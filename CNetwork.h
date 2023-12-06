@@ -1,17 +1,16 @@
 #pragma once
-//ƒCƒ“ƒNƒ‹[ƒh
+//ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+#include "main.h"
 #include <stdio.h>
 #include <Winsock2.h>
-#include "resource.h"
-//ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh
-#pragma comment (lib,"Ws2_32.lib")
-//’è”’è‹`
+
+//å®šæ•°å®šç¾©
 #define WSM_GETHOST WM_USER+1
 #define WSM_ASYNC WM_USER+2
 
-//ƒf[ƒ^Œ^
+//ãƒ‡ãƒ¼ã‚¿å‹
 
-enum NETACTION//’ÊMƒƒ\ƒbƒh‚ğƒNƒ‰ƒXŠO‚©‚ç”Ä—p“I‚É‘€ì‚·‚é‚½‚ß‚É¯•Êq‚ğg‚¤
+enum NETACTION//é€šä¿¡ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚¯ãƒ©ã‚¹å¤–ã‹ã‚‰æ±ç”¨çš„ã«æ“ä½œã™ã‚‹ãŸã‚ã«è­˜åˆ¥å­ã‚’ä½¿ã†
 {
 	HOST_SESSION,
 	CONNECT_SESSION,
@@ -30,26 +29,30 @@ public:
 	CNETWORK();
 	~CNETWORK();
 	HRESULT Init(HWND);
-	INT DlgProc(HWND ,UINT ,WPARAM ,LPARAM );
-	HRESULT DoAction(NETACTION,PVOID ,DWORD );
+
+	INT DlgProc(HWND, UINT, WPARAM, LPARAM);
+	HRESULT DoAction(NETACTION, PVOID, DWORD);
+
 	HRESULT QueryNetPlayerAmt(BYTE*);
 private:
 	SOCKET m_socMine;
 	SOCKET m_socClient;
 	SOCKADDR_IN m_saServer;
 	SOCKADDR_IN m_saClient;
-	TCHAR m_szHostName[MAX_PATH+1];
-	TCHAR m_szHostAddr[MAX_PATH+1];
-	TCHAR m_szHostEntry[MAXGETHOSTSTRUCT+1];
-	WORD m_wPort;	
+
+	TCHAR m_szHostName[MAX_PATH + 1];
+	TCHAR m_szHostAddr[MAX_PATH + 1];
+	TCHAR m_szHostEntry[MAXGETHOSTSTRUCT + 1];
+	WORD m_wPort;
 	BYTE m_bNetPlayerAmt;
 	BYTE m_bBinaryData[1000];
-	BOOL m_bConnected; 
-	
+	BOOL m_bConnected;
+
 	HRESULT HostSession();
 	HRESULT ConnectSession();
-	VOID GetHostHandler(WPARAM ,LPARAM );
-	VOID HostAsyncHandler(WPARAM ,LPARAM );
-	VOID ClientAsyncHandler(WPARAM ,LPARAM );
-	HRESULT Send(VOID* , DWORD);
+	VOID GetHostHandler(WPARAM, LPARAM);
+	VOID HostAsyncHandler(WPARAM, LPARAM);
+	VOID ClientAsyncHandler(WPARAM, LPARAM);
+	HRESULT Send(VOID*, DWORD);
+
 };

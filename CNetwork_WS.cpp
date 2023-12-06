@@ -1,140 +1,151 @@
 #include "CNetwork.h"
 
-CNETWORK* g_pThis=NULL;
+CNETWORK* g_pThis = NULL;
 //
 //INT CALLBACK DialogProc(HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
-//ƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚ÌƒƒbƒZ[ƒWƒvƒƒV[ƒWƒƒ[iƒ_ƒCƒAƒƒO‚Ìì¬’iŠK‚É•K—vj
-INT CALLBACK DialogProc(HWND hDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
+//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ãƒ¼ï¼ˆãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ä½œæˆæ®µéšã«å¿…è¦ï¼‰
+INT CALLBACK DialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+
 {
 	return g_pThis->DlgProc(hDlg, uMsg, wParam, lParam);
 }
 //
 //CNETWORK::CNETWORK()
-//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 CNETWORK::CNETWORK()
 {
-	ZeroMemory(this,sizeof(CNETWORK));
+
+	ZeroMemory(this, sizeof(CNETWORK));
+
 }
 //
 //CNETWORK::~CNETWORK()
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 CNETWORK::~CNETWORK()
 {
-	EndDialog(m_hDlg,TRUE);
+
+	EndDialog(m_hDlg, TRUE);
+
 }
 //
 //HRESULT CNETWORK::Init(HWND hWnd)
-//’ÊMƒNƒ‰ƒX‚Ì‰Šú‰»
+//é€šä¿¡ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 HRESULT CNETWORK::Init(HWND hWnd)
 {
-	g_pThis=this;
-	//WinSock2.0‚Ì‰Šú‰»
-	WORD wVersionRequired=MAKEWORD(2,0);
+
+	g_pThis = this;
+	//WinSock2.0ã®åˆæœŸåŒ–
+	WORD wVersionRequired = MAKEWORD(2, 0);
 	WSADATA wsaData;
-	WSAStartup(wVersionRequired,&wsaData);
+	WSAStartup(wVersionRequired, &wsaData);
 	if (wsaData.wVersion != wVersionRequired)
 	{
-		MessageBox(0,"WinSockƒo[ƒWƒ‡ƒ“2.0ˆÈã‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ","",MB_OK);
-		return E_FAIL;	
+		MessageBox(0, "WinSockãƒãƒ¼ã‚¸ãƒ§ãƒ³2.0ä»¥ä¸ŠãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã›ã‚“", "", MB_OK);
+		return E_FAIL;
 	}
-	//Ú‘±ƒ_ƒCƒAƒƒO  ‚±‚Ìƒ_ƒCƒAƒƒO‚ÌƒvƒƒV[ƒWƒƒ[‚Í’ÊMƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰[‚Æ‚µ‚Äg—p‚·‚é‚Ì‚ÅAƒ‚[ƒhƒŒƒX‚Æ‚µ‚Äì¬
-	CreateDialog((HINSTANCE)GetWindowLong(hWnd,GWL_HINSTANCE),
-		MAKEINTRESOURCE(IDD_DIALOG1),hWnd,(DLGPROC)DialogProc);
-	//ƒZƒbƒeƒBƒ“ƒOiƒ†[ƒU[‚É‚æ‚éƒ|[ƒg“™‚Ì“ü—Íj‚ªI—¹‚·‚é‚Ü‚ÅƒƒbƒZ[ƒW‚ğƒ|[ƒŠƒ“ƒO
+	//æ¥ç¶šãƒ€ã‚¤ã‚¢ãƒ­ã‚°  ã“ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ãƒ¼ã¯é€šä¿¡ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹ã®ã§ã€ãƒ¢ãƒ¼ãƒ‰ãƒ¬ã‚¹ã¨ã—ã¦ä½œæˆ
+	CreateDialog((HINSTANCE)GetWindowLong(hWnd, GWLP_HINSTANCE),
+		MAKEINTRESOURCE(IDD_DIALOG1), hWnd, (DLGPROC)DialogProc);
+	//ã‚»ãƒƒãƒ†ã‚£ãƒ³ã‚°ï¼ˆãƒ¦ãƒ¼ã‚¶ãƒ¼ã«ã‚ˆã‚‹ãƒãƒ¼ãƒˆç­‰ã®å…¥åŠ›ï¼‰ãŒçµ‚äº†ã™ã‚‹ã¾ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒãƒ¼ãƒªãƒ³ã‚°
 	MSG msg;
-	ZeroMemory( &msg, sizeof(msg) );
-	while( !m_boSetting)
-     {
-		 if( PeekMessage( &msg, m_hDlg, 0U, 0U, PM_REMOVE ) )
-         {	
-			 TranslateMessage( &msg );
-             DispatchMessage( &msg );	
-         }
-	 }
+	ZeroMemory(&msg, sizeof(msg));
+	while (!m_boSetting)
+	{
+		if (PeekMessage(&msg, m_hDlg, 0U, 0U, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
 	return S_OK;
 }
 //
 //INT CNETWORK::DlgProc(HWND hDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
-//ƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚ÌƒƒbƒZ[ƒWƒvƒƒV[ƒWƒƒ[iƒNƒ‰ƒXƒƒ\ƒbƒhj
-INT CNETWORK::DlgProc(HWND hDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
+//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ãƒ¼ï¼ˆã‚¯ãƒ©ã‚¹ãƒ¡ã‚½ãƒƒãƒ‰ï¼‰
+
+INT CNETWORK::DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TCHAR szPort[30];
-	switch(uMsg)
+	switch (uMsg)
 	{
 		//
-		//Win32ƒCƒxƒ“ƒgƒƒbƒZ[ƒW
-		case WM_INITDIALOG:
-			m_hDlg=hDlg;
-			return FALSE;
-		case WM_CLOSE:
-			ShowWindow(hDlg,SW_HIDE);
-			m_boSetting=TRUE;
-			return FALSE;
-		case WM_COMMAND:			    
-			switch (LOWORD(wParam)) 
+		//Win32ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	case WM_INITDIALOG:
+		m_hDlg = hDlg;
+		return FALSE;
+	case WM_CLOSE:
+		ShowWindow(hDlg, SW_HIDE);
+		m_boSetting = TRUE;
+		return FALSE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+			//ãƒ›ã‚¹ãƒˆãƒœã‚¿ãƒ³
+		case IDC_BUTTON1:
+			m_boHosting = TRUE;
+			if (!GetDlgItemText(hDlg, IDC_EDIT1, szPort, sizeof(szPort)))
 			{
-				//ƒzƒXƒgƒ{ƒ^ƒ“
-			case IDC_BUTTON1:
-				m_boHosting=TRUE;				
-				if(!GetDlgItemText(hDlg,IDC_EDIT1,szPort,sizeof(szPort)))
-				{
-					MessageBox(0,"ƒ|[ƒg”Ô†‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢","",MB_OK);
-					return TRUE;
-				}
-				m_boSetting=TRUE;
-				m_wPort = atoi(szPort);
-				ShowWindow(hDlg,SW_HIDE);
-				return TRUE;
-				//ƒQƒXƒgƒ{ƒ^ƒ“
-			case IDC_BUTTON2:
-				m_boHosting=FALSE;
-				if(!GetDlgItemText(hDlg,IDC_EDIT1,szPort,sizeof(szPort)))
-				{
-					MessageBox(0,"ƒ|[ƒg”Ô†‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢","",MB_OK);
-					return TRUE;
-				}
-				if(!GetDlgItemText(hDlg,IDC_EDIT2,m_szHostName,sizeof(m_szHostName)) && 
-						!GetDlgItemText(hDlg,IDC_EDIT3,m_szHostAddr,sizeof(m_szHostAddr)) )					
-				{				
-					MessageBox(0,"ƒzƒXƒg–¼‚©IPƒAƒhƒŒƒX‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢","",MB_OK);
-					return TRUE;
-				}			
-				m_wPort = atoi(szPort);	
-				ShowWindow(m_hDlg,SW_HIDE);
-				m_boSetting=TRUE;
+				MessageBox(0, "ãƒãƒ¼ãƒˆç•ªå·ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„", "", MB_OK);
 				return TRUE;
 			}
+			m_boSetting = TRUE;
+			m_wPort = atoi(szPort);
+			ShowWindow(hDlg, SW_HIDE);
 			return TRUE;
+			//ã‚²ã‚¹ãƒˆãƒœã‚¿ãƒ³
+		case IDC_BUTTON2:
+			m_boHosting = FALSE;
+			if (!GetDlgItemText(hDlg, IDC_EDIT1, szPort, sizeof(szPort)))
+			{
+				MessageBox(0, "ãƒãƒ¼ãƒˆç•ªå·ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„", "", MB_OK);
+				return TRUE;
+			}
+			if (!GetDlgItemText(hDlg, IDC_EDIT2, m_szHostName, sizeof(m_szHostName)) &&
+				!GetDlgItemText(hDlg, IDC_EDIT3, m_szHostAddr, sizeof(m_szHostAddr)))
+			{
+				MessageBox(0, "ãƒ›ã‚¹ãƒˆåã‹IPã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„", "", MB_OK);
+				return TRUE;
+			}
+			m_wPort = atoi(szPort);
+			ShowWindow(m_hDlg, SW_HIDE);
+			m_boSetting = TRUE;
+			return TRUE;
+		}
+		return TRUE;
 		//
-		//WinSock‚©‚ç‚ÌƒƒbƒZ[ƒW(”ñ“¯ŠúAPI‚ÍAƒ†[ƒU[’è‹`ƒƒbƒZ[ƒW‚ğ”­s‚·‚é)
+		//WinSockã‹ã‚‰ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸(éåŒæœŸAPIã¯ã€ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ç™ºè¡Œã™ã‚‹)
 
-		case WSM_GETHOST://WSAAsyncGetHostByNameŠÖ”‚©‚ç–ß‚Á‚½‚Ìˆ—
-			GetHostHandler(wParam,lParam);
-			return TRUE;
-		case WSM_ASYNC://WSAAsyncSelect‚É‚æ‚èA”ñ“¯Šú‚Éİ’è‚³‚ê‚½ƒCƒxƒ“ƒg‚ÍA‚±‚ÌƒƒbƒZ[ƒW‚ğƒgƒŠƒK[i”­sj‚·‚é
-			if(m_boHosting)
-			{
-				HostAsyncHandler(wParam,lParam);
-			}
-			else
-			{
-				ClientAsyncHandler(wParam,lParam);
-			}
-			return TRUE;
+	case WSM_GETHOST://WSAAsyncGetHostByNameé–¢æ•°ã‹ã‚‰æˆ»ã£ãŸæ™‚ã®å‡¦ç†
+		GetHostHandler(wParam, lParam);
+		return TRUE;
+	case WSM_ASYNC://WSAAsyncSelectã«ã‚ˆã‚Šã€éåŒæœŸã«è¨­å®šã•ã‚ŒãŸã‚¤ãƒ™ãƒ³ãƒˆã¯ã€ã“ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒˆãƒªã‚¬ãƒ¼ï¼ˆç™ºè¡Œï¼‰ã™ã‚‹
+		if (m_boHosting)
+		{
+			HostAsyncHandler(wParam, lParam);
+		}
+		else
+		{
+			ClientAsyncHandler(wParam, lParam);
+		}
+		return TRUE;
+
 
 	}
 	return FALSE;
 }
 //
 //HRESULT CNETWORK::DoAction(NETACTION Act,PVOID pData,DWORD dwSize)
-//ƒNƒ‰ƒXŠO‚©‚çA”Ä—p“I‚Èˆø”‚Å‘€ì‰Â”\‚É‚·‚é‚½‚ß‚ÌƒAƒNƒZƒXŠÖ”
-HRESULT CNETWORK::DoAction(NETACTION Act,PVOID pData,DWORD dwSize)
+//ã‚¯ãƒ©ã‚¹å¤–ã‹ã‚‰ã€æ±ç”¨çš„ãªå¼•æ•°ã§æ“ä½œå¯èƒ½ã«ã™ã‚‹ãŸã‚ã®ã‚¢ã‚¯ã‚»ã‚¹é–¢æ•°
+
+HRESULT CNETWORK::DoAction(NETACTION Act, PVOID pData, DWORD dwSize)
 {
-	switch(Act)
-	{	
-	case HOST_SESSION:	
-		if(SUCCEEDED(HostSession()))
-		{	
+	switch (Act)
+	{
+	case HOST_SESSION:
+		if (SUCCEEDED(HostSession()))
+		{
+
 			return S_OK;
 		}
 		else
@@ -142,9 +153,11 @@ HRESULT CNETWORK::DoAction(NETACTION Act,PVOID pData,DWORD dwSize)
 			return E_FAIL;
 		}
 		break;
-	case CONNECT_SESSION:		
-		if(SUCCEEDED(ConnectSession()))
-		{			
+
+	case CONNECT_SESSION:
+		if (SUCCEEDED(ConnectSession()))
+		{
+
 			return S_OK;
 		}
 		else
@@ -154,18 +167,20 @@ HRESULT CNETWORK::DoAction(NETACTION Act,PVOID pData,DWORD dwSize)
 		break;
 
 	case SEND_BINARYDATA:
-		return Send(pData,dwSize);
+
+		return Send(pData, dwSize);
 		break;
 
 	case RECIEVE_BINARYDATA:
-		memcpy((BYTE*)pData,m_bBinaryData,dwSize);
+		memcpy((BYTE*)pData, m_bBinaryData, dwSize);
+
 		break;
 	}
 	return S_OK;
 }
 //
 //HRESULT CNETWORK::QueryNetPlayerAmt(BYTE* pbPlayerAmt)
-//ŠO•”‚ÉƒZƒbƒVƒ‡ƒ“‚Ìl”‚ğ•Ô‚·
+//å¤–éƒ¨ã«ã‚»ãƒƒã‚·ãƒ§ãƒ³ã®äººæ•°ã‚’è¿”ã™
 HRESULT CNETWORK::QueryNetPlayerAmt(BYTE* pbPlayerAmt)
 {
 	*pbPlayerAmt = m_bNetPlayerAmt;
@@ -173,36 +188,38 @@ HRESULT CNETWORK::QueryNetPlayerAmt(BYTE* pbPlayerAmt)
 }
 //
 //HRESULT CNETWORK::HostSession()
-//ƒzƒXƒg‚Æ‚È‚éiƒZƒbƒVƒ‡ƒ“‚ğì¬‚·‚éj
+//ãƒ›ã‚¹ãƒˆã¨ãªã‚‹ï¼ˆã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’ä½œæˆã™ã‚‹ï¼‰
 HRESULT CNETWORK::HostSession()
-{	
-	//ƒ\ƒPƒbƒg‚ğì¬
-	m_socMine=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+{
+	//ã‚½ã‚±ãƒƒãƒˆã‚’ä½œæˆ
+	m_socMine = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_socMine == INVALID_SOCKET)
 	{
-		MessageBox(0,"ƒ\ƒPƒbƒgì¬¸”s","",MB_OK);
+		MessageBox(0, "ã‚½ã‚±ãƒƒãƒˆä½œæˆå¤±æ•—", "", MB_OK);
 		return E_FAIL;
 	}
-	//ƒ\ƒPƒbƒg‚ğ”ñ“¯Šúƒ‚[ƒh‚É‚·‚é
-	if (WSAAsyncSelect(m_socMine, m_hDlg, WSM_ASYNC,FD_CONNECT | FD_ACCEPT | FD_READ | FD_WRITE | FD_CLOSE))	
-	{ 	
-		MessageBox(0,"”ñ“¯Šúƒ‚[ƒhİ’è¸”s","",MB_OK);
-		return E_FAIL;	
+	//ã‚½ã‚±ãƒƒãƒˆã‚’éåŒæœŸãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹
+	if (WSAAsyncSelect(m_socMine, m_hDlg, WSM_ASYNC, FD_CONNECT | FD_ACCEPT | FD_READ | FD_WRITE | FD_CLOSE))
+	{
+		MessageBox(0, "éåŒæœŸãƒ¢ãƒ¼ãƒ‰è¨­å®šå¤±æ•—", "", MB_OK);
+		return E_FAIL;
 	}
-	//ƒoƒCƒ“ƒh
-	m_saServer.sin_family=AF_INET;
-	m_saServer.sin_addr.s_addr=INADDR_ANY;
-	m_saServer.sin_port=htons(m_wPort);
+	//ãƒã‚¤ãƒ³ãƒ‰
+	m_saServer.sin_family = AF_INET;
+	m_saServer.sin_addr.s_addr = INADDR_ANY;
+	m_saServer.sin_port = htons(m_wPort);
 
-	if( bind(m_socMine,	(LPSOCKADDR)&m_saServer,	sizeof(SOCKADDR_IN))==SOCKET_ERROR)
+	if (bind(m_socMine, (LPSOCKADDR)&m_saServer, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
 	{
-		MessageBox(0,"ƒoƒCƒ“ƒh¸”s","",MB_OK);
+		MessageBox(0, "ãƒã‚¤ãƒ³ãƒ‰å¤±æ•—", "", MB_OK);
 		return E_FAIL;
 	}
-	//ƒŠƒXƒ“
-	if( listen(m_socMine,1)==SOCKET_ERROR)
+	//ãƒªã‚¹ãƒ³
+	if (listen(m_socMine, 1) == SOCKET_ERROR)
 	{
-		MessageBox(0,"ƒŠƒXƒ“¸”s","",MB_OK);
+		MessageBox(0, "ãƒªã‚¹ãƒ³å¤±æ•—", "", MB_OK);
+
 		return E_FAIL;
 	}
 	m_bNetPlayerAmt++;
@@ -211,23 +228,24 @@ HRESULT CNETWORK::HostSession()
 }
 //
 //HRESULT CNETWORK::ConnectSession()
-//ƒQƒXƒg‚Æ‚È‚éiƒZƒbƒVƒ‡ƒ“‚ÉQ‰Áj
+//ã‚²ã‚¹ãƒˆã¨ãªã‚‹ï¼ˆã‚»ãƒƒã‚·ãƒ§ãƒ³ã«å‚åŠ ï¼‰
 HRESULT CNETWORK::ConnectSession()
-{		
+{
 	in_addr iaHost;
-	//ƒzƒXƒg–¼‚©‚çƒzƒXƒgƒT[ƒo[‚ğ’T‚·
-	if(m_szHostName[0] != 0 && WSAAsyncGetHostByName(m_hDlg, WSM_GETHOST,m_szHostName,	
-		m_szHostEntry,MAXGETHOSTSTRUCT) ==0)        
+	//ãƒ›ã‚¹ãƒˆåã‹ã‚‰ãƒ›ã‚¹ãƒˆã‚µãƒ¼ãƒãƒ¼ã‚’æ¢ã™
+	if (m_szHostName[0] != 0 && WSAAsyncGetHostByName(m_hDlg, WSM_GETHOST, m_szHostName,
+		m_szHostEntry, MAXGETHOSTSTRUCT) == 0)
 	{
-		MessageBox(0,"WSAAsyncGetHostByName‚É¸”s‚µ‚Ü‚µ‚½","",MB_OK);
+		MessageBox(0, "WSAAsyncGetHostByNameã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
 		return E_FAIL;
 	}
-	//ƒzƒXƒgƒAƒhƒŒƒXiIPƒAƒhƒŒƒXj‚©‚çƒzƒXƒgƒT[ƒo[‚ğ’T‚·
-	iaHost.s_addr=inet_addr(m_szHostAddr);
-	if(m_szHostAddr[0] != 0 && WSAAsyncGetHostByAddr(m_hDlg, WSM_GETHOST,
-		(const CHAR*)&iaHost,sizeof(in_addr),AF_INET,m_szHostEntry,MAXGETHOSTSTRUCT)==0 )
+	//ãƒ›ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆIPã‚¢ãƒ‰ãƒ¬ã‚¹ï¼‰ã‹ã‚‰ãƒ›ã‚¹ãƒˆã‚µãƒ¼ãƒãƒ¼ã‚’æ¢ã™
+	iaHost.s_addr = inet_addr(m_szHostAddr);
+	if (m_szHostAddr[0] != 0 && WSAAsyncGetHostByAddr(m_hDlg, WSM_GETHOST,
+		(const CHAR*)&iaHost, sizeof(in_addr), AF_INET, m_szHostEntry, MAXGETHOSTSTRUCT) == 0)
 	{
-		MessageBox(0,"WSAAsyncGetHostByAddr‚É¸”s‚µ‚Ü‚µ‚½","",MB_OK);	
+		MessageBox(0, "WSAAsyncGetHostByAddrã«å¤±æ•—ã—ã¾ã—ãŸ", "", MB_OK);
+
 		return E_FAIL;
 	}
 	m_bNetPlayerAmt++;
@@ -235,108 +253,121 @@ HRESULT CNETWORK::ConnectSession()
 }
 //
 //VOID CNETWORK::GetHostHandler(WPARAM wParam,LPARAM lParam)
-//WSAAsyncGetHostByNameŠÖ”‚É‚½‚¢‚·‚é‰“šƒƒbƒZ[ƒW‚ğƒnƒ“ƒhƒ‹iˆ—j‚·‚é
-VOID CNETWORK::GetHostHandler(WPARAM wParam,LPARAM lParam)
+//WSAAsyncGetHostByNameé–¢æ•°ã«ãŸã„ã™ã‚‹å¿œç­”ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒãƒ³ãƒ‰ãƒ«ï¼ˆå‡¦ç†ï¼‰ã™ã‚‹
+
+VOID CNETWORK::GetHostHandler(WPARAM wParam, LPARAM lParam)
 {
-	//‚È‚ñ‚ç‚©‚ÌƒGƒ‰[‚ª–³‚¢‚©ƒ`ƒFƒbƒN
-	if( WSAGETASYNCERROR(lParam) )
+	//ãªã‚“ã‚‰ã‹ã®ã‚¨ãƒ©ãƒ¼ãŒç„¡ã„ã‹ãƒã‚§ãƒƒã‚¯
+	if (WSAGETASYNCERROR(lParam))
 	{
-		MessageBox(0,"Ú‘±ƒGƒ‰[","",MB_OK);
+		MessageBox(0, "æ¥ç¶šã‚¨ãƒ©ãƒ¼", "", MB_OK);
 		return;
 	}
-	//ƒ\ƒPƒbƒg‚ğì¬
-	m_socMine=socket(AF_INET, SOCK_STREAM, 0);
+	//ã‚½ã‚±ãƒƒãƒˆã‚’ä½œæˆ
+	m_socMine = socket(AF_INET, SOCK_STREAM, 0);
 	if (m_socMine == INVALID_SOCKET)
 	{
-		MessageBox(0,"ƒ\ƒPƒbƒgì¬¸”s","",MB_OK);
+		MessageBox(0, "ã‚½ã‚±ãƒƒãƒˆä½œæˆå¤±æ•—", "", MB_OK);
 		return;
 	}
-	//”ñ“¯Šúƒ‚[ƒh‚Ìİ’è
-	if (WSAAsyncSelect(m_socMine, m_hDlg, WSM_ASYNC,FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE))	
-	{ 	
-		MessageBox(0,"”ñ“¯Šúƒ‚[ƒhİ’è¸”s","",MB_OK);
-		return;	
+	//éåŒæœŸãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
+	if (WSAAsyncSelect(m_socMine, m_hDlg, WSM_ASYNC, FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE))
+	{
+		MessageBox(0, "éåŒæœŸãƒ¢ãƒ¼ãƒ‰è¨­å®šå¤±æ•—", "", MB_OK);
+		return;
 	}
-	//ƒzƒXƒgƒAƒhƒŒƒX‚ğ‰Šú‰»
-	LPHOSTENT pHostEntry=(LPHOSTENT)m_szHostEntry;
-	m_saServer.sin_family = AF_INET;	
+	//ãƒ›ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’åˆæœŸåŒ–
+	LPHOSTENT pHostEntry = (LPHOSTENT)m_szHostEntry;
+	m_saServer.sin_family = AF_INET;
 	m_saServer.sin_port = htons(m_wPort);
 	m_saServer.sin_addr = *((LPIN_ADDR)*pHostEntry->h_addr_list);
-	//Ú‘±
-	if( connect(m_socMine,(LPSOCKADDR)&m_saServer,sizeof(SOCKADDR_IN))==SOCKET_ERROR)
+	//æ¥ç¶š
+	if (connect(m_socMine, (LPSOCKADDR)&m_saServer, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
+
 	{
 		if (WSAGetLastError() != WSAEWOULDBLOCK)
 		{
 
-			MessageBox(0,"Ú‘±¸”s","",MB_OK);
+			MessageBox(0, "æ¥ç¶šå¤±æ•—", "", MB_OK);
 			return;
-		}		
-	}	
+		}
+	}
+
 }
 //
 //VOID CNETWORK::HostAsyncHandler(WPARAM wParam,LPARAM lParam)
-//”ñ“¯Šú‘—óMƒƒbƒZ[ƒW‚ğƒnƒ“ƒhƒ‹iˆ—j‚·‚é@ƒzƒXƒg—p
-VOID CNETWORK::HostAsyncHandler(WPARAM wParam,LPARAM lParam)
+//éåŒæœŸé€å—ä¿¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒãƒ³ãƒ‰ãƒ«ï¼ˆå‡¦ç†ï¼‰ã™ã‚‹ã€€ãƒ›ã‚¹ãƒˆç”¨
+
+VOID CNETWORK::HostAsyncHandler(WPARAM wParam, LPARAM lParam)
 {
-	INT iAddLen=sizeof(SOCKADDR_IN);;
-	switch(LOWORD(lParam))
+	INT iAddLen = sizeof(SOCKADDR_IN);;
+	switch (LOWORD(lParam))
 	{
 		//FD_ACCEPT
 	case FD_ACCEPT:
-		m_socClient=accept(m_socMine,(LPSOCKADDR)&m_saClient,&iAddLen);
-		if(m_socClient==SOCKET_ERROR)
+		m_socClient = accept(m_socMine, (LPSOCKADDR)&m_saClient, &iAddLen);
+		if (m_socClient == SOCKET_ERROR)
 		{
-			MessageBox(0,"ƒNƒ‰ƒCƒAƒ“ƒg‚ğƒAƒNƒZƒvƒgo—ˆ‚Ü‚¹‚ñ‚Å‚µ‚½","",MB_OK);
+			MessageBox(0, "ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã‚’ã‚¢ã‚¯ã‚»ãƒ—ãƒˆå‡ºæ¥ã¾ã›ã‚“ã§ã—ãŸ", "", MB_OK);
+
 		}
 		m_bNetPlayerAmt++;
 		return;
 		//FD_READ
 	case FD_READ:
-		recv(m_socClient,(CHAR*)m_bBinaryData,sizeof(m_bBinaryData),0);	
+
+		recv(m_socClient, (CHAR*)m_bBinaryData, sizeof(m_bBinaryData), 0);
+
 		return;
 	}
 }
 //
 //VOID CNETWORK::ClientAsyncHandler(WPARAM wParam,LPARAM lParam)
-//”ñ“¯Šú‘—óMƒƒbƒZ[ƒW‚ğƒnƒ“ƒhƒ‹iˆ—j‚·‚é@ƒQƒXƒg—p
-VOID CNETWORK::ClientAsyncHandler(WPARAM wParam,LPARAM lParam)
+//éåŒæœŸé€å—ä¿¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒãƒ³ãƒ‰ãƒ«ï¼ˆå‡¦ç†ï¼‰ã™ã‚‹ã€€ã‚²ã‚¹ãƒˆç”¨
+
+VOID CNETWORK::ClientAsyncHandler(WPARAM wParam, LPARAM lParam)
 {
-	switch(LOWORD(lParam))
+	switch (LOWORD(lParam))
 	{
 		//FD_WRITE
 	case FD_WRITE:
-		m_boSetting=TRUE;
+		m_boSetting = TRUE;
 		m_bNetPlayerAmt++;
 		return;
 		//FD_READ
-	case FD_READ:	
-		recv(m_socMine,(CHAR*)m_bBinaryData,sizeof(m_bBinaryData),0);	
-		return;	
+	case FD_READ:
+		recv(m_socMine, (CHAR*)m_bBinaryData, sizeof(m_bBinaryData), 0);
+		return;
+
 	}
 }
 
 //
 //HRESULT CNETWORK::Send(VOID* pvData,DWORD dwSize)
-//ƒf[ƒ^‚Ì‘—M
-HRESULT CNETWORK::Send(VOID* pvData,DWORD dwSize)
+//ãƒ‡ãƒ¼ã‚¿ã®é€ä¿¡
+
+HRESULT CNETWORK::Send(VOID* pvData, DWORD dwSize)
 {
-	//ƒzƒXƒg
-	if(m_boHosting)
+	//ãƒ›ã‚¹ãƒˆ
+	if (m_boHosting)
 	{
-		if(send(m_socClient,(CHAR*)pvData,dwSize,0) ==SOCKET_ERROR)
+		if (send(m_socClient, (CHAR*)pvData, dwSize, 0) == SOCKET_ERROR)
 		{
-			MessageBox(0,"‘—M¸”s","",MB_OK);
+			MessageBox(0, "é€ä¿¡å¤±æ•—", "", MB_OK);
+
 			return E_FAIL;
 		}
 	}
-	//ƒQƒXƒg
+	//ã‚²ã‚¹ãƒˆ
 	else
 	{
-		if(send(m_socMine,(CHAR*)pvData,dwSize,0) ==SOCKET_ERROR)
+
+		if (send(m_socMine, (CHAR*)pvData, dwSize, 0) == SOCKET_ERROR)
 		{
-			MessageBox(0,"‘—M¸”s","",MB_OK);
+			MessageBox(0, "é€ä¿¡å¤±æ•—", "", MB_OK);
 			return E_FAIL;
 		}
-	}	
+	}
+
 	return S_OK;
 }

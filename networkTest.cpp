@@ -1,7 +1,7 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "test.h"
+#include "networkTest.h"
 #include "result.h"
 #include "gameover.h"
 #include "input.h"
@@ -9,7 +9,7 @@
 #include "camera.h"
 #include "meshfield.h"
 #include "polygon2D.h"
-#include "player.h"
+#include "playerNetwork.h"
 #include "enemy.h"
 #include "bullet.h"
 #include "explosion.h"
@@ -30,19 +30,19 @@
 #include "gamelogo.h"
 #include "treasureBox.h"
 #include "collider.h"
-#include "testObj.h"
+#include "CNetwork.h"
+#include "write.h"
 
+#define STAGE_CONNECTING 1
+#define STAGE_PLAYING 2
 
-Player* player;
+CNETWORK Net;
+BOOL g_boConnected = FALSE;
+INT g_Stage = STAGE_CONNECTING;
 
-void Test::Load()
+void NetWorkTest::Load()
 {
-	Bullet::Load();
-	Enemy::Load();
 	Earth::Load();
-	Gauge::Load();
-	Tree::Load();
-	TreasureBox::Load();
 	TreeBillboard::Load();
 }
 D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix);
@@ -75,11 +75,17 @@ static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
 }
 
 
-void Test::Init()
+void NetWorkTest::Init()
 {
 	Load();
 
-	AddGameObject<Camera>(CAMERA_LAYER);//�o�^����List�̎�ނ�ς���
+	// 通信用クラスの初期化
+	if (FAILED(Net.Init(GetWindow())))
+	{
+		MessageBox(0, "通信クラスの初期化が出来ません", "", MB_OK);
+	}
+
+	AddGameObject<Camera>(CAMERA_LAYER);//登録するListの種類を変える
 	AddGameObject<Sky>(OBJECT_3D_LAYER);
 	MeshField* meshField = AddGameObject<MeshField>(OBJECT_3D_LAYER);
 
@@ -87,26 +93,14 @@ void Test::Init()
 	AddGameObject<Cylinder>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
 
-	player = AddGameObject<Player>(OBJECT_3D_LAYER);
-	m_SphereCollider = player->AddComponent<SphereCollider>();
-	m_SphereCollider->m_testObj->SetParent(player);
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 
-	player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
+	m_player = AddGameObject<Player>(OBJECT_3D_LAYER);
+	m_player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
+	m_playerNetwork = AddGameObject<PlayerNetWork>(OBJECT_3D_LAYER);
+	m_playerNetwork->SetPosition(D3DXVECTOR3(2.0f, 0.0f, -4.0f));
 
-	AddGameObject<Enemy>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-
-	//SetEnemy();
-	//SetTree();
-
-
-
-	PlayerGauge* playerGauge = AddGameObject<PlayerGauge>(OBJECT_2D_LAYER);
-	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
-	playerGauge->SetPlayerParent(player);
-	AddGameObject<TreasureBox>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-
+	m_Write = AddGameObject<Write>(OBJECT_2D_LAYER);
+	
 	srand(0);
 
 	for (int i = 0; i < 20; i++)
@@ -122,48 +116,118 @@ void Test::Init()
 	}
 
 
-	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
-	AddGameObject<Polygon2D>(OBJECT_2D_LAYER);
-	//AddGameObject<GameLogo>(OBJECT_2D_LAYER);
-
-	m_Fade = AddGameObject<Fade>(OBJECT_2D_LAYER);
-	////BGM�Đ�
-	//Audio* bgm;
-	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	//bgm->Load("asset\\audio\\�킢153_long_BPM165.wav");
-	//bgm->Play(true);
 }
 
-void Test::Uninit()
+void NetWorkTest::Uninit()
 {
 	Scene::Uninit();
 
-	Bullet::Unload();
-	Enemy::Unload();
 	Earth::Unload();
-	Gauge::Unload();
-	Tree::Unload();
-	TreasureBox::Unload();
 
 	TreeBillboard::Unload();
 }
 
-void Test::Update()
+
+void NetWorkTest::Update()
 {
-	Scene::Update();
-
-	if (Input::GetKeyPress(VK_F2))
+	switch (g_Stage)
 	{
-		m_Fade->SetIsFadeOut();
+	case STAGE_CONNECTING:
+		Connect();
+		break;
+	case STAGE_PLAYING:
+		Scene::Update();
 
+		D3DXVECTOR3 playerNetworkPosition = m_playerNetwork->GetPosition();
+		D3DXVECTOR3 playerPosition = m_player->GetPosition();
+		Net.DoAction(RECIEVE_BINARYDATA, &playerNetworkPosition, sizeof(playerNetworkPosition));
+		Net.DoAction(SEND_BINARYDATA, &playerPosition, sizeof(playerPosition));
+		m_playerNetwork->SetPosition(playerNetworkPosition);
+
+	/*	if (Net.m_boHosting)
+		{
+			Net.DoAction(RECIEVE_BINARYDATA, &Thing[MELON].vecPosition, sizeof(D3DXVECTOR3));
+			Net.DoAction(SEND_BINARYDATA, &Thing[TOMATO].vecPosition, sizeof(D3DXVECTOR3));
+		}
+		else
+		{
+			Net.DoAction(RECIEVE_BINARYDATA, &Thing[TOMATO].vecPosition, sizeof(D3DXVECTOR3));
+			Net.DoAction(SEND_BINARYDATA, &Thing[MELON].vecPosition, sizeof(D3DXVECTOR3));
+		}*/
+
+		//if (Input::GetKeyPress(VK_F2))
+		//{
+		//	m_Fade->SetIsFadeOut();
+
+		//}
+		//if (m_Fade->GetFadeOutFinish())
+		//{
+		//	Manager::SetScene<Result>();//エンターキーを押したらゲームシーンに移行
+		//}
+		break;
 	}
-	if (m_Fade->GetFadeOutFinish())
+
+}
+
+HRESULT NetWorkTest::Connect()
+{
+	if (!g_boConnected)
 	{
-		Manager::SetScene<Result>();//�G���^�[�L�[����������Q�[���V�[���Ɉڍs	
+		g_boConnected = TRUE;
+		// ホスト		 
+		if (Net.m_boHosting)
+		{
+			if (FAILED(Net.DoAction(HOST_SESSION, (PVOID)L"シンプルゲーム_DP", NULL)))
+			{
+				MessageBox(0, "ホストとしての待機失敗", "エラー", MB_OK);
+				return E_FAIL;
+			}
+		}
+		// ゲスト
+		else
+		{
+			if (FAILED(Net.DoAction(CONNECT_SESSION, (PVOID)L"シンプルゲーム_DP", NULL)))
+			{
+				MessageBox(0, "ホストへの接続失敗", "エラー", MB_OK);
+				return E_FAIL;
+			}
+		}
 	}
+	BYTE bPlayer = 0;
+	CHAR szStr[MAX_PATH + 1];
+	//ホスト	
+	Net.QueryNetPlayerAmt(&bPlayer);
+	if (Net.m_boHosting)
+	{
 
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+		if (bPlayer < 2)
+		{
+			m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
+		}
+		else
+		{
+			m_Write->SetText("");
+			g_Stage = STAGE_PLAYING;
+		}
+	}
+	//ゲスト		 
+	else
+	{
+		if (bPlayer < 2)
+		{
+			m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
+		}
+		else
+		{
+			m_Write->SetText("");
+			D3DXVECTOR3 networkpos = m_playerNetwork->GetPosition();
+			D3DXVECTOR3 pos = m_player->GetPosition();
+			m_player->SetPosition(networkpos);
+			m_playerNetwork->SetPosition(pos);
+			g_Stage = STAGE_PLAYING;
+		}
+	}
+	return S_OK;
 }
 
 
