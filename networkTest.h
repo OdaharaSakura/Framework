@@ -3,6 +3,7 @@
 #include "scene.h"
 
 class NetWorkTest : public Scene
+
 {
 private:
 	class Fade* m_Fade = nullptr;
@@ -12,13 +13,12 @@ private:
 	class PlayerNetWork* m_playerNetwork = nullptr;
 	class Write* m_Write = nullptr;
 
+
 public:
 	void Load();
 	void Init() override;
 	void Uninit() override;
 	void Update() override;
-
 	HRESULT Connect();
-
 
 };

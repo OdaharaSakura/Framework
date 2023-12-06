@@ -79,18 +79,19 @@ void NetWorkTest::Init()
 {
 	Load();
 
-	// ’ÊM—pƒNƒ‰ƒX‚Ì‰Šú‰»
+	// é€šä¿¡ç”¨ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 	if (FAILED(Net.Init(GetWindow())))
 	{
-		MessageBox(0, "’ÊMƒNƒ‰ƒX‚Ì‰Šú‰»‚ªo—ˆ‚Ü‚¹‚ñ", "", MB_OK);
+		MessageBox(0, "é€šä¿¡ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–ãŒå‡ºæ¥ã¾ã›ã‚“", "", MB_OK);
 	}
 
-	AddGameObject<Camera>(CAMERA_LAYER);//“o˜^‚·‚éList‚Ìí—Ş‚ğ•Ï‚¦‚é
+	AddGameObject<Camera>(CAMERA_LAYER);//ç™»éŒ²ã™ã‚‹Listã®ç¨®é¡ã‚’å¤‰ãˆã‚‹
 	AddGameObject<Sky>(OBJECT_3D_LAYER);
 	MeshField* meshField = AddGameObject<MeshField>(OBJECT_3D_LAYER);
 
 
 	AddGameObject<Cylinder>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+
 
 
 	m_player = AddGameObject<Player>(OBJECT_3D_LAYER);
@@ -100,7 +101,6 @@ void NetWorkTest::Init()
 
 	m_Write = AddGameObject<Write>(OBJECT_2D_LAYER);
 	
-
 	srand(0);
 
 	for (int i = 0; i < 20; i++)
@@ -115,6 +115,7 @@ void NetWorkTest::Init()
 		treeBillboard->SetPosition(pos);
 	}
 
+
 }
 
 void NetWorkTest::Uninit()
@@ -125,6 +126,7 @@ void NetWorkTest::Uninit()
 
 	TreeBillboard::Unload();
 }
+
 
 void NetWorkTest::Update()
 {
@@ -160,7 +162,7 @@ void NetWorkTest::Update()
 		//}
 		//if (m_Fade->GetFadeOutFinish())
 		//{
-		//	Manager::SetScene<Result>();//ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚µ‚½‚çƒQ[ƒ€ƒV[ƒ“‚ÉˆÚs
+		//	Manager::SetScene<Result>();//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã«ç§»è¡Œ
 		//}
 		break;
 	}
@@ -172,35 +174,35 @@ HRESULT NetWorkTest::Connect()
 	if (!g_boConnected)
 	{
 		g_boConnected = TRUE;
-		// ƒzƒXƒg		 
+		// ãƒ›ã‚¹ãƒˆ		 
 		if (Net.m_boHosting)
 		{
-			if (FAILED(Net.DoAction(HOST_SESSION, (PVOID)L"ƒVƒ“ƒvƒ‹ƒQ[ƒ€_DP", NULL)))
+			if (FAILED(Net.DoAction(HOST_SESSION, (PVOID)L"ã‚·ãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ _DP", NULL)))
 			{
-				MessageBox(0, "ƒzƒXƒg‚Æ‚µ‚Ä‚Ì‘Ò‹@¸”s", "ƒGƒ‰[", MB_OK);
+				MessageBox(0, "ãƒ›ã‚¹ãƒˆã¨ã—ã¦ã®å¾…æ©Ÿå¤±æ•—", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 				return E_FAIL;
 			}
 		}
-		// ƒQƒXƒg
+		// ã‚²ã‚¹ãƒˆ
 		else
 		{
-			if (FAILED(Net.DoAction(CONNECT_SESSION, (PVOID)L"ƒVƒ“ƒvƒ‹ƒQ[ƒ€_DP", NULL)))
+			if (FAILED(Net.DoAction(CONNECT_SESSION, (PVOID)L"ã‚·ãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ _DP", NULL)))
 			{
-				MessageBox(0, "ƒzƒXƒg‚Ö‚ÌÚ‘±¸”s", "ƒGƒ‰[", MB_OK);
+				MessageBox(0, "ãƒ›ã‚¹ãƒˆã¸ã®æ¥ç¶šå¤±æ•—", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 				return E_FAIL;
 			}
 		}
 	}
 	BYTE bPlayer = 0;
 	CHAR szStr[MAX_PATH + 1];
-	//ƒzƒXƒg	
+	//ãƒ›ã‚¹ãƒˆ	
 	Net.QueryNetPlayerAmt(&bPlayer);
 	if (Net.m_boHosting)
 	{
 
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("ƒvƒŒƒCƒ„[”: 1 \nƒvƒŒƒCƒ„[‚ª2l‚É‚È‚é‚Ü‚Å‘Ò‹@‚µ‚Ü‚·");
+			m_Write->SetText("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°: 1 \nãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒ2äººã«ãªã‚‹ã¾ã§å¾…æ©Ÿã—ã¾ã™");
 		}
 		else
 		{
@@ -208,12 +210,12 @@ HRESULT NetWorkTest::Connect()
 			g_Stage = STAGE_PLAYING;
 		}
 	}
-	//ƒQƒXƒg		 
+	//ã‚²ã‚¹ãƒˆ		 
 	else
 	{
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("ƒvƒŒƒCƒ„[”: 1 \nƒvƒŒƒCƒ„[‚ª2l‚É‚È‚é‚Ü‚Å‘Ò‹@‚µ‚Ü‚·");
+			m_Write->SetText("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°: 1 \nãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒ2äººã«ãªã‚‹ã¾ã§å¾…æ©Ÿã—ã¾ã™");
 		}
 		else
 		{

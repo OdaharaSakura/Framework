@@ -21,12 +21,12 @@ void TitleEnter::Init()
 	m_Scale.x = SCREEN_WIDTH;
 	m_Scale.y = SCREEN_HEIGHT;
 
-	m_Position.x = 0.0f;
-	m_Position.y = 0.0f;
+	m_WorldPosition.x = 0.0f;
+	m_WorldPosition.y = 0.0f;
 
 
 	m_Sprite = AddComponent<Sprite>();
-	m_Sprite->Init(m_Position.x, m_Position.y, m_Scale.x, m_Scale.y, "asset/texture/pressSPACE.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/pressSPACE.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
 	
 }

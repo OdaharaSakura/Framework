@@ -52,12 +52,12 @@ void Bullet::Update()
 	std::vector<Enemy*> enemies = scene->GetGameObjects<Enemy>();
 	//auto enemys = scene->GetGameObjects<Enemy>();//型を判断してくれる//コードが見づらかったらauto使うことも
 
-	m_Position += m_Velocity;
+	m_WorldPosition += m_Velocity;
 
 	//m_Rotation += m_Velocity;//プレイヤーの前方向に飛ぶようにしたい
 
 	D3DXVECTOR3 playerPos = player->GetPosition();
-	D3DXVECTOR3 directionPlayer = playerPos - m_Position;
+	D3DXVECTOR3 directionPlayer = playerPos - m_WorldPosition;
 	float lengthPlayer = D3DXVec3Length(&directionPlayer);
 
 	if (lengthPlayer > 15.0f)//プレイヤーから15.0f離れたら
@@ -72,7 +72,7 @@ void Bullet::Update()
 	{
 		D3DXVECTOR3 enemyPos = enemy->GetPosition();
 		D3DXVECTOR3 enemyScale = enemy->GetScale();
-		D3DXVECTOR3 directionEnemy = enemyPos - m_Position;
+		D3DXVECTOR3 directionEnemy = enemyPos - m_WorldPosition;
 		float scaleEnemy = D3DXVec3Length(&enemyScale);
 		float lengthEnemy = D3DXVec3Length(&directionEnemy);
 
@@ -101,7 +101,7 @@ void Bullet::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);

@@ -11,7 +11,7 @@
 void Camera::Init()
 {
 
-	m_Position = D3DXVECTOR3(0.0f, 5.0f, -10.0f);
+	m_WorldPosition = D3DXVECTOR3(0.0f, 5.0f, -10.0f);
 
 
 }
@@ -50,7 +50,7 @@ void Camera::Update()
 	
 	//トップビュー
 	m_Target = player->GetPosition();
-	m_Position = m_Target + D3DXVECTOR3(sinf(m_Rotation)*5.0f, 3.0f, -cosf(m_Rotation)*5.0f);
+	m_WorldPosition = m_Target + D3DXVECTOR3(sinf(m_Rotation)*5.0f, 3.0f, -cosf(m_Rotation)*5.0f);
 
 	//カメラシェイク
 	m_ShakeOffset = sinf(m_ShakeTime * 1.5f) * m_ShakeAmplitude;
@@ -64,7 +64,7 @@ void Camera::Draw()
 	//ビューマトリクス設定
 	D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
 
-	D3DXVECTOR3 position = m_Position + D3DXVECTOR3(0.0f, m_ShakeOffset, 0.0f);
+	D3DXVECTOR3 position = m_WorldPosition + D3DXVECTOR3(0.0f, m_ShakeOffset, 0.0f);
 	D3DXVECTOR3 target = m_Target + D3DXVECTOR3(0.0f, m_ShakeOffset, 0.0f);
 	D3DXMatrixLookAtLH(&m_ViewMatrix, &position, &target, &up);
 
@@ -100,13 +100,13 @@ bool Camera::CheckView(D3DXVECTOR3 Position)
 
 	D3DXVECTOR3 v, v1, v2, n;
 
-	v = Position - m_Position;
+	v = Position - m_WorldPosition;
 
 	//左、下、右、上の順で判定
 	for (int i = 0; i < 4; i++)
 	{
-		v1 = wpos[i] - m_Position;
-		v2 = wpos[(i + 1) % 4] - m_Position;
+		v1 = wpos[i] - m_WorldPosition;
+		v2 = wpos[(i + 1) % 4] - m_WorldPosition;
 
 		// 外積計算
 		D3DXVec3Cross(&n, &v1, &v2);

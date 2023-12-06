@@ -1,18 +1,16 @@
 #pragma once
-//ƒCƒ“ƒNƒ‹[ƒh
+//ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "main.h"
 #include <stdio.h>
 #include <Winsock2.h>
 
-//ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh
-
-//’è”’è‹`
+//å®šæ•°å®šç¾©
 #define WSM_GETHOST WM_USER+1
 #define WSM_ASYNC WM_USER+2
 
-//ƒf[ƒ^Œ^
+//ãƒ‡ãƒ¼ã‚¿åž‹
 
-enum NETACTION//’ÊMƒƒ\ƒbƒh‚ðƒNƒ‰ƒXŠO‚©‚ç”Ä—p“I‚É‘€ì‚·‚é‚½‚ß‚ÉŽ¯•ÊŽq‚ðŽg‚¤
+enum NETACTION//é€šä¿¡ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚¯ãƒ©ã‚¹å¤–ã‹ã‚‰æ±Žç”¨çš„ã«æ“ä½œã™ã‚‹ãŸã‚ã«è­˜åˆ¥å­ã‚’ä½¿ã†
 {
 	HOST_SESSION,
 	CONNECT_SESSION,
@@ -31,14 +29,17 @@ public:
 	CNETWORK();
 	~CNETWORK();
 	HRESULT Init(HWND);
+
 	INT DlgProc(HWND, UINT, WPARAM, LPARAM);
 	HRESULT DoAction(NETACTION, PVOID, DWORD);
+
 	HRESULT QueryNetPlayerAmt(BYTE*);
 private:
 	SOCKET m_socMine;
 	SOCKET m_socClient;
 	SOCKADDR_IN m_saServer;
 	SOCKADDR_IN m_saClient;
+
 	TCHAR m_szHostName[MAX_PATH + 1];
 	TCHAR m_szHostAddr[MAX_PATH + 1];
 	TCHAR m_szHostEntry[MAXGETHOSTSTRUCT + 1];
@@ -53,4 +54,5 @@ private:
 	VOID HostAsyncHandler(WPARAM, LPARAM);
 	VOID ClientAsyncHandler(WPARAM, LPARAM);
 	HRESULT Send(VOID*, DWORD);
+
 };

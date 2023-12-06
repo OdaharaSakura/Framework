@@ -14,11 +14,11 @@ void TitleSelect::Init()
 	m_Scale.x = SCREEN_WIDTH / 3;
 	m_Scale.y = SCREEN_HEIGHT / 3;
 
-	m_Position.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
-	m_Position.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
+	m_WorldPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
+	m_WorldPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
 
 	m_Sprite = AddComponent<Sprite>();
-	m_Sprite->Init(m_Position.x, m_Position.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 }
 
 void TitleSelect::Uninit()

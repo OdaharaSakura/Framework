@@ -71,7 +71,7 @@ void ResultPlayer::Draw()
 	D3DXMATRIX matrix, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//ƒ‚ƒfƒ‹‚É‚æ‚é‚ªAŒã‚ëŒü‚¢‚Ä‚½‚ç+ D3DX_PI‚Å180“x‰ñ“]‚³‚¹‚é
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	matrix = scale * rot * trans;
 	m_Matrix = matrix;
 

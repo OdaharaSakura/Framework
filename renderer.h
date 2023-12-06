@@ -67,6 +67,8 @@ struct PARAMETER
 	D3DXCOLOR	baseColor;//HPバーの色
 	D3DXCOLOR	lostColor;//減少したHPバーの色
 	D3DXCOLOR	diffColor;//一時表示HPバーの色
+	float dissolveThreshold;
+	float dissolveRange;
 };
 
 

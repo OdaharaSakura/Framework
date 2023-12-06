@@ -47,7 +47,7 @@ void Child::Draw()
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans * m_Parent->GetMatrix();
 	Renderer::SetWorldMatrix(&world);
 

@@ -54,7 +54,7 @@ public:
 		D3DXMatrixTranslation(&trans, GetPosition().x, GetPosition().y, GetPosition().z);
 		world = scale * rot * trans * m_pMatrix * GetParent()->GetMatrix();
 
-		D3DXVec3TransformCoord(&m_worldPosition, &m_Position, &world);//ワールド座標
+		D3DXVec3TransformCoord(&m_worldPosition, &m_WorldPosition, &world);//ワールド座標
 
 		Renderer::SetWorldMatrix(&world);
 

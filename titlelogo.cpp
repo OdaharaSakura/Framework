@@ -20,12 +20,12 @@ void TitleLogo::Init()
 	m_Scale.x = SCREEN_WIDTH/3 * 2;
 	m_Scale.y = SCREEN_HEIGHT/3 * 2;
 
-	m_Position.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
-	m_Position.y = (SCREEN_HEIGHT / 3) - (m_Scale.y / 2) + 15.0f;
+	m_WorldPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
+	m_WorldPosition.y = (SCREEN_HEIGHT / 3) - (m_Scale.y / 2) + 15.0f;
 
 
 	m_Sprite = AddComponent<Sprite>();
-	m_Sprite->Init(m_Position.x, m_Position.y, m_Scale.x, m_Scale.y, "asset/texture/TitleLogo.png");//ã‚Ì‚Æ‚Ç‚Á‚¿‚Å‚à‚æ‚¢
+	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/TitleLogo.png");//ã‚Ì‚Æ‚Ç‚Á‚¿‚Å‚à‚æ‚¢
 
 	
 }
@@ -47,7 +47,7 @@ void TitleLogo::Update()
 
 
 	//ã‰ºˆÚ“®
-	m_Sprite->SetPositionY(m_Position.y + (std::sinf(m_Rot) * 15));;
+	m_Sprite->SetPositionY(m_WorldPosition.y + (std::sinf(m_Rot) * 15));;
 
 	m_Rot += 0.05f;
 	if (m_Rot >= 360.0f)
