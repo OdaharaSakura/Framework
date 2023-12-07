@@ -67,6 +67,10 @@ struct PARAMETER
 	D3DXCOLOR	baseColor;//HPバーの色
 	D3DXCOLOR	lostColor;//減少したHPバーの色
 	D3DXCOLOR	diffColor;//一時表示HPバーの色
+};
+
+struct DISSOLVE
+{
 	float dissolveThreshold;
 	float dissolveRange;
 };
@@ -97,6 +101,7 @@ private:
 	static ID3D11Buffer* m_LightBuffer;
 	static ID3D11Buffer* m_CameraBuffer;
 	static ID3D11Buffer* m_ParameterBuffer;
+	static ID3D11Buffer* m_DissolveBuffer;
 
 
 	static ID3D11DepthStencilState* m_DepthStateEnable;
@@ -128,6 +133,7 @@ public:
 
 	static void SetCameraPosition(CAMERA Camera);
 	static void SetParameter(PARAMETER param);
+	static void SetDissolve(DISSOLVE dissolve);
 
 
 	static ID3D11Device* GetDevice(void) { return m_Device; }

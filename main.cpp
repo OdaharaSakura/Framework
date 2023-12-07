@@ -8,9 +8,11 @@
 #include "../imgui/imgui_impl_win32.h"
 
 
-const char* CLASS_NAME = "AppClass";
-const char* WINDOW_NAME = "AT13A114_12_小田原さくら";
+const char* g_CLASS_NAME = "AppClass";
+const char* g_WINDOW_NAME = "AT13A114_12_小田原さくら";
 
+int g_CountFPS;				// FPS値
+char g_DebugStr[2048];		// ウィンドウキャプションにつなげて表示する情報
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -39,7 +41,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wcex.hbrBackground = nullptr;
 		wcex.lpszMenuName = nullptr;
-		wcex.lpszClassName = CLASS_NAME;
+		wcex.lpszClassName = g_CLASS_NAME;
 		wcex.hIconSm = nullptr;
 
 		RegisterClassEx(&wcex);
@@ -48,7 +50,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		RECT rc = { 0, 0, (LONG)SCREEN_WIDTH, (LONG)SCREEN_HEIGHT };
 		AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-		g_Window = CreateWindowEx(0, CLASS_NAME, WINDOW_NAME, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
+		g_Window = CreateWindowEx(0, g_CLASS_NAME, g_WINDOW_NAME, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
 			rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
 	}
 
@@ -68,7 +70,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	dwExecLastTime = timeGetTime();
 	dwCurrentTime = 0;
 
-
+	strcpy(g_DebugStr, g_WINDOW_NAME);
+	DWORD dwFPSLastTime = dwExecLastTime;
+	int dwFrameCount = 0;
 
 	MSG msg;
 	bool m_IsGameFinish = false;
@@ -95,18 +99,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			{
 				dwExecLastTime = dwCurrentTime;
 
+				dwFrameCount++;
+
 				if (!m_IsGameFinish)
 				Manager::Update();
 				m_IsGameFinish = Manager::GetIsGameFinish();
 				if (!m_IsGameFinish)
 				Manager::Draw();
+
+				if ((dwCurrentTime - dwFPSLastTime) >= 1000.0f)
+				{
+					g_CountFPS = dwFrameCount;
+					dwFPSLastTime = dwCurrentTime;
+					dwFrameCount = 0;
+					wsprintf(g_DebugStr, g_WINDOW_NAME);
+					wsprintf(&g_DebugStr[strlen(g_DebugStr)], " FPS:%d", g_CountFPS);
+					SetWindowText(g_Window, g_DebugStr);
+				}
 			}
 		}
 	} while (!m_IsGameFinish);
 
 	timeEndPeriod(1);
 
-	UnregisterClass(CLASS_NAME, wcex.hInstance);
+	UnregisterClass(g_CLASS_NAME, wcex.hInstance);
 
 	Manager::Uninit();
 

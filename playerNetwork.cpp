@@ -82,7 +82,7 @@ void PlayerNetWork::Update()
 {
 	GameObject::Update();
 	Scene* scene = Manager::GetScene();
-	D3DXVECTOR3 oldPosition = m_Position;
+	D3DXVECTOR3 oldPosition = m_WorldPosition;
 
 
 	//メモ：当たり判定コンポーネントにする（判定の仕方ごとに関数変える）
@@ -102,7 +102,7 @@ void PlayerNetWork::Update()
 	}
 
 	//移動
-	m_Position += m_Velocity;//オイラー法
+	m_WorldPosition += m_Velocity;//オイラー法
 
 		//プレイヤー当たり判定
 	std::vector<Player*> players = scene->GetGameObjects<Player>();
@@ -113,15 +113,15 @@ void PlayerNetWork::Update()
 		D3DXVECTOR3 scalexz = player->GetScale();
 
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if ((length * length) < (lengthxz * lengthxz))
 		{
-			m_Position.x = oldPosition.x;
-			m_Position.z = oldPosition.z;
+			m_WorldPosition.x = oldPosition.x;
+			m_WorldPosition.z = oldPosition.z;
 			m_Write->SetText("当たり！！");
 		}
 		else
@@ -139,7 +139,7 @@ void PlayerNetWork::Update()
 	float groundHeight;
 
 	MeshField* meshfield = scene->GetGameObject<MeshField>();
-	groundHeight = meshfield->GetHeight(m_Position);
+	groundHeight = meshfield->GetHeight(m_WorldPosition);
 
 	//円柱
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
@@ -149,17 +149,17 @@ void PlayerNetWork::Update()
 		D3DXVECTOR3 scale = cylinder->GetScale();
 		D3DXVECTOR3 scalexz = cylinder->GetScale();
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if (length < lengthxz)
 		{
-			if (m_Position.y < position.y + scale.y - 0.5f)
+			if (m_WorldPosition.y < position.y + scale.y - 0.5f)
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+				m_WorldPosition.x = oldPosition.x;
+				m_WorldPosition.z = oldPosition.z;
 			}
 
 			else
@@ -179,9 +179,9 @@ void PlayerNetWork::Update()
 
 
 	//接地
-	if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
+	if (m_WorldPosition.y < groundHeight && m_Velocity.y < 0.0f)
 	{
-		m_Position.y = groundHeight;
+		m_WorldPosition.y = groundHeight;
 		m_Velocity.y = 0.0f;
 		m_IsGround = true;
 	}
@@ -204,7 +204,7 @@ void PlayerNetWork::Draw()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	if (!camera->CheckView(m_Position)) return;
+	if (!camera->CheckView(m_WorldPosition)) return;
 
 	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
@@ -217,7 +217,7 @@ void PlayerNetWork::Draw()
 	D3DXMatrixScaling(&scale, m_modelScale.x, m_modelScale.y, m_modelScale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
 	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	matrix = scale * rot * trans;
 	m_Matrix = matrix;
 
@@ -249,22 +249,22 @@ void PlayerNetWork::UpdateGround()
 	////トップビュー
 	//if (Input::GetKeyPress('A'))
 	//{
-	//	m_Position.x -= 0.1f;
+	//	m_WorldPosition.x -= 0.1f;
 	// 		m_Rotation.y = -D3DX_PI * 0.5f;
 	//}
 	//if (Input::GetKeyPress('D'))
 	//{
-	//	m_Position.x += 0.1f;
+	//	m_WorldPosition.x += 0.1f;
 	// 		m_Rotation.y = D3DX_PI * 0.5f;
 	//}
 	//if (Input::GetKeyPress('W'))
 	//{
-	//	m_Position.z += 0.1f;
+	//	m_WorldPosition.z += 0.1f;
 	//	m_Rotation.y = D3DX_PI * 0.0f;
 	//}
 	//if (Input::GetKeyPress('S'))
 	//{
-	//	m_Position.z -= 0.1f;
+	//	m_WorldPosition.z -= 0.1f;
 	//	m_Rotation.y = D3DX_PI * 1.0f;
 	//}
 
@@ -274,14 +274,14 @@ void PlayerNetWork::UpdateGround()
 	key = m_PositionList.size();
 	if (key != 0)
 	{
-		if (m_PositionList[0] == m_Position)
+		if (m_PositionList[0] == m_WorldPosition)
 		{
 			m_PositionList.erase(m_PositionList.begin());
 		}
 		else
 		{
 			//サードパーソンビュー
-			if (m_PositionList[0].x < m_Position.x)
+			if (m_PositionList[0].x < m_WorldPosition.x)
 			{
 				if (m_NextAnimationName != "LeftRun")
 				{
@@ -290,7 +290,7 @@ void PlayerNetWork::UpdateGround()
 					m_BlendRate = 0.0f;
 				}
 				moveVec -= GetRight();
-				//m_Position.x -= 0.1f;
+				//m_WorldPosition.x -= 0.1f;
 
 				D3DXQUATERNION quat;
 				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -301,7 +301,7 @@ void PlayerNetWork::UpdateGround()
 				move = true;
 
 			}
-			if (m_PositionList[0].x > m_Position.x)
+			if (m_PositionList[0].x > m_WorldPosition.x)
 			{
 				if (m_NextAnimationName != "RightRun")
 				{
@@ -319,7 +319,7 @@ void PlayerNetWork::UpdateGround()
 				D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 				move = true;
 			}
-			if (m_PositionList[0].z > m_Position.z)
+			if (m_PositionList[0].z > m_WorldPosition.z)
 			{
 
 				if (m_NextAnimationName != "Run")
@@ -330,7 +330,7 @@ void PlayerNetWork::UpdateGround()
 				}
 
 				moveVec += GetForward();
-				//m_Position += m_Position.z * 0.1f;
+				//m_WorldPosition += m_WorldPosition.z * 0.1f;
 
 				D3DXQUATERNION quat;
 				D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -342,7 +342,7 @@ void PlayerNetWork::UpdateGround()
 				move = true;
 			}
 
-			if (m_PositionList[0].z < m_Position.z)
+			if (m_PositionList[0].z < m_WorldPosition.z)
 			{
 				if (m_NextAnimationName != "BackRun")
 				{

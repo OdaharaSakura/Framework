@@ -34,9 +34,9 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 	//ワイプ用テクスチャからサンプリング(rgbaからrだけ抽出する)
 	float dissolveValue = g_DissolveTexture.Sample(g_SamplerState, In.TexCoord);
 
-	float threshold = dissolveThreshold * (1.0f + dissolveRange) - dissolveRange;
+	float threshold = dissolve.dissolveThreshold * (1.0f + dissolve.dissolveRange) - dissolve.dissolveRange;
 
-	float rate = saturate((dissolveValue - threshold) / dissolveRange);
+	float rate = saturate((dissolveValue - threshold) / dissolve.dissolveRange);
 
 	outDiffuse.a = rate;
 

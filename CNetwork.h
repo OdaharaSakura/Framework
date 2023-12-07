@@ -1,16 +1,14 @@
 #pragma once
-//インクルード
-#include "main.h"
-#include <stdio.h>
+//�C���N���[�h
 #include <Winsock2.h>
-
-//定数定義
+#include "main.h"
+//�萔��`
 #define WSM_GETHOST WM_USER+1
 #define WSM_ASYNC WM_USER+2
 
-//データ型
+//�f�[�^�^
 
-enum NETACTION//通信メソッドをクラス外から汎用的に操作するために識別子を使う
+enum NETACTION//�ʐM���\�b�h���N���X�O����ėp�I�ɑ��삷�邽�߂Ɏ��ʎq���g��
 {
 	HOST_SESSION,
 	CONNECT_SESSION,
@@ -29,17 +27,14 @@ public:
 	CNETWORK();
 	~CNETWORK();
 	HRESULT Init(HWND);
-
 	INT DlgProc(HWND, UINT, WPARAM, LPARAM);
 	HRESULT DoAction(NETACTION, PVOID, DWORD);
-
 	HRESULT QueryNetPlayerAmt(BYTE*);
 private:
 	SOCKET m_socMine;
 	SOCKET m_socClient;
 	SOCKADDR_IN m_saServer;
 	SOCKADDR_IN m_saClient;
-
 	TCHAR m_szHostName[MAX_PATH + 1];
 	TCHAR m_szHostAddr[MAX_PATH + 1];
 	TCHAR m_szHostEntry[MAXGETHOSTSTRUCT + 1];
@@ -54,5 +49,4 @@ private:
 	VOID HostAsyncHandler(WPARAM, LPARAM);
 	VOID ClientAsyncHandler(WPARAM, LPARAM);
 	HRESULT Send(VOID*, DWORD);
-
 };

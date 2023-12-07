@@ -70,9 +70,20 @@ struct PARAMETER
 	float	dissolveThreshold;
 	float	dissolveRange;
 };
+
 cbuffer ParamBuffer : register(b6)
 {
 	PARAMETER param;
+}
+
+struct DISSOLVE
+{
+	float	dissolveThreshold;
+	float	dissolveRange;
+};
+cbuffer ParamBuffer : register(b7)
+{
+	DISSOLVE dissolve;
 }
 
 

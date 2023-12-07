@@ -34,8 +34,10 @@
 #include <dwrite.h>  
 #include <D2D1.h>
 #include <stdio.h>
+
 #include <windows.h>
 #include <assert.h>
+#include <mmsystem.h>
 #include <functional>
 
 #include <d3d11.h>

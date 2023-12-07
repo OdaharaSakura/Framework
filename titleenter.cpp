@@ -16,7 +16,7 @@ void TitleEnter::Init()
 	//Sprite* sprite = AddComponent<Sprite>();
 	//sprite->Init(0.0f, 0.0f, 200.0f, 200.0f, "asset/texture/field004.jpg");
 
-	//AddComponent<Sprite>()->Init(0.0f, m_Position.y, SCREEN_WIDTH, SCREEN_HEIGHT, "asset/texture/title.jpg");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	//AddComponent<Sprite>()->Init(0.0f, m_WorldPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, "asset/texture/title.jpg");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
 	m_Scale.x = SCREEN_WIDTH;
 	m_Scale.y = SCREEN_HEIGHT;

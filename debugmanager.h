@@ -9,6 +9,7 @@ private:
 	static class  Player* m_Player;
 
 	static class  Polygon2D* m_Polygon2D;
+	static class FPSCounter* m_FpsCounter;
 
 public:
 	static void Init();
