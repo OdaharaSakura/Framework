@@ -59,8 +59,8 @@ void Renderer::Init()
 	hr = D3D11CreateDeviceAndSwapChain(NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
-		NULL,
-		//D3D11_CREATE_DEVICE_BGRA_SUPPORT,
+		//NULL,
+		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		NULL,
 		0,
 		D3D11_SDK_VERSION,
@@ -69,6 +69,8 @@ void Renderer::Init()
 		&m_Device,
 		&m_FeatureLevel,
 		&m_DeviceContext);
+
+
 
 
 

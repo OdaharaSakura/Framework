@@ -21,8 +21,6 @@ bool show_another_window = false;
 void DebugManager::Init()
 {
 	m_Renderer = Manager::GetRenderer();
-	m_FpsCounter = new FPSCounter;
-	m_FpsCounter->~FPSCounter();
 
 	ImGui::CreateContext();
 	ImGui_ImplWin32_Init(GetWindow());
