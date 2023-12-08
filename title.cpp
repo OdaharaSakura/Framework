@@ -13,6 +13,7 @@
 #include "titleenter.h"
 #include "titleselect.h"
 #include "titlecursor.h"
+#include "loading.h"
 
 #include "audio.h"
 
@@ -35,14 +36,14 @@ void Title::Init()
 
 
 
-	//BGMçƒê∂
-	Audio* bgm;
-	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	bgm->Load("asset\\audio\\035_long_BPM60.wav");
-	bgm->Play(true);
+	////BGMçƒê∂
+	//Audio* bgm;
+	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//bgm->Load("asset\\audio\\035_long_BPM60.wav");
+	//bgm->Play(true);
 
-	m_ShotSE1 = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	m_ShotSE1->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
+	//m_ShotSE1 = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//m_ShotSE1->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
 }
 void Title::Uninit()
 {
@@ -53,17 +54,20 @@ void Title::Update()
 {
 	Scene::Update();
 
-	if (m_TitleEnter->GetIsPressEnter() && m_Phase == 0)
+	//if (m_TitleEnter->GetIsPressEnter() && m_Phase == 0)
+	//{
+	//	m_Phase++;
+	//	m_ShotSE1->Play(false);
+	//	m_TitleEnter->SetAlpha(0.0f);
+	//	m_TitleSelect->SetAlpha(1.0f);
+	//}
+
+
+
+	if (Input::GetKeyTrigger(VK_RETURN))
 	{
-		m_Phase++;
-		m_ShotSE1->Play(false);
-		m_TitleEnter->SetAlpha(0.0f);
-		m_TitleSelect->SetAlpha(1.0f);
+		Manager::SetScene<Loading>();
 	}
-
-
-
-	
 
 
 }

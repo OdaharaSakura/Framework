@@ -194,6 +194,8 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="loading.cpp" />
+    <ClCompile Include="loadinglogo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="meshField.cpp" />
@@ -270,6 +272,8 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="loading.h" />
+    <ClInclude Include="loadinglogo.h" />
     <ClInclude Include="loadModel.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />

@@ -234,6 +234,8 @@
     <ClCompile Include="write.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="networkTest.cpp" />
+    <ClCompile Include="loading.cpp" />
+    <ClCompile Include="loadinglogo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -434,6 +436,8 @@
     <ClInclude Include="playerNetwork.h" />
     <ClInclude Include="write.h" />
     <ClInclude Include="time.h" />
+    <ClInclude Include="loading.h" />
+    <ClInclude Include="loadinglogo.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

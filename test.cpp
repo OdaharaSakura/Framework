@@ -34,6 +34,7 @@
 
 
 Player* player;
+bool Test::m_LoadFinish = false;
 
 void Test::Load()
 {
@@ -44,6 +45,18 @@ void Test::Load()
 	Tree::Load();
 	TreasureBox::Load();
 	TreeBillboard::Load();
+	m_LoadFinish = true;
+}
+void Test::Unload()
+{
+	m_LoadFinish = false;
+	Bullet::Unload();
+	Enemy::Unload();
+	Earth::Unload();
+	Gauge::Unload();
+	Tree::Unload();
+	TreasureBox::Unload();
+	TreeBillboard::Unload();
 }
 D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix);
 static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
@@ -138,14 +151,7 @@ void Test::Uninit()
 {
 	Scene::Uninit();
 
-	Bullet::Unload();
-	Enemy::Unload();
-	Earth::Unload();
-	Gauge::Unload();
-	Tree::Unload();
-	TreasureBox::Unload();
-
-	TreeBillboard::Unload();
+	Unload();
 }
 
 void Test::Update()

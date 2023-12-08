@@ -6,26 +6,10 @@
 #include "camera.h"
 #include "tree_billboard.h"
 
+ID3D11Buffer* TreeBillboard::m_VertexBuffer;
 ID3D11ShaderResourceView* TreeBillboard::m_Texture;
 
 void TreeBillboard::Load()
-{
-	// テクスチャ読み込み
-	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
-		"asset/texture/tree.png",
-		NULL,
-		NULL,
-		&m_Texture,
-		NULL);
-	assert(m_Texture);
-}
-
-void TreeBillboard::Unload()
-{
-	m_Texture->Release();
-}
-
-void TreeBillboard::Init()
 {
 	VERTEX_3D vertex[4];
 
@@ -65,29 +49,34 @@ void TreeBillboard::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
+	// テクスチャ読み込み
+	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
+		"asset/texture/tree.png",
+		NULL,
+		NULL,
+		&m_Texture,
+		NULL);
+	assert(m_Texture);
+}
 
+void TreeBillboard::Unload()
+{
+	if(!m_VertexBuffer)m_VertexBuffer->Release();
+	if (!m_Texture)m_Texture->Release();
+}
 
-
-
-	//読み込むシェーダーはcsoファイルであることに注意
-	/*CRenderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "unlitColorVS.cso");
-	CRenderer::CreatePixelShader(&m_PixelShader, "unlitColorPS.cso");*/
+void TreeBillboard::Init()
+{
 
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
 		"shader\\unlitTexturePS.cso");
-
-
 }
 
 
 void TreeBillboard::Uninit()
 {
-
-	m_VertexBuffer->Release();
-
-
 	m_VertexLayout->Release();
 	m_VertexShader->Release();
 	m_PixelShader->Release();

@@ -5,6 +5,7 @@
 #include "input.h"
 #include "game.h"
 #include "test.h"
+#include "title.h"
 #include "networkTest.h"
 #include "audio.h"
 #include "debugmanager.h"
@@ -20,13 +21,13 @@ void Manager::Init()
 	m_Renderer = new Renderer();
 	m_Renderer->Init();
 
-	DebugManager::Init();
+	//DebugManager::Init();
 
 	Input::Init();
 	Audio::InitMaster();
 	m_IsGameFinish = false;
 
-	SetScene<Test>();
+	SetScene<Title>();
 }
 
 void Manager::Uninit()
@@ -36,7 +37,7 @@ void Manager::Uninit()
 
 	Audio::UninitMaster();
 	Input::Uninit();
-	DebugManager::Uninit();
+	//DebugManager::Uninit();
 	m_Renderer->Uninit();
 }
 
@@ -54,7 +55,7 @@ void Manager::Update()
 		m_Scene->Init();
 		m_NextScene = nullptr;
 	}
-	DebugManager::Update();
+	//DebugManager::Update();
 	if(m_Scene != nullptr) m_Scene->Update();
 }
 
@@ -82,7 +83,7 @@ void Manager::Draw()
 
 	if (m_Scene != nullptr)m_Scene->Draw();
 
-	DebugManager::Draw();
+	//DebugManager::Draw();
 
 	m_Renderer->End();
 
