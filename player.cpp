@@ -126,15 +126,15 @@ void Player::Update()
 		D3DXVECTOR3 scalexz = player->GetScale();
 
 
-		D3DXVECTOR3 direction = m_Position - position;
+		D3DXVECTOR3 direction = m_WorldPosition - position;
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		scalexz.y = 0.0f;
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if ((length * length) < (lengthxz * lengthxz))
 		{
-			m_Position.x = oldPosition.x;
-			m_Position.z = oldPosition.z;
+			m_WorldPosition.x = oldPosition.x;
+			m_WorldPosition.z = oldPosition.z;
 			m_Write->SetText("当たり！！");
 		}
 		else
@@ -335,22 +335,22 @@ void Player::UpdateGround()
 	////トップビュー
 	//if (Input::GetKeyPress('A'))
 	//{
-	//	m_Position.x -= 0.1f;
+	//	m_WorldPosition.x -= 0.1f;
 	// 		m_Rotation.y = -D3DX_PI * 0.5f;
 	//}
 	//if (Input::GetKeyPress('D'))
 	//{
-	//	m_Position.x += 0.1f;
+	//	m_WorldPosition.x += 0.1f;
 	// 		m_Rotation.y = D3DX_PI * 0.5f;
 	//}
 	//if (Input::GetKeyPress('W'))
 	//{
-	//	m_Position.z += 0.1f;
+	//	m_WorldPosition.z += 0.1f;
 	//	m_Rotation.y = D3DX_PI * 0.0f;
 	//}
 	//if (Input::GetKeyPress('S'))
 	//{
-	//	m_Position.z -= 0.1f;
+	//	m_WorldPosition.z -= 0.1f;
 	//	m_Rotation.y = D3DX_PI * 1.0f;
 	//}
 
@@ -389,7 +389,7 @@ void Player::UpdateGround()
 		}
 		
 		//moveVec += GetRight();
-		m_Position.x += 0.1f;
+		m_WorldPosition.x += 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -445,7 +445,7 @@ void Player::UpdateGround()
 	}
 
 	//D3DXVec3Normalize(&moveVec, &moveVec);
-	//m_Position += moveVec * 0.1f;
+	//m_WorldPosition += moveVec * 0.1f;
 
 
 

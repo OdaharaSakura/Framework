@@ -229,10 +229,11 @@
     </ClCompile>
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="DirectWrite.cpp" />
-    <ClCompile Include="networkTest.cpp" />
     <ClCompile Include="CNetwork_WS.cpp" />
     <ClCompile Include="playerNetwork.cpp" />
     <ClCompile Include="write.cpp" />
+    <ClCompile Include="time.cpp" />
+    <ClCompile Include="networkTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -432,6 +433,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="playerNetwork.h" />
     <ClInclude Include="write.h" />
+    <ClInclude Include="time.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
@@ -467,9 +469,6 @@
     <FxCompile Include="Shader\PercentageCloserFilteringVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="shader\dissolvePS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="Shader\litTextureColorPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
@@ -477,6 +476,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\wipePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\dissolvePS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

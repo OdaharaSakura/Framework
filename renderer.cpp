@@ -18,6 +18,7 @@ ID3D11Buffer* Renderer::m_MaterialBuffer{};
 ID3D11Buffer* Renderer::m_LightBuffer{};
 ID3D11Buffer* Renderer::m_CameraBuffer{};
 ID3D11Buffer* Renderer::m_ParameterBuffer{};
+ID3D11Buffer* Renderer::m_DissolveBuffer{};
 
 
 ID3D11DepthStencilState* Renderer::m_DepthStateEnable{};
@@ -58,6 +59,7 @@ void Renderer::Init()
 	hr = D3D11CreateDeviceAndSwapChain(NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
+		//NULL,
 		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		NULL,
 		0,
@@ -67,6 +69,8 @@ void Renderer::Init()
 		&m_Device,
 		&m_FeatureLevel,
 		&m_DeviceContext);
+
+
 
 
 
@@ -453,6 +457,11 @@ void Renderer::SetCameraPosition(CAMERA Camera)
 void Renderer::SetParameter(PARAMETER param)
 {
 	m_DeviceContext->UpdateSubresource(m_ParameterBuffer, 0, NULL, &param, 0, 0);
+}
+
+void Renderer::SetDissolve(DISSOLVE dissolve)
+{
+	m_DeviceContext->UpdateSubresource(m_DissolveBuffer, 0, NULL, &dissolve, 0, 0);
 }
 
 

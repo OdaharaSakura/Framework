@@ -53,7 +53,7 @@ void Write::Draw()
 
 	//write->DrawString(testtext, D2D1::RectF(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT), D2D1_DRAW_TEXT_OPTIONS_NONE);
 
-	D3DXVECTOR2 pos = D3DXVECTOR2(m_Position.x, m_Position.y);
+	D3DXVECTOR2 pos = D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y);
 	write->DrawString(testtext, pos, D2D1_DRAW_TEXT_OPTIONS_NONE);
 
 	//基底クラスのメソッド呼び出し

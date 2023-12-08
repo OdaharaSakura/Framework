@@ -215,6 +215,7 @@
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="titlebg.cpp" />
     <ClCompile Include="titlecursor.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="sprite.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testObj.h" />
+    <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titlebg.h" />
     <ClInclude Include="titlecursor.h" />
@@ -320,9 +322,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="shader\dissolvePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Shader\gaugePS.hlsl">

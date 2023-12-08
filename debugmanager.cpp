@@ -7,11 +7,13 @@
 #include "player.h"
 #include "polygon2D.h"
 
+
 #include <string>
 
 Renderer* DebugManager::m_Renderer{};
 Player* DebugManager::m_Player{};
 Polygon2D* DebugManager::m_Polygon2D{};
+FPSCounter* DebugManager::m_FpsCounter{};
 
 bool show_demo_window = true;
 bool show_another_window = false;
@@ -19,7 +21,6 @@ bool show_another_window = false;
 void DebugManager::Init()
 {
 	m_Renderer = Manager::GetRenderer();
-
 
 	ImGui::CreateContext();
 	ImGui_ImplWin32_Init(GetWindow());
@@ -71,7 +72,7 @@ void DebugManager::Draw()
         }
         ImGui::EndMenuBar();
     }
-
+	
 	ImGui::Text("\nPlayer");
 	D3DXVECTOR3 i = m_Player->GetPosition();
 	D3DXVECTOR3 r = m_Player->GetRotation();
@@ -80,6 +81,7 @@ void DebugManager::Draw()
 	ImGui::InputFloat("positionX", &i.x);
 	ImGui::InputFloat("positionY", &i.y);
 	ImGui::InputFloat("positionZ", &i.z);
+
 
 	const char* cd = "aaaaaaaaaaaaaaa";
 	char c = *cd;

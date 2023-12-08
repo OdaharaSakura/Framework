@@ -2,36 +2,18 @@
 #include "manager.h"
 #include "renderer.h"
 #include "networkTest.h"
-#include "result.h"
-#include "gameover.h"
-#include "input.h"
-
-#include "camera.h"
-#include "meshfield.h"
-#include "polygon2D.h"
-#include "playerNetwork.h"
-#include "enemy.h"
-#include "bullet.h"
-#include "explosion.h"
-#include "cylinder.h"
-#include "box.h"
-#include "score.h"
-#include "audio.h"
-#include "sky.h"
-#include "fade.h"
-#include "gauge.h"
-#include "polygon2D.h"
-#include "playerGauge.h"
-#include "earth.h"
-#include "child.h"
-#include "tree.h"
-#include "tree_billboard.h"
-#include "countdown.h"
-#include "gamelogo.h"
-#include "treasureBox.h"
-#include "collider.h"
 #include "CNetwork.h"
+#include "playerNetwork.h"
+#include "player.h"
+#include "meshfield.h"
+#include "camera.h"
 #include "write.h"
+#include "tree_billboard.h"
+#include "sky.h"
+#include "cylinder.h"
+#include "earth.h"
+
+#include <winuser.h>
 
 #define STAGE_CONNECTING 1
 #define STAGE_PLAYING 2
@@ -45,47 +27,19 @@ void NetWorkTest::Load()
 	Earth::Load();
 	TreeBillboard::Load();
 }
-D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix);
-static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
-{
-	D3DXMATRIX fuse;
-
-	fuse._11 = aiMatrix.a1;
-	fuse._12 = aiMatrix.b1;
-	fuse._13 = aiMatrix.c1;
-	fuse._14 = aiMatrix.d1;
-
-	fuse._21 = aiMatrix.a2;
-	fuse._22 = aiMatrix.b2;
-	fuse._23 = aiMatrix.c2;
-	fuse._24 = aiMatrix.d2;
-
-	fuse._31 = aiMatrix.a3;
-	fuse._32 = aiMatrix.b3;
-	fuse._33 = aiMatrix.c3;
-	fuse._34 = aiMatrix.d3;
-
-	fuse._41 = aiMatrix.a4;
-	fuse._42 = aiMatrix.b4;
-	fuse._43 = aiMatrix.c4;
-	fuse._44 = aiMatrix.d4;
-
-
-	return fuse;
-}
 
 
 void NetWorkTest::Init()
 {
 	Load();
 
-	// é€šä¿¡ç”¨ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
+	// ’ÊM—pƒNƒ‰ƒX‚Ì‰Šú‰»
 	if (FAILED(Net.Init(GetWindow())))
 	{
-		MessageBox(0, "é€šä¿¡ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–ãŒå‡ºæ¥ã¾ã›ã‚“", "", MB_OK);
+		MessageBox(0, "’ÊMƒNƒ‰ƒX‚Ì‰Šú‰»‚ªo—ˆ‚Ü‚¹‚ñ", "", MB_OK);
 	}
 
-	AddGameObject<Camera>(CAMERA_LAYER);//ç™»éŒ²ã™ã‚‹Listã®ç¨®é¡ã‚’å¤‰ãˆã‚‹
+	AddGameObject<Camera>(CAMERA_LAYER);//“o˜^‚·‚éList‚Ìí—Ş‚ğ•Ï‚¦‚é
 	AddGameObject<Sky>(OBJECT_3D_LAYER);
 	MeshField* meshField = AddGameObject<MeshField>(OBJECT_3D_LAYER);
 
@@ -140,8 +94,8 @@ void NetWorkTest::Update()
 
 		D3DXVECTOR3 playerNetworkPosition = m_playerNetwork->GetPosition();
 		D3DXVECTOR3 playerPosition = m_player->GetPosition();
-		Net.DoAction(RECIEVE_BINARYDATA, &playerNetworkPosition, sizeof(playerNetworkPosition));
-		Net.DoAction(SEND_BINARYDATA, &playerPosition, sizeof(playerPosition));
+		Net.DoAction(RECIEVE_BINARYDATA, &playerNetworkPosition, sizeof(D3DXVECTOR3));
+		Net.DoAction(SEND_BINARYDATA, &playerPosition, sizeof(D3DXVECTOR3));
 		m_playerNetwork->SetPosition(playerNetworkPosition);
 
 	/*	if (Net.m_boHosting)
@@ -162,7 +116,7 @@ void NetWorkTest::Update()
 		//}
 		//if (m_Fade->GetFadeOutFinish())
 		//{
-		//	Manager::SetScene<Result>();//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã«ç§»è¡Œ
+		//	Manager::SetScene<Result>();//ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚µ‚½‚çƒQ[ƒ€ƒV[ƒ“‚ÉˆÚs
 		//}
 		break;
 	}
@@ -174,35 +128,35 @@ HRESULT NetWorkTest::Connect()
 	if (!g_boConnected)
 	{
 		g_boConnected = TRUE;
-		// ãƒ›ã‚¹ãƒˆ		 
+		// ƒzƒXƒg		 
 		if (Net.m_boHosting)
 		{
-			if (FAILED(Net.DoAction(HOST_SESSION, (PVOID)L"ã‚·ãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ _DP", NULL)))
+			if (FAILED(Net.DoAction(HOST_SESSION, (PVOID)"ƒVƒ“ƒvƒ‹ƒQ[ƒ€_DP", NULL)))
 			{
-				MessageBox(0, "ãƒ›ã‚¹ãƒˆã¨ã—ã¦ã®å¾…æ©Ÿå¤±æ•—", "ã‚¨ãƒ©ãƒ¼", MB_OK);
+				MessageBox(0, "ƒzƒXƒg‚Æ‚µ‚Ä‚Ì‘Ò‹@¸”s", "", MB_OK);
 				return E_FAIL;
 			}
 		}
-		// ã‚²ã‚¹ãƒˆ
+		// ƒQƒXƒg
 		else
 		{
-			if (FAILED(Net.DoAction(CONNECT_SESSION, (PVOID)L"ã‚·ãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ _DP", NULL)))
+			if (FAILED(Net.DoAction(CONNECT_SESSION, (PVOID)L"ƒVƒ“ƒvƒ‹ƒQ[ƒ€_DP", NULL)))
 			{
-				MessageBox(0, "ãƒ›ã‚¹ãƒˆã¸ã®æ¥ç¶šå¤±æ•—", "ã‚¨ãƒ©ãƒ¼", MB_OK);
+				MessageBox(0, "ƒzƒXƒg‚Ö‚ÌÚ‘±¸”s", "", MB_OK);
 				return E_FAIL;
 			}
 		}
 	}
 	BYTE bPlayer = 0;
-	CHAR szStr[MAX_PATH + 1];
-	//ãƒ›ã‚¹ãƒˆ	
+	//CHAR szStr[MAX_PATH + 1];
+	//ƒzƒXƒg	
 	Net.QueryNetPlayerAmt(&bPlayer);
 	if (Net.m_boHosting)
 	{
 
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°: 1 \nãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒ2äººã«ãªã‚‹ã¾ã§å¾…æ©Ÿã—ã¾ã™");
+			m_Write->SetText("ƒvƒŒƒCƒ„[”: 1 \nƒvƒŒƒCƒ„[‚ª2l‚É‚È‚é‚Ü‚Å‘Ò‹@‚µ‚Ü‚·");
 		}
 		else
 		{
@@ -210,12 +164,12 @@ HRESULT NetWorkTest::Connect()
 			g_Stage = STAGE_PLAYING;
 		}
 	}
-	//ã‚²ã‚¹ãƒˆ		 
+	//ƒQƒXƒg		 
 	else
 	{
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°: 1 \nãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒ2äººã«ãªã‚‹ã¾ã§å¾…æ©Ÿã—ã¾ã™");
+			m_Write->SetText("ƒvƒŒƒCƒ„[”: 1 \nƒvƒŒƒCƒ„[‚ª2l‚É‚È‚é‚Ü‚Å‘Ò‹@‚µ‚Ü‚·");
 		}
 		else
 		{

@@ -70,8 +70,10 @@ D3DXVECTOR3 GameObject::GetRight()
 D3DXVECTOR3 GameObject::GetUp()
 {
     D3DXMATRIX rot;
-    D3DXQUATERNION q = GetWorldRotation();
-    D3DXMatrixRotationQuaternion(&rot, &q);
+    /*D3DXQUATERNION q = GetRotation();
+    D3DXMatrixRotationQuaternion(&rot, &q);*/
+    D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+    D3DXVECTOR3 right;
     D3DXVECTOR3 up;
     up.x = rot._21;
     up.y = rot._22;
