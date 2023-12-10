@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <chrono>
-class Time 
+class Time
 {
 private:
 
@@ -15,5 +15,5 @@ public:
 	void Update();
 	void Draw();
 
-	
-	}
+
+};
