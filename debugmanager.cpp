@@ -88,7 +88,6 @@ void DebugManager::Draw()
 
 	ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
 	if (ImGui::Button("InputText")) {
-		m_Polygon2D->SetText(c);
 	}
 
 	ImGui::End();

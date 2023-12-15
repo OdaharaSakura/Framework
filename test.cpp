@@ -5,7 +5,7 @@
 #include "result.h"
 #include "gameover.h"
 #include "input.h"
-
+#include "collision.h"
 #include "camera.h"
 #include "meshfield.h"
 #include "polygon2D.h"
@@ -90,41 +90,37 @@ static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
 
 void Test::Init()
 {
-	Load();
-
-	AddGameObject<Camera>(CAMERA_LAYER);//ìoò^Ç∑ÇÈListÇÃéÌóﬁÇïœÇ¶ÇÈ
-	AddGameObject<Sky>(OBJECT_3D_LAYER);
-	MeshField* meshField = AddGameObject<MeshField>(OBJECT_3D_LAYER);
+	AddGameObject<Camera>(LAYER_CAMERA);//ìoò^Ç∑ÇÈListÇÃéÌóﬁÇïœÇ¶ÇÈ
+	AddGameObject<Sky>(LAYER_OBJECT_3D);
+	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 
 
-	AddGameObject<Cylinder>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	AddGameObject<Cylinder>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
 
-	player = AddGameObject<Player>(OBJECT_3D_LAYER);
-	m_SphereCollider = player->AddComponent<SphereCollider>();
-	m_SphereCollider->m_testObj->SetParent(player);
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	player = AddGameObject<Player>(LAYER_OBJECT_3D);
+	//m_SphereCollider = player->AddComponent<SphereCollider>();
+	//m_SphereCollider->m_testObj->SetParent(player);
+	//TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
+	//test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 
 	player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
 
-	AddGameObject<Enemy>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 	//SetEnemy();
 	//SetTree();
 
+	//AddGameObject<TreasureBox>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
 
-	PlayerGauge* playerGauge = AddGameObject<PlayerGauge>(OBJECT_2D_LAYER);
-	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
-	playerGauge->SetPlayerParent(player);
-	AddGameObject<TreasureBox>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	
 
 	srand(0);
 
 	for (int i = 0; i < 20; i++)
 	{
-		TreeBillboard* treeBillboard = AddGameObject<TreeBillboard>(OBJECT_3D_LAYER);
+		TreeBillboard* treeBillboard = AddGameObject<TreeBillboard>(LAYER_OBJECT_3D);
 
 		D3DXVECTOR3 pos;
 		pos.x = (float)rand() / RAND_MAX * 100.0f - 50.0f;
@@ -133,13 +129,15 @@ void Test::Init()
 
 		treeBillboard->SetPosition(pos);
 	}
-
+	PlayerGauge* playerGauge = AddGameObject<PlayerGauge>(LAYER_OBJECT_2D);
+	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
+	playerGauge->SetPlayerParent(player);
 
 	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
-	AddGameObject<Polygon2D>(OBJECT_2D_LAYER);
+	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
 	//AddGameObject<GameLogo>(OBJECT_2D_LAYER);
 
-	m_Fade = AddGameObject<Fade>(OBJECT_2D_LAYER);
+	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
 	////BGMçƒê∂
 	//Audio* bgm;
 	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
@@ -158,6 +156,8 @@ void Test::Update()
 {
 	Scene::Update();
 
+	//Collision::CheckSphereCollider();
+
 	if (Input::GetKeyPress(VK_F2))
 	{
 		m_Fade->SetIsFadeOut();
@@ -168,8 +168,8 @@ void Test::Update()
 		Manager::SetScene<Result>();//ÉGÉìÉ^Å[ÉLÅ[ÇâüÇµÇΩÇÁÉQÅ[ÉÄÉVÅ[ÉìÇ…à⁄çs	
 	}
 
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	//TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
+	//test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 
 

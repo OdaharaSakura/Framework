@@ -20,29 +20,29 @@
 
 void Title::Init()
 {
-	ResultCamera* camera = AddGameObject<ResultCamera>(0);
+	ResultCamera* camera = AddGameObject<ResultCamera>(LAYER_CAMERA);
 	camera->Setoffset(D3DXVECTOR3(2.0f, 1.0f, 0.0f));
-	AddGameObject<ResultSky>(1);
-	ResultPlayer* player = AddGameObject<ResultPlayer>(1);
+	AddGameObject<ResultSky>(LAYER_OBJECT_3D);
+	ResultPlayer* player = AddGameObject<ResultPlayer>(LAYER_OBJECT_3D);
 	player->SetPosition(D3DXVECTOR3(1.0f, 0.0f, 0.0f));
 	//AddGameObject<TitleBG>(2);
-	AddGameObject<TitleLogo>(2);
+	AddGameObject<TitleLogo>(LAYER_OBJECT_2D);
 	
-	m_TitleSelect = AddGameObject<TitleSelect>(2);
+	m_TitleSelect = AddGameObject<TitleSelect>(LAYER_OBJECT_2D);
 	m_TitleSelect->SetAlpha(0.0f);
-	m_TitleCursor = AddGameObject<TitleCursor>(2);
+	m_TitleCursor = AddGameObject<TitleCursor>(LAYER_OBJECT_2D);
 	m_TitleCursor->SetAlpha(0.0f);
-	m_TitleEnter = AddGameObject<TitleEnter>(2);
+	m_TitleEnter = AddGameObject<TitleEnter>(LAYER_OBJECT_2D);
 
 
 
 	////BGMçƒê∂
 	//Audio* bgm;
-	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//bgm = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();
 	//bgm->Load("asset\\audio\\035_long_BPM60.wav");
 	//bgm->Play(true);
 
-	//m_ShotSE1 = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//m_ShotSE1 = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();
 	//m_ShotSE1->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
 }
 void Title::Uninit()
@@ -54,20 +54,11 @@ void Title::Update()
 {
 	Scene::Update();
 
-	//if (m_TitleEnter->GetIsPressEnter() && m_Phase == 0)
-	//{
-	//	m_Phase++;
-	//	m_ShotSE1->Play(false);
-	//	m_TitleEnter->SetAlpha(0.0f);
-	//	m_TitleSelect->SetAlpha(1.0f);
-	//}
-
-
-
-	if (Input::GetKeyTrigger(VK_RETURN))
+	if (m_TitleEnter->GetIsPressEnter() && m_Phase == 0)
 	{
-		Manager::SetScene<Loading>();
+		m_Phase++;
+		//m_ShotSE1->Play(false);
+		m_TitleEnter->SetAlpha(0.0f);
+		m_TitleSelect->SetAlpha(1.0f);
 	}
-
-
 }

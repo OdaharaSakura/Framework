@@ -37,7 +37,7 @@ void Enemy::Init()
 
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
-	Gauge* gauge = scene->AddGameObject<Gauge>(1);
+	Gauge* gauge = scene->AddGameObject<Gauge>(LAYER_OBJECT_3D);
 	gauge->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 3.0f, m_WorldPosition.z));
 	gauge->SetEnemyParent(this);
 
@@ -90,7 +90,7 @@ void Enemy::Update()
 	{
 
 		Enemy* enemy;
-		enemy = scene->AddGameObject<Enemy>(1);
+		enemy = scene->AddGameObject<Enemy>(LAYER_OBJECT_3D);
 		enemy->SetGameObject(m_StartPosition, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_StartScale);
 
 		SetDestroy();

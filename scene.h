@@ -1,6 +1,7 @@
 #pragma once
 #include "gameObject.h"
-#include "collision.h"
+
+
 
 #include <list>
 #include <typeinfo>
@@ -9,25 +10,26 @@
 
 enum ObjectLayer
 {
-	CAMERA_LAYER,
-	OBJECT_3D_LAYER,
-	COLLIDER_LAYER,
-	OBJECT_2D_LAYER,
-	MAX_LAYER
+	LAYER_OBJECT_NOTDRAW,
+	LAYER_CAMERA,
+	LAYER_OBJECT_3D,
+	LAYER_COLLIDER,
+	LAYER_OBJECT_2D,
+	LAYER_MAX
 };
 
 class Scene
 {
 protected:
 
-	std::list<GameObject*> m_GameObject[MAX_LAYER];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
+	std::list<GameObject*> m_GameObject[LAYER_MAX];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
 
 public:
 	virtual void Init() {}
 
 	virtual void Uninit()
 	{
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -41,7 +43,7 @@ public:
 
 	virtual void Update()
 	{
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -50,13 +52,11 @@ public:
 			m_GameObject[i].remove_if([](GameObject* object)
 				{return object->Destroy();});//ラムダ式
 		}
-
-		//Collision::CheckSphereCollider();
 	}
 
 	virtual void Draw() 
 	{
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
@@ -78,7 +78,7 @@ public:
 	template <typename T>//テンプレート関数
 	T* GetGameObject()
 	{
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
@@ -96,7 +96,7 @@ public:
 	std::vector<T*> GetGameObjects()
 	{
 		std::vector<T*> objects;
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
@@ -111,7 +111,7 @@ public:
 
 	void DepthPath()
 	{
-		for (int i = 0; i < MAX_LAYER; i++)
+		for (int i = 0; i < LAYER_MAX; i++)
 		{
 			for (auto var : m_GameObject[i])
 			{
@@ -121,6 +121,18 @@ public:
 				}
 			}
 		}
+	}
+
+	D3DXVECTOR3 GetPlayerPosition()
+	{
+		for (auto var : m_GameObject[LAYER_OBJECT_3D])
+		{
+			if (var->GetPlayer() == true)
+			{
+				return var->GetPosition();
+			}
+		}
+		return D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	}
 
 };

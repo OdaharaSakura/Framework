@@ -1,13 +1,27 @@
 #pragma once
+#include "gameObject.h"
 
 #include <iostream>
-#include <chrono>
-class Time 
+#include <string>
+
+enum MonthType
+{
+	Spring,
+	Summer,
+	Autumn,
+	Winter
+};
+
+
+class Time : public GameObject
 {
 private:
+	std::string m_month{};
+	std::string m_time{};
 
-	class DirectWrite* write;
-	std::string testtext;
+	int m_Month = MonthType::Spring;
+	int m_Hours = 6;
+	int m_Minutes{};
 
 public:
 	void Init();
@@ -15,5 +29,4 @@ public:
 	void Update();
 	void Draw();
 
-	
-	}
+};

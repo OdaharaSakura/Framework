@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component.h"
+#include "main.h"
 
 #include <list>
 #include <vector>
@@ -15,6 +16,8 @@ protected:
 	bool		m_IsActive = true;		
 	bool		m_IsDestroy = false;
 	bool		m_IsStatic = false;
+
+	bool		m_IsPlayer = false;
 
 	D3DXVECTOR3 m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_LocalPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -65,6 +68,10 @@ public:
 	void SetPosScale(D3DXVECTOR3 position, D3DXVECTOR3 scale);
 
 	void SetGameObject(D3DXVECTOR3 position, D3DXVECTOR3 rotation, D3DXVECTOR3 scale);
+	void SetDepthShadow() { m_IsDisplayShadow = true; }
+	void SetParent(GameObject* Parent) { m_Parent = Parent; }
+	void SetPlayer() { m_IsPlayer = true; }
+	
 
 	D3DXVECTOR3 GetPosition() { return m_WorldPosition; }
 	D3DXVECTOR3 GetRotation() { return m_Rotation; }
@@ -75,9 +82,10 @@ public:
 	D3DXVECTOR3 GetUp();//ã•ûŒüƒxƒNƒgƒ‹Žæ“¾
 
 	D3DXMATRIX GetMatrix() { return m_Matrix; }
-	void SetParent(GameObject* Parent) { m_Parent = Parent; }
+	
 
 	bool GetDepthShadow() { return m_IsDisplayShadow; }
+	bool GetPlayer() { return m_IsPlayer; }
 	GameObject* GetParent() { return m_Parent; }
 
 
@@ -87,6 +95,7 @@ public:
 	{
 		Component* component = new T();
 		m_ComponentList.push_back(component);
+		component->SetAttachObject(this);
 		component->Init();
 
 		return (T*)component;

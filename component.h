@@ -18,4 +18,6 @@ public:
 	virtual void SetDestroy() { m_IsDestroy = true; }
 	// íœˆ—
 	void Destroy();
+
+	void SetAttachObject(GameObject* gameobject) { m_AttachObject = gameobject; }
 };

@@ -52,14 +52,13 @@ void Renderer::Init()
 	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.OutputWindow = GetWindow();
-	swapChainDesc.SampleDesc.Count = 8;//1->8マルチサンプルアンチエイリアシング(zバッファのみ8ピクセルで計算)
+	swapChainDesc.SampleDesc.Count = 1;//8;//1->8マルチサンプルアンチエイリアシング(zバッファのみ8ピクセルで計算)
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.Windowed = TRUE;
 
 	hr = D3D11CreateDeviceAndSwapChain(NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
-		//NULL,
 		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		NULL,
 		0,
@@ -69,11 +68,6 @@ void Renderer::Init()
 		&m_Device,
 		&m_FeatureLevel,
 		&m_DeviceContext);
-
-
-
-
-
 
 
 
@@ -91,7 +85,7 @@ void Renderer::Init()
 	textureDesc.Height = swapChainDesc.BufferDesc.Height;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
-	textureDesc.Format = DXGI_FORMAT_D16_UNORM;
+	textureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;//DXGI_FORMAT_D16_UNORM;
 	textureDesc.SampleDesc = swapChainDesc.SampleDesc;
 	textureDesc.Usage = D3D11_USAGE_DEFAULT;
 	textureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
@@ -102,7 +96,7 @@ void Renderer::Init()
 	// デプスステンシルビュー作成
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
 	depthStencilViewDesc.Format = textureDesc.Format;
-	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;//D3D11_DSV_DIMENSION_TEXTURE2D→D3D11_DSV_DIMENSION_TEXTURE2DMSマルチサンプルアンチエイリアシングに設定
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;//D3D11_DSV_DIMENSION_TEXTURE2D→D3D11_DSV_DIMENSION_TEXTURE2DMSマルチサンプルアンチエイリアシングに設定
 	depthStencilViewDesc.Flags = 0;
 	m_Device->CreateDepthStencilView(depthStencile, &depthStencilViewDesc, &m_DepthStencilView);
 	depthStencile->Release();
@@ -542,12 +536,12 @@ void Renderer::SetDepthViewPort()
 {
 	// ビューポート設定
 	D3D11_VIEWPORT vp;
-	vp.Width = (FLOAT)SCREEN_WIDTH * 4;
-	vp.Height = (FLOAT)SCREEN_HEIGHT * 4;
+	vp.Width = (FLOAT)SCREEN_WIDTH;
+	vp.Height = (FLOAT)SCREEN_HEIGHT;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 15;
+	vp.TopLeftX = 10;
+	vp.TopLeftY = 10;
 	m_DeviceContext->RSSetViewports(1, &vp);
 }
 

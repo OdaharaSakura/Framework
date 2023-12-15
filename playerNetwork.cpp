@@ -19,7 +19,7 @@
 #include "meshField.h"
 #include "camera.h"
 #include "collider.h"
-#include "write.h"
+#include "text.h"
 
 
 
@@ -55,10 +55,6 @@ void PlayerNetWork::Init()
 	 //m_ShotSE->Load("asset\\audio\\Œ•‚ÅŽa‚é3.wav");
 
 	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
-
-	m_Write = scene->AddGameObject<Write>(OBJECT_2D_LAYER);
-
-	m_Write->SetPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
 	 
 
 	 m_AttackDelaynum = 0;
@@ -122,11 +118,9 @@ void PlayerNetWork::Update()
 		{
 			m_WorldPosition.x = oldPosition.x;
 			m_WorldPosition.z = oldPosition.z;
-			m_Write->SetText("“–‚½‚èII");
 		}
 		else
 		{
-			m_Write->SetText("");
 		}
 		
 		if (length < lengthxz * lengthxz)

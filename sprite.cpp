@@ -122,3 +122,15 @@ void Sprite::Draw()
 	// ポリゴン描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }
+
+void Sprite::SetTexture(const char* TextureName)
+{
+	//テクスチャ読み込み
+	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
+		TextureName,
+		NULL,
+		NULL,
+		&m_Texture,
+		NULL);
+	assert(m_Texture);
+}

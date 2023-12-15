@@ -18,8 +18,9 @@
 #include "meshField.h"
 #include "camera.h"
 #include "collider.h"
-#include "write.h"
+#include "text.h"
 #include "playerNetwork.h"
+#include "shader.h"
 
 
 void Player::Init()
@@ -39,27 +40,19 @@ void Player::Init()
 	m_AnimationName = "Idol";
 	m_NextAnimationName = "Idol";
 
-	m_IsDisplayShadow = true;
 
-	m_modelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_modelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	SetPlayer();//Sceneにpositionを渡すための
+	m_IsPlayer = true;
 
-	m_Write = scene->AddGameObject<Write>(OBJECT_2D_LAYER);
-
-	m_Write->SetPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
-
-	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\PercentageCloserFilteringPS.cso");
-
+	AddComponent<PercentageCloserFiltering>();//影
 
 	 //m_ShotSE = AddComponent<Audio>();
 	 //m_ShotSE->Load("asset\\audio\\剣で斬る3.wav");
 
 	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
 	 
-
 	 m_AttackDelaynum = 0;
 	 m_IsAttackflg = false;
 	 m_Attackflg = false;
@@ -72,9 +65,9 @@ void Player::Uninit()
 	m_Model->Unload();
 	delete m_Model;
 
-	m_VertexLayout->Release();
+	/*m_VertexLayout->Release();
 	m_VertexShader->Release();
-	m_PixelShader->Release();
+	m_PixelShader->Release();*/
 }
 
 void Player::Update()
@@ -135,11 +128,10 @@ void Player::Update()
 		{
 			m_WorldPosition.x = oldPosition.x;
 			m_WorldPosition.z = oldPosition.z;
-			m_Write->SetText("当たり！！");
 		}
 		else
 		{
-			m_Write->SetText("");
+
 		}
 		if (length < lengthxz * lengthxz)
 		{
@@ -292,11 +284,11 @@ void Player::Draw()
 
 	if (!camera->CheckView(m_WorldPosition)) return;
 
-	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	// 使用するシェーダを設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
+	//// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
+	//Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+	//// 使用するシェーダを設定
+	//Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
+	//Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
@@ -309,11 +301,11 @@ void Player::Draw()
 
 	Renderer::SetWorldMatrix(&matrix);
 
-	//シャドウバッファテクスチャを１番へセット
-	ID3D11ShaderResourceView* depthShadowTexture =
-	Renderer::GetDepthShadowTexture();
-	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
-		&depthShadowTexture);
+	////シャドウバッファテクスチャを１番へセット
+	//ID3D11ShaderResourceView* depthShadowTexture =
+	//Renderer::GetDepthShadowTexture();
+	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
+	//	&depthShadowTexture);
 	
 	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
 
@@ -371,9 +363,11 @@ void Player::UpdateGround()
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, -D3DX_PI / 2.0f);//(左方向に90度)
+
+		float angle = atan2f(cameraForward.x, cameraForward.z);
+		D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
 		//m_Quaternion = quat;
-		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);//球面変形補間
+		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 
 		move = true;
 		if (m_IsConnectNetWork) m_InputData = 'A';
@@ -393,7 +387,9 @@ void Player::UpdateGround()
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI / 2.0f);//(左方向に90度)
+
+		float angle = atan2f(cameraForward.x, cameraForward.z);
+		D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
 		//m_Quaternion = quat;
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
@@ -433,11 +429,14 @@ void Player::UpdateGround()
 		}
 
 		//moveVec -= GetForward();
-		m_WorldPosition.z -= 0.1f;
+		m_WorldPosition -= cameraForward * 0.1f;
+		//m_WorldPosition.z -= 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		D3DXQuaternionRotationAxis(&quat, &axis, D3DX_PI);//(左方向に90度)
+
+		float angle = atan2f(cameraForward.x, cameraForward.z);
+		D3DXQuaternionRotationAxis(&quat, &axis, angle);//(左方向に90度)
 		//m_Quaternion = quat;
 		D3DXQuaternionSlerp(&m_Quaternion, &m_Quaternion, &quat, 0.1f);
 		move = true;
@@ -487,7 +486,7 @@ void Player::UpdateGround()
 	{
 		D3DXVECTOR3 earthPosition;
 		earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
-		scene->AddGameObject<Earth>(1)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
+		scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
 
 	}
 

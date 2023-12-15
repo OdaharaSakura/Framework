@@ -23,10 +23,6 @@ private:
 	char m_InputData{};
 
 
-	ID3D11VertexShader* m_VertexShader{};
-	ID3D11PixelShader* m_PixelShader{};
-	ID3D11InputLayout* m_VertexLayout{};
-
 	D3DXVECTOR3			m_Velocity{};
 	D3DXVECTOR3			m_modelScale{};
 	D3DXQUATERNION		m_Quaternion{};
@@ -49,7 +45,6 @@ private:
 	bool m_IsAttackflg{};//アタックできるか(敵の範囲内に入ったら)
 	bool m_Attackflg{};//攻撃したか
 
-	class Write* m_Write = nullptr;
 
 	enum Animation {
 		IDOL,
