@@ -65,7 +65,9 @@ void Manager::Draw()
 	LIGHT light;
 	light.Enable = true;
 
-	LightInitialize(&light, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	D3DXVECTOR3 testposition = m_Scene->GetPlayerPosition();
+
+	LightInitialize(&light, testposition);
 
 	//1パス目    シャドーバッファの作成
 	Renderer::BeginDepth();
@@ -103,7 +105,7 @@ void Manager::LightInitialize(LIGHT * light, D3DXVECTOR3 position)
 	D3DXMatrixLookAtLH(&light->ViewMatrix, &lightPos, &lightTarget, &lightUp);
 
 	//ライトカメラのプロジェクション行列を作成
-	D3DXMatrixPerspectiveFovLH(&light->ProjectionMatrix, 1.0f, (float)(SCREEN_WIDTH) / (float)(SCREEN_HEIGHT), 5.0f, 50.0f);
+	D3DXMatrixPerspectiveFovLH(&light->ProjectionMatrix, 1.0f, (float)(SCREEN_WIDTH) / (float)(SCREEN_HEIGHT), 1.0f, 100.0f);
 
 	Renderer::SetLight(*light);
 }

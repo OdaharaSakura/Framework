@@ -11,7 +11,7 @@ private:
 
 	class Player* m_player = nullptr;
 	class PlayerNetWork* m_playerNetwork = nullptr;
-	class Write* m_Write = nullptr;
+	//class Text* m_Write = nullptr;
 
 
 public:

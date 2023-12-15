@@ -40,7 +40,6 @@ private:
 	bool m_Attackflg{};//çUåÇÇµÇΩÇ©
 
 	std::vector<D3DXVECTOR3> m_PositionList{};
-	class Write* m_Write = nullptr;
 
 	enum Animation {
 		IDOL,

@@ -30,11 +30,11 @@
 
 #pragma warning(push)
 #pragma warning(disable:4005)
-
-#include <dwrite.h>  
-#include <D2D1.h>
+#include <d2d1.h>						// Direct2D
+#include <DWrite.h>						// DirectWrite
+#include <D3DX10math.h>					// 数学系ライブラリ
 #include <stdio.h>
-
+#include <wrl.h>						// ComPtr
 #include <windows.h>
 #include <assert.h>
 #include <mmsystem.h>
@@ -47,8 +47,8 @@
 #pragma warning(pop)
 
 #pragma comment (lib, "dxgi.lib")
-#pragma comment(lib,"d2d1.lib") 
-#pragma comment(lib,"dwrite.lib") 
+#pragma comment(lib,"d2d1.lib")			// Direct2D用
+#pragma comment(lib,"Dwrite.lib")		// DirectWrite用
 #pragma comment (lib, "imm32.lib")
 #pragma comment (lib,"Ws2_32.lib")
 

@@ -19,5 +19,5 @@ public:
 	void Draw();
 	void SetColor(D3DXCOLOR Color) { m_Color = Color; }
 	void SetPositionY(float y) { m_WorldPosition.y = y; }
-
+	void SetTexture(const char* TextureName);
 };

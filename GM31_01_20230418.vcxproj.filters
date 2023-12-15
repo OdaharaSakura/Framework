@@ -227,15 +227,18 @@
     <ClCompile Include="component.cpp">
       <Filter>1_Common</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp" />
-    <ClCompile Include="DirectWrite.cpp" />
     <ClCompile Include="CNetwork_WS.cpp" />
     <ClCompile Include="playerNetwork.cpp" />
-    <ClCompile Include="write.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="networkTest.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadinglogo.cpp" />
+    <ClCompile Include="DirectWriteCustomFont.cpp" />
+    <ClCompile Include="gameObject.cpp">
+      <Filter>1_Common</Filter>
+    </ClCompile>
+    <ClCompile Include="timeView.cpp" />
+    <ClCompile Include="text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -428,16 +431,20 @@
     </ClInclude>
     <ClInclude Include="testObj.h" />
     <ClInclude Include="modelContainer.h" />
-    <ClInclude Include="gameObject.h" />
-    <ClInclude Include="DirectWrite.h" />
     <ClInclude Include="networkTest.h" />
     <ClInclude Include="CNetwork.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="playerNetwork.h" />
-    <ClInclude Include="write.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadinglogo.h" />
+    <ClInclude Include="DirectWriteCustomFont.h" />
+    <ClInclude Include="gameObject.h">
+      <Filter>1_Common</Filter>
+    </ClInclude>
+    <ClInclude Include="timeView.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="text.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

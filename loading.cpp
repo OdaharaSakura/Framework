@@ -16,7 +16,7 @@
 void Loading::Init()
 {
 
-	AddGameObject<LoadingLogo>(2);
+	AddGameObject<LoadingLogo>(LAYER_OBJECT_2D);
 
 	std::thread th(&Test::Load);
 	th.detach();

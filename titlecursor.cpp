@@ -8,7 +8,7 @@
 #include "sprite.h"
 #include "audio.h"
 #include "fade.h"
-#include "game.h"
+#include "loading.h"
 
 void TitleCursor::Init()
 {
@@ -19,7 +19,7 @@ void TitleCursor::Init()
 	Renderer::CreatePixelShader(&m_PixelShader,
 		"shader\\unlitTexturePS.cso");
 
-	m_Fade = scene->AddGameObject<Fade>(2);
+	m_Fade = scene->AddGameObject<Fade>(LAYER_OBJECT_2D);
 
 	m_Scale.x = SCREEN_WIDTH / 3;
 	m_Scale.y = SCREEN_HEIGHT / 3;
@@ -124,7 +124,7 @@ void TitleCursor::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
-		Manager::SetScene<Game>();//エンターキーを押したらゲームシーンに移行	
+		Manager::SetScene<Loading>();//エンターキーを押したらゲームシーンに移行	
 	}
 	m_Sprite->SetPositionY(m_WorldPosition.y);
 	

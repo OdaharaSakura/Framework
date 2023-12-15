@@ -78,7 +78,7 @@ void Bullet::Update()
 
 		if (lengthEnemy < scaleEnemy)
 		{
-			scene->AddGameObject<Explosion>(1)->SetPosScale(enemyPos, enemyScale);
+			scene->AddGameObject<Explosion>(LAYER_OBJECT_3D)->SetPosScale(enemyPos, enemyScale);
 			SetDestroy();//’e‚ðÁ‚·
 			enemy->SetDestroy();//“G‚ðÁ‚·
 			score->AddCount(100);

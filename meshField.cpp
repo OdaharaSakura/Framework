@@ -2,6 +2,7 @@
 #include "main.h"
 #include "renderer.h"
 #include "meshField.h"
+#include "shader.h"
 
 //グローバル変数以外も検討する
 //const int g_IndexNumX = 20;
@@ -80,7 +81,6 @@ void MeshField::Init()
 		Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 	}
 
-	m_IsDisplayShadow = true;
 
 
 	// インデックスバッファ生成
@@ -138,9 +138,7 @@ void MeshField::Init()
 
 
 
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\PercentageCloserFilteringVS.cso");
-
-	Renderer::CreatePixelShader(&m_PixelShader, "shader\\PercentageCloserFilteringPS.cso");
+	AddComponent<PercentageCloserFiltering>();
 
 
 }
@@ -148,14 +146,10 @@ void MeshField::Init()
 
 void MeshField::Uninit()
 {
-
+	GameObject::Uninit();
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
 	m_Texture->Release();
-
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
 
 
 }
@@ -163,19 +157,13 @@ void MeshField::Uninit()
 
 void MeshField::Update()
 {
-
+	GameObject::Update();
 }
 
 
 void MeshField::Draw()
 {
-	// 入力レイアウト設定
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-	// シェーダ設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
+	GameObject::Draw();
 
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
@@ -203,12 +191,6 @@ void MeshField::Draw()
 
 	// テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-
-	//シャドウバッファテクスチャを１番へセット
-	ID3D11ShaderResourceView* depthShadowTexture =
-		Renderer::GetDepthShadowTexture();
-	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
-		&depthShadowTexture);
 
 	// プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );

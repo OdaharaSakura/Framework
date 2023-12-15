@@ -7,7 +7,7 @@
 #include "player.h"
 #include "meshfield.h"
 #include "camera.h"
-#include "write.h"
+#include "text.h"
 #include "tree_billboard.h"
 #include "sky.h"
 #include "cylinder.h"
@@ -39,27 +39,26 @@ void NetWorkTest::Init()
 		MessageBox(0, "通信クラスの初期化が出来ません", "", MB_OK);
 	}
 
-	AddGameObject<Camera>(CAMERA_LAYER);//登録するListの種類を変える
-	AddGameObject<Sky>(OBJECT_3D_LAYER);
-	MeshField* meshField = AddGameObject<MeshField>(OBJECT_3D_LAYER);
+	AddGameObject<Camera>(LAYER_CAMERA);//登録するListの種類を変える
+	AddGameObject<Sky>(LAYER_OBJECT_3D);
+	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 
 
-	AddGameObject<Cylinder>(OBJECT_3D_LAYER)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	AddGameObject<Cylinder>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
 
 
-	m_player = AddGameObject<Player>(OBJECT_3D_LAYER);
+	m_player = AddGameObject<Player>(LAYER_OBJECT_3D);
 	m_player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
-	m_playerNetwork = AddGameObject<PlayerNetWork>(OBJECT_3D_LAYER);
+	m_playerNetwork = AddGameObject<PlayerNetWork>(LAYER_OBJECT_3D);
 	m_playerNetwork->SetPosition(D3DXVECTOR3(2.0f, 0.0f, -4.0f));
 
-	m_Write = AddGameObject<Write>(OBJECT_2D_LAYER);
 	
 	srand(0);
 
 	for (int i = 0; i < 20; i++)
 	{
-		TreeBillboard* treeBillboard = AddGameObject<TreeBillboard>(OBJECT_3D_LAYER);
+		TreeBillboard* treeBillboard = AddGameObject<TreeBillboard>(LAYER_OBJECT_3D);
 
 		D3DXVECTOR3 pos;
 		pos.x = (float)rand() / RAND_MAX * 100.0f - 50.0f;
@@ -156,11 +155,11 @@ HRESULT NetWorkTest::Connect()
 
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
+			//m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
 		}
 		else
 		{
-			m_Write->SetText("");
+			//m_Write->SetText("");
 			g_Stage = STAGE_PLAYING;
 		}
 	}
@@ -169,11 +168,11 @@ HRESULT NetWorkTest::Connect()
 	{
 		if (bPlayer < 2)
 		{
-			m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
+			//m_Write->SetText("プレイヤー数: 1 \nプレイヤーが2人になるまで待機します");
 		}
 		else
 		{
-			m_Write->SetText("");
+			//m_Write->SetText("");
 			D3DXVECTOR3 networkpos = m_playerNetwork->GetPosition();
 			D3DXVECTOR3 pos = m_player->GetPosition();
 			m_player->SetPosition(networkpos);
