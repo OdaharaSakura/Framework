@@ -16,7 +16,6 @@
 #include "treasureBox.h"
 void Result::Init()
 {
-
 	TreasureBox::Load();
 	AddGameObject<ResultCamera>(0);
 	AddGameObject<ResultSky>(1);

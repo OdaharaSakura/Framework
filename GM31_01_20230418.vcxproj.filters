@@ -185,9 +185,6 @@
     <ClCompile Include="result.cpp">
       <Filter>Result</Filter>
     </ClCompile>
-    <ClCompile Include="titlebg.cpp">
-      <Filter>Title\TitleObj</Filter>
-    </ClCompile>
     <ClCompile Include="titlecursor.cpp">
       <Filter>Title\TitleObj</Filter>
     </ClCompile>
@@ -239,6 +236,10 @@
     </ClCompile>
     <ClCompile Include="timeView.cpp" />
     <ClCompile Include="text.cpp" />
+    <ClCompile Include="grass.cpp" />
+    <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="alpha.cpp" />
+    <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -386,9 +387,6 @@
     <ClInclude Include="result.h">
       <Filter>Result</Filter>
     </ClInclude>
-    <ClInclude Include="titlebg.h">
-      <Filter>Title\TitleObj</Filter>
-    </ClInclude>
     <ClInclude Include="titlecursor.h">
       <Filter>Title\TitleObj</Filter>
     </ClInclude>
@@ -443,8 +441,13 @@
       <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="timeView.h" />
-    <ClInclude Include="shader.h" />
     <ClInclude Include="text.h" />
+    <ClInclude Include="grass.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="alpha.h" />
+    <ClInclude Include="shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
@@ -490,6 +493,18 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\dissolvePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\alphaBlendingVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\alphaBlendingPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

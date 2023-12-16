@@ -1,11 +1,11 @@
 #pragma once
 
-#include "model.h"
+
 #include "gameObject.h"
 class ResultSky : public GameObject//åpè≥
 {
 private:
-	Model* m_Model{};
+	class Model* m_Model{};
 
 	ID3D11VertexShader* m_VertexShader{};
 	ID3D11PixelShader* m_PixelShader{};

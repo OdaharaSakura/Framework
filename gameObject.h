@@ -27,7 +27,9 @@ protected:
 	GameObject* m_Parent = nullptr;
 	std::vector<GameObject*>	m_ChildList;
 
+	//Shader
 	bool m_IsDisplayShadow = false;
+	bool m_IsEnvMapping = false;
 
 	std::string m_Tag{};
 
@@ -69,6 +71,7 @@ public:
 
 	void SetGameObject(D3DXVECTOR3 position, D3DXVECTOR3 rotation, D3DXVECTOR3 scale);
 	void SetDepthShadow() { m_IsDisplayShadow = true; }
+	void SetEnvMapping() { m_IsEnvMapping = true; }
 	void SetParent(GameObject* Parent) { m_Parent = Parent; }
 	void SetPlayer() { m_IsPlayer = true; }
 	
@@ -85,6 +88,7 @@ public:
 	
 
 	bool GetDepthShadow() { return m_IsDisplayShadow; }
+	bool GetEnvMapping() { return m_IsEnvMapping; }
 	bool GetPlayer() { return m_IsPlayer; }
 	GameObject* GetParent() { return m_Parent; }
 

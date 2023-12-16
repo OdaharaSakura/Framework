@@ -1,12 +1,12 @@
 #pragma once
+
 #include "gameObject.h"
-
-
 
 #include <list>
 #include <typeinfo>
 #include <vector>
 
+class Gameobject;
 
 enum ObjectLayer
 {
@@ -65,7 +65,7 @@ public:
 		}
 	}
 
-	template <typename T>//テンプレート関数
+	template<typename T>
 	T* AddGameObject(int Layer)
 	{
 		T* gameObject = new T();
@@ -75,7 +75,7 @@ public:
 		return gameObject;
 	}
 
-	template <typename T>//テンプレート関数
+	template<typename T>
 	T* GetGameObject()
 	{
 		for (int i = 0; i < LAYER_MAX; i++)
@@ -92,7 +92,7 @@ public:
 		return nullptr;
 	}
 
-	template <typename T>//テンプレート関数
+	template<typename T>
 	std::vector<T*> GetGameObjects()
 	{
 		std::vector<T*> objects;
@@ -109,19 +109,23 @@ public:
 		return objects;
 	}
 
-	void DepthPath()
+	void DepthPath();
+	void EnvPath();
+
+	D3DXVECTOR3 GetEnvObjectPosition()
 	{
-		for (int i = 0; i < LAYER_MAX; i++)
+		for (auto var : m_GameObject[LAYER_OBJECT_3D])
 		{
-			for (auto var : m_GameObject[i])
+			if (var->GetEnvMapping() == true)
 			{
-				if (var->GetDepthShadow() == true)
-				{
-					var->Draw();
-				}
+				return var->GetPosition();
 			}
 		}
+		return D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
 	}
+
+
 
 	D3DXVECTOR3 GetPlayerPosition()
 	{
@@ -136,3 +140,5 @@ public:
 	}
 
 };
+
+

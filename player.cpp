@@ -141,6 +141,9 @@ void Player::Update()
 
 	switch (m_PlayerState)
 	{
+	case PLAYER_STATE_TITLE:
+		UpdateTitle();
+		break;
 	case PLAYER_STATE_GROUND:
 		UpdateGround();
 		break;
@@ -282,13 +285,11 @@ void Player::Draw()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	if (!camera->CheckView(m_WorldPosition)) return;
-
-	//// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
-	//Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	//// 使用するシェーダを設定
-	//Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
-	//Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
+	if (m_PlayerState != PLAYER_STATE::PLAYER_STATE_TITLE)
+	{
+		if (!camera->CheckView(m_WorldPosition)) return;
+	}
+	
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
@@ -300,12 +301,6 @@ void Player::Draw()
 	m_Matrix = matrix;
 
 	Renderer::SetWorldMatrix(&matrix);
-
-	////シャドウバッファテクスチャを１番へセット
-	//ID3D11ShaderResourceView* depthShadowTexture =
-	//Renderer::GetDepthShadowTexture();
-	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
-	//	&depthShadowTexture);
 	
 	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
 
@@ -313,6 +308,14 @@ void Player::Draw()
 	m_BlendRate += 0.1f;
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
 	m_Model->Draw();
+}
+
+void Player::UpdateTitle()
+{
+	GameObject::Update();
+
+	m_AnimationName = "Idol";
+
 }
 
 void Player::UpdateGround()

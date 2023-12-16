@@ -4,7 +4,8 @@
 #include "renderer.h"
 #include "resultsky.h"
 #include "resultcamera.h"
-#include "camera.h"\
+#include "camera.h"
+#include "model.h"
 
 
 

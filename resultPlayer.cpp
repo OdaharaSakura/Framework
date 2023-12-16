@@ -14,7 +14,7 @@
 #include "animationModel.h"
 #include "result.h"
 #include "earth.h"
-
+#include "shader.h"
 
 
 void ResultPlayer::Init()
@@ -25,12 +25,9 @@ void ResultPlayer::Init()
 	m_Model->LoadAnimation("asset\\model\\Player_Idle.fbx", "Idol");
 
 
-	m_Scale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
-	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "shader\\vertexLightingVS.cso");
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\vertexLightingPS.cso");
+	AddComponent<PercentageCloserFiltering>();
 
 }
 
@@ -40,9 +37,7 @@ void ResultPlayer::Uninit()
 	m_Model->Unload();
 	delete m_Model;
 
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
+
 }
 
 void ResultPlayer::Update()
@@ -60,12 +55,6 @@ void ResultPlayer::Update()
 void ResultPlayer::Draw()
 {
 	GameObject::Draw();
-
-	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	// 使用するシェーダを設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;

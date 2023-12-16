@@ -4,7 +4,7 @@
 #include "renderer.h"
 #include "sky.h"
 #include "camera.h"
-
+#include "model.h"
 
 
 void Sky::Init()

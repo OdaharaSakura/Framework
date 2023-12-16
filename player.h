@@ -1,6 +1,5 @@
 #pragma once
 
-#include "model.h"
 #include "gameObject.h"
 
 #include <string>
@@ -8,7 +7,8 @@
 
 enum PLAYER_STATE
 {
-	PLAYER_STATE_GROUND, 
+	PLAYER_STATE_TITLE,
+	PLAYER_STATE_GROUND,
 	PLAYER_STATE_JUMP,
 	PLAYER_STATE_ATTACK
 };
@@ -63,9 +63,14 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
-	void UpdateGround();//ステートパターンで書いてみる
+	void UpdateTitle();//ステートパターンで書いてみる
+	void UpdateGround();
 	void UpdateJump();
 	void UpdateAttack();
+
+	void SetNonAttackflg() { m_Attackflg = false; }
+	void SetConnectNetWork() { m_IsConnectNetWork = true; }
+	void SetPlayerState(int state) { m_PlayerState = state; }
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
 	{
@@ -110,9 +115,5 @@ public:
 	int GetHp() { return m_Hp;}
 	int GetHpMax() {return m_HpMax;}
 	bool GetAttackflg() { return m_Attackflg; }
-	
-	void SetNonAttackflg() { m_Attackflg = false; }
-	void SetConnectNetWork() { m_IsConnectNetWork = true; }
-
 	char GetInputData() { return m_InputData; }
 };
