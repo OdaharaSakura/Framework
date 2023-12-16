@@ -111,9 +111,17 @@ private:
 	static ID3D11BlendState* m_BlendState;
 	static ID3D11BlendState* m_BlendStateATC;
 
+	static ID3D11RenderTargetView* m_BGRenderTargetView;
+	static ID3D11ShaderResourceView* m_BGShaderResourceView;
+
 	static ID3D11DepthStencilView* m_DepthShadowDepthStencilView;//
 	static ID3D11ShaderResourceView* m_DepthShadowShaderResourceView;//
 
+	static ID3D11Texture2D* m_ReflectTexture;
+	static ID3D11RenderTargetView* m_ReflectRenderTargetView;
+	static ID3D11DepthStencilView* m_ReflectDepthStencilView;
+	static ID3D11Texture2D* m_CubeReflectTexture;
+	static ID3D11ShaderResourceView* m_CubeReflectShaderResourceView;
 
 
 public:
@@ -141,7 +149,11 @@ public:
 	static ID3D11DeviceContext* GetDeviceContext(void) { return m_DeviceContext; }
 	static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
 	static ID3D11RenderTargetView* GetRenderTargetView() { return m_RenderTargetView; }
-
+	static ID3D11Texture2D* GetReflectTexture(void) { return m_ReflectTexture; }
+	static ID3D11Texture2D* GetCubeReflectTexture(void) { return m_CubeReflectTexture; }
+	static ID3D11ShaderResourceView** GetCubeReflectShaderResourceView(void) {
+		return &m_CubeReflectShaderResourceView;
+	}
 
 
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
@@ -159,7 +171,17 @@ public:
 		m_DeviceContext->ClearDepthStencilView(m_DepthShadowDepthStencilView,
 			D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
+	static void BeginCube()
+	{
+		//レンダリングターゲットをバックバッファに戻す
+		m_DeviceContext->OMSetRenderTargets(1, &m_ReflectRenderTargetView, m_ReflectDepthStencilView);
+		//画面クリア
+		float ClearColor[4] = { 0.0f, 0.5f, 0.0f, 1.0f };
+		m_DeviceContext->ClearRenderTargetView(m_ReflectRenderTargetView, ClearColor);
+		m_DeviceContext->ClearDepthStencilView(m_ReflectDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	}
 
 	static void SetDefaultViewPort();
 	static void SetDepthViewPort();
+	static void SetReflectViewport();
 };

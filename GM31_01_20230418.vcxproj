@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="alpha.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="box.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="gameover.cpp" />
     <ClCompile Include="gameoverlogo.cpp" />
     <ClCompile Include="gauge.cpp" />
+    <ClCompile Include="grass.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -212,16 +214,17 @@
     <ClCompile Include="resultscreen.cpp" />
     <ClCompile Include="resultsky.cpp" />
     <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="sky.cpp" />
+    <ClCompile Include="sphere.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="timeView.cpp" />
     <ClCompile Include="title.cpp" />
-    <ClCompile Include="titlebg.cpp" />
     <ClCompile Include="titlecursor.cpp" />
     <ClCompile Include="titleenter.cpp" />
     <ClCompile Include="titlelogo.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alpha.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="box.h" />
@@ -264,6 +268,7 @@
     <ClInclude Include="gameover.h" />
     <ClInclude Include="gameoverlogo.h" />
     <ClInclude Include="gauge.h" />
+    <ClInclude Include="grass.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -299,6 +304,7 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="sky.h" />
+    <ClInclude Include="sphere.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testObj.h" />
@@ -306,7 +312,6 @@
     <ClInclude Include="time.h" />
     <ClInclude Include="timeView.h" />
     <ClInclude Include="title.h" />
-    <ClInclude Include="titlebg.h" />
     <ClInclude Include="titlecursor.h" />
     <ClInclude Include="titleenter.h" />
     <ClInclude Include="titlelogo.h" />
@@ -322,6 +327,26 @@
     <ClInclude Include="tutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="shader\alphaBlendingPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="shader\alphaBlendingVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Shader\common.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -336,6 +361,26 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">shader/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader/%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Shader\gaugePS.hlsl">
@@ -437,6 +482,10 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Shader\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Shader\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shader\vertexLightingPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

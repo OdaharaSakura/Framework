@@ -113,8 +113,11 @@ void Sprite::Draw()
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
-	// テクスチャ設定
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);//ピクセルシェーダーに送る
+	if (m_IsSendToPixelShader)
+	{
+		// テクスチャ設定
+		Renderer::GetDeviceContext()->PSSetShaderResources(m_Index, 1, &m_Texture);//ピクセルシェーダーに送る
+	}
 
 	// プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

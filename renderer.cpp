@@ -28,11 +28,17 @@ ID3D11DepthStencilState* Renderer::m_DepthStateDisable{};
 ID3D11BlendState* Renderer::m_BlendState{};
 ID3D11BlendState* Renderer::m_BlendStateATC{};
 
-static ID3D11RenderTargetView* m_BGRenderTargetView;
-static ID3D11ShaderResourceView* m_BGShaderResourceView;
+ID3D11RenderTargetView* m_BGRenderTargetView{};
+ID3D11ShaderResourceView* m_BGShaderResourceView{};
 
-ID3D11DepthStencilView* Renderer::m_DepthShadowDepthStencilView = NULL;
-ID3D11ShaderResourceView* Renderer::m_DepthShadowShaderResourceView = NULL;
+ID3D11DepthStencilView* Renderer::m_DepthShadowDepthStencilView{};
+ID3D11ShaderResourceView* Renderer::m_DepthShadowShaderResourceView{};
+
+ID3D11Texture2D* Renderer::m_ReflectTexture{};
+ID3D11RenderTargetView* Renderer::m_ReflectRenderTargetView{};
+ID3D11DepthStencilView* Renderer::m_ReflectDepthStencilView{};
+ID3D11Texture2D* Renderer::m_CubeReflectTexture{};
+ID3D11ShaderResourceView* Renderer::m_CubeReflectShaderResourceView{};
 
 
 void Renderer::Init()
@@ -316,8 +322,73 @@ void Renderer::Init()
 		srvd.Texture2D.MipLevels = 1;
 		m_Device->CreateShaderResourceView(depthTexture, &srvd,
 			&m_DepthShadowShaderResourceView);
+
+		depthTexture->Release();
 	}
 
+	//環境マップレンダリングテクスチャ作成
+	{
+		D3D11_TEXTURE2D_DESC tdEnv;
+		ZeroMemory(&tdEnv, sizeof(tdEnv));
+		tdEnv.ArraySize = 1;
+		tdEnv.Width = 512;
+		tdEnv.Height = 512;
+		tdEnv.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		tdEnv.Usage = D3D11_USAGE_DEFAULT;
+		tdEnv.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		tdEnv.SampleDesc = swapChainDesc.SampleDesc;
+		tdEnv.MiscFlags = 0;
+		tdEnv.MipLevels = 1;
+		m_Device->CreateTexture2D(&tdEnv, NULL, &m_ReflectTexture);
+		D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+		ZeroMemory(&rtvd, sizeof(rtvd));
+		rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		m_Device->CreateRenderTargetView(m_ReflectTexture, &rtvd, &m_ReflectRenderTargetView);
+		ID3D11Texture2D* depthEnvTexture = NULL;
+		ZeroMemory(&tdEnv, sizeof(tdEnv));
+		tdEnv.Width = 512;
+		tdEnv.Height = 512;
+		tdEnv.MipLevels = 1;
+		tdEnv.ArraySize = 1;
+		tdEnv.Format = DXGI_FORMAT_D32_FLOAT;
+		tdEnv.SampleDesc.Count = 1;
+		tdEnv.SampleDesc.Quality = 0;
+		tdEnv.Usage = D3D11_USAGE_DEFAULT;
+		tdEnv.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		tdEnv.CPUAccessFlags = 0;
+		tdEnv.MiscFlags = 0;
+		m_Device->CreateTexture2D(&tdEnv, NULL, &depthEnvTexture);
+
+		D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+		ZeroMemory(&dsvd, sizeof(dsvd));
+		dsvd.Format = DXGI_FORMAT_D32_FLOAT;
+		dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		m_Device->CreateDepthStencilView(depthEnvTexture, &dsvd, &m_ReflectDepthStencilView);
+		depthEnvTexture->Release();
+	}
+
+	{
+		D3D11_TEXTURE2D_DESC tdEnvCube;
+		ZeroMemory(&tdEnvCube, sizeof(tdEnvCube));
+		tdEnvCube.ArraySize = 6;
+		tdEnvCube.Width = 512;
+		tdEnvCube.Height = 512;
+		tdEnvCube.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		tdEnvCube.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		tdEnvCube.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS | D3D11_RESOURCE_MISC_TEXTURECUBE;
+		tdEnvCube.MipLevels = 1;
+		tdEnvCube.Usage = D3D11_USAGE_DEFAULT;
+		tdEnvCube.SampleDesc = swapChainDesc.SampleDesc;
+		m_Device->CreateTexture2D(&tdEnvCube, NULL, &m_CubeReflectTexture);
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+		ZeroMemory(&srvd, sizeof(srvd));
+		srvd.Format = tdEnvCube.Format;
+		srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+		srvd.TextureCube.MipLevels = tdEnvCube.MipLevels;
+		srvd.TextureCube.MostDetailedMip = 0;
+		m_Device->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_CubeReflectShaderResourceView);
+	}
 }
 
 
@@ -325,11 +396,14 @@ void Renderer::Init()
 void Renderer::Uninit()
 {
 
-	m_WorldBuffer->Release();
-	m_ViewBuffer->Release();
-	m_ProjectionBuffer->Release();
-	m_LightBuffer->Release();
-	m_MaterialBuffer->Release();
+	if (m_WorldBuffer != nullptr)m_WorldBuffer->Release();
+	if (m_ViewBuffer != nullptr)m_ViewBuffer->Release();
+	if (m_ProjectionBuffer != nullptr)m_ProjectionBuffer->Release();
+	if (m_LightBuffer != nullptr)m_LightBuffer->Release();
+	if (m_MaterialBuffer != nullptr)m_MaterialBuffer->Release();
+	if (m_CameraBuffer != nullptr)m_CameraBuffer->Release();
+	if (m_ParameterBuffer != nullptr)m_ParameterBuffer->Release();
+	if (m_DissolveBuffer != nullptr)m_DissolveBuffer->Release();
 
 
 	m_DeviceContext->ClearState();
@@ -536,12 +610,25 @@ void Renderer::SetDepthViewPort()
 {
 	// ビューポート設定
 	D3D11_VIEWPORT vp;
-	vp.Width = (FLOAT)SCREEN_WIDTH;
-	vp.Height = (FLOAT)SCREEN_HEIGHT;
+	vp.Width = (FLOAT)SCREEN_WIDTH * 4;
+	vp.Height = (FLOAT)SCREEN_HEIGHT * 4;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 10;
 	vp.TopLeftY = 10;
 	m_DeviceContext->RSSetViewports(1, &vp);
+}
+
+void Renderer::SetReflectViewport(void)
+{
+	D3D11_VIEWPORT vp;
+	vp.Width = 512;
+	vp.Height = 512;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	m_DeviceContext->RSSetViewports(1, &vp);
+
 }
 

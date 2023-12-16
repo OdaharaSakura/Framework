@@ -2,11 +2,21 @@
 #include "scene.h"
 #include "renderer.h"
 
+enum SceneType
+{
+	TitleScene,
+	GameScene,
+	ResultScene,
+	LoadingScene,
+	TestScene
+};
+
 class Manager
 {
 private:
 	static Scene* m_Scene;
 	static Scene* m_NextScene;
+
 	static Renderer* m_Renderer;
 	static bool m_IsGameFinish;
 public:
@@ -14,6 +24,9 @@ public:
 	static void Uninit();
 	static void Update();
 	static void Draw();
+
+	static void DrawEnv();
+	static void DrawShadow();
 
 	static void LightInitialize(LIGHT* light, D3DXVECTOR3 position);
 
