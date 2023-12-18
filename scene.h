@@ -75,6 +75,7 @@ public:
 		return gameObject;
 	}
 
+
 	template<typename T>
 	T* GetGameObject()
 	{

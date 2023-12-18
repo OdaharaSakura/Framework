@@ -31,6 +31,7 @@
 #include "treasureBox.h"
 #include "collider.h"
 #include "testObj.h"
+#include "time.h"
 
 
 Player* player;
@@ -38,11 +39,8 @@ bool Test::m_LoadFinish = false;
 
 void Test::Load()
 {
-	Bullet::Load();
 	Enemy::Load();
-	Earth::Load();
 	Gauge::Load();
-	Tree::Load();
 	TreasureBox::Load();
 	TreeBillboard::Load();
 	m_LoadFinish = true;
@@ -50,11 +48,8 @@ void Test::Load()
 void Test::Unload()
 {
 	m_LoadFinish = false;
-	Bullet::Unload();
 	Enemy::Unload();
-	Earth::Unload();
 	Gauge::Unload();
-	Tree::Unload();
 	TreasureBox::Unload();
 	TreeBillboard::Unload();
 }
@@ -129,12 +124,15 @@ void Test::Init()
 
 		treeBillboard->SetPosition(pos);
 	}
+
+	
 	PlayerGauge* playerGauge = AddGameObject<PlayerGauge>(LAYER_OBJECT_2D);
 	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
 	playerGauge->SetPlayerParent(player);
 
 	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
+	AddGameObject<Time>(LAYER_OBJECT_2D);
 	//AddGameObject<GameLogo>(OBJECT_2D_LAYER);
 
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);

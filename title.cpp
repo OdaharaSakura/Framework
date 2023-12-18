@@ -6,7 +6,7 @@
 #include "meshField.h"
 #include "game.h"
 #include "resultcamera.h"
-#include "player.h"
+#include "resultplayer.h"
 #include "resultsky.h"
 #include "titlelogo.h"
 #include "titleenter.h"
@@ -21,13 +21,12 @@
 
 void Title::Init()
 {
-	Scene::Init();
 	ResultCamera* camera = AddGameObject<ResultCamera>(LAYER_CAMERA);
 	camera->Setoffset(D3DXVECTOR3(2.0f, 1.0f, 1.0f));
 	AddGameObject<ResultSky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
-	Player* player = AddGameObject<Player>(LAYER_OBJECT_3D);
-	player->SetPlayerState(PLAYER_STATE::PLAYER_STATE_TITLE);
+	ResultPlayer* player = AddGameObject<ResultPlayer>(LAYER_OBJECT_3D);
+	//player->SetPlayerState(PLAYER_STATE::PLAYER_STATE_TITLE);
 
 	//Sphere* sphere = AddGameObject<Sphere>(LAYER_OBJECT_3D);
 	//sphere->SetPosition(D3DXVECTOR3(4.0f, 2.0f, 1.0f));

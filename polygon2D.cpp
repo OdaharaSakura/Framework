@@ -3,7 +3,6 @@
 #include "polygon2D.h"
 #include "sprite.h"
 #include "input.h"
-#include "text.h"
 #include "shader.h"
 
 
@@ -11,7 +10,7 @@ void Polygon2D::Init()
 {
 	AddComponent<UnlitTexture>();
 	AddComponent<Sprite>()->Init(SCREEN_WIDTH- 200.0f, SCREEN_HEIGHT- 200.0f, 200.0f, 200.0f, "asset/texture/setsumei.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
-	AddComponent<Text>()->Init("aaaaa", D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+
 }
 
 void Polygon2D::Uninit()

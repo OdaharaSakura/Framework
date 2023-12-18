@@ -106,6 +106,23 @@ public:
 	}
 
 	template<typename T>
+	void RemoveComponent()
+	{
+		for (auto itr = m_ComponentList.begin(); itr != m_ComponentList.end();)
+		{
+			if (typeid(**itr) == typeid(T))
+			{
+				delete* itr;
+				itr = m_ComponentList.erase(itr);
+			}
+			else
+			{
+				++itr;
+			}
+		}
+	}
+
+	template<typename T>
 	T* GetComponent()
 	{
 		auto itr = find_if(m_ComponentList.begin(), m_ComponentList.end(),

@@ -312,7 +312,6 @@ void Player::Draw()
 
 void Player::UpdateTitle()
 {
-	GameObject::Update();
 
 	m_AnimationName = "Idol";
 
@@ -323,8 +322,11 @@ void Player::UpdateGround()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 	D3DXVECTOR3 cameraForward = camera->GetForward();
+	D3DXVECTOR3 cameraRight = camera->GetRight();
 	cameraForward.y = 0.0f;
+	cameraRight.y = 0.0f;
 	D3DXVec3Normalize(&cameraForward, &cameraForward);
+	D3DXVec3Normalize(&cameraRight, &cameraRight);
 	bool move = false;
 
 	////トップビュー
@@ -362,7 +364,8 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 		//moveVec -= GetRight();
-		m_WorldPosition.x -= 0.1f;
+		//m_WorldPosition.x -= 0.1f;
+		m_WorldPosition -= cameraRight * 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -386,7 +389,9 @@ void Player::UpdateGround()
 		}
 		
 		//moveVec += GetRight();
-		m_WorldPosition.x += 0.1f;
+		//m_WorldPosition.x += 0.1f;
+		m_WorldPosition += cameraRight * 0.1f;
+		
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

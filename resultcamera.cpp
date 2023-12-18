@@ -4,7 +4,7 @@
 #include "renderer.h"
 #include "resultcamera.h"
 #include "input.h"
-#include "player.h"
+#include "resultplayer.h"
 #include "scene.h"
 
 
@@ -22,7 +22,7 @@ void ResultCamera::Init()
 void ResultCamera::Update()
 {
 	Scene* scene = Manager::GetScene();
-	Player* player = scene->GetGameObject<Player>();
+	ResultPlayer* player = scene->GetGameObject<ResultPlayer>();
 
 
 

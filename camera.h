@@ -33,6 +33,19 @@ public:
 		return forward;
 	}
 
+	D3DXVECTOR3 GetRight()//前方向ベクトル取得
+	{
+		D3DXMATRIX rot;
+		/*D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);*/
+		D3DXMatrixInverse(&rot, nullptr, &m_ViewMatrix);
+		D3DXVECTOR3 right;
+		right.x = rot._11;
+		right.y = rot._12;
+		right.z = rot._13;
+
+		return right;
+	}
+
 	D3DXMATRIX GetViewMatrix() { return m_ViewMatrix; }
 
 	void Shake(float Amplitude)

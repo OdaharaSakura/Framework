@@ -31,13 +31,13 @@ public:
 		assert(m_Animation["Idol"]);
 
 
-		m_Model->LoadAnimation("asset\\model\\Player_Run.fbx", "Run");
-		m_Model->LoadAnimation("asset\\model\\Player_LeftRun.fbx", "LeftRun");
-		m_Model->LoadAnimation("asset\\model\\Player_RightRun.fbx", "RightRun");
-		m_Model->LoadAnimation("asset\\model\\Player_BackRun.fbx", "BackRun");
-		m_Model->LoadAnimation("asset\\model\\Player_Attack.fbx", "Attack");
-		m_Model->LoadAnimation("asset\\model\\Player_Death.fbx", "Death");
-		m_Model->LoadAnimation("asset\\model\\Player_InPlaceJump.fbx", "InPlaceJump");
+		//m_Model->LoadAnimation("asset\\model\\Player_Run.fbx", "Run");
+		//m_Model->LoadAnimation("asset\\model\\Player_LeftRun.fbx", "LeftRun");
+		//m_Model->LoadAnimation("asset\\model\\Player_RightRun.fbx", "RightRun");
+		//m_Model->LoadAnimation("asset\\model\\Player_BackRun.fbx", "BackRun");
+		//m_Model->LoadAnimation("asset\\model\\Player_Attack.fbx", "Attack");
+		//m_Model->LoadAnimation("asset\\model\\Player_Death.fbx", "Death");
+		//m_Model->LoadAnimation("asset\\model\\Player_InPlaceJump.fbx", "InPlaceJump");
 	}
 
 };

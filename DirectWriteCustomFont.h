@@ -12,6 +12,7 @@ enum FontNumber
 {
 	Font_MaruMinya,
 	Font_MaruMonica,
+	Font_NicocaV2,
 	Font_Max
 };
 
@@ -23,7 +24,8 @@ namespace FontList
 	const std::wstring FontPath[] =
 	{
 		L"asset\\font\\x12y12pxMaruMinya.ttf",
-		L"asset\\font\\x12y16pxMaruMonica.ttf"
+		L"asset\\font\\x12y16pxMaruMonica.ttf",
+		L"asset\\font\\nicoca_v2.ttf"
 	};
 }
 
