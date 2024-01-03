@@ -60,10 +60,8 @@ void Sprite::Init(float x, float y, float Width, float Height, const char* Textu
 
 void Sprite::Uninit()
 {
-
-	m_VertexBuffer->Release();
-	m_Texture->Release();
-
+	if (m_VertexBuffer != nullptr)m_VertexBuffer->Release();
+	if (m_Texture != nullptr)m_Texture->Release();
 }
 
 void Sprite::Update()

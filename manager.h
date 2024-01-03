@@ -25,12 +25,10 @@ public:
 	static void Update();
 	static void Draw();
 
-	static void DrawEnv();
-	static void DrawShadow();
-
 	static void LightInitialize(LIGHT* light, D3DXVECTOR3 position);
 
 	static Scene* GetScene() { return m_Scene; }
+	static Scene* GetNextScene() { return m_NextScene; }
 	static Renderer* GetRenderer() { return m_Renderer; }
 
 	template <typename T>//テンプレート関数

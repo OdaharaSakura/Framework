@@ -11,7 +11,7 @@
 void Sphere::Init()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\Sphere.obj");
+	m_Model->Load("asset\\model\\obj\\Sphere.obj");
 
 	// 環境マッピング用テクスチャ読み込み
 	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),

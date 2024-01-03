@@ -15,11 +15,9 @@ void Time::Init()
 
 	m_Text = AddComponent<Text>();
 	m_TimeStr = m_MonthStr + std::to_string(m_Day) + "日\n" + std::to_string(m_Hours) + "時" + std::to_string(m_Minutes) + "分";
-	m_Text->Init(m_TimeStr,
-		D3DXVECTOR2(10.0f, 10.0f),
-		DWRITE_FONT_WEIGHT_LIGHT,
-		D2D1::ColorF::AliceBlue,
-		Font_NicocaV2);
+	m_Text->SetText(m_TimeStr);
+	m_Text->SetPosition(D3DXVECTOR2(10.0f, 10.0f));
+	m_Text->SetFontColor(D2D1::ColorF::White);
 	m_Text->SetFontSize(40);
 }
 
@@ -105,6 +103,18 @@ void Time::Draw()
 
 	//基底クラスのメソッド呼び出し
 	GameObject::Draw();
+}
+
+void Time::SetSleep()
+{
+	m_Hours = 6;
+	m_Minutes = 0;
+
+	if (m_Hours <= 24 && m_Hours >= 6)
+	{
+		m_Day += 1;
+		//Memo::オブザーバー作って、スタミナ回復する
+	}
 }
 
 

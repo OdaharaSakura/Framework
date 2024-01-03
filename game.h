@@ -8,7 +8,7 @@ private:
 	class Fade* m_Fade = nullptr;
 
 public:
-	void Load();
+	void Load()override;
 	void Init() override;
 	void Uninit() override;
 	void Update() override;

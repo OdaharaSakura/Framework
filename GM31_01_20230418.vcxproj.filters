@@ -47,24 +47,30 @@
     <Filter Include="1_Common">
       <UniqueIdentifier>{0f2d3cb6-0c05-4c41-a809-257d6139977d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\camera">
+      <UniqueIdentifier>{335c421b-67c2-4734-967d-6ea138af2a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{f6268a91-d2b6-44f0-aefb-0511f940a1b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{f7489136-da54-4a50-a5ed-5b4bb7dcb749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Common\Loading">
+      <UniqueIdentifier>{068465bb-9494-40b9-a040-4f81ff114288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Common\Scenes">
+      <UniqueIdentifier>{bec297df-e00c-4237-b5df-0682dae09295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Common\Game">
+      <UniqueIdentifier>{c1473029-c680-4715-8587-d97c4d82ba8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="title.cpp">
-      <Filter>Title</Filter>
-    </ClCompile>
-    <ClCompile Include="tutorial.cpp">
-      <Filter>Tutorial</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="manager.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
       <Filter>1_Common</Filter>
     </ClCompile>
     <ClCompile Include="audio.cpp">
@@ -73,9 +79,6 @@
     <ClCompile Include="sprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
     <ClCompile Include="tree.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -83,9 +86,6 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="bullet.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="cylinder.cpp">
@@ -127,16 +127,12 @@
     <ClCompile Include="treasureBox.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="countdown.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="child.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="animationModel.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="player.cpp">
       <Filter>GameObject\player</Filter>
     </ClCompile>
@@ -182,9 +178,6 @@
     <ClCompile Include="resultsky.cpp">
       <Filter>Result\ResultObj</Filter>
     </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>Result</Filter>
-    </ClCompile>
     <ClCompile Include="titlecursor.cpp">
       <Filter>Title\TitleObj</Filter>
     </ClCompile>
@@ -221,53 +214,81 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Debug\ImGUI</Filter>
     </ClCompile>
-    <ClCompile Include="component.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
-    <ClCompile Include="CNetwork_WS.cpp" />
-    <ClCompile Include="playerNetwork.cpp" />
-    <ClCompile Include="time.cpp" />
-    <ClCompile Include="networkTest.cpp" />
-    <ClCompile Include="loading.cpp" />
-    <ClCompile Include="loadinglogo.cpp" />
-    <ClCompile Include="gameObject.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="alpha.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="DirectWriteCustomFont.cpp">
-      <Filter>1_Common</Filter>
-    </ClCompile>
     <ClCompile Include="text.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="npc.cpp" />
+    <ClCompile Include="bed.cpp" />
+    <ClCompile Include="camera.cpp">
+      <Filter>GameObject\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="playerNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CNetwork_WS.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="networkTest.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>1_Common\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="loadinglogo.cpp">
+      <Filter>1_Common\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="testHouse.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectWriteCustomFont.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorial.cpp">
+      <Filter>1_Common\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="house.cpp" />
+    <ClCompile Include="room.cpp" />
+    <ClCompile Include="conversation.cpp" />
+    <ClCompile Include="modelTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="title.h">
-      <Filter>Title</Filter>
-    </ClInclude>
-    <ClInclude Include="tutorial.h">
-      <Filter>Tutorial</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
     <ClInclude Include="manager.h">
       <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
-    <ClInclude Include="component.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
       <Filter>1_Common</Filter>
     </ClInclude>
     <ClInclude Include="audio.h">
@@ -276,9 +297,6 @@
     <ClInclude Include="sprite.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
     <ClInclude Include="tree.h">
       <Filter>GameObject</Filter>
     </ClInclude>
@@ -286,9 +304,6 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="bullet.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="cylinder.h">
@@ -330,16 +345,12 @@
     <ClInclude Include="treasureBox.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="countdown.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="child.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="animationModel.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="test.h" />
     <ClInclude Include="player.h">
       <Filter>GameObject\player</Filter>
     </ClInclude>
@@ -388,9 +399,6 @@
     <ClInclude Include="resultsky.h">
       <Filter>Result\ResultObj</Filter>
     </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>Result</Filter>
-    </ClInclude>
     <ClInclude Include="titlecursor.h">
       <Filter>Title\TitleObj</Filter>
     </ClInclude>
@@ -406,7 +414,6 @@
     <ClInclude Include="gamelogo.h">
       <Filter>Game\GameObj</Filter>
     </ClInclude>
-    <ClInclude Include="loadModel.h" />
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Debug\ImGUI</Filter>
     </ClInclude>
@@ -431,31 +438,83 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>Debug\ImGUI</Filter>
     </ClInclude>
-    <ClInclude Include="testObj.h" />
     <ClInclude Include="modelContainer.h" />
-    <ClInclude Include="networkTest.h" />
-    <ClInclude Include="CNetwork.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="playerNetwork.h" />
-    <ClInclude Include="time.h" />
-    <ClInclude Include="loading.h" />
-    <ClInclude Include="loadinglogo.h" />
-    <ClInclude Include="gameObject.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
     <ClInclude Include="grass.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="alpha.h" />
     <ClInclude Include="shader.h">
       <Filter>Shader</Filter>
     </ClInclude>
-    <ClInclude Include="DirectWriteCustomFont.h">
-      <Filter>1_Common</Filter>
-    </ClInclude>
     <ClInclude Include="text.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="npc.h" />
+    <ClInclude Include="bed.h" />
+    <ClInclude Include="camera.h">
+      <Filter>GameObject\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="testObj.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="playerNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="networkTest.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="loadinglogo.h">
+      <Filter>1_Common\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>1_Common\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="testHouse.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectWriteCustomFont.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorial.h">
+      <Filter>1_Common\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="house.h" />
+    <ClInclude Include="room.h" />
+    <ClInclude Include="conversation.h" />
+    <ClInclude Include="modelTest.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

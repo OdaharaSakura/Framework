@@ -8,6 +8,7 @@ class Text : public Component
 {
 private:
 	FontData m_Data{};
+
 	DirectWriteCustomFont* m_Write{};
 
 	std::string m_String{};
@@ -15,19 +16,16 @@ private:
 	int			m_FontSize = 60;
 
 public:
-	void Init(
-		std::string text,
-		D3DXVECTOR2 position,
-		DWRITE_FONT_WEIGHT fontWeight,
-		D2D1::ColorF color,
-		int fontNameIndex);
-
+	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
 
 	std::string GetText() { return m_String; }
 	void SetText(std::string c);
-	void SetFontSize(int size);
 	void SetPosition(D3DXVECTOR2 position);
+	void SetFontWeight(DWRITE_FONT_WEIGHT fontWeight);
+	void SetFontColor(D2D1::ColorF color);
+	void SetFontNameIndex(int fontNameIndex);
+	void SetFontSize(int size);
 };

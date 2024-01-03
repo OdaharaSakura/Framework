@@ -5,12 +5,14 @@
 #include "scene.h"
 #include "earth.h"
 
+//”¨
+
 Model* Earth::m_Model{};
 
 void Earth::Load()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\box.obj");
+	m_Model->Load("asset\\model\\obj\\box.obj");
 }
 
 void Earth::Unload()

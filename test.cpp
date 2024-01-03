@@ -13,7 +13,7 @@
 #include "enemy.h"
 #include "bullet.h"
 #include "explosion.h"
-#include "cylinder.h"
+#include "house.h"
 #include "box.h"
 #include "score.h"
 #include "audio.h"
@@ -26,20 +26,21 @@
 #include "child.h"
 #include "tree.h"
 #include "tree_billboard.h"
-#include "countdown.h"
+#include "testHouse.h"
 #include "gamelogo.h"
 #include "treasureBox.h"
 #include "collider.h"
 #include "testObj.h"
 #include "time.h"
-
+#include "npc.h"
+#include "modelTest.h"
 
 Player* player;
 bool Test::m_LoadFinish = false;
 
 void Test::Load()
 {
-	Enemy::Load();
+
 	Gauge::Load();
 	TreasureBox::Load();
 	TreeBillboard::Load();
@@ -48,7 +49,7 @@ void Test::Load()
 void Test::Unload()
 {
 	m_LoadFinish = false;
-	Enemy::Unload();
+
 	Gauge::Unload();
 	TreasureBox::Unload();
 	TreeBillboard::Unload();
@@ -90,8 +91,8 @@ void Test::Init()
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 
 
-	AddGameObject<Cylinder>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-
+	AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(6.0f, 3.0f, 6.0f));
+	AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	player = AddGameObject<Player>(LAYER_OBJECT_3D);
 	//m_SphereCollider = player->AddComponent<SphereCollider>();
@@ -101,7 +102,8 @@ void Test::Init()
 
 	player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
 
-	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	AddGameObject<NPC>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-30.0f, 0.0f, 30.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 	//SetEnemy();
 	//SetTree();
@@ -163,7 +165,7 @@ void Test::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
-		Manager::SetScene<Result>();//エンターキーを押したらゲームシーンに移行	
+		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 
 	//TestObj* test = (TestObj*)m_SphereCollider->m_testObj;

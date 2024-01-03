@@ -25,6 +25,8 @@ protected:
 	std::list<GameObject*> m_GameObject[LAYER_MAX];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
 
 public:
+	virtual void Load() {}
+	virtual void Unload() {}
 	virtual void Init() {}
 
 	virtual void Uninit()

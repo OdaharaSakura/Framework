@@ -3,10 +3,10 @@
 #include "text.h"
 #include "DirectWriteCustomFont.h"
 
-void Text::Init(std::string text, D3DXVECTOR2 position,DWRITE_FONT_WEIGHT fontWeight,  D2D1::ColorF color, int fontNameIndex)
+void Text::Init()
 {
-	m_String = text;
-	m_Position = position;
+	m_String = 0.0f;
+	m_Position = D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 	// DirectWriteCustomFontクラスの生成
 	m_Write = new DirectWriteCustomFont(&m_Data);
@@ -15,10 +15,10 @@ void Text::Init(std::string text, D3DXVECTOR2 position,DWRITE_FONT_WEIGHT fontWe
 	m_Write->Init(Renderer::GetSwapChain());
 
 	// フォントデータを改変
-	m_Data.fontSize = m_FontSize;
-	m_Data.fontWeight = fontWeight;
-	m_Data.Color = D2D1::ColorF(color);
-	m_Data.font = m_Write->GetFontName(fontNameIndex);
+	m_Data.fontSize = 40;
+	m_Data.fontWeight = DWRITE_FONT_WEIGHT_LIGHT;
+	m_Data.Color = D2D1::ColorF(D2D1::ColorF::White);
+	m_Data.font = m_Write->GetFontName(Font_NicocaV2);
 
 	// フォントをセット
 	m_Write->SetFont(m_Data);
@@ -58,6 +58,27 @@ void Text::SetFontSize(int size)
 void Text::SetPosition(D3DXVECTOR2 position)
 {
 	m_Position = position;
+}
+
+void Text::SetFontWeight(DWRITE_FONT_WEIGHT fontWeight)
+{
+	m_Data.fontWeight = fontWeight;
+	// フォントをセット
+	m_Write->SetFont(m_Data);
+}
+
+void Text::SetFontColor(D2D1::ColorF color)
+{
+	m_Data.Color = color;
+	// フォントをセット
+	m_Write->SetFont(m_Data);
+}
+
+void Text::SetFontNameIndex(int fontNameIndex)
+{
+	m_Data.font = m_Write->GetFontName(fontNameIndex);
+	// フォントをセット
+	m_Write->SetFont(m_Data);
 }
 
 

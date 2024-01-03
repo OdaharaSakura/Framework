@@ -25,7 +25,6 @@
 #include "earth.h"
 #include "child.h"
 #include "tree.h"
-#include "countdown.h"
 #include "gamelogo.h"
 #include "treasureBox.h"
 
@@ -34,7 +33,7 @@
 void Game::Load()
 {
 	Bullet::Load();
-	Enemy::Load();
+	//Enemy::Load();
 	Earth::Load();
 	Gauge::Load();
 	Tree::Load();
@@ -82,7 +81,7 @@ void Game::Uninit()
 	Scene::Uninit();
 
 	Bullet::Unload();
-	Enemy::Unload();
+	//Enemy::Unload();
 	Earth::Unload();
 	Gauge::Unload();
 	Tree::Unload();
