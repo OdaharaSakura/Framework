@@ -13,7 +13,7 @@ Model* Rock::m_Model{};
 void Rock::Load()
 {
 
-	m_Model->Load("asset\\model\\Mutant.fbx");
+	m_Model->Load("asset\\model\\fbx\\Mutant.fbx");
 
 }
 

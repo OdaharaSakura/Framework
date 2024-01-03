@@ -21,8 +21,8 @@ void ResultPlayer::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\Player_Idle.fbx", "Idol");
+	m_Model->Load("asset\\model\\fbx\\Player.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idol");
 
 
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
@@ -42,19 +42,20 @@ void ResultPlayer::Uninit()
 
 void ResultPlayer::Update()
 {
-	GameObject::Update();
+	//GameObject::Update();
 	Scene* scene = Manager::GetScene();
 
 
 	m_AnimeState = IDOL;
 
-
+	m_AnimeFrame++;
+	m_BlendRate += 0.01f;
 
 }
 
 void ResultPlayer::Draw()
 {
-	GameObject::Draw();
+	//GameObject::Draw();
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
@@ -67,8 +68,7 @@ void ResultPlayer::Draw()
 	Renderer::SetWorldMatrix(&matrix);
 
 	m_Model->Update("Idol", m_AnimeFrame, "Idol", m_AnimeFrame, m_BlendRate);
-	m_AnimeFrame++;
-	m_BlendRate += 0.01f;
+	
 
 	m_Model->Draw();
 }

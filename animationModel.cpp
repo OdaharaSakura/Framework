@@ -263,7 +263,7 @@ void AnimationModel::Unload()
 
 
 
-	aiReleaseImport(m_AiScene);
+	if(m_AiScene != nullptr) aiReleaseImport(m_AiScene);
 
 
 	for (std::pair<const std::string, const aiScene*> pair : m_Animation)

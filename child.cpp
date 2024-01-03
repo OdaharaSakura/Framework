@@ -8,7 +8,7 @@
 void Child::Init()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\torus.obj");
+	m_Model->Load("asset\\model\\fbx\\obj\\torus.obj");
 
 
 	Renderer::CreateVertexShader(&m_VertexShader,

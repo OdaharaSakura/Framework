@@ -27,15 +27,15 @@ void PlayerNetWork::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\Player_Idle.fbx", "Idol");
-	m_Model->LoadAnimation("asset\\model\\Player_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\Player_LeftRun.fbx", "LeftRun");
-	m_Model->LoadAnimation("asset\\model\\Player_RightRun.fbx", "RightRun");
-	m_Model->LoadAnimation("asset\\model\\Player_BackRun.fbx", "BackRun");
-	m_Model->LoadAnimation("asset\\model\\Player_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Player_Death.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\Player_InPlaceJump.fbx", "InPlaceJump");
+	m_Model->Load("asset\\model\\fbx\\Player.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idol");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
 
 	m_AnimationName = "Idol";
 	m_NextAnimationName = "Idol";

@@ -9,6 +9,7 @@
 #include "networkTest.h"
 #include "audio.h"
 #include "debugmanager.h"
+#include "loading.h"
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};//静的メンバ変数は再宣言が必要
@@ -51,6 +52,8 @@ void Manager::Update()
 			m_Scene->Uninit();
 			delete m_Scene;
 		}
+
+
 		m_Scene = m_NextScene;
 		m_Scene->Init();
 		m_NextScene = nullptr;

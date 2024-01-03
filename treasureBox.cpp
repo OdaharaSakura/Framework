@@ -14,7 +14,7 @@ Model* TreasureBox::m_Model{};
 void TreasureBox::Load()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\TreasureBox.obj");
+	m_Model->Load("asset\\model\\obj\\TreasureBox.obj");
 
 }
 

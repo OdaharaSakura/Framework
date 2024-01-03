@@ -5,7 +5,7 @@
 class Enemy : public GameObject//åpè≥
 {
 private:
-	static AnimationModel* m_Model;
+	AnimationModel* m_Model;
 
 	ID3D11VertexShader* m_VertexShader{};
 	ID3D11PixelShader* m_PixelShader{};
@@ -44,8 +44,8 @@ private:
 	};
 
 public:
-	static void Load();
-	static void Unload();
+	void Load();
+	void Unload();
 	void Init();
 	void Uninit();
 	void Update();

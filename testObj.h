@@ -24,7 +24,7 @@ public:
 	{
 
 		m_Model = new Model();
-		m_Model->Load("asset\\model\\Sphere.obj");
+		m_Model->Load("asset\\model\\obj\\Sphere.obj");
 
 
 		Renderer::CreateVertexShader(&m_VertexShader,

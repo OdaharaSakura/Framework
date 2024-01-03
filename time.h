@@ -47,6 +47,7 @@ public:
 
 	// 時間の進行を停止した後計測するために、start変数を更新する
 	void SetStartTime() {m_Start = std::chrono::system_clock::now();}
+	void SetSleep();//眠る
 
 	int GetMonth() { return m_Month; }
 	int GetDay() { return m_Day; }

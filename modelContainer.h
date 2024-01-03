@@ -22,22 +22,22 @@ public:
 	static void LoadModels()
 	{
 		//FBXModels
-		ModelsFBX->Load("asset\\model\\Player.fbx");
+		ModelsFBX->Load("asset\\model\\fbx\\Player.fbx");
 
 		//Animations
-		m_Animation["Idol"] = aiImportFile("asset\\model\\Player_Idle.fbx", aiProcess_ConvertToLeftHanded);
+		m_Animation["Idol"] = aiImportFile("asset\\model\\fbx\\Player_Idle.fbx", aiProcess_ConvertToLeftHanded);
 
 
 		assert(m_Animation["Idol"]);
 
 
-		//m_Model->LoadAnimation("asset\\model\\Player_Run.fbx", "Run");
-		//m_Model->LoadAnimation("asset\\model\\Player_LeftRun.fbx", "LeftRun");
-		//m_Model->LoadAnimation("asset\\model\\Player_RightRun.fbx", "RightRun");
-		//m_Model->LoadAnimation("asset\\model\\Player_BackRun.fbx", "BackRun");
-		//m_Model->LoadAnimation("asset\\model\\Player_Attack.fbx", "Attack");
-		//m_Model->LoadAnimation("asset\\model\\Player_Death.fbx", "Death");
-		//m_Model->LoadAnimation("asset\\model\\Player_InPlaceJump.fbx", "InPlaceJump");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
+		//m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
 	}
 
 };

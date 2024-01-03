@@ -12,7 +12,7 @@ void Sky::Init()
 	m_Scale = D3DXVECTOR3(100.0f, 100.0f, 100.0f);
 
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\sky.obj");
+	m_Model->Load("asset\\model\\obj\\sky.obj");
 
 
 

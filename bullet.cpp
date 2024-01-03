@@ -13,7 +13,7 @@ Model* Bullet::m_Model{};
 void Bullet::Load()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\torus.obj");
+	m_Model->Load("asset\\model\\obj\\torus.obj");
 }
 
 void Bullet::Unload()

@@ -6,7 +6,7 @@
 void Box::Init()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\wall.obj");
+	m_Model->Load("asset\\model\\obj\\wall.obj");
 
 
 	VERTEX_3D vertex[4];

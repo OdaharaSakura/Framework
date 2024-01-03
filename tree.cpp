@@ -9,7 +9,7 @@ Model* Tree::m_Model{};
 void Tree::Load()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\tree1.obj");
+	m_Model->Load("asset\\model\\obj\\tree1.obj");
 }
 
 void Tree::Unload()

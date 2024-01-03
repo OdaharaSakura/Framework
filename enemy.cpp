@@ -8,27 +8,27 @@
 #include "earth.h"
 
 
-AnimationModel* Enemy::m_Model{};
+
 
 void Enemy::Load()
 {
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\Mutant.fbx");
-	m_Model->LoadAnimation("asset\\model\\Mutant_Idol.fbx", "Idol");
-	m_Model->LoadAnimation("asset\\model\\Mutant_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\Mutant_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Mutant_Damage.fbx", "Damage");
+
 }
 
 void Enemy::Unload()
 {
-	m_Model->Unload();
-	delete m_Model;
+	
 }
 
 void Enemy::Init()
 {
 	Scene* scene = Manager::GetScene();
+	m_Model = new AnimationModel();
+	m_Model->Load("asset\\model\\fbx\\Mutant.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Idol.fbx", "Idol");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Run.fbx", "Run");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Attack.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Damage.fbx", "Damage");
 
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\vertexLightingVS.cso");
@@ -57,6 +57,8 @@ void Enemy::Init()
 void Enemy::Uninit()
 {
 	GameObject::Uninit();
+	m_Model->Unload();
+	delete m_Model;
 
 	m_VertexLayout->Release();
 	m_VertexShader->Release();

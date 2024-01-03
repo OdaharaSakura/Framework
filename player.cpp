@@ -8,7 +8,7 @@
 #include "cylinder.h"
 #include "enemy.h"
 #include "gauge.h"
-#include "box.h"
+#include "bed.h"
 #include "audio.h"
 #include "shadow.h"
 #include "animationModel.h"
@@ -21,30 +21,49 @@
 #include "text.h"
 #include "playerNetwork.h"
 #include "shader.h"
+#include "time.h"
+#include "npc.h"
+#include "conversation.h"
 
+//AnimationModel* Player::m_Model{};
+
+void Player::Load()
+{
+
+}
+
+void Player::Unload()
+{
+
+}
 
 void Player::Init()
 {
 	Scene* scene = Manager::GetScene();
+	
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\Player_Idle.fbx", "Idol");
-	m_Model->LoadAnimation("asset\\model\\Player_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\Player_LeftRun.fbx", "LeftRun");
-	m_Model->LoadAnimation("asset\\model\\Player_RightRun.fbx", "RightRun");
-	m_Model->LoadAnimation("asset\\model\\Player_BackRun.fbx", "BackRun");
-	m_Model->LoadAnimation("asset\\model\\Player_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\Player_Death.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\Player_InPlaceJump.fbx", "InPlaceJump");
-
-	m_AnimationName = "Idol";
-	m_NextAnimationName = "Idol";
+	m_Model->Load("asset\\model\\fbx\\Player.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
+	m_AnimationName = "Idle";
+	m_NextAnimationName = "Idle";
 
 
 	m_modelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	SetPlayer();//Sceneにpositionを渡すための
 	m_IsPlayer = true;
+
+	m_Description = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D)->AddComponent<Text>();
+	m_Description->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 3, SCREEN_HEIGHT - 50.0f));
+
+	
 
 	AddComponent<PercentageCloserFiltering>();//影
 
@@ -62,17 +81,13 @@ void Player::Init()
 void Player::Uninit()
 {
 	GameObject::Uninit();
-	m_Model->Unload();
+	if (m_Model != nullptr)m_Model->Unload();
 	delete m_Model;
-
-	/*m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();*/
 }
 
 void Player::Update()
 {
-	GameObject::Update();
+	//GameObject::Update();
 	Scene* scene = Manager::GetScene();
 	D3DXVECTOR3 oldPosition = m_WorldPosition;
 
@@ -153,6 +168,9 @@ void Player::Update()
 	case PLAYER_STATE_ATTACK:
 		UpdateAttack();
 		break;
+	case PLAYER_STATE_CONVERSATION:
+		UpdateConversation();
+		break;
 	}
 
 	//移動
@@ -162,7 +180,8 @@ void Player::Update()
 	float groundHeight;
 
 	MeshField* meshfield = scene->GetGameObject<MeshField>();
-	groundHeight = meshfield->GetHeight(m_WorldPosition);
+	if(meshfield != nullptr)groundHeight = meshfield->GetHeight(m_WorldPosition);
+	else groundHeight = 0.0f;
 
 	//円柱
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
@@ -196,61 +215,75 @@ void Player::Update()
 
 
 
-	//直方体
-	std::vector<Box*> boxes = scene->GetGameObjects<Box>();
-	for (Box* box : boxes)
+	//ベッド
+	auto bed = scene->GetGameObject<Bed>();
+	if(bed !=nullptr)
 	{
-		D3DXVECTOR3 position = box->GetPosition();
-		D3DXVECTOR3 scale = box->GetScale();
+		D3DXVECTOR3 position = bed->GetPosition();
+		D3DXVECTOR3 scale = bed->GetScale();
 
 
 
-		if (position.x - scale.x - 0.5f < m_WorldPosition.x &&
-			m_WorldPosition.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_WorldPosition.z &&
-			m_WorldPosition.z < position.z + scale.z + 0.5f)
+		if (position.x - (scale.x * 2.0f)- (scale.x / 2) < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + (scale.x * 2.0f) + (scale.x / 2) &&
+			position.z - (scale.z * 2.0f) - (scale.z / 2) < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + (scale.z * 2.0f) + (scale.z / 2))
 		{
-			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+			if (m_countnum >= 1)
 			{
-				m_WorldPosition.x = oldPosition.x;
-				m_WorldPosition.z = oldPosition.z;
+				m_Description->SetText("ベッドで眠りました");
+				m_countnum += 1;
+				if (60 <= m_countnum) m_countnum = 0;
+
+			}
+			else m_Description->SetText("U：ベッドで眠る");
+
+			if (Input::GetKeyTrigger('U'))
+			{
+				Time* time = scene->GetGameObject<Time>();
+				time->SetSleep();
+
+				m_countnum += 1;
 			}
 
-			else
+			if (position.x - scale.x - (scale.x / 2) < m_WorldPosition.x &&
+				m_WorldPosition.x < position.x + scale.x + (scale.x / 2) &&
+				position.z - scale.z - (scale.z / 2) < m_WorldPosition.z &&
+				m_WorldPosition.z < position.z + scale.z + (scale.z / 2))
 			{
-				groundHeight = position.y + scale.y * 2.0f;
-			}
+				if (m_WorldPosition.y < position.y + scale.y * 1.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+				{//当たったら
+					m_WorldPosition.x = oldPosition.x;
+					m_WorldPosition.z = oldPosition.z;
 
-			break;
+				}
+				else
+				{
+					groundHeight = position.y + scale.y * 2.0f;
+				}
+			}
+			
+		}
+		else
+		{
+			m_Description->SetText("");
 		}
 	}
 
 	//土
-	std::vector<Earth*> Earths = scene->GetGameObjects<Earth>();
-	for (Earth* Earth : Earths)
+	
+	std::vector<NPC*> NPCs = scene->GetGameObjects<NPC>();
+	for (NPC* npc : NPCs)
 	{
-		D3DXVECTOR3 position = Earth->GetPosition();
-		D3DXVECTOR3 scale = Earth->GetScale();
-
-
-
-		if (position.x - scale.x - 0.5f < m_WorldPosition.x &&
-			m_WorldPosition.x < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_WorldPosition.z &&
-			m_WorldPosition.z < position.z + scale.z + 0.5f)
+		if (npc->GetIsHitPlayer())
 		{
-			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
+			if (Input::GetKeyTrigger('U'))
 			{
-				m_WorldPosition.x = oldPosition.x;
-				m_WorldPosition.z = oldPosition.z;
+				m_Conversation = scene->AddGameObject<Conversation>(LAYER_OBJECT_2D);
+				m_Message = npc->GetConversation();
+				m_Conversation->SetText(m_Message);
+				m_PlayerState = PLAYER_STATE_CONVERSATION;
 			}
-
-			else
-			{
-				groundHeight = position.y + scale.y * 2.0f;
-			}
-
-			break;
 		}
 	}
 	//障害物との衝突判定↑↑=====================================
@@ -275,20 +308,20 @@ void Player::Update()
 	{
 		//Manager::SetScene<GameOver>();
 	}
+
+	m_Time++;
+	m_BlendRate += 0.1f;
 }
 
 void Player::Draw()
 {
-	GameObject::Draw();
+	//GameObject::Draw();
 
 	//視錘台カリング
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	if (m_PlayerState != PLAYER_STATE::PLAYER_STATE_TITLE)
-	{
-		if (!camera->CheckView(m_WorldPosition)) return;
-	}
+	if (!camera->CheckView(m_WorldPosition)) return;
 	
 
 	// マトリクス設定
@@ -304,8 +337,7 @@ void Player::Draw()
 	
 	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
 
-	m_Time++;
-	m_BlendRate += 0.1f;
+
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
 	m_Model->Draw();
 }
@@ -313,7 +345,7 @@ void Player::Draw()
 void Player::UpdateTitle()
 {
 
-	m_AnimationName = "Idol";
+	m_AnimationName = "Idle";
 
 }
 
@@ -522,10 +554,10 @@ void Player::UpdateGround()
 
 	if (move == false)
 	{
-		if (m_NextAnimationName != "Idol")
+		if (m_NextAnimationName != "Idle")
 		{
 			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Idol";
+			m_NextAnimationName = "Idle";
 			m_BlendRate = 0.0f;
 		}
 	}
@@ -547,6 +579,15 @@ void Player::UpdateAttack()
 	{
 		m_PlayerState = PLAYER_STATE_GROUND;
 		m_AttackDelaynum = 0;
+	}
+}
+
+void Player::UpdateConversation()
+{
+	if (Input::GetKeyTrigger('O'))
+	{
+		m_Conversation->SetDestroy();
+		m_PlayerState = PLAYER_STATE_GROUND;
 	}
 }
 

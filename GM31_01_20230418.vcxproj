@@ -163,6 +163,7 @@
     <ClCompile Include="alpha.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="bed.cpp" />
     <ClCompile Include="box.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -170,7 +171,7 @@
     <ClCompile Include="CNetwork_WS.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="component.cpp" />
-    <ClCompile Include="countdown.cpp" />
+    <ClCompile Include="conversation.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="debugmanager.cpp" />
     <ClCompile Include="DirectWriteCustomFont.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="gameoverlogo.cpp" />
     <ClCompile Include="gauge.cpp" />
     <ClCompile Include="grass.cpp" />
+    <ClCompile Include="house.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -202,6 +204,7 @@
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="meshField.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="modelTest.cpp" />
     <ClCompile Include="networkTest.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="player.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="resultscreen.cpp" />
     <ClCompile Include="resultsky.cpp" />
     <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="room.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
@@ -222,6 +226,7 @@
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="testHouse.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
@@ -243,6 +248,7 @@
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
+    <ClInclude Include="bed.h" />
     <ClInclude Include="box.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
@@ -251,7 +257,7 @@
     <ClInclude Include="collider.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="component.h" />
-    <ClInclude Include="countdown.h" />
+    <ClInclude Include="conversation.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="debugmanager.h" />
     <ClInclude Include="DirectWriteCustomFont.h" />
@@ -269,6 +275,7 @@
     <ClInclude Include="gameoverlogo.h" />
     <ClInclude Include="gauge.h" />
     <ClInclude Include="grass.h" />
+    <ClInclude Include="house.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -280,12 +287,12 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadinglogo.h" />
-    <ClInclude Include="loadModel.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="meshField.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="modelContainer.h" />
+    <ClInclude Include="modelTest.h" />
     <ClInclude Include="networkTest.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="player.h" />
@@ -300,6 +307,7 @@
     <ClInclude Include="resultscreen.h" />
     <ClInclude Include="resultsky.h" />
     <ClInclude Include="Rock.h" />
+    <ClInclude Include="room.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shader.h" />
@@ -308,6 +316,7 @@
     <ClInclude Include="sphere.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="testHouse.h" />
     <ClInclude Include="testObj.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="time.h" />
