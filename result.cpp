@@ -11,7 +11,6 @@
 #include "audio.h"
 #include "resultsky.h"
 #include "titleenter.h"
-#include "field.h"
 #include "tree.h"
 #include "treasureBox.h"
 void Result::Init()

@@ -12,9 +12,9 @@ void Room::Init()
 	m_Rotation = D3DXVECTOR3(0.0f, 3.15f, 0.0f);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "shader\\vertexLightingVS.cso");
+		&m_VertexLayout, "shader\\unlitTextureVS.cso");
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\vertexLightingPS.cso");
+		"shader\\unlitTexturePS.cso");
 }
 
 void Room::Uninit()

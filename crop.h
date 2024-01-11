@@ -1,0 +1,41 @@
+#pragma once
+#include "item.h"
+#include <vector>
+
+enum CropState {
+	SEED,//éÌ
+	SEEDLING,//ïc
+	VEGETATIVE,//ëêè‰
+	BUD,//Ç¬Ç⁄Ç›
+	FLOWERING,//â‘
+	FRUITING,//é¿
+	MATURE,//ènÇµÇΩ
+	DEAD//åÕÇÍÇΩ
+};
+
+class Crop : public Item
+{
+private:
+	int m_GrowthStage{};//ê¨í∑íiäK
+	int m_GrowthTime{};//ê¨í∑éûä‘
+
+public:
+
+	void Init();
+	void Uninit();
+	void Update();
+	void Draw();
+};
+
+class Tomato : public Crop
+{
+private:
+
+public:
+	Tomato();
+	~Tomato();
+	void Init();
+	void Uninit();
+	void Update();
+	void Draw();
+};

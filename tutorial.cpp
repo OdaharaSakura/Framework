@@ -4,9 +4,7 @@
 #include "tutorial.h"
 #include "game.h"
 #include "input.h"
-
 #include "camera.h"
-#include "field.h"
 #include "polygon2D.h"
 #include "player.h"
 #include "enemy.h"

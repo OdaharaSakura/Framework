@@ -1,6 +1,5 @@
-#include "scene.h"
-
 #include "main.h"
+#include "scene.h"
 #include "resultsky.h"
 #include "meshField.h"
 #include "Player.h"
