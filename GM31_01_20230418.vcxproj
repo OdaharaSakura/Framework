@@ -192,8 +192,8 @@
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="fade.cpp" />
+    <ClCompile Include="farmField.cpp" />
     <ClCompile Include="farmTile.cpp" />
-    <ClCompile Include="field.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameDebugWindow.cpp" />
     <ClCompile Include="createGameWindow.cpp" />
@@ -291,8 +291,8 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="fade.h" />
+    <ClInclude Include="farmField.h" />
     <ClInclude Include="farmTile.h" />
-    <ClInclude Include="field.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameDebugWindow.h" />
     <ClInclude Include="createGameWindow.h" />

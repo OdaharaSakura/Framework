@@ -100,9 +100,6 @@
     <ClCompile Include="fade.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="field.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="gauge.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -287,6 +284,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="farmTile.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="farmField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -320,9 +318,6 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="field.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="gauge.h">
@@ -525,6 +520,7 @@
     </ClInclude>
     <ClInclude Include="inventory.h" />
     <ClInclude Include="farmTile.h" />
+    <ClInclude Include="farmField.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

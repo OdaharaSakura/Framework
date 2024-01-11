@@ -13,12 +13,13 @@
 #include "titleenter.h"
 #include "tree.h"
 #include "treasureBox.h"
+#include "meshField.h"
 void Result::Init()
 {
 	TreasureBox::Load();
 	AddGameObject<ResultCamera>(0);
 	AddGameObject<ResultSky>(1);
-	AddGameObject<Field>(1);
+	AddGameObject<MeshField>(1);
 	ResultPlayer* player = AddGameObject<ResultPlayer>(1);
 	player->SetPosition(D3DXVECTOR3(1.0f, 0.0f, 0.0f));
 
