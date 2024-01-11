@@ -5,9 +5,7 @@
 #include "result.h"
 #include "gameover.h"
 #include "input.h"
-
 #include "camera.h"
-#include "field.h"
 #include "polygon2D.h"
 #include "player.h"
 #include "enemy.h"
@@ -27,6 +25,7 @@
 #include "tree.h"
 #include "gamelogo.h"
 #include "treasureBox.h"
+#include "meshField.h"
 
 
 
@@ -46,7 +45,7 @@ void Game::Init()
 
 	AddGameObject<Camera>(0);//“o˜^‚·‚éList‚ÌŽí—Þ‚ð•Ï‚¦‚é
 	AddGameObject<Sky>(1);
-	AddGameObject<Field>(1);
+	AddGameObject<MeshField>(1);
 
 	AddGameObject<Cylinder>(1)->SetGameObject(D3DXVECTOR3(6.0f, 0.0f, 6.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	

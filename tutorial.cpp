@@ -4,9 +4,7 @@
 #include "tutorial.h"
 #include "game.h"
 #include "input.h"
-
 #include "camera.h"
-#include "field.h"
 #include "polygon2D.h"
 #include "player.h"
 #include "enemy.h"
@@ -17,12 +15,13 @@
 #include "fade.h"
 #include "sky.h"
 #include "audio.h"
+#include "meshField.h"
 
 void Tutorial::Init()
 {
 	AddGameObject<Camera>(0);//“o˜^‚·‚éList‚ÌŽí—Þ‚ð•Ï‚¦‚é
 	AddGameObject<Sky>(1);
-	AddGameObject<Field>(1);
+	AddGameObject<MeshField>(1);
 	AddGameObject<Player>(1)->SetPosition(D3DXVECTOR3(-10.0f, 1.0f, -4.0f));
 	AddGameObject<Enemy>(1)->SetGameObject(D3DXVECTOR3(0.0f, 0.0f, 5.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(-4.0f, 0.0f, 5.0f));
