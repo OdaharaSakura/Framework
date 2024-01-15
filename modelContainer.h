@@ -14,20 +14,23 @@ public:
 		READ_MODEL_FBX_MAX
 	};
 
+	enum LoadOBJModels
+	{
+		READ_MODEL_OBJ_MAX
+	};
+
 private:
-	static AnimationModel ModelsFBX[ModelContainer::READ_MODEL_FBX_MAX];
+	static AnimationModel* ModelsFBX[ModelContainer::READ_MODEL_FBX_MAX];
 	static std::unordered_map<std::string, const aiScene*> m_Animation;
 
 public:
 	static void LoadModels()
 	{
 		//FBXModels
-		ModelsFBX->Load("asset\\model\\fbx\\Player.fbx");
+		ModelsFBX[ModelContainer::PLAYER_MODEL]->Load("asset\\model\\fbx\\Player.fbx");
 
 		//Animations
 		m_Animation["Idol"] = aiImportFile("asset\\model\\fbx\\Player_Idle.fbx", aiProcess_ConvertToLeftHanded);
-
-
 		assert(m_Animation["Idol"]);
 
 

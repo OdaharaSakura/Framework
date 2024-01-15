@@ -56,6 +56,8 @@ public:
 		}
 	}
 
+
+
 	virtual void Draw() 
 	{
 		for (int i = 0; i < LAYER_MAX; i++)

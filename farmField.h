@@ -6,22 +6,17 @@
 class FarmField : public GameObject 
 {
 private:
-    FarmTile* tiles;
-    int width, height;
+	ID3D11Buffer* m_VertexBuffer{};
+	ID3D11Buffer* m_IndexBuffer{};
+	ID3D11ShaderResourceView* m_Texture{};
+
+
 
 public:
-    FarmField(int width, int height) : width(width), height(height) {
-        tiles = new FarmTile[width * height];
-    }
-
-    ~FarmField() {
-        delete[] tiles;
-    }
-
-    void Init();
-    void Uninit();
-    void Update();
-    void Draw();
+	void Init() override;
+	void Uninit() override;
+	void Update() override;
+	void Draw() override;
 
 };
 
