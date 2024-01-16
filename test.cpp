@@ -35,6 +35,7 @@
 #include "npc.h"
 #include "modelTest.h"
 #include "farmField.h"
+#include "farmTile.h"
 
 Player* player;
 bool Test::m_LoadFinish = false;
@@ -91,6 +92,7 @@ void Test::Init()
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 	AddGameObject<FarmField>(LAYER_OBJECT_3D);
+	AddGameObject<FarmTile>(LAYER_OBJECT_3D);
 
 
 	AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(6.0f, 3.0f, 6.0f));

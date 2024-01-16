@@ -8,14 +8,24 @@ enum FarmTileState
 	EMPTY,      // ãÛ
     PLOWED,     // çkÇ≥ÇÍÇΩ
     PLOWEDWATERED, //êÖÇ‚ÇËÇµÇΩ
-    MAX_GROWTH_STAGE
+    MAX_FARMTILE_STAGE
+};
+
+enum FarmTileModelState
+{
+    FARMTILE_MODEL_PLOWED,     // çkÇ≥ÇÍÇΩ
+    FARMTILE_MODEL_PLOWEDWATERED, //êÖÇ‚ÇËÇµÇΩ
+    MAX_FARMTILE_MODEL_STAGE
 };
 
 class FarmTile : public GameObject
 {
 private:
-    FarmTileState m_FarmTile;
+    FarmTileState m_FarmTileState{};
     class Crop* m_Crop{};
+    class Model* m_Model[MAX_FARMTILE_MODEL_STAGE]{}; //
+
+    int num{};
 
 public:
 	void Load();

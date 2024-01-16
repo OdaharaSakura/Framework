@@ -2,7 +2,10 @@
 #include "main.h"
 #include "renderer.h"
 #include "farmfield.h"
+#include "manager.h"
+#include "scene.h"
 #include "input.h"
+#include "farmTile.h"
 
 
 void FarmField::Init()
