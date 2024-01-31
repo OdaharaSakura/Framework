@@ -1,0 +1,88 @@
+#include "main.h"
+#include "textureContainer.h"
+#include "scene.h"
+#include <algorithm>
+
+std::unordered_map<std::string, Image*> TextureContainer::m_ImageDictionary{};
+std::string TextureContainer::m_FrontPath = "asset/texture/";
+
+void TextureContainer::Load(int sceneIndex)
+{
+    // シーンに基づいて特定のテクスチャをロード
+    switch (sceneIndex) {
+    case SCENE_TITLE:
+        // タイトルシーンのテクスチャをロード
+        //AddImage("titleBackground", "path/to/title_background.png");
+        break;
+    case SCENE_GAME:
+        AddImage("Hoe", "equipment_icon_kuwa.dds");//鍬
+        AddImage("WateringCan", "equipment_icon_WateringCan.png");//水やり
+        break;
+    case SCENE_RESULT:
+        break;
+    default:
+        break;
+    }
+}
+
+void TextureContainer::Unload(int sceneIndex)
+{
+    // シーンに基づいて不要なテクスチャをアンロードし、メモリを解放
+    for (auto& it : m_ImageDictionary) {
+        delete it.second; // メモリ解放
+        it.second = nullptr;
+    }
+    m_ImageDictionary.clear();
+}
+
+Image* TextureContainer::GetImage_Path(std::string path)
+{
+    std::string fullPath = m_FrontPath + path;
+
+    auto itr = find_if(m_ImageDictionary.begin(), m_ImageDictionary.end(),
+        [&](std::pair < std::string, Image* > pair) { return strcmp(pair.second->GetPath(), fullPath.c_str()) == 0; });
+
+    if (itr != m_ImageDictionary.end())
+    {
+        return itr->second;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+Image* TextureContainer::GetImage_Key(std::string key)
+{
+    auto it = m_ImageDictionary.find(key);
+    if (it != m_ImageDictionary.end()) {
+        return it->second;
+    }
+    else {
+        return nullptr;
+    }
+}
+
+void TextureContainer::AddImage(std::string key,  std::string path)
+{
+    std::string fullPath = m_FrontPath + path;
+
+    auto it = m_ImageDictionary.find(key);
+    if (it == m_ImageDictionary.end()) {
+        Image* newImage = new Image(fullPath.c_str());
+
+        if (newImage && newImage->GetShaderResourceView() != nullptr) {
+            m_ImageDictionary[key] = newImage;
+        }
+        else 
+        {
+            //ロードに失敗した
+            //TODO:エラーメッセージ出す
+            delete newImage;
+        }
+    }
+    else {
+        // 既に存在するキーの場合、新しい Image オブジェクトを作成しない
+        //TODO:エラーメッセージ出す
+    }
+}

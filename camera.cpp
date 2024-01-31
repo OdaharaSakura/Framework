@@ -72,7 +72,7 @@ void Camera::Draw()
 
 
 	//プロジェクションマトリクス設定
-	D3DXMatrixPerspectiveFovLH(&m_ProjectionMatrix, 1.0f, (float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
+	D3DXMatrixPerspectiveFovLH(&m_ProjectionMatrix, 1.0f, (float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 3000.0f);
 
 	Renderer::SetProjectionMatrix(&m_ProjectionMatrix);
 

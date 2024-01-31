@@ -2,14 +2,6 @@
 #include "scene.h"
 #include "renderer.h"
 
-enum SceneType
-{
-	TitleScene,
-	GameScene,
-	ResultScene,
-	LoadingScene,
-	TestScene
-};
 
 class Manager
 {

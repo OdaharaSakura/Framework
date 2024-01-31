@@ -1,21 +1,27 @@
 #pragma once
+#include "gameObject.h"
 #include "item.h"
 #include <vector>
 
-class Inventory
+class Inventory : public GameObject
 {
 private:
-    std::vector<Item> items;
+    std::vector<Item> m_PossessionItems;
     int maxCapacity;
+	class InventoryView* m_InventoryView;//SOLIDŒ´‘¥‚Éˆá”½‚µ‚Ä‚¢‚é
 
 public:
-    Inventory(int capacity) : maxCapacity(capacity) {}
+    void Init();
+    void Uninit();
+    void Update();
+    void Draw();
+
 
     bool AddItem(const Item& item)
     {
-        if (items.size() < maxCapacity)
+        if (m_PossessionItems.size() < maxCapacity)
         {
-            items.push_back(item);
+            m_PossessionItems.push_back(item);
             return true;
         }
         return false;
@@ -23,16 +29,16 @@ public:
 
     bool RemoveItem(const std::string& itemName)
     {
-        for (auto it = items.begin(); it != items.end(); ++it)
+        for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
         {
             if (it->GetName() == itemName)
             {
-                items.erase(it);
+                m_PossessionItems.erase(it);
                 return true;
             }
         }
         return false;
     }
 
-    const std::vector<Item>& GetItems() const { return items; }
+    const std::vector<Item>& GetItems() const { return m_PossessionItems; }
 };

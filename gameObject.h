@@ -86,11 +86,13 @@ public:
 
 	D3DXMATRIX GetMatrix() { return m_Matrix; }
 	
+	GameObject* GetParent() { return m_Parent; }
 
 	bool GetDepthShadow() { return m_IsDisplayShadow; }
 	bool GetEnvMapping() { return m_IsEnvMapping; }
 	bool GetPlayer() { return m_IsPlayer; }
-	GameObject* GetParent() { return m_Parent; }
+	bool GetIsStatic() { return m_IsStatic; }
+	bool GetIsActive() { return m_IsActive; }
 
 
 

@@ -14,8 +14,17 @@ enum ObjectLayer
 	LAYER_CAMERA,
 	LAYER_OBJECT_3D,
 	LAYER_COLLIDER,
+	LAYER_POSTEFFECT,
 	LAYER_OBJECT_2D,
 	LAYER_MAX
+};
+
+enum SceneType
+{
+	SCENE_TITLE,
+	SCENE_GAME,
+	SCENE_RESULT,
+	SCENE_MAX
 };
 
 class Scene
@@ -23,6 +32,7 @@ class Scene
 protected:
 
 	std::list<GameObject*> m_GameObject[LAYER_MAX];//レイヤーありのSTLのリスト構造//[3]ソーティングレイヤーのイメージ
+	bool m_IsBloom = false;
 
 public:
 	virtual void Load() {}
@@ -40,7 +50,6 @@ public:
 			}
 			m_GameObject[i].clear();//リスト構造の削除
 		}
-
 	}
 
 	virtual void Update()
@@ -49,6 +58,8 @@ public:
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
+				if (gameObject->GetIsStatic() == true) continue;
+				if (gameObject->GetIsActive() == false) continue;
 				gameObject->Update();
 			}
 			m_GameObject[i].remove_if([](GameObject* object)
@@ -57,17 +68,48 @@ public:
 	}
 
 
-
-	virtual void Draw() 
+	void DrawCamera()
 	{
-		for (int i = 0; i < LAYER_MAX; i++)
+		for (GameObject* gameObject : m_GameObject[LAYER_CAMERA])//範囲forループ
+		{
+			if (gameObject->GetIsActive() == false) continue;
+			gameObject->Draw();//ポリモフィズム
+		}
+	}
+
+	void Draw3DObject()
+	{
+		for (int i = LAYER_OBJECT_3D; i <= LAYER_COLLIDER; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//範囲forループ
 			{
+				if (gameObject->GetIsActive() == false) continue;
 				gameObject->Draw();//ポリモフィズム
 			}
 		}
 	}
+
+	void Draw2DObject()
+	{
+		for (GameObject* gameObject : m_GameObject[LAYER_OBJECT_2D])//範囲forループ
+		{
+			if (gameObject->GetIsActive() == false) continue;
+			gameObject->Draw();//ポリモフィズム
+		}
+	}
+
+
+	virtual void Draw() 
+	{
+		DrawCamera();
+		Draw3DObject();
+	}
+
+	virtual void Draw2D()
+	{
+		Draw2DObject();
+	}
+
 
 	template<typename T>
 	T* AddGameObject(int Layer)
@@ -143,6 +185,10 @@ public:
 		}
 		return D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	}
+
+	bool GetIsBloom() { return m_IsBloom; }
+
+	void SetIsBloom() { m_IsBloom = true; }
 
 };
 

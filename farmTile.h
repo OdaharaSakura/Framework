@@ -11,19 +11,12 @@ enum FarmTileState
     MAX_FARMTILE_STAGE
 };
 
-enum FarmTileModelState
-{
-    FARMTILE_MODEL_PLOWED,     // k‚³‚ê‚½
-    FARMTILE_MODEL_PLOWEDWATERED, //…‚â‚è‚µ‚½
-    MAX_FARMTILE_MODEL_STAGE
-};
-
 class FarmTile : public GameObject
 {
 private:
     FarmTileState m_FarmTileState{};
     class Crop* m_Crop{};
-    class Model* m_Model[MAX_FARMTILE_MODEL_STAGE]{}; //
+    class Model* m_Model[MAX_FARMTILE_STAGE]{}; //
 
     int num{};
 
@@ -34,29 +27,6 @@ public:
     void Uninit();
     void Update();
     void Draw();
-
-    //void plow() {
-    //    if (state == EMPTY) state = PLOWED;
-    //}
-
-    //void plantSeed() {
-    //    if (state == PLOWED) {
-    //        state = PLANTED;
-    //        growthStage = 1; // ‰Šú¬’·’iŠK
-    //    }
-    //}
-
-    //void updateGrowth() {
-    //    if (state == PLANTED || state == GROWING) {
-    //        growthStage++;
-    //        if (growthStage >= FarmTileState::MAX_GROWTH_STAGE) {
-    //            state = HARVESTABLE;
-    //        }
-    //        else {
-    //            state = GROWING;
-    //        }
-    //    }
-    //}
 };
 
 

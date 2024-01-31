@@ -5,13 +5,16 @@
 #include "shader.h"
 #include "crop.h"
 
+
+
 void FarmTile::Load()
 {
-	m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWED] = new Model();
-	m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWED]->Load("asset\\model\\obj\\calot.obj");
+	//畑のモデルに変えるか、テクスチャでマップ使って盛り上げる
+	m_Model[FarmTileState::PLOWED] = new Model();
+	m_Model[FarmTileState::PLOWED]->Load("asset\\model\\obj\\calot.obj");
 
-	m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWEDWATERED] = new Model();
-	m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWEDWATERED]->Load("asset\\model\\obj\\carrot_1.obj");
+	m_Model[FarmTileState::PLOWEDWATERED] = new Model();
+	m_Model[FarmTileState::PLOWEDWATERED]->Load("asset\\model\\obj\\carrot_1.obj");
 }
 
 void FarmTile::Unload()
@@ -20,9 +23,10 @@ void FarmTile::Unload()
 
 void FarmTile::Init()
 {
+
 	Load();
 
-	m_WorldPosition = D3DXVECTOR3(-15.0f, 0.0f, 0.0f);
+	m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	AddComponent<VertexLighting>();
 
@@ -31,7 +35,7 @@ void FarmTile::Init()
 
 void FarmTile::Uninit()
 {
-	for (int i = 0; i < MAX_FARMTILE_MODEL_STAGE; i++)
+	for (int i = 0; i < MAX_FARMTILE_STAGE; i++)
 	{
 		if (m_Model[i] == nullptr) continue;
 
@@ -56,7 +60,7 @@ void FarmTile::Update()
 
 void FarmTile::Draw()
 {
-	if (m_FarmTileState == EMPTY) return;
+	if (m_FarmTileState == FarmTileState::EMPTY) return;
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
@@ -69,10 +73,10 @@ void FarmTile::Draw()
 	switch (m_FarmTileState)
 	{
 	case FarmTileState::PLOWED:
-		m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWED]->Draw();
+		m_Model[FarmTileState::PLOWED]->Draw();
 		break;
 	case FarmTileState::PLOWEDWATERED:
-		m_Model[FarmTileModelState::FARMTILE_MODEL_PLOWEDWATERED]->Draw();
+		m_Model[FarmTileState::PLOWEDWATERED]->Draw();
 		break;
 	default:
 		break;

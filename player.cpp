@@ -24,6 +24,7 @@
 #include "time.h"
 #include "npc.h"
 #include "conversation.h"
+#include "iEquipment.h"
 
 //AnimationModel* Player::m_Model{};
 
@@ -40,6 +41,7 @@ void Player::Unload()
 void Player::Init()
 {
 	Scene* scene = Manager::GetScene();
+	m_EquipmentInterface = scene->GetGameObject<IEquipment>();
 	
 	m_Model = new AnimationModel();
 	m_Model->Load("asset\\model\\fbx\\Player.fbx");
@@ -179,9 +181,14 @@ void Player::Update()
 	//障害物との衝突判定↓↓=====================================
 	float groundHeight;
 
-	MeshField* meshfield = scene->GetGameObject<MeshField>();
-	if(meshfield != nullptr)groundHeight = meshfield->GetHeight(m_WorldPosition);
-	else groundHeight = 0.0f;
+	std::vector<MeshField*> meshFields = scene->GetGameObjects<MeshField>();
+
+	for (MeshField* meshField : meshFields)
+	{
+		if (meshField != nullptr)groundHeight = meshField->GetHeight(m_WorldPosition);
+		else groundHeight = 0.0f;
+	}
+	
 
 	//円柱
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
@@ -270,7 +277,7 @@ void Player::Update()
 		}
 	}
 
-	//土
+	//NPC
 	
 	std::vector<NPC*> NPCs = scene->GetGameObjects<NPC>();
 	for (NPC* npc : NPCs)
@@ -501,11 +508,12 @@ void Player::UpdateGround()
 		m_AnimeState = ATTACK;
 	}
 
-	//攻撃
+	//装備品を使う
 	if (Input::GetKeyPress('I'))
 	{
+		UseEquipment();
 
-		m_ShotSE->Play(false);
+		/*m_ShotSE->Play(false);
 		if (m_NextAnimationName != "Attack")
 		{
 			m_AnimationName = m_NextAnimationName;
@@ -517,16 +525,16 @@ void Player::UpdateGround()
 		if (m_IsAttackflg)
 		{
 			m_Attackflg = true;
-		}
+		}*/
 
 	}
 
-	//土魔法
+	//話す、調べる
 	if (Input::GetKeyPress('L'))
 	{
-		D3DXVECTOR3 earthPosition;
-		earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
-		scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
+		//D3DXVECTOR3 earthPosition;
+		//earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
+		//scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
 
 	}
 
@@ -535,6 +543,7 @@ void Player::UpdateGround()
 	{
 		m_Velocity.y = 0.35f;
 		m_PlayerState = PLAYER_STATE_JUMP;
+		move = true;
 
 		if (m_NextAnimationName != "InPlaceJump")
 		{
@@ -542,7 +551,7 @@ void Player::UpdateGround()
 			m_NextAnimationName = "InPlaceJump";
 			m_BlendRate = 0.0f;
 		}
-		move = true;
+		
 	}
 
 	if (Input::GetKeyPress('C'))
@@ -589,5 +598,20 @@ void Player::UpdateConversation()
 		m_Conversation->SetDestroy();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
+}
+
+void Player::UseEquipment()
+{
+	if(m_EquipmentInterface == nullptr) return;
+
+	if (m_EquipmentInterface->GetEquipment()) {
+		m_EquipmentInterface->ExecuteEquipment();
+	}
+}
+
+void Player::SetEquipmentInterface(IEquipment* equipment)
+{
+	m_EquipmentInterface = equipment;
+
 }
 

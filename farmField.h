@@ -1,7 +1,6 @@
 #pragma once
 
 #include "gameObject.h"
-#include "farmTile.h"
 
 class FarmField : public GameObject 
 {
@@ -10,7 +9,7 @@ private:
 	ID3D11Buffer* m_IndexBuffer{};
 	ID3D11ShaderResourceView* m_Texture{};
 
-
+	class FarmTile* m_FarmTile[3][3];
 
 public:
 	void Init() override;

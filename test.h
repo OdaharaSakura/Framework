@@ -19,5 +19,5 @@ public:
 	void Uninit() override;
 	void Update() override;
 
-
+	void SetStaticObject();
 };

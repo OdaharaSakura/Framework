@@ -6,6 +6,8 @@
 #include "scene.h"
 #include "input.h"
 #include "farmTile.h"
+#include "image.h"
+#include "textureContainer.h"
 
 
 void FarmField::Init()
@@ -60,6 +62,18 @@ void FarmField::Init()
 	m_WorldPosition = D3DXVECTOR3(-15.0f, 0.01f, 0.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
+	Scene* scene = Manager::GetScene();
+
+	for (int z = 0; z < 3; z++)
+	{
+		for (int x = 0; x < 3; x++)
+		{
+			m_FarmTile[x][z] = scene->AddGameObject<FarmTile>(LAYER_OBJECT_3D);
+			m_FarmTile[x][z]->SetPosition(D3DXVECTOR3(-15.0f + x * 2.0f, 0.0f, z * 2.0f));
+		}
+	}
+	
 }
 
 
