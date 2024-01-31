@@ -287,6 +287,7 @@
     <ClCompile Include="titleenter.cpp" />
     <ClCompile Include="titlelogo.cpp" />
     <ClCompile Include="titleselect.cpp" />
+    <ClCompile Include="townFactory.cpp" />
     <ClCompile Include="treasureBox.cpp" />
     <ClCompile Include="tree.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -398,6 +399,7 @@
     <ClInclude Include="titleenter.h" />
     <ClInclude Include="titlelogo.h" />
     <ClInclude Include="titleselect.h" />
+    <ClInclude Include="townFactory.h" />
     <ClInclude Include="treasureBox.h" />
     <ClInclude Include="tree.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
