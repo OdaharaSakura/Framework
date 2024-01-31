@@ -25,18 +25,18 @@ void ModelContainer::Load(int sceneIndex)
         AddModel("Shop2", "shop2.obj");//臙脂色の店
         AddModel("Shop3", "shop3.obj");//茶色の店
         AddModel("Fence", "fence.obj");//柵
-        //AddModel("FenceWood", "fencewood.obj");//木製の柵
-        //AddModel("MiddleTree", "treemiddle.obj");//並木道用の樹木
-        //AddModel("SymbolTree", "symboltree.obj");//中央の大樹
-        /*AddModel("WindMill", "windmill.obj");//風車
-        AddModel("Gate", "gate1.obj");//門
+        AddModel("FenceWood", "woodfence.obj");//木製の柵
+        AddModel("MiddleTree", "tree_mom.obj");//並木道用の樹木
+        AddModel("SymbolTree", "TAIZYU.obj");//中央の大樹
+        AddModel("WindMill", "windmill.obj");//風車
+        AddModel("Gate", "gate.obj");//門
         AddModel("Gate2", "gate2.obj");//門2
-        AddModel("Bridge", "bridge.obj");//橋
+        /*AddModel("Bridge", "bridge.obj");//橋
         AddModel("Pool", "pool.obj");//水汲み場
-        /*AddModel("WateringCan", "wateringcan.obj");//空のじょうろ
-        AddModel("WateringCan2", "wateringcan2.obj");//水いっぱいのじょうろ
+        AddModel("WateringCan", "wateringcan.obj");//空のじょうろ
+        AddModel("WateringCan2", "wateringcan2.obj");//水いっぱいのじょうろ*/
         AddModel("Carriage", "carriage.obj");//馬車
-        AddModel("Barrel", "barrel.obj");//たる*/
+        //AddModel("Barrel", "barrel.obj");//たる*/
 
         break;
     case SCENE_RESULT:

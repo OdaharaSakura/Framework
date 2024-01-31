@@ -61,10 +61,10 @@ void Road::Init()
 
 
 	// テクスチャがなかったらテクスチャ読み込み
-	if (m_Texture == nullptr) return;
+	if (m_Texture != nullptr) return;
 
 	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
-		"asset\\texture\\gravel.jpg",
+		"asset\\texture\\sand2.jpg",
 		NULL,
 		NULL,
 		&m_Texture,
@@ -78,7 +78,7 @@ void Road::Uninit()
 {
 
 	m_VertexBuffer->Release();
-	m_Texture->Release();
+	if(m_Texture)m_Texture->Release();
 
 }
 

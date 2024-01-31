@@ -13,7 +13,6 @@
 #include "enemy.h"
 #include "bullet.h"
 #include "explosion.h"
-#include "house.h"
 #include "box.h"
 #include "score.h"
 #include "audio.h"
@@ -105,16 +104,19 @@ void Test::Init()
 	AddGameObject<Camera>(LAYER_CAMERA);//“o˜^‚·‚éList‚ÌŽí—Þ‚ð•Ï‚¦‚é
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
+	//meshField->SetPosition(D3DXVECTOR3(-50.0f, 0.0f , 50.0f));
+	meshField->SetPosition(D3DXVECTOR3(0.0f, 0.0f , 0.0f));
 	MeshField* meshField2 = AddGameObject<MeshField>(LAYER_OBJECT_3D);
-	meshField2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 150.0f));
+	meshField2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 200.0f));
+	//meshField2->SetPosition(D3DXVECTOR3(-50.0f, 0.0f, 150.0f));
 	AddGameObject<FarmField>(LAYER_OBJECT_3D);
 
 	TownFactory* townFactory = new TownFactory();
 	townFactory->CreateTown();
 
 
-	AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(6.0f, 3.0f, 6.0f));
-	AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	
+	//AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	player = AddGameObject<Player>(LAYER_OBJECT_3D);
 	m_SphereCollider = player->AddComponent<SphereCollider>();
