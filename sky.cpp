@@ -9,7 +9,9 @@
 
 void Sky::Init()
 {
-	m_Scale = D3DXVECTOR3(100.0f, 100.0f, 100.0f);
+	m_Scale = D3DXVECTOR3(300.0f, 100.0f, 300.0f);
+
+	m_WorldPosition.y = -60.0f;
 
 	m_Model = new Model();
 	m_Model->Load("asset\\model\\obj\\sky.obj");
