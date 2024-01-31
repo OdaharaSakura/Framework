@@ -3,10 +3,15 @@
 #include "scene.h"
 #include "manager.h"
 #include "staticObject.h"
+#include "road.h"
 
 void TownFactory::CreateTown()
 {
 	Scene* scene = Manager::GetScene();
+
+	Road* road = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
+	road->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 10.0f));
+	road->SetScale(D3DXVECTOR3(5.0f, 1.0f, 10.0f));
 
 	StaticObject* desk = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	desk->SetModel_Key("Desk");

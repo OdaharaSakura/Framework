@@ -1,6 +1,7 @@
 #include "main.h"
 #include "renderer.h"
 #include "room.h"
+#include "shader.h"
 
 
 void Room::Init()
@@ -11,10 +12,7 @@ void Room::Init()
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 3.15f, 0.0f);
 
-	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "shader\\unlitTextureVS.cso");
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\unlitTexturePS.cso");
+	AddComponent<VertexLighting>();
 }
 
 void Room::Uninit()
@@ -22,10 +20,6 @@ void Room::Uninit()
 
 	m_Model->Unload();
 	delete m_Model;
-
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
 }
 
 void Room::Update()
@@ -35,14 +29,6 @@ void Room::Update()
 
 void Room::Draw()
 {
-
-
-	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	// 使用するシェーダを設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
-
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);

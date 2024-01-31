@@ -109,6 +109,8 @@ void Test::Init()
 	meshField2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 150.0f));
 	AddGameObject<FarmField>(LAYER_OBJECT_3D);
 
+	TownFactory* townFactory = new TownFactory();
+	townFactory->CreateTown();
 
 
 	AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(6.0f, 3.0f, 6.0f));
@@ -129,8 +131,7 @@ void Test::Init()
 	//AddGameObject<TreasureBox>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 
 	//SetStaticObject();
-	TownFactory* townFactory = new TownFactory();
-	townFactory->CreateTown();
+	
 
 	srand(0);
 

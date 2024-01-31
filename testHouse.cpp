@@ -30,8 +30,10 @@ void TestHouse::Init()
 	AddGameObject<Camera>(LAYER_CAMERA);//“o˜^‚·‚éList‚ÌŽí—Þ‚ð•Ï‚¦‚é
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 
+	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
+
 	Room* room = AddGameObject<Room>(LAYER_OBJECT_3D);
-	room->SetPositionY(-0.2f);
+	room->SetPositionY(-0.1f);
 
 	Player* player = AddGameObject<Player>(LAYER_OBJECT_3D);
 	Bed* bed = AddGameObject<Bed>(LAYER_OBJECT_3D);
