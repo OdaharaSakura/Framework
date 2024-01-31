@@ -123,6 +123,17 @@ private:
 	static ID3D11Texture2D* m_CubeReflectTexture;
 	static ID3D11ShaderResourceView* m_CubeReflectShaderResourceView;
 
+	static ID3D11RenderTargetView* m_PPRenderTargetView;
+	static ID3D11ShaderResourceView* m_PPShaderResourceView;
+
+	static ID3D11RenderTargetView* m_LuminanceRenderTargetView;
+	static ID3D11ShaderResourceView* m_LuminanceShaderResourceView;
+	static ID3D11DepthStencilView* m_LuminanceDepthStencilView;
+
+	static ID3D11RenderTargetView* m_BloomRenderTargetView[4];
+	static ID3D11ShaderResourceView* m_BloomShaderResourceView[4];
+	static ID3D11DepthStencilView* m_BloomDepthStencilView[4];
+
 
 public:
 	static void Init();
@@ -149,20 +160,20 @@ public:
 	static ID3D11DeviceContext* GetDeviceContext(void) { return m_DeviceContext; }
 	static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
 	static ID3D11RenderTargetView* GetRenderTargetView() { return m_RenderTargetView; }
+
 	static ID3D11Texture2D* GetReflectTexture(void) { return m_ReflectTexture; }
 	static ID3D11Texture2D* GetCubeReflectTexture(void) { return m_CubeReflectTexture; }
-	static ID3D11ShaderResourceView** GetCubeReflectShaderResourceView(void) {
-		return &m_CubeReflectShaderResourceView;
-	}
+	static ID3D11ShaderResourceView** GetCubeReflectShaderResourceView(void){ return &m_CubeReflectShaderResourceView; }
+
+	static ID3D11ShaderResourceView** GetPPTexture() { return &m_PPShaderResourceView; }
+	static ID3D11ShaderResourceView** GetLuminanceTexture() { return &m_LuminanceShaderResourceView; }
+	static ID3D11ShaderResourceView** GetBloomTexture(int index) { return &m_BloomShaderResourceView[index]; }
 
 
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
-	static ID3D11ShaderResourceView* GetDepthShadowTexture()
-	{
-		return	m_DepthShadowShaderResourceView;
-	}
+	static ID3D11ShaderResourceView* GetDepthShadowTexture(){ return m_DepthShadowShaderResourceView; }
 
 	static void BeginDepth()//V‹KŠÖ”’Ç‰Á
 	{
@@ -180,8 +191,13 @@ public:
 		m_DeviceContext->ClearRenderTargetView(m_ReflectRenderTargetView, ClearColor);
 		m_DeviceContext->ClearDepthStencilView(m_ReflectDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
+	static void BeginPP();
+	static void BeginLuminance();
+	static void BeginBloom(int index);
 
 	static void SetDefaultViewPort();
 	static void SetDepthViewPort();
 	static void SetReflectViewport();
+	static void SetLuminanceViewport();
+	static void SetBloomViewport(int index);
 };

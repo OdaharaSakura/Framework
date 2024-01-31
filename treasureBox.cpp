@@ -20,7 +20,7 @@ void TreasureBox::Load()
 
 void TreasureBox::Unload()
 {
-	m_Model->Unload();
+	if(m_Model != nullptr)m_Model->Unload();
 	delete m_Model;
 }
 

@@ -65,6 +65,9 @@
     <Filter Include="1_Common\Game">
       <UniqueIdentifier>{c1473029-c680-4715-8587-d97c4d82ba8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\equipment">
+      <UniqueIdentifier>{d077b6ad-e635-4b5a-912b-6a99084f74db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -285,6 +288,34 @@
     <ClCompile Include="farmTile.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="farmField.cpp" />
+    <ClCompile Include="iEquipment.cpp">
+      <Filter>GameObject\equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryView.cpp" />
+    <ClCompile Include="callBack.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="equipmentView.cpp">
+      <Filter>GameObject\equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="equipmentIcon.cpp">
+      <Filter>GameObject\equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="equipmentPanel.cpp">
+      <Filter>GameObject\equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="luminance.cpp" />
+    <ClCompile Include="post.cpp" />
+    <ClCompile Include="bloomPolygon.cpp" />
+    <ClCompile Include="staticSprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="textureContainer.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="modelContainer.cpp" />
+    <ClCompile Include="animationModelContainer.cpp" />
+    <ClCompile Include="staticObject.cpp" />
+    <ClCompile Include="road.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -521,6 +552,36 @@
     <ClInclude Include="inventory.h" />
     <ClInclude Include="farmTile.h" />
     <ClInclude Include="farmField.h" />
+    <ClInclude Include="iEquipment.h">
+      <Filter>GameObject\equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment.h">
+      <Filter>GameObject\equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipmentView.h">
+      <Filter>GameObject\equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryView.h" />
+    <ClInclude Include="callBack.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="equipmentIcon.h">
+      <Filter>GameObject\equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="equipmentPanel.h">
+      <Filter>GameObject\equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="luminance.h" />
+    <ClInclude Include="post.h" />
+    <ClInclude Include="bloomPolygon.h" />
+    <ClInclude Include="staticSprite.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="textureContainer.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="animationModelContainer.h" />
+    <ClInclude Include="staticObject.h" />
+    <ClInclude Include="road.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
@@ -578,6 +639,30 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\alphaBlendingPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\luminancePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\luminanceVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\mergePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\mergeVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\bloomPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\bloomVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\pixelLightingPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\pixelLightingVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

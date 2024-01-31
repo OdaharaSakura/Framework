@@ -45,6 +45,7 @@ private:
 	void CreateBone(aiNode* Node);
 	void UpdateBoneMatrix(aiNode* Node, aiMatrix4x4 Matrix);
 
+
 public:
 	void Load( const char *FileName );
 	void LoadAnimation( const char *FileName, const char *Name );

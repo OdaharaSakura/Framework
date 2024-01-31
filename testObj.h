@@ -24,7 +24,7 @@ public:
 	{
 
 		m_Model = new Model();
-		m_Model->Load("asset\\model\\obj\\Sphere.obj");
+		m_Model->Load("asset\\model\\obj\\Kuwa.obj");
 
 
 		Renderer::CreateVertexShader(&m_VertexShader,
@@ -54,7 +54,7 @@ public:
 		D3DXMatrixTranslation(&trans, GetPosition().x, GetPosition().y, GetPosition().z);
 		world = scale * rot * trans * m_pMatrix * GetParent()->GetMatrix();
 
-		D3DXVec3TransformCoord(&m_worldPosition, &m_WorldPosition, &world);//ワールド座標
+		D3DXVec3TransformCoord(&m_WorldPosition, &m_WorldPosition, &world);//ワールド座標
 
 		Renderer::SetWorldMatrix(&world);
 

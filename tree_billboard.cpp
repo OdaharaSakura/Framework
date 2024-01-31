@@ -61,8 +61,8 @@ void TreeBillboard::Load()
 
 void TreeBillboard::Unload()
 {
-	if(!m_VertexBuffer)m_VertexBuffer->Release();
-	if (!m_Texture)m_Texture->Release();
+	if(m_VertexBuffer)m_VertexBuffer->Release();
+	if (m_Texture)m_Texture->Release();
 }
 
 void TreeBillboard::Init()

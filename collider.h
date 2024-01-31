@@ -24,7 +24,7 @@ private:
 	D3DXVECTOR3 m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	float m_Radius = 1.0f;
-	float m_ScaleOffset = 100.0f;
+	float m_ScaleOffset = 1.0f;
 
 	std::string m_HitObjectTag{};
 		 

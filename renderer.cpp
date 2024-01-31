@@ -40,6 +40,16 @@ ID3D11DepthStencilView* Renderer::m_ReflectDepthStencilView{};
 ID3D11Texture2D* Renderer::m_CubeReflectTexture{};
 ID3D11ShaderResourceView* Renderer::m_CubeReflectShaderResourceView{};
 
+ID3D11RenderTargetView* Renderer::m_PPRenderTargetView{};
+ID3D11ShaderResourceView* Renderer::m_PPShaderResourceView{};
+
+ID3D11RenderTargetView* Renderer::m_LuminanceRenderTargetView{};
+ID3D11ShaderResourceView* Renderer::m_LuminanceShaderResourceView{};
+ID3D11DepthStencilView* Renderer::m_LuminanceDepthStencilView{};
+ID3D11RenderTargetView* Renderer::m_BloomRenderTargetView[4]{};
+ID3D11ShaderResourceView* Renderer::m_BloomShaderResourceView[4]{};
+ID3D11DepthStencilView* Renderer::m_BloomDepthStencilView[4]{};
+
 
 void Renderer::Init()
 {
@@ -389,6 +399,155 @@ void Renderer::Init()
 		srvd.TextureCube.MostDetailedMip = 0;
 		m_Device->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_CubeReflectShaderResourceView);
 	}
+
+	{
+		//テクスチャー作成
+		ID3D11Texture2D* ppTexture = NULL;
+		D3D11_TEXTURE2D_DESC td; //テクスチャ作成用デスクリプタ構造体変数
+		ZeroMemory(&td, sizeof(td)); //構造体を０初期化
+
+		td.Width = swapChainDesc.BufferDesc.Width; //構造体sdはInit関数の最初で作られている。
+		td.Height = swapChainDesc.BufferDesc.Height;//バックバッファの情報が格納されている
+		td.MipLevels = 1;//ミップマップの数 0は限界まで作る
+		td.ArraySize = 1;
+		td.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //ピクセルフォーマット
+		td.SampleDesc = swapChainDesc.SampleDesc;
+		td.Usage = D3D11_USAGE_DEFAULT;
+		//使用法のフラグを設定
+		td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		td.CPUAccessFlags = 0;
+		td.MiscFlags = 0;
+		//構造体の設定に従ってテクスチャ領域を作成
+		m_Device->CreateTexture2D(&td, NULL, &ppTexture);
+
+
+
+
+
+		//レンダーターゲットビュー作成
+		D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+		ZeroMemory(&rtvd, sizeof(rtvd));
+		rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		m_Device->CreateRenderTargetView(ppTexture, &rtvd,
+			&m_PPRenderTargetView);
+
+		//シェーダーリソースビュー作成
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+		ZeroMemory(&srvd, sizeof(srvd));
+		srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvd.Texture2D.MipLevels = 1;
+		m_Device->CreateShaderResourceView(ppTexture, &srvd,
+			&m_PPShaderResourceView);
+		ppTexture->Release();
+
+		{
+			//テクスチャー作成
+			ID3D11Texture2D* luminanceTexture = NULL;
+			D3D11_TEXTURE2D_DESC td; //テクスチャ作成用デスクリプタ構造体変数
+			ZeroMemory(&td, sizeof(td)); //構造体を０初期化
+
+			td.Width = SCREEN_WIDTH / 2; //構造体sdはInit関数の最初で作られている。
+			td.Height = SCREEN_HEIGHT / 2;//バックバッファの情報が格納されている
+			td.MipLevels = 1;//ミップマップの数 0は限界まで作る
+			td.ArraySize = 1;
+			td.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //ピクセルフォーマット
+			td.SampleDesc = swapChainDesc.SampleDesc;
+			td.Usage = D3D11_USAGE_DEFAULT;
+			//使用法のフラグを設定
+			td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+			td.CPUAccessFlags = 0;
+			td.MiscFlags = 0;
+			//構造体の設定に従ってテクスチャ領域を作成
+			m_Device->CreateTexture2D(&td, NULL, &luminanceTexture);
+
+
+
+			//レンダーターゲットビュー作成
+			D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+			ZeroMemory(&rtvd, sizeof(rtvd));
+			rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			m_Device->CreateRenderTargetView(luminanceTexture, &rtvd,
+				&m_LuminanceRenderTargetView);
+
+			//ステンシルターゲット作成
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+			ZeroMemory(&dsvd, sizeof(dsvd));
+			dsvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+			dsvd.Flags = 0;
+			m_Device->CreateDepthStencilView(luminanceTexture, &dsvd, &m_LuminanceDepthStencilView);
+
+
+
+
+			//シェーダーリソースビュー作成
+			D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+			ZeroMemory(&srvd, sizeof(srvd));
+			srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			srvd.Texture2D.MipLevels = 1;
+			m_Device->CreateShaderResourceView(luminanceTexture, &srvd,
+				&m_LuminanceShaderResourceView);
+			luminanceTexture->Release();
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			//テクスチャー作成
+			ID3D11Texture2D* bloomTexture = NULL;
+			D3D11_TEXTURE2D_DESC td; //テクスチャ作成用デスクリプタ構造体変数
+			ZeroMemory(&td, sizeof(td)); //構造体を０初期化
+
+
+
+			td.Width = SCREEN_WIDTH / pow(2, (i + 2)); //構造体sdはInit関数の最初で作られている。
+			td.Height = SCREEN_HEIGHT / pow(2, (i + 2));//バックバッファの情報が格納されている
+			td.MipLevels = 1;//ミップマップの数 0は限界まで作る
+			td.ArraySize = 1;
+			td.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //ピクセルフォーマット
+			td.SampleDesc = swapChainDesc.SampleDesc;
+			td.Usage = D3D11_USAGE_DEFAULT;
+			//使用法のフラグを設定
+			td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+			td.CPUAccessFlags = 0;
+			td.MiscFlags = 0;
+			//構造体の設定に従ってテクスチャ領域を作成
+			m_Device->CreateTexture2D(&td, NULL, &bloomTexture);
+
+
+			//レンダーターゲットビュー作成
+			D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+			ZeroMemory(&rtvd, sizeof(rtvd));
+			rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			m_Device->CreateRenderTargetView(bloomTexture, &rtvd,
+				&m_BloomRenderTargetView[i]);
+
+			//ステンシルターゲット作成
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+			ZeroMemory(&dsvd, sizeof(dsvd));
+			dsvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+			dsvd.Flags = 0;
+			m_Device->CreateDepthStencilView(bloomTexture, &dsvd, &m_BloomDepthStencilView[i]);
+
+			//シェーダーリソースビュー作成
+			D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+			ZeroMemory(&srvd, sizeof(srvd));
+			srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			srvd.Texture2D.MipLevels = 1;
+			m_Device->CreateShaderResourceView(bloomTexture, &srvd,
+				&m_BloomShaderResourceView[i]);
+
+
+
+			bloomTexture->Release();
+		}
+	}
 }
 
 
@@ -593,6 +752,39 @@ void Renderer::CreatePixelShader(ID3D11PixelShader** PixelShader, const char* Fi
 	delete[] buffer;
 }
 
+void Renderer::BeginPP()
+{
+	//レンダーターゲットをバックバッファに戻す
+	m_DeviceContext->OMSetRenderTargets(1, &m_PPRenderTargetView, m_DepthStencilView);
+
+	//バックバッファクリア
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//赤
+	m_DeviceContext->ClearRenderTargetView(m_PPRenderTargetView, ClearColor);
+	m_DeviceContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
+void Renderer::BeginLuminance()
+{
+	//レンダーターゲットをバックバッファに戻す
+	m_DeviceContext->OMSetRenderTargets(1, &m_LuminanceRenderTargetView, m_LuminanceDepthStencilView);
+
+	//バックバッファクリア
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//赤
+	m_DeviceContext->ClearRenderTargetView(m_LuminanceRenderTargetView, ClearColor);
+	m_DeviceContext->ClearDepthStencilView(m_LuminanceDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
+void Renderer::BeginBloom(int index)
+{
+	//レンダーターゲットをバックバッファに戻す
+	m_DeviceContext->OMSetRenderTargets(1, &m_BloomRenderTargetView[index], m_BloomDepthStencilView[index]);
+
+	//バックバッファクリア
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//赤
+	m_DeviceContext->ClearRenderTargetView(m_BloomRenderTargetView[index], ClearColor);
+	m_DeviceContext->ClearDepthStencilView(m_BloomDepthStencilView[index], D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
 void Renderer::SetDefaultViewPort()
 {
 	// ビューポート設定
@@ -630,5 +822,31 @@ void Renderer::SetReflectViewport(void)
 	vp.TopLeftY = 0;
 	m_DeviceContext->RSSetViewports(1, &vp);
 
+}
+
+void Renderer::SetLuminanceViewport()
+{
+	// ビューポート設定
+	D3D11_VIEWPORT vp;
+	vp.Width = (FLOAT)SCREEN_WIDTH / 2;
+	vp.Height = (FLOAT)SCREEN_HEIGHT / 2;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	m_DeviceContext->RSSetViewports(1, &vp);
+}
+
+void Renderer::SetBloomViewport(int index)
+{
+	// ビューポート設定
+	D3D11_VIEWPORT vp;
+	vp.Width = (FLOAT)SCREEN_WIDTH / pow(2, (index + 2));
+	vp.Height = (FLOAT)SCREEN_HEIGHT / pow(2, (index + 2));
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	m_DeviceContext->RSSetViewports(1, &vp);
 }
 

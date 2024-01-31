@@ -15,11 +15,8 @@ void House::Init()
 
 void House::Uninit()
 {
-
 	m_Model->Unload();
 	delete m_Model;
-
-
 }
 
 void House::Update()

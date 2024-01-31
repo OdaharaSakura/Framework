@@ -11,6 +11,10 @@
 #include "debugmanager.h"
 #include "loading.h"
 
+#include "bloomPolygon.h"
+#include "luminance.h"
+#include "post.h"
+
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};//静的メンバ変数は再宣言が必要
 Renderer* Manager::m_Renderer{};
@@ -28,7 +32,13 @@ void Manager::Init()
 	Audio::InitMaster();
 	m_IsGameFinish = false;
 
-	SetScene<Title>();
+
+
+
+	SetScene<Title>();//ゲーム開始時のシーンを設定
+
+
+
 }
 
 void Manager::Uninit()
@@ -56,6 +66,9 @@ void Manager::Update()
 
 		m_Scene = m_NextScene;
 		m_Scene->Init();
+
+		
+
 		m_NextScene = nullptr;
 	}
 	//DebugManager::Update();
@@ -68,17 +81,10 @@ void Manager::Draw()
 	LIGHT light;
 	light.Enable = true;
 
-	if (m_Scene != nullptr)
-	{
-		D3DXVECTOR3 testposition = m_Scene->GetPlayerPosition();
+	if (m_Scene == nullptr) return;
 
-		LightInitialize(&light, testposition);
-	}
-	else
-	{
-		LightInitialize(&light, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	}
-
+	D3DXVECTOR3 testposition = m_Scene->GetPlayerPosition();
+	LightInitialize(&light, testposition);
 
 	//1パス目    シャドーバッファの作成
 	Renderer::BeginDepth();
@@ -88,13 +94,47 @@ void Manager::Draw()
 	Renderer::SetViewMatrix(&light.ViewMatrix);
 	Renderer::SetProjectionMatrix(&light.ProjectionMatrix);
 
-	//影を落としたいオブジェクトを描画(一応地面も)	
-	if (m_Scene != nullptr)m_Scene->DepthPath();
+	//影を落としたいオブジェクトを描画	
+	m_Scene->DepthPath();
 
-	m_Renderer->Begin();
-	Renderer::SetDefaultViewPort();
 
-	if (m_Scene != nullptr)m_Scene->Draw();
+	if (m_Scene->GetIsBloom())
+	{
+		m_Renderer->BeginPP();
+		Renderer::SetDefaultViewPort();
+
+
+		m_Scene->Draw();
+
+		//bloom
+		//ライト無効
+		light.Enable = false;
+		Renderer::SetLight(light);
+		//2パス目 輝度抽出用バッファにレンダリング
+		Renderer::BeginLuminance();
+		Renderer::SetLuminanceViewport();
+		m_Scene->GetGameObject<Luminance>()->Draw();
+		//3～6パス目 縮小バッファへレンダリング
+		for (int i = 0; i < 4; i++)
+		{
+			Renderer::BeginBloom(i);
+			Renderer::SetBloomViewport(i);
+			m_Scene->GetGameObject<BloomPolygon>()->Draw(i);
+		}
+		//7パス目
+		Renderer::Begin();
+		Renderer::SetDefaultViewPort();
+		m_Scene->GetGameObject<Post>()->Draw();
+	}
+	else
+	{
+		m_Renderer->Begin();
+		Renderer::SetDefaultViewPort();
+
+		m_Scene->Draw();
+	}
+
+	m_Scene->Draw2D();
 
 	//DebugManager::Draw();
 
@@ -119,7 +159,7 @@ void Manager::LightInitialize(LIGHT * light, D3DXVECTOR3 position)
 	D3DXMatrixLookAtLH(&light->ViewMatrix, &lightPos, &lightTarget, &lightUp);
 
 	//ライトカメラのプロジェクション行列を作成
-	D3DXMatrixPerspectiveFovLH(&light->ProjectionMatrix, 1.0f, (float)(SCREEN_WIDTH) / (float)(SCREEN_HEIGHT), 1.0f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&light->ProjectionMatrix, 1.0f, (float)(SCREEN_WIDTH) / (float)(SCREEN_HEIGHT), 1.0f, 1000.0f);
 
 	Renderer::SetLight(*light);
 }

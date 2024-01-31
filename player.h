@@ -26,6 +26,8 @@ private:
 
 	int m_countnum = 0;//test
 
+	class IEquipment* m_EquipmentInterface;
+
 	class Text* m_Description;//説明
 	class Conversation* m_Conversation;//会話
 	std::string m_Message;//会話中のメッセージ
@@ -77,6 +79,9 @@ public:
 	void UpdateJump();
 	void UpdateAttack();
 	void UpdateConversation();//ステートパターンで書いてみる
+
+	void UseEquipment();
+	void SetEquipmentInterface(IEquipment* equipment);
 
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
