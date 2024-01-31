@@ -316,6 +316,7 @@
     <ClCompile Include="animationModelContainer.cpp" />
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="road.cpp" />
+    <ClCompile Include="townFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -582,6 +583,7 @@
     <ClInclude Include="animationModelContainer.h" />
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="road.h" />
+    <ClInclude Include="townFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
