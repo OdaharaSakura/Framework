@@ -26,7 +26,7 @@ void ModelContainer::Load(int sceneIndex)
         AddModel("Shop3", "shop3.obj");//茶色の店
         AddModel("Fence", "fence.obj");//柵
         AddModel("FenceWood", "woodfence.obj");//木製の柵
-        AddModel("MiddleTree", "tree_mom.obj");//並木道用の樹木
+        AddModel("MiddleTree", "treemiddle.obj");//並木道用の樹木
         AddModel("SymbolTree", "TAIZYU.obj");//中央の大樹
         AddModel("WindMill", "windmill.obj");//風車
         AddModel("Gate", "gate.obj");//門
@@ -36,6 +36,7 @@ void ModelContainer::Load(int sceneIndex)
         AddModel("WateringCan", "wateringcan.obj");//空のじょうろ
         AddModel("WateringCan2", "wateringcan2.obj");//水いっぱいのじょうろ*/
         AddModel("Carriage", "carriage.obj");//馬車
+        AddModel("Mountain", "mountain.obj");//馬車
         //AddModel("Barrel", "barrel.obj");//たる*/
 
         break;

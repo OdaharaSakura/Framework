@@ -86,7 +86,7 @@ void TownFactory::CreateTown()
 	{
 		StaticObject* fence = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 		fence->SetModel_Key("Fence");
-		fence->SetPosition(D3DXVECTOR3(-20.0f+ (i * 3.0f), 0.0f, 10.0f));
+		fence->SetPosition(D3DXVECTOR3(-21.0f+ (i * 3.0f), 0.0f, 10.0f));
 		fence->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		fence->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
@@ -95,72 +95,82 @@ void TownFactory::CreateTown()
 
 
 
-
+	StaticObject* fence1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	fence1->SetModel_Key("Fence");
+	fence1->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, 10.0f));
+	fence1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	fence1->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
 
 	StaticObject* fence2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence2->SetModel_Key("Fence");
-	fence2->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, 6.0f));
+	fence2->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, 6.0f));
 	fence2->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence2->SetRotation(D3DXVECTOR3(0.0f, -30.0f, 0.0f));
+	fence2->SetRotation(D3DXVECTOR3(0.0f, -3.14f/2, 0.0f));
 
 	StaticObject* fence3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence3->SetModel_Key("Fence");
-	fence3->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, 2.0f));
+	fence3->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, 2.0f));
 	fence3->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence3->SetRotation(D3DXVECTOR3(0.0f, -30.0f, 0.0f));
+	fence3->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
 
 	StaticObject* fence4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence4->SetModel_Key("Fence");
-	fence4->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, -2.0f));
+	fence4->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, -2.0f));
 	fence4->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence4->SetRotation(D3DXVECTOR3(0.0f, -30.0f, 0.0f));
+	fence4->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
 
 	StaticObject* fence5 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence5->SetModel_Key("Fence");
-	fence5->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, -6.0f));
+	fence5->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, -6.0f));
 	fence5->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence5->SetRotation(D3DXVECTOR3(0.0f, -30.0f, 0.0f));
+	fence5->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
 
 	StaticObject* fence6 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence6->SetModel_Key("Fence");
-	fence6->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, -10.0f));
+	fence6->SetPosition(D3DXVECTOR3(-22.0f, 0.0f, -10.0f));
 	fence6->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence6->SetRotation(D3DXVECTOR3(0.0f, -30.0f, 0.0f));
+	fence6->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
+
+	//StaticObject* fence6 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	//fence6->SetModel_Key("Fence");
+	//fence6->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, -10.0f));
+	//fence6->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	//fence6->SetRotation(D3DXVECTOR3(0.0f, -3.14f, 0.0f));
 
 	StaticObject* fence7 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence7->SetModel_Key("Fence");
-	fence7->SetPosition(D3DXVECTOR3(-23.0f, 0.0f, -13.0f));
+	fence7->SetPosition(D3DXVECTOR3(-21.0f, 0.0f, -13.0f));
 	fence7->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence7->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* fence8 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence8->SetModel_Key("Fence");
-	fence8->SetPosition(D3DXVECTOR3(-19.0f, 0.0f, -13.0f));
+	fence8->SetPosition(D3DXVECTOR3(-17.0f, 0.0f, -13.0f));
 	fence8->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence8->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* fence9 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence9->SetModel_Key("Fence");
-	fence9->SetPosition(D3DXVECTOR3(-15.0f, 0.0f, -13.0f));
+	fence9->SetPosition(D3DXVECTOR3(-13.0f, 0.0f, -13.0f));
 	fence9->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence9->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* fence10 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence10->SetModel_Key("Fence");
-	fence10->SetPosition(D3DXVECTOR3(-11.0f, 0.0f, -13.0f));
+	fence10->SetPosition(D3DXVECTOR3(-9.0f, 0.0f, -13.0f));
 	fence10->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence10->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	StaticObject* fence11 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	fence11->SetModel_Key("Fence");
-	fence11->SetPosition(D3DXVECTOR3(-7.0f, 0.0f, -13.0f));
-	fence11->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	fence11->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	//StaticObject* fence11 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	//fence11->SetModel_Key("Fence");
+	//fence11->SetPosition(D3DXVECTOR3(-7.0f, 0.0f, -13.0f));
+	//fence11->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	//fence11->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 
 
 
-	const int maxwfence = 15;
+	/*const int maxwfence = 15;
 
 	for (int i = 0; i < maxwfence; i++)
 	{
@@ -170,7 +180,7 @@ void TownFactory::CreateTown()
 		fence12->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		fence12->SetRotation(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
 
-	}
+	}*/
 
 
 
@@ -233,7 +243,7 @@ void TownFactory::CreateTown()
 
 	StaticObject* TAIZYU = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	TAIZYU->SetModel_Key("SymbolTree");
-	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -21.0f, 130.0f));
+	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -20.5f, 130.0f));
 	TAIZYU->SetScale(D3DXVECTOR3(5.0f, 5.0f, 5.0f));
 	TAIZYU->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
@@ -284,6 +294,12 @@ void TownFactory::CreateTown()
 	carriage->SetPosition(D3DXVECTOR3(-20.0f, 0.0f, -25.0f));
 	carriage->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	carriage->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	StaticObject* mountain = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	mountain->SetModel_Key("Mountain");
+	mountain->SetPosition(D3DXVECTOR3(-50.0f, 0.0f, 170.0f));
+	mountain->SetScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+	mountain->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	/*StaticObject* carriage = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	carriage->SetModel_Key("Barrel");
