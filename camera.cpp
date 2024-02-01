@@ -50,7 +50,7 @@ void Camera::Update()
 	
 	//トップビュー
 	m_Target = player->GetPosition() + player->GetRight() * 0.5f + D3DXVECTOR3(0.0f, 2.0f, 0.0f);;
-	m_WorldPosition = m_Target + D3DXVECTOR3(sinf(m_Rotation) * 5.0f, 1.0f, -cosf(m_Rotation)*5.0f);
+	m_WorldPosition = m_Target + D3DXVECTOR3(sinf(m_Rotation) * 5.0f, 2.0f, -cosf(m_Rotation)*6.0f);
 
 	//カメラシェイク
 	m_ShakeOffset = sinf(m_ShakeTime * 1.5f) * m_ShakeAmplitude;
