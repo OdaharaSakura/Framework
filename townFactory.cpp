@@ -334,7 +334,7 @@ void TownFactory::CreateTown()
 
 	StaticObject* mountain = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	mountain->SetModel_Key("Mountain");
-	mountain->SetPosition(D3DXVECTOR3(60.0f, 9.0f, 0.0f));
+	mountain->SetPosition(D3DXVECTOR3(60.0f, 9.0f, -80.0f));
 	mountain->SetScale(D3DXVECTOR3(20.0f, 20.0f, 20.0f));
 	mountain->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
