@@ -171,11 +171,11 @@ void Test::Init()
 	AddGameObject<Time>(LAYER_OBJECT_2D);
 
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
-	////BGMçƒê∂
-	//Audio* bgm;
-	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	//bgm->Load("asset\\audio\\êÌÇ¢153_long_BPM165.wav");
-	//bgm->Play(true);
+	//BGMçƒê∂
+	Audio* bgm;
+	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	bgm->Load("asset\\audio\\GameBGM.wav");
+	bgm->Play(true);
 }
 
 void Test::Uninit()

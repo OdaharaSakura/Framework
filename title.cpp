@@ -7,6 +7,7 @@
 #include "game.h"
 #include "resultcamera.h"
 #include "resultplayer.h"
+#include "audio.h"
 #include "resultsky.h"
 #include "titlelogo.h"
 #include "titleenter.h"
@@ -16,11 +17,16 @@
 #include "alpha.h"
 #include "sphere.h"
 
-#include "audio.h"
+
 
 
 void Title::Init()
 {
+	////BGMçƒê∂
+	//Audio* bgm;
+	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//bgm->Load("asset\\audio\\TitleBGM.wav");
+
 	ResultCamera* camera = AddGameObject<ResultCamera>(LAYER_CAMERA);
 	camera->Setoffset(D3DXVECTOR3(2.0f, 1.0f, 1.0f));
 	AddGameObject<ResultSky>(LAYER_OBJECT_3D);
@@ -41,12 +47,9 @@ void Title::Init()
 
 
 
-	////BGMçƒê∂
-	//Audio* bgm;
-	//bgm = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();
-	//bgm->Load("asset\\audio\\035_long_BPM60.wav");
+	
 	//bgm->Play(true);
-
+	
 	//m_ShotSE1 = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();
 	//m_ShotSE1->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
 }
@@ -58,6 +61,7 @@ void Title::Uninit()
 void Title::Update()
 {
 	Scene::Update();
+
 
 	if (m_TitleEnter->GetIsPressEnter() && m_Phase == 0)
 	{

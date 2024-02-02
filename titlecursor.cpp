@@ -35,10 +35,10 @@ void TitleCursor::Init()
 	m_StartPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
 
 	m_ShotSEEnter = AddComponent<Audio>();
-	m_ShotSEEnter->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
+	m_ShotSEEnter->Load("asset\\audio\\CursorSE.wav");
 
 	m_ShotSE2Select = AddComponent<Audio>();
-	m_ShotSE2Select->Load("asset\\audio\\RPG_erabu.wav");
+	m_ShotSE2Select->Load("asset\\audio\\DecisionSE.wav");
 }
 
 void TitleCursor::Uninit()
