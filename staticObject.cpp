@@ -50,6 +50,6 @@ void StaticObject::Draw()
 
 void StaticObject::SetModel_Key(std::string model_Key)
 {
-	m_Model = ModelContainer::GetModel_Key(model_Key);
+	m_Model = ModelContainer::GetModelKey(model_Key);
 	AddComponent<PixelLighting>();
 }

@@ -12,6 +12,7 @@ private:
 	ID3D11InputLayout* m_VertexLayout{};
 
 	class Fade* m_Fade{};
+	class Audio* m_BGM{};
 	class Audio* m_ShotSE1{};
 	class TitleEnter* m_TitleEnter{};
 	class TitleSelect* m_TitleSelect{};

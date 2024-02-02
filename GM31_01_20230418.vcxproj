@@ -236,6 +236,7 @@
     <ClCompile Include="inventoryItemCursor.cpp" />
     <ClCompile Include="inventoryItemIcon.cpp" />
     <ClCompile Include="inventoryPanel.cpp" />
+    <ClCompile Include="inventoryItemDescription.cpp" />
     <ClCompile Include="inventoryView.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadinglogo.cpp" />
@@ -357,6 +358,7 @@
     <ClInclude Include="inventoryItemCursor.h" />
     <ClInclude Include="inventoryItemIcon.h" />
     <ClInclude Include="inventoryPanel.h" />
+    <ClInclude Include="inventoryItemDescription.h" />
     <ClInclude Include="inventoryView.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="loading.h" />

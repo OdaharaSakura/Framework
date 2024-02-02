@@ -8,6 +8,7 @@ private:
 	class InventoryPanel* m_InventoryPanel;
 	class InventoryItemIcon* m_InventoryItemIcon;
 	class InventoryItemCursor* m_InventoryItemCursor;
+	class InventoryItemDescription* m_InventoryItemDescription;
 public:
 	void Init();
 	void Uninit();

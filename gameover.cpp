@@ -18,11 +18,11 @@ void GameOver::Init()
 	AddGameObject<TitleEnter>(2);
 	m_Fade = AddGameObject<Fade>(2);
 
-	//BGMçƒê∂
-	Audio* bgm;
-	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	bgm->Load("asset\\audio\\VSQ_MUSIC_0052_chill.wav");
-	bgm->Play(true);
+	////BGMçƒê∂
+	//Audio* bgm;
+	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	//bgm->Load("asset\\audio\\VSQ_MUSIC_0052_chill.wav");
+	//bgm->Play(true);
 }
 
 void GameOver::Uninit()

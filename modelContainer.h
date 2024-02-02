@@ -20,8 +20,8 @@ public:
 	static void Load(int sceneIndex);
 	static void Unload(int sceneIndex);
 
-	static Model* GetModel_Key(std::string key);
+	static Model* GetModelKey(std::string key);
 
-	static void AddModel(std::string key, std::string path);
+	static void LoadModelData(std::string key, std::string path);
 
 };
