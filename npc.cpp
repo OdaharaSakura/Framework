@@ -28,7 +28,7 @@ void NPC::Init()
 
 	AddComponent<VertexLighting>();
 
-	m_Conversation = "こんにちは！\n私は(仮)Nameです！";
+	m_Conversation = "こんにちは！\nいい天気ね！";
 
 }
 

@@ -312,11 +312,16 @@
     <ClCompile Include="textureContainer.cpp">
       <Filter>1_Common\Game</Filter>
     </ClCompile>
-    <ClCompile Include="modelContainer.cpp" />
     <ClCompile Include="animationModelContainer.cpp" />
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="townFactory.cpp" />
+    <ClCompile Include="inventoryItemCursor.cpp" />
+    <ClCompile Include="inventoryItemIcon.cpp" />
+    <ClCompile Include="inventoryPanel.cpp" />
+    <ClCompile Include="modelContainer.cpp">
+      <Filter>1_Common\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -469,7 +474,6 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>Debug\ImGUI</Filter>
     </ClInclude>
-    <ClInclude Include="modelContainer.h" />
     <ClInclude Include="grass.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="alpha.h" />
@@ -584,6 +588,12 @@
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="townFactory.h" />
+    <ClInclude Include="inventoryItemCursor.h" />
+    <ClInclude Include="inventoryItemIcon.h" />
+    <ClInclude Include="inventoryPanel.h" />
+    <ClInclude Include="modelContainer.h">
+      <Filter>1_Common\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

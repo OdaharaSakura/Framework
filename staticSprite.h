@@ -10,7 +10,7 @@ private:
 	ID3D11ShaderResourceView* m_Texture{};
 
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	D3DXVECTOR3 m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR2 m_WorldPosition = D3DXVECTOR2(0.0f, 0.0f);
 	D3DXVECTOR3 m_Scale = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	int m_Index = 0;
@@ -23,7 +23,7 @@ public:
 	void Update();
 	void Draw();
 	void SetColor(D3DXCOLOR Color) { m_Color = Color; }
-	void SetPositionY(float y) { m_WorldPosition.y = y; }
+	void SetPosition(D3DXVECTOR2 position) { m_WorldPosition = position; }
 	void SetIsNotSendToPixelShader() { m_IsSendToPixelShader = false; }
 	void SetIndex(int num) { m_Index = num; }
 	void SetTexture(std::string TextureKey, std::string TexturePath);

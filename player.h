@@ -12,7 +12,8 @@ enum PLAYER_STATE
 	PLAYER_STATE_GROUND,
 	PLAYER_STATE_JUMP,
 	PLAYER_STATE_ATTACK,
-	PLAYER_STATE_CONVERSATION//会話
+	PLAYER_STATE_CONVERSATION,//会話
+	PLAYER_STATE_INVENTORY//インベントリ
 };
 
 class Player : public GameObject//継承
@@ -24,14 +25,17 @@ private:
 
 	char m_InputData{};
 
+
 	int m_countnum = 0;//test
 
 	class IEquipment* m_EquipmentInterface;
+	class Inventory* m_InventoryInterface;
 
 	class Text* m_Description;//説明
 	class Conversation* m_Conversation;//会話
 	std::string m_Message;//会話中のメッセージ
 
+	D3DXVECTOR3			m_OldPosition{};
 	D3DXVECTOR3			m_Velocity{};
 	D3DXVECTOR3			m_modelScale{};
 	D3DXQUATERNION		m_Quaternion{};
@@ -74,11 +78,12 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
-	void UpdateTitle();//ステートパターンで書いてみる
+	void UpdateTitle();//TODO:ステートパターンで書いてみる
 	void UpdateGround();
 	void UpdateJump();
 	void UpdateAttack();
-	void UpdateConversation();//ステートパターンで書いてみる
+	void UpdateConversation();
+	void UpdateInventory();
 
 	void UseEquipment();
 	void SetEquipmentInterface(IEquipment* equipment);

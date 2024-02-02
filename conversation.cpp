@@ -30,7 +30,6 @@ void Conversation::Update()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
-
 }
 
 void Conversation::Draw()

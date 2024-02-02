@@ -25,6 +25,7 @@
 #include "npc.h"
 #include "conversation.h"
 #include "iEquipment.h"
+#include "inventory.h"
 
 //AnimationModel* Player::m_Model{};
 
@@ -42,6 +43,7 @@ void Player::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_EquipmentInterface = scene->GetGameObject<IEquipment>();
+	m_InventoryInterface = scene->GetGameObject<Inventory>();
 	
 	m_Model = new AnimationModel();
 	m_Model->Load("asset\\model\\fbx\\Player.fbx");
@@ -91,7 +93,7 @@ void Player::Update()
 {
 	//GameObject::Update();
 	Scene* scene = Manager::GetScene();
-	D3DXVECTOR3 oldPosition = m_WorldPosition;
+	m_OldPosition = m_WorldPosition;
 
 	m_IsAttackflg = false;
 	
@@ -116,8 +118,8 @@ void Player::Update()
 		{
 			if (m_WorldPosition.y + m_Scale.y < position.y + scale.y - 0.5f)
 			{
-				m_WorldPosition.x = oldPosition.x;
-				m_WorldPosition.z = oldPosition.z;
+				m_WorldPosition.x = m_OldPosition.x;
+				m_WorldPosition.z = m_OldPosition.z;
 				m_Hp -= 3;
 			}
 		}
@@ -143,8 +145,8 @@ void Player::Update()
 		float lengthxz = D3DXVec3Length(&scalexz);
 		if ((length * length) < (lengthxz * lengthxz))
 		{
-			m_WorldPosition.x = oldPosition.x;
-			m_WorldPosition.z = oldPosition.z;
+			m_WorldPosition.x = m_OldPosition.x;
+			m_WorldPosition.z = m_OldPosition.z;
 		}
 		else
 		{
@@ -172,6 +174,8 @@ void Player::Update()
 		break;
 	case PLAYER_STATE_CONVERSATION:
 		UpdateConversation();
+	case PLAYER_STATE_INVENTORY:
+		UpdateInventory();
 		break;
 	}
 
@@ -207,8 +211,8 @@ void Player::Update()
 		{
 			if (m_WorldPosition.y < position.y + scale.y - 0.5f)
 			{
-				m_WorldPosition.x = oldPosition.x;
-				m_WorldPosition.z = oldPosition.z;
+				m_WorldPosition.x = m_OldPosition.x;
+				m_WorldPosition.z = m_OldPosition.z;
 			}
 
 			else
@@ -222,77 +226,7 @@ void Player::Update()
 
 
 
-	//ベッド
-	auto bed = scene->GetGameObject<Bed>();
-	if(bed !=nullptr)
-	{
-		D3DXVECTOR3 position = bed->GetPosition();
-		D3DXVECTOR3 scale = bed->GetScale();
-
-
-
-		if (position.x - (scale.x * 2.0f)- (scale.x / 2) < m_WorldPosition.x &&
-			m_WorldPosition.x < position.x + (scale.x * 2.0f) + (scale.x / 2) &&
-			position.z - (scale.z * 2.0f) - (scale.z / 2) < m_WorldPosition.z &&
-			m_WorldPosition.z < position.z + (scale.z * 2.0f) + (scale.z / 2))
-		{
-			if (m_countnum >= 1)
-			{
-				m_Description->SetText("ベッドで眠りました");
-				m_countnum += 1;
-				if (60 <= m_countnum) m_countnum = 0;
-
-			}
-			else m_Description->SetText("U：ベッドで眠る");
-
-			if (Input::GetKeyTrigger('U'))
-			{
-				Time* time = scene->GetGameObject<Time>();
-				time->SetSleep();
-
-				m_countnum += 1;
-			}
-
-			if (position.x - scale.x - (scale.x / 2) < m_WorldPosition.x &&
-				m_WorldPosition.x < position.x + scale.x + (scale.x / 2) &&
-				position.z - scale.z - (scale.z / 2) < m_WorldPosition.z &&
-				m_WorldPosition.z < position.z + scale.z + (scale.z / 2))
-			{
-				if (m_WorldPosition.y < position.y + scale.y * 1.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
-				{//当たったら
-					m_WorldPosition.x = oldPosition.x;
-					m_WorldPosition.z = oldPosition.z;
-
-				}
-				else
-				{
-					groundHeight = position.y + scale.y * 2.0f;
-				}
-			}
-			
-		}
-		else
-		{
-			m_Description->SetText("");
-		}
-	}
-
-	//NPC
 	
-	std::vector<NPC*> NPCs = scene->GetGameObjects<NPC>();
-	for (NPC* npc : NPCs)
-	{
-		if (npc->GetIsHitPlayer())
-		{
-			if (Input::GetKeyTrigger('U'))
-			{
-				m_Conversation = scene->AddGameObject<Conversation>(LAYER_OBJECT_2D);
-				m_Message = npc->GetConversation();
-				m_Conversation->SetText(m_Message);
-				m_PlayerState = PLAYER_STATE_CONVERSATION;
-			}
-		}
-	}
 	//障害物との衝突判定↑↑=====================================
 
 		//重力
@@ -367,29 +301,6 @@ void Player::UpdateGround()
 	D3DXVec3Normalize(&cameraForward, &cameraForward);
 	D3DXVec3Normalize(&cameraRight, &cameraRight);
 	bool move = false;
-
-	////トップビュー
-	//if (Input::GetKeyPress('A'))
-	//{
-	//	m_WorldPosition.x -= 0.1f;
-	// 		m_Rotation.y = -D3DX_PI * 0.5f;
-	//}
-	//if (Input::GetKeyPress('D'))
-	//{
-	//	m_WorldPosition.x += 0.1f;
-	// 		m_Rotation.y = D3DX_PI * 0.5f;
-	//}
-	//if (Input::GetKeyPress('W'))
-	//{
-	//	m_WorldPosition.z += 0.1f;
-	//	m_Rotation.y = D3DX_PI * 0.0f;
-	//}
-	//if (Input::GetKeyPress('S'))
-	//{
-	//	m_WorldPosition.z -= 0.1f;
-	//	m_Rotation.y = D3DX_PI * 1.0f;
-	//}
-
 
 	D3DXVECTOR3 moveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
@@ -509,7 +420,7 @@ void Player::UpdateGround()
 	}
 
 	//装備品を使う
-	if (Input::GetKeyPress('I'))
+	if (Input::GetKeyTrigger('I'))
 	{
 		UseEquipment();
 
@@ -529,17 +440,86 @@ void Player::UpdateGround()
 
 	}
 
-	//話す、調べる
-	if (Input::GetKeyPress('L'))
+	//ベッド
+	auto bed = scene->GetGameObject<Bed>();
+	if (bed != nullptr)
 	{
-		//D3DXVECTOR3 earthPosition;
-		//earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
-		//scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
+		D3DXVECTOR3 position = bed->GetPosition();
+		D3DXVECTOR3 scale = bed->GetScale();
 
+		if (position.x - (scale.x * 2.0f) - (scale.x / 2) < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + (scale.x * 2.0f) + (scale.x / 2) &&
+			position.z - (scale.z * 2.0f) - (scale.z / 2) < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + (scale.z * 2.0f) + (scale.z / 2))
+		{
+			if (m_countnum >= 1)
+			{
+				m_Description->SetText("ベッドで眠りました");
+				m_countnum += 1;
+				if (60 <= m_countnum) m_countnum = 0;
+
+			}
+			else m_Description->SetText("U：ベッドで眠る");
+
+			if (Input::GetKeyTrigger('U'))
+			{
+				Time* time = scene->GetGameObject<Time>();
+				time->SetSleep();
+
+				m_countnum += 1;
+			}
+
+			if (position.x - scale.x - (scale.x / 2) < m_WorldPosition.x &&
+				m_WorldPosition.x < position.x + scale.x + (scale.x / 2) &&
+				position.z - scale.z - (scale.z / 2) < m_WorldPosition.z &&
+				m_WorldPosition.z < position.z + scale.z + (scale.z / 2))
+			{
+				m_WorldPosition.x = m_OldPosition.x;
+				m_WorldPosition.z = m_OldPosition.z;
+			}
+
+		}
+		else
+		{
+			m_Description->SetText("");
+		}
+	}
+
+	//NPC
+
+	std::vector<NPC*> NPCs = scene->GetGameObjects<NPC>();
+	for (NPC* npc : NPCs)
+	{
+		if (npc->GetIsHitPlayer())
+		{
+			if (Input::GetKeyTrigger('L'))
+			{
+				m_Conversation = scene->AddGameObject<Conversation>(LAYER_OBJECT_2D);
+				m_Message = npc->GetConversation();
+				m_Conversation->SetText(m_Message);
+				m_PlayerState = PLAYER_STATE_CONVERSATION;
+			}
+		}
+	}
+
+	////話す、調べる
+	//if (Input::GetKeyPress('L'))
+	//{
+	//	//D3DXVECTOR3 earthPosition;
+	//	//earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
+	//	//scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
+
+	//}
+
+	//インベントリを開く
+	if (Input::GetKeyTrigger(VK_TAB))
+	{
+		m_InventoryInterface->Show();
+		m_PlayerState = PLAYER_STATE_INVENTORY;
 	}
 
 	//ジャンプ
-	if (Input::GetKeyPress('J') && m_Velocity.y == 0.0f)
+	if (Input::GetKeyTrigger('J') && m_Velocity.y == 0.0f)
 	{
 		m_Velocity.y = 0.35f;
 		m_PlayerState = PLAYER_STATE_JUMP;
@@ -554,7 +534,7 @@ void Player::UpdateGround()
 		
 	}
 
-	if (Input::GetKeyPress('C'))
+	if (Input::GetKeyTrigger('C'))
 	{
 		camera->Shake(1.5f);
 	}
@@ -593,9 +573,18 @@ void Player::UpdateAttack()
 
 void Player::UpdateConversation()
 {
-	if (Input::GetKeyTrigger('O'))
+	if (Input::GetKeyTrigger('L'))
 	{
 		m_Conversation->SetDestroy();
+		m_PlayerState = PLAYER_STATE_GROUND;
+	}
+}
+
+void Player::UpdateInventory()
+{
+	if (Input::GetKeyTrigger(VK_TAB))
+	{
+		m_InventoryInterface->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
 }
