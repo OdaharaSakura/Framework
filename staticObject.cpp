@@ -7,7 +7,7 @@
 #include "staticObject.h"
 #include "modelContainer.h"
 #include "shader.h"
-
+#include "camera.h"
 
 
 void StaticObject::Init()
@@ -29,6 +29,12 @@ void StaticObject::Update()
 
 void StaticObject::Draw()
 {
+	//視錘台カリング
+	Scene* scene = Manager::GetScene();
+	Camera* camera = scene->GetGameObject<Camera>();
+
+	if (!camera->CheckView(m_WorldPosition)) return;
+
 	if(m_Model == nullptr) return;
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;

@@ -36,7 +36,13 @@ void ModelContainer::Load(int sceneIndex)
         AddModel("WateringCan", "wateringcan.obj");//ãÛÇÃÇ∂ÇÂÇ§ÇÎ
         AddModel("WateringCan2", "wateringcan2.obj");//êÖÇ¢Ç¡ÇœÇ¢ÇÃÇ∂ÇÂÇ§ÇÎ*/
         AddModel("Carriage", "carriage.obj");//îné‘
-        AddModel("Mountain", "mountain.obj");//îné‘
+        AddModel("Mountain", "mountain.obj");//éR
+        AddModel("Flower", "flower.obj");//â‘
+        AddModel("Flower2", "flower2.obj");//â‘2
+        AddModel("Flower3", "flower3.obj");//â‘3
+        AddModel("Flower4", "flower4.obj");//â‘4
+        AddModel("Flower5", "flower5.obj");//â‘5
+        AddModel("Flower6", "flower6.obj");//â‘6
         //AddModel("Barrel", "barrel.obj");//ÇΩÇÈ*/
 
         break;
