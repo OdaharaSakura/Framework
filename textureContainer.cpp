@@ -4,7 +4,7 @@
 #include <algorithm>
 
 std::unordered_map<std::string, Image*> TextureContainer::m_ImageDictionary{};
-std::string TextureContainer::m_FrontPath = "asset/texture/";
+std::string TextureContainer::m_FrontPath = "asset\\texture\\";
 
 void TextureContainer::Load(int sceneIndex)
 {
@@ -12,11 +12,14 @@ void TextureContainer::Load(int sceneIndex)
     switch (sceneIndex) {
     case SCENE_TITLE:
         // タイトルシーンのテクスチャをロード
-        //AddImage("titleBackground", "path/to/title_background.png");
+        //LoadImageData("titleBackground", "path/to/title_background.png");
         break;
     case SCENE_GAME:
-        AddImage("Hoe", "equipment_icon_kuwa.dds");//鍬
-        AddImage("WateringCan", "equipment_icon_WateringCan.png");//水やり
+        LoadImageData("Hoe", "equipment_icon_kuwa.dds");//鍬
+        LoadImageData("WateringCan", "equipment_icon_WateringCan.png");//水やり
+        LoadImageData("EquipmentPanel", "equipment_Panel.png");//水やり
+        LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
+        LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
         break;
     case SCENE_RESULT:
         break;
@@ -63,7 +66,7 @@ Image* TextureContainer::GetImage_Key(std::string key)
     }
 }
 
-void TextureContainer::AddImage(std::string key,  std::string path)
+void TextureContainer::LoadImageData(std::string key,  std::string path)
 {
     std::string fullPath = m_FrontPath + path;
 

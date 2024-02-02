@@ -74,6 +74,8 @@ public:
 	void SetEnvMapping() { m_IsEnvMapping = true; }
 	void SetParent(GameObject* Parent) { m_Parent = Parent; }
 	void SetPlayer() { m_IsPlayer = true; }
+	void SetIsActive(bool isActive) { m_IsActive = isActive; }
+	void SetIsStatic(bool isStatic) { m_IsStatic = isStatic; }
 	
 
 	D3DXVECTOR3 GetPosition() { return m_WorldPosition; }

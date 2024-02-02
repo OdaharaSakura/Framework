@@ -5,7 +5,7 @@
 #include "shader.h"
 #include "equipmentPanel.h"
 #include "iEquipment.h"
-#include "sprite.h"
+#include "staticSprite.h"
 #include "shader.h"
 
 void EquipmentPanel::Init()
@@ -14,7 +14,7 @@ void EquipmentPanel::Init()
 
 	m_Scale.x = 150.0f;
 	m_Scale.y = 100.0f;
-	AddComponent<Sprite>()->Init(SCREEN_WIDTH - m_Scale.x - 10.0f, SCREEN_HEIGHT - m_Scale.y - 10.0f, m_Scale.x, m_Scale.y, "asset/texture/equipment_Panel.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	AddComponent<StaticSprite>()->Init(SCREEN_WIDTH - m_Scale.x - 10.0f, SCREEN_HEIGHT - m_Scale.y - 10.0f, m_Scale.x, m_Scale.y, "EquipmentPanel", "equipment_Panel.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 }
 
 void EquipmentPanel::Uninit()

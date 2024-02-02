@@ -36,6 +36,7 @@
 #include "farmField.h"
 #include "farmTile.h"
 #include "iEquipment.h"
+#include "inventory.h"
 #include "equipmentView.h"	
 #include "textureContainer.h"
 #include "modelContainer.h"
@@ -100,7 +101,11 @@ static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
 
 void Test::Init()
 {
+	//インターフェース
 	AddGameObject<IEquipment>(LAYER_OBJECT_NOTDRAW);
+	AddGameObject<Inventory>(LAYER_OBJECT_NOTDRAW);
+
+
 	AddGameObject<Camera>(LAYER_CAMERA);//登録するListの種類を変える
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);

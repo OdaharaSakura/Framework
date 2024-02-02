@@ -21,5 +21,5 @@ public:
 	static Image* GetImage_Path(std::string path);
 	static Image* GetImage_Key(std::string key);
 
-	static void AddImage(std::string key, std::string path);
+	static void LoadImageData(std::string key, std::string path);
 };

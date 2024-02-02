@@ -14,6 +14,7 @@ public:
 class Hoe : public Equipment
 {
 public:
+	void Init() {};
 	void Execute() override{};
 };
 #pragma endregion
