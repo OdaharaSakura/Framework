@@ -205,6 +205,7 @@
     <ClCompile Include="DirectWriteCustomFont.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="equipmentFactory.cpp" />
     <ClCompile Include="equipmentIcon.cpp" />
     <ClCompile Include="equipmentPanel.cpp" />
     <ClCompile Include="equipmentView.cpp" />
@@ -326,6 +327,7 @@
     <ClInclude Include="earth.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="equipment.h" />
+    <ClInclude Include="equipmentFactory.h" />
     <ClInclude Include="equipmentIcon.h" />
     <ClInclude Include="equipmentPanel.h" />
     <ClInclude Include="equipmentView.h" />

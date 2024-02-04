@@ -15,16 +15,16 @@ void InventoryItemDescription::Init()
 	AddComponent<UnlitTexture>();
 
 	m_ItemText[0] = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D);
-	m_ItemNametext = m_ItemText[0]->AddComponent<Text>();
+	m_ItemNameText = m_ItemText[0]->AddComponent<Text>();
 	m_ItemText[1] = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D);
 	m_ItemTypeText = m_ItemText[1]->AddComponent<Text>();
 	m_ItemText[2] = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D);
 	m_ItemDescriptionText = m_ItemText[2]->AddComponent<Text>();
 
 
-	m_ItemNametext->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 5 * 3.5f));
-	m_ItemNametext->SetFontColor(D2D1::ColorF::Brown);
-	SetText(m_ItemNametext, "‚­‚í");
+	m_ItemNameText->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 5 * 3.5f));
+	m_ItemNameText->SetFontColor(D2D1::ColorF::Brown);
+	SetText(m_ItemNameText, "‚­‚í");
 
 	m_ItemTypeText->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5 * 3.5f));
 	m_ItemTypeText->SetFontColor(D2D1::ColorF::Gray);
