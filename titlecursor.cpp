@@ -5,6 +5,7 @@
 #include "input.h"
 #include "title.h"
 #include "titlecursor.h"
+#include "titleenter.h"
 #include "sprite.h"
 #include "audio.h"
 #include "fade.h"
@@ -36,9 +37,11 @@ void TitleCursor::Init()
 
 	m_ShotSEEnter = AddComponent<Audio>();
 	m_ShotSEEnter->Load("asset\\audio\\CursorSE.wav");
+	m_ShotSEEnter->SetVolume(1.0f);
 
 	m_ShotSE2Select = AddComponent<Audio>();
 	m_ShotSE2Select->Load("asset\\audio\\DecisionSE.wav");
+	m_ShotSE2Select->SetVolume(1.0f);
 }
 
 void TitleCursor::Uninit()
@@ -56,37 +59,32 @@ void TitleCursor::Update()
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
 
+	Scene* scene = Manager::GetScene();
+	TitleEnter* titleEnter = scene->GetGameObject<TitleEnter>();
+
+	m_IsPressEnter = titleEnter->GetIsPressEnter();
 	
 	//キー入力
-	if (Input::GetKeyPress('W'))
+	if (Input::GetKeyTrigger('W') && m_IsPressEnter)
 	{
 		m_Color.a = 1.0f;
-		m_delaynum += 0.1f;
-		if (m_delaynum >= 0.7f)
+		m_ShotSE2Select->Play(false);
+		m_NextPhase -= 1;
+		if (m_NextPhase < Select::HAJIME)
 		{
-			m_ShotSE2Select->Play(false);
-			m_NextPhase -= 1;
-			if (m_NextPhase < Select::HAJIME)
-			{
-				m_NextPhase = Select::UNINIT;
-			}
-			m_delaynum = 0.0f;
-		}	
+			m_NextPhase = Select::UNINIT;
+		}
 	}
 
-	if (Input::GetKeyPress('S'))
+	if (Input::GetKeyTrigger('S') && m_IsPressEnter)
 	{
 		m_Color.a = 1.0f;
-		m_delaynum += 0.1f;
-		if (m_delaynum >= 0.7f)
+		m_ShotSE2Select->Play(false);
+
+		m_NextPhase += 1;
+		if (m_NextPhase > Select::UNINIT)
 		{
-			m_ShotSE2Select->Play(false);
-			m_NextPhase += 1;
-			if (m_NextPhase > Select::UNINIT)
-			{
-				m_NextPhase = Select::HAJIME;
-			}
-			m_delaynum = 0.0f;
+			m_NextPhase = Select::HAJIME;
 		}
 	}
 
@@ -105,7 +103,7 @@ void TitleCursor::Update()
 
 
 
-	if (Input::GetKeyPress(VK_SPACE) && !m_IsPressEnter && m_NextPhase != SELECT_NULL)
+	if (Input::GetKeyTrigger(VK_SPACE) && m_IsPressEnter && m_NextPhase != SELECT_NULL)
 	{
 		switch(m_NextPhase)
 		{
