@@ -139,13 +139,18 @@ void Audio::Play(bool Loop)
 
 	float outputMatrix[4] = { 0.0f , 0.0f, 1.0f , 0.0f };
 	m_SourceVoice->SetOutputMatrix(m_MasteringVoice, 2, 2, outputMatrix);
-	m_SourceVoice->SetVolume(0.1f);
+	m_SourceVoice->SetVolume(m_Volume);
 
 
 
 	// Ä¶
 	m_SourceVoice->Start();
 
+}
+
+void Audio::SetVolume(float volume)
+{
+	m_Volume = volume;
 }
 
 

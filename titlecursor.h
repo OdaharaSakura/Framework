@@ -5,6 +5,12 @@ class TitleCursor : public GameObject
 {
 private:
 
+	enum Select {
+		SELECT_NULL,
+		HAJIME,
+		UNINIT
+	};
+
 	ID3D11VertexShader* m_VertexShader{};
 	ID3D11PixelShader* m_PixelShader{};
 	ID3D11InputLayout* m_VertexLayout{};
@@ -17,17 +23,10 @@ private:
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 	D3DXVECTOR3 m_StartPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	int m_NextPhase = 0;
+	int m_NextPhase = SELECT_NULL;
 	bool m_IsNextPhase = false;
 	float m_MoveRange = 70.0f;
-	float m_delaynum = 0.0f;
 	bool m_IsPressEnter = false;
-
-	enum Select {
-		SELECT_NULL,
-		HAJIME,
-		UNINIT
-	};
 
 public:
 	void Init();

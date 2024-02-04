@@ -16,6 +16,7 @@ private:
 	int						m_Length{};
 	int						m_PlayLength{};
 
+	float					m_Volume = 0.1f;
 
 public:
 	static void InitMaster();
@@ -27,5 +28,6 @@ public:
 
 	void Load(const char *FileName);
 	void Play(bool Loop = false);
+	void SetVolume(float volume);
 };
 

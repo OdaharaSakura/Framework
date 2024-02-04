@@ -22,10 +22,7 @@
 
 void Title::Init()
 {
-	////BGMçƒê∂
-	//Audio* bgm;
-	//bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
-	//bgm->Load("asset\\audio\\TitleBGM.wav");
+	
 
 	ResultCamera* camera = AddGameObject<ResultCamera>(LAYER_CAMERA);
 	camera->Setoffset(D3DXVECTOR3(2.0f, 1.0f, 1.0f));
@@ -46,9 +43,12 @@ void Title::Init()
 	m_TitleEnter = AddGameObject<TitleEnter>(LAYER_OBJECT_2D);
 
 
-
+	//BGMçƒê∂
+	Audio* bgm;
+	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
+	bgm->Load("asset\\audio\\TitleBGM.wav");
 	
-	//bgm->Play(true);
+	bgm->Play(true);
 	
 	//m_ShotSE1 = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();
 	//m_ShotSE1->Load("asset\\audio\\VSQSE_0665_heavy_metal_hit_03.wav");
