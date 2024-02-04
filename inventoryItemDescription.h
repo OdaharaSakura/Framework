@@ -7,7 +7,7 @@ class InventoryItemDescription : public GameObject
 private:
 	GameObject* m_ItemText[3];//テキストの数のオブジェクト生成
 
-	class Text* m_ItemNametext;
+	class Text* m_ItemNameText;
 	class Text* m_ItemTypeText;
 	class Text* m_ItemDescriptionText;
 

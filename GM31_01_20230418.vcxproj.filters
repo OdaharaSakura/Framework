@@ -68,6 +68,9 @@
     <Filter Include="GameObject\equipment">
       <UniqueIdentifier>{d077b6ad-e635-4b5a-912b-6a99084f74db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Inventory">
+      <UniqueIdentifier>{627be910-631a-402a-ad54-cd5b9e92d8b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -284,14 +287,12 @@
     <ClCompile Include="conversation.cpp" />
     <ClCompile Include="modelTest.cpp" />
     <ClCompile Include="crop.cpp" />
-    <ClCompile Include="inventory.cpp" />
     <ClCompile Include="farmTile.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="farmField.cpp" />
     <ClCompile Include="iEquipment.cpp">
       <Filter>GameObject\equipment</Filter>
     </ClCompile>
-    <ClCompile Include="inventoryView.cpp" />
     <ClCompile Include="callBack.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="equipmentView.cpp">
@@ -316,12 +317,28 @@
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="townFactory.cpp" />
-    <ClCompile Include="inventoryItemCursor.cpp" />
-    <ClCompile Include="inventoryItemIcon.cpp" />
-    <ClCompile Include="inventoryPanel.cpp" />
     <ClCompile Include="modelContainer.cpp">
       <Filter>1_Common\Game</Filter>
     </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryItemCursor.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryItemDescription.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryItemIcon.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryPanel.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryView.cpp">
+      <Filter>GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="equipmentFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -554,7 +571,6 @@
     <ClInclude Include="item.h">
       <Filter>1_Common\Game</Filter>
     </ClInclude>
-    <ClInclude Include="inventory.h" />
     <ClInclude Include="farmTile.h" />
     <ClInclude Include="farmField.h" />
     <ClInclude Include="iEquipment.h">
@@ -566,7 +582,6 @@
     <ClInclude Include="equipmentView.h">
       <Filter>GameObject\equipment</Filter>
     </ClInclude>
-    <ClInclude Include="inventoryView.h" />
     <ClInclude Include="callBack.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="equipmentIcon.h">
@@ -588,12 +603,28 @@
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="townFactory.h" />
-    <ClInclude Include="inventoryItemCursor.h" />
-    <ClInclude Include="inventoryItemIcon.h" />
-    <ClInclude Include="inventoryPanel.h" />
     <ClInclude Include="modelContainer.h">
       <Filter>1_Common\Game</Filter>
     </ClInclude>
+    <ClInclude Include="inventoryView.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryItemCursor.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryItemDescription.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryItemIcon.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryPanel.h">
+      <Filter>GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="equipmentFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
