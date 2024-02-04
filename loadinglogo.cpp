@@ -21,6 +21,9 @@ void LoadingLogo::Init()
 
 
 	m_Sprite = AddComponent<Sprite>();
+	m_Sprite->Init(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, "asset/texture/lightgreen.jpg");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+
+	m_Sprite = AddComponent<Sprite>();
 	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/Loading.png");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
 
