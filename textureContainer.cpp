@@ -12,7 +12,7 @@ void TextureContainer::Load(int sceneIndex)
     switch (sceneIndex) {
     case SCENE_TITLE:
         // タイトルシーンのテクスチャをロード
-        //LoadImageData("titleBackground", "path/to/title_background.png");
+        //LoadImageData("LoadingLogo", "lightgreen.jpg");
         break;
     case SCENE_GAME:
         LoadImageData("Hoe", "equipment_icon_kuwa.dds");//鍬

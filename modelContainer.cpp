@@ -43,7 +43,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Flower4", "flower4.obj");//‰Ô4
         LoadModelData("Flower5", "flower5.obj");//‰Ô5
         LoadModelData("Flower6", "flower6.obj");//‰Ô6
-        //LoadModelData("Barrel", "barrel.obj");//‚½‚é*/
+        //LoadModelData("Barrel", "barrel.obj");//‚½‚é
 
         break;
     case SCENE_RESULT:
