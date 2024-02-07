@@ -26,12 +26,22 @@
 #include "conversation.h"
 #include "iEquipment.h"
 #include "inventory.h"
+#include "itemFactory.h"
 
-//AnimationModel* Player::m_Model{};
+AnimationModel* Player::m_Model{};
 
 void Player::Load()
 {
-
+	m_Model = new AnimationModel();
+	m_Model->Load("asset\\model\\fbx\\Player.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idle");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
+	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
 }
 
 void Player::Unload()
@@ -44,17 +54,10 @@ void Player::Init()
 	Scene* scene = Manager::GetScene();
 	m_EquipmentInterface = scene->GetGameObject<IEquipment>();
 	m_InventoryInterface = scene->GetGameObject<Inventory>();
+	m_InventoryInterface->AddItem(ItemFactory::CreateItem("Hoe"));
 	
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idle");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
+	Load();
+	
 	m_AnimationName = "Idle";
 	m_NextAnimationName = "Idle";
 
@@ -183,7 +186,7 @@ void Player::Update()
 	m_WorldPosition += m_Velocity;//オイラー法
 
 	//障害物との衝突判定↓↓=====================================
-	float groundHeight;
+	float groundHeight{};
 
 	std::vector<MeshField*> meshFields = scene->GetGameObjects<MeshField>();
 

@@ -15,9 +15,9 @@ public:
     void Show();
     void Hide();
 
-    bool AddItem(const Item& item);
+    bool AddItem(Item& item);
 
     bool RemoveItem(const std::string& itemName);
 
-    const std::vector<Item>& GetItems() const { return m_PossessionItems; }
+    std::vector<Item>& GetItems() { return m_PossessionItems; }
 };

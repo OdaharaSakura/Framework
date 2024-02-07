@@ -70,7 +70,7 @@ private:
 	};
 
 public:
-	AnimationModel* m_Model;
+	static AnimationModel* m_Model;
 
 	static void Load();
 	static void Unload();

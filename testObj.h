@@ -31,6 +31,10 @@ public:
 			&m_VertexLayout, "shader\\vertexLightingVS.cso");
 		Renderer::CreatePixelShader(&m_PixelShader,
 			"shader\\vertexLightingPS.cso");
+
+		//鍬を持っているとき
+		m_Rotation = D3DXVECTOR3(-3.14f / 4, 0.0f, -3.14f / 2);
+		m_WorldPosition = D3DXVECTOR3(0.0f, 0.5f, 0.0f);
 	}
 	void Uninit() override {
 		m_VertexLayout->Release();
@@ -50,11 +54,11 @@ public:
 		// マトリクス設定
 		D3DXMATRIX world, scale, rot, trans;
 		D3DXMatrixScaling(&scale, GetScale().x, GetScale().y, GetScale().z);
-		D3DXMatrixRotationYawPitchRoll(&rot, GetRotation().y, GetRotation().x, GetRotation().z);
-		D3DXMatrixTranslation(&trans, GetPosition().x, GetPosition().y, GetPosition().z);
+		D3DXMatrixRotationYawPitchRoll(&rot, GetRotation().y + m_Rotation.y, GetRotation().x + m_Rotation.x, GetRotation().z + m_Rotation.z);
+		D3DXMatrixTranslation(&trans, GetPosition().x + m_WorldPosition.x, GetPosition().y + m_WorldPosition.y, GetPosition().z + m_WorldPosition.z);
 		world = scale * rot * trans * m_pMatrix * GetParent()->GetMatrix();
 
-		D3DXVec3TransformCoord(&m_WorldPosition, &m_WorldPosition, &world);//ワールド座標
+		//D3DXVec3TransformCoord(&m_WorldPosition, &m_WorldPosition, &world);//ワールド座標
 
 		Renderer::SetWorldMatrix(&world);
 

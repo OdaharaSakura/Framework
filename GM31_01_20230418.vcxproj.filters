@@ -339,6 +339,7 @@
       <Filter>GameObject\Inventory</Filter>
     </ClCompile>
     <ClCompile Include="equipmentFactory.cpp" />
+    <ClCompile Include="itemDataContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -625,6 +626,7 @@
       <Filter>GameObject\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="equipmentFactory.h" />
+    <ClInclude Include="itemDataContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">
