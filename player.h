@@ -30,6 +30,7 @@ private:
 
 	class IEquipment* m_EquipmentInterface;
 	class Inventory* m_InventoryInterface;
+	class ItemFactory* m_ItemFactory;
 
 	class Text* m_Description;//ê‡ñæ
 	class Conversation* m_Conversation;//âÔòb

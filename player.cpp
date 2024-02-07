@@ -54,7 +54,10 @@ void Player::Init()
 	Scene* scene = Manager::GetScene();
 	m_EquipmentInterface = scene->GetGameObject<IEquipment>();
 	m_InventoryInterface = scene->GetGameObject<Inventory>();
-	m_InventoryInterface->AddItem(ItemFactory::CreateItem("Hoe"));
+
+	m_ItemFactory= new ItemFactory();
+	auto item = m_ItemFactory->CreateItem("Hoe");
+	m_InventoryInterface->AddItem(*item);
 	
 	Load();
 	
