@@ -240,6 +240,7 @@
     <ClCompile Include="inventoryItemDescription.cpp" />
     <ClCompile Include="inventoryView.cpp" />
     <ClCompile Include="itemDataContainer.cpp" />
+    <ClCompile Include="itemFactory.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadinglogo.cpp" />
     <ClCompile Include="luminance.cpp" />
@@ -365,6 +366,7 @@
     <ClInclude Include="inventoryView.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="itemDataContainer.h" />
+    <ClInclude Include="itemFactory.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadinglogo.h" />
     <ClInclude Include="luminance.h" />
