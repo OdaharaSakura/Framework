@@ -40,9 +40,11 @@
 #include "equipmentView.h"	
 #include "textureContainer.h"
 #include "modelContainer.h"
+#include "animationModelContainer.h"
 #include "staticObject.h"
 #include "road.h"
 #include "townFactory.h"
+#include "itemDataContainer.h"
 
 #include "bloomPolygon.h"
 #include "luminance.h"
@@ -53,8 +55,10 @@ bool Test::m_LoadFinish = false;
 
 void Test::Load()
 {
+	ItemDataContainer::Load();
 	TextureContainer::Load(SCENE_GAME);
 	ModelContainer::Load(SCENE_GAME);
+	//AnimationModelContainer::Load(SCENE_GAME);
 	Gauge::Load();
 	TreasureBox::Load();
 	TreeBillboard::Load();
@@ -201,8 +205,8 @@ void Test::Update()
 		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 
-	//TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
-	//test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
+	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 
 void Test::SetStaticObject()

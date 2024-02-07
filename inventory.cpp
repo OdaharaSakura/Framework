@@ -33,7 +33,7 @@ void Inventory::Hide()
     m_InventoryView->HideInventory();
 }
 
-bool Inventory::AddItem(const Item& item)
+bool Inventory::AddItem(Item& item)
 {
     if (m_PossessionItems.size() < maxCapacity)
     {
@@ -43,7 +43,7 @@ bool Inventory::AddItem(const Item& item)
     return false;
 }
 
-bool Inventory::RemoveItem(const std::string& itemName)
+bool Inventory::RemoveItem(std::string& itemName)
 {
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
     {

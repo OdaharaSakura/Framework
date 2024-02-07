@@ -1,8 +1,6 @@
 //#pragma once
 //
 //#include "animationModel.h"
-//
-//
 //#include <unordered_map>
 //#include <string>
 //
@@ -10,18 +8,11 @@
 //{
 //private:
 //	static std::unordered_map<std::string, AnimationModel*> m_AnimationModelDictionary;//キー + Image
-//	static std::unordered_map<std::string, const aiScene*> m_AnimationDictionary;
+//	static std::unordered_map<std::string, AnimationModel*> m_AnimationDictionary;
 //
 //	static std::string m_FBXAnimationsFrontPath;//ファイルのパス
 //
 //public:
-//	enum SceneType
-//	{
-//		Scene_Title,
-//		Scene_Game,
-//		Scene_Result,
-//		Scene_Max
-//	};
 //
 //	//sceneによってどれを読み込むかを決める
 //	static void Load(int sceneIndex);
@@ -29,8 +20,8 @@
 //
 //
 //	static AnimationModel* GetAnimationModel_Key(std::string key);
-//	static aiScene* GetAnimation_Key(std::string key);
+//	static AnimationModel* GetAnimation_Key(std::string key);
 //
-//	static void AddAnimationModel(std::string key, std::string path);
-//	static void AddAnimation(std::string animationModelKey, std::string key, std::string path);
+//	static void LoadAnimationModelData(std::string key, std::string path);
+//	static void LoadAnimationData(std::string animationModelKey, std::string key, std::string path);
 //};

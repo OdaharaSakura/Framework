@@ -18,7 +18,7 @@ void SphereCollider::Init()
 
 	m_testObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
 
-	m_Scale = D3DXVECTOR3(m_Radius, m_Radius, m_Radius);
+	//m_Scale = D3DXVECTOR3(m_Radius, m_Radius, m_Radius);
 
 //#ifdef _DEBUG
 
