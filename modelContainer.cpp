@@ -44,6 +44,11 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Flower5", "flower5.obj");//花5
         LoadModelData("Flower6", "flower6.obj");//花6
         //LoadModelData("Barrel", "barrel.obj");//たる
+        LoadModelData("DryField", "dryfield.obj");//乾燥畑
+        LoadModelData("WetField", "wetfield.obj");//水やり畑
+        LoadModelData("Seed", "seed.obj");//種
+        LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
+        LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
 
         break;
     case SCENE_RESULT:
