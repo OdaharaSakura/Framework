@@ -432,6 +432,12 @@ void TownFactory::CreateTown()
 		}
 	}
 
+	StaticObject* tile = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	tile->SetModel_Key("Tile");
+	tile->SetPosition(D3DXVECTOR3(17.0f, -0.5f, 107.0f));
+	tile->SetScale(D3DXVECTOR3(6.0f, 6.0f, 6.0f));
+	tile->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f)); 
+
 
 
 	
