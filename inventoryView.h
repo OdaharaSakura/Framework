@@ -10,8 +10,9 @@ private:
 	class InventoryPanel* m_InventoryPanel;
 	class InventoryItemCursor* m_InventoryItemCursor;
 	class InventoryItemDescription* m_InventoryItemDescription;
-
 	std::vector<InventoryItemIcon*> m_InventoryItemIcons;
+
+	class SubPanel* m_SelectPanel;
 public:
 	void Init();
 	void Uninit();
@@ -20,6 +21,9 @@ public:
 	void SetInventoryInterface(class Inventory* inventory) { m_InventoryInterface = inventory; }
 	void ShowInventory();
 	void HideInventory();
+
+	void ShowSelectPanel();
+	void HideSelectPanel();
 
 	InventoryItemIcon* GetInventoryItemIcon(int index) 
 	{
