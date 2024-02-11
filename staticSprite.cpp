@@ -3,6 +3,45 @@
 #include "textureContainer.h"
 #include "staticSprite.h"
 
+void StaticSprite::Init()
+{
+	VERTEX_3D  vertex[4];
+
+	vertex[0].Position = D3DXVECTOR3(m_WorldPosition.x, m_WorldPosition.y, 0.0f);
+	vertex[0].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
+
+	vertex[1].Position = D3DXVECTOR3(m_WorldPosition.x + m_Scale.x, m_WorldPosition.y, 0.0f);
+	vertex[1].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
+
+	vertex[2].Position = D3DXVECTOR3(m_WorldPosition.x, m_WorldPosition.y + m_Scale.y, 0.0f);
+	vertex[2].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
+
+	vertex[3].Position = D3DXVECTOR3(m_WorldPosition.x + m_Scale.x, m_WorldPosition.y + m_Scale.y, 0.0f);
+	vertex[3].Normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
+
+	// 頂点バッファ生成
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DYNAMIC;//D3D11_USAGE_DYNAMICにすると書き換えられる//テクスチャアニメーションができる
+	bd.ByteWidth = sizeof(VERTEX_3D) * 4;
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;//0からD3D11_CPU_ACCESS_WRITEにすると書き換えられる//テクスチャアニメーションができる
+
+	D3D11_SUBRESOURCE_DATA sd;
+	ZeroMemory(&sd, sizeof(sd));
+	sd.pSysMem = vertex;
+
+	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
+}
+
 void StaticSprite::Init(float x, float y, float Width, float Height, std::string TextureKey, std::string TexturePath)
 {
 	VERTEX_3D  vertex[4];

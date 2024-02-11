@@ -26,7 +26,7 @@ void Manager::Init()
 	m_Renderer = new Renderer();
 	m_Renderer->Init();
 
-	//DebugManager::Init();
+	DebugManager::Init();
 
 	Input::Init();
 	Audio::InitMaster();
@@ -48,7 +48,7 @@ void Manager::Uninit()
 
 	Audio::UninitMaster();
 	Input::Uninit();
-	//DebugManager::Uninit();
+	DebugManager::Uninit();
 	m_Renderer->Uninit();
 }
 
@@ -71,7 +71,7 @@ void Manager::Update()
 
 		m_NextScene = nullptr;
 	}
-	//DebugManager::Update();
+	DebugManager::Update();
 	if(m_Scene != nullptr) m_Scene->Update();
 }
 
@@ -136,7 +136,7 @@ void Manager::Draw()
 
 	m_Scene->Draw2D();
 
-	//DebugManager::Draw();
+	DebugManager::Draw();
 
 	m_Renderer->End();
 

@@ -548,6 +548,22 @@ void Renderer::Init()
 			bloomTexture->Release();
 		}
 	}
+
+	//setup ImGui
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//ImFontConfig config;
+	//config.MergeMode = true;
+	//io.Fonts->AddFontDefault();
+	//io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo UI 標準.ttc", 18.0f, &config, io.Fonts->GetGlyphRangesJapanese());
+
+	ImGui::StyleColorsDark();
+
+
+	ImGui_ImplWin32_Init(GetWindow());
+	ImGui_ImplDX11_Init(m_Device, m_DeviceContext);
+
 }
 
 
@@ -563,6 +579,10 @@ void Renderer::Uninit()
 	if (m_CameraBuffer != nullptr)m_CameraBuffer->Release();
 	if (m_ParameterBuffer != nullptr)m_ParameterBuffer->Release();
 	if (m_DissolveBuffer != nullptr)m_DissolveBuffer->Release();
+
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 
 
 	m_DeviceContext->ClearState();
@@ -585,12 +605,21 @@ void Renderer::Begin()
 	float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	m_DeviceContext->ClearRenderTargetView(m_RenderTargetView, clearColor);//クリアカラーに画面表示
 	m_DeviceContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	/*ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::ShowDemoWindow();*/
 }
 
 
 
 void Renderer::End()
 {
+	/*ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());*/
+
 	m_SwapChain->Present(1, 0);
 }
 

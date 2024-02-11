@@ -17,8 +17,8 @@ void TitleLogo::Init()
 
 	//AddComponent<Sprite>()->Init(0.0f, m_WorldPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, "asset/texture/title.jpg");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
-	m_Scale.x = SCREEN_WIDTH/3;
-	m_Scale.y = SCREEN_HEIGHT/4;
+	m_Scale.x = SCREEN_WIDTH/2;
+	m_Scale.y = SCREEN_HEIGHT/3;
 
 	m_WorldPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
 	m_WorldPosition.y = (SCREEN_HEIGHT / 3) - (m_Scale.y / 2) + 15.0f;

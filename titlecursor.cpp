@@ -26,14 +26,14 @@ void TitleCursor::Init()
 	m_Scale.y = SCREEN_HEIGHT / 3;
 
 	m_WorldPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
-	m_WorldPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
+	m_WorldPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2)-20.0f;
 
 	m_Sprite = AddComponent<Sprite>();
-	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titlecursor.png");
+	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titlecursor.dds");
 
 	//èâÇﬂÇÃà íuÇï€ë∂
-	m_StartPosition.x = (SCREEN_WIDTH / 2) - (m_Scale.x / 2);
-	m_StartPosition.y = ((SCREEN_HEIGHT / 5) * 4) - (m_Scale.y / 2);
+	m_StartPosition.x = m_WorldPosition.x;
+	m_StartPosition.y = m_WorldPosition.y;
 
 	m_ShotSEEnter = AddComponent<Audio>();
 	m_ShotSEEnter->Load("asset\\audio\\CursorSE.wav");
@@ -94,8 +94,11 @@ void TitleCursor::Update()
 	case Select::HAJIME:
 		m_WorldPosition.y = m_StartPosition.y;
 		break;
-	case Select::UNINIT:
+	case Select::CONTINUE:
 		m_WorldPosition.y = (m_StartPosition.y + m_MoveRange);
+		break;
+	case Select::UNINIT:
+		m_WorldPosition.y = (m_StartPosition.y + (m_MoveRange * 2));
 		break;
 	default:
 		break;
@@ -107,12 +110,12 @@ void TitleCursor::Update()
 	{
 		switch(m_NextPhase)
 		{
-		case 1 :
+		case Select::HAJIME:
 			m_Fade->SetFadeSpeed(0.05f);
 			m_Fade->SetIsFadeOut();
 
 			break;
-		case 2 :
+		case Select::UNINIT:
 			Manager::SetIsGameFinish();
 			break;
 		default:

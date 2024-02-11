@@ -8,6 +8,7 @@ private:
 	enum Select {
 		SELECT_NULL,
 		HAJIME,
+		CONTINUE,
 		UNINIT
 	};
 
@@ -25,7 +26,7 @@ private:
 	D3DXVECTOR3 m_StartPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	int m_NextPhase = SELECT_NULL;
 	bool m_IsNextPhase = false;
-	float m_MoveRange = 70.0f;
+	float m_MoveRange = 80.0f;
 	bool m_IsPressEnter = false;
 
 public:

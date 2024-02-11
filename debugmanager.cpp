@@ -2,8 +2,7 @@
 #include "renderer.h"
 #include "debugManager.h"
 #include "manager.h"
-#include "../imgui/imgui_impl_dx11.h"
-#include "../imgui/imgui_impl_win32.h"
+
 #include "player.h"
 #include "polygon2D.h"
 
@@ -20,27 +19,24 @@ bool show_another_window = false;
 
 void DebugManager::Init()
 {
-	m_Renderer = Manager::GetRenderer();
+	//m_Renderer = Manager::GetRenderer();
 
-	ImGui::CreateContext();
-	ImGui_ImplWin32_Init(GetWindow());
-	ImGui_ImplDX11_Init(m_Renderer->GetDevice(), m_Renderer->GetDeviceContext());
-
-	ImGuiIO& io = ImGui::GetIO();
-	ImFont* font = io.Fonts->AddFontFromFileTTF("c:\Windows\Fonts\meiryo.ttc", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
+	//ImGui::CreateContext();
+	//ImGui_ImplWin32_Init(GetWindow());
+	//ImGui_ImplDX11_Init(m_Renderer->GetDevice(), m_Renderer->GetDeviceContext());
 }
 
 void DebugManager::Uninit()
 {
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
+	//ImGui_ImplDX11_Shutdown();
+	//ImGui_ImplWin32_Shutdown();
+	//ImGui::DestroyContext();
 }
 
 void DebugManager::Update()
 {
 	m_Player = Manager::GetScene()->GetGameObject<Player>();
-	m_Polygon2D = Manager::GetScene()->GetGameObject<Polygon2D>();
+
 }
 
 void DebugManager::Draw()
@@ -73,24 +69,7 @@ void DebugManager::Draw()
         ImGui::EndMenuBar();
     }
 	
-	ImGui::Text("\nPlayer");
-	D3DXVECTOR3 i = m_Player->GetPosition();
-	D3DXVECTOR3 r = m_Player->GetRotation();
-	D3DXVECTOR3 s = m_Player->GetScale();
-
-	ImGui::InputFloat("positionX", &i.x);
-	ImGui::InputFloat("positionY", &i.y);
-	ImGui::InputFloat("positionZ", &i.z);
-
-
-	const char* cd = "aaaaaaaaaaaaaaa";
-	char c = *cd;
-
-	ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
-	if (ImGui::Button("InputText")) {
-	}
-
-	ImGui::End();
+	if(m_Player != nullptr)m_Player->GetDebugData();
 
 	// ImGuiコード
 	//フレームの描画

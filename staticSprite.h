@@ -18,6 +18,7 @@ private:
 	bool m_IsSendToPixelShader = true;
 
 public:
+	void Init();
 	void Init(float x, float y, float Width, float Height, std::string TextureKey, std::string TexturePath);
 	void Uninit();
 	void Update();

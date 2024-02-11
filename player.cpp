@@ -56,8 +56,11 @@ void Player::Init()
 	m_InventoryInterface = scene->GetGameObject<Inventory>();
 
 	m_ItemFactory= new ItemFactory();
-	auto item = m_ItemFactory->CreateItem("Hoe");
-	m_InventoryInterface->AddItem(*item);
+	auto Hoe = m_ItemFactory->CreateItem("Hoe");
+	m_InventoryInterface->AddItem(Hoe);
+
+	auto Kama = m_ItemFactory->CreateItem("Kama");
+	m_InventoryInterface->AddItem(Kama);
 	
 	Load();
 	
@@ -287,6 +290,8 @@ void Player::Draw()
 
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
 	m_Model->Draw();
+
+
 }
 
 void Player::UpdateTitle()
@@ -593,6 +598,13 @@ void Player::UpdateInventory()
 		m_InventoryInterface->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
+}
+
+void Player::GetDebugData()
+{
+	ImGui::Begin("Player");
+	ImGui::Text("Position:%.2f,%.2f,%.2f", m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
+	ImGui::End();
 }
 
 void Player::UseEquipment()
