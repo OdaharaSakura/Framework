@@ -15,14 +15,20 @@ void InventoryItemCursor::Init()
 {
 	AddComponent<UnlitTexture>();
 
-	m_Scale.x = 100.0f;
-	m_Scale.y = 100.0f;
+	m_Scale.x = m_SelectItemTextureWidth;
+	m_Scale.y = m_SelectItemTextureHeight;
 	m_WorldPosition.x = 225.0f + (m_Index % 7) * 125.0f;
 	m_WorldPosition.y = 170.0f + (m_Index / 7) * 100.0f;
-	std::string key = "InventoryItemIconCursor";
-	std::string path = "sentaku_frame.dds";
+	m_SelectItemTextureKey = "InventoryItemIconCursor";
+	m_SelectItemTexturePass = "sentaku_frame.dds";
+
+	m_SelectHowToUseTextureKey = "SubPanelCursor";
+	m_SelectHowToUseTexturePass = "subpanelCursor.dds";
+
 	m_StaticSprite = AddComponent<StaticSprite>();//上のとどっちでもよい
-	m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, key, path);
+	m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, m_SelectItemTextureKey, m_SelectItemTexturePass);
+
+	m_SelectStage = SelectItem;
 }
 
 void InventoryItemCursor::Uninit()
@@ -35,11 +41,37 @@ void InventoryItemCursor::Update()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
+
+	switch (m_SelectStage)
+	{
+		case SelectItem:
+		UpdateSelectItem();
+		break;
+
+		case SelectHowToUse:
+		UpdateSelectHowToUse(GetSelectItem());
+		break;
+
+	}
+
+}
+
+void InventoryItemCursor::Draw()
+{
+	// マトリクス設定
+	Renderer::SetWorldViewProjection2D();
+
+	//基底クラスのメソッド呼び出し
+	GameObject::Draw();
+}
+
+void InventoryItemCursor::UpdateSelectItem()
+{
 	Scene* scene = Manager::GetScene();
 	m_Inventory = scene->GetGameObject<Inventory>();
 	m_InventoryView = scene->GetGameObject<InventoryView>();
 
-	if(Input::GetKeyTrigger('W'))
+	if (Input::GetKeyTrigger('W'))
 	{
 		m_Index -= 7;
 		if (m_Index < 0)
@@ -78,15 +110,41 @@ void InventoryItemCursor::Update()
 	m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
 	m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
+
+	if (Input::GetKeyTrigger(VK_SPACE))
+	{
+		Scene* scene = Manager::GetScene();
+		m_InventoryView = scene->GetGameObject<InventoryView>();
+		m_InventoryView->ShowSelectPanel();
+		SetSelectHowToUse();
+		m_SelectStage = SelectHowToUse;
+	}
 }
 
-void InventoryItemCursor::Draw()
+void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 {
-	// マトリクス設定
-	Renderer::SetWorldViewProjection2D();
+	if (Input::GetKeyTrigger(VK_SPACE))
+	{
+		Scene* scene = Manager::GetScene();
+		m_InventoryView = scene->GetGameObject<InventoryView>();
+		m_InventoryView->HideSelectPanel();
+		m_Scale.x = m_SelectItemTextureWidth;
+		m_Scale.y = m_SelectItemTextureHeight;
+		m_StaticSprite->SetTexture(m_SelectItemTextureKey, m_SelectItemTexturePass);
+		m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
+		m_SelectStage = SelectItem;
+	}
+}
 
-	//基底クラスのメソッド呼び出し
-	GameObject::Draw();
+void InventoryItemCursor::SetSelectHowToUse()
+{
+	m_Scale.x = m_SelectHowToUseTextureWidth;
+	m_Scale.y = m_SelectHowToUseTextureHeight;
+	m_StaticSprite->SetTexture(m_SelectHowToUseTextureKey, m_SelectHowToUseTexturePass);
+	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2;
+	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2;
+	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
+	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
 }
 
 Item* InventoryItemCursor::GetSelectItem()

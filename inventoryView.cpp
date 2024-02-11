@@ -9,6 +9,7 @@
 #include "inventoryItemIcon.h"
 #include "inventoryItemCursor.h"
 #include "inventoryItemDescription.h"
+#include "SubPanel.h"
 
 void InventoryView::Init()
 {
@@ -20,11 +21,15 @@ void InventoryView::Init()
 		m_InventoryItemIcons.push_back(scene->AddGameObject<InventoryItemIcon>(LAYER_OBJECT_2D));
 		m_InventoryItemIcons[i]->SetIsActive(false);
 	}
+	m_SelectPanel = scene->AddGameObject<SubPanel>(LAYER_OBJECT_2D);
 	m_InventoryItemCursor = scene->AddGameObject<InventoryItemCursor>(LAYER_OBJECT_2D);
+
+
 
 
 	m_InventoryPanel->SetIsActive(false);
 	m_InventoryItemCursor->SetIsActive(false);
+	m_SelectPanel->SetIsActive(false);
 
 }
 
@@ -73,4 +78,14 @@ void InventoryView::HideInventory()
 	m_InventoryPanel->SetIsActive(false);
 	m_InventoryItemCursor->SetIsActive(false);
 	m_InventoryItemDescription->SetDestroy();
+}
+
+void InventoryView::ShowSelectPanel()
+{
+	m_SelectPanel->SetIsActive(true);
+}
+
+void InventoryView::HideSelectPanel()
+{
+	m_SelectPanel->SetIsActive(false);
 }

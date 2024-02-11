@@ -20,6 +20,8 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
         LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
+        LoadImageData("SubPanel", "subpanel.dds");//サブパネル
+        LoadImageData("SubPanelCursor", "subpanelCursor.dds");//サブパネル
         break;
     case SCENE_RESULT:
         break;
