@@ -1,2 +1,3 @@
-Key,TexturePass,ModelPass,Name,Type,Description,BuyingPrice,SellingPrice
-Hoe,equipment_icon_kuwa.dds,Kuwa.obj,くわ,装備,装備すると畑を耕せる。,100,200
+Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice
+そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,100,0
+そうび,Kama,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,100,0

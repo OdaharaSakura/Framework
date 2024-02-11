@@ -7,6 +7,8 @@
 #include "sprite.h"
 #include "input.h"
 #include "shader.h"
+#include "inventory.h"
+#include "inventoryItemCursor.h"
 
 
 void InventoryItemDescription::Init()
@@ -21,18 +23,14 @@ void InventoryItemDescription::Init()
 	m_ItemText[2] = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D);
 	m_ItemDescriptionText = m_ItemText[2]->AddComponent<Text>();
 
-
 	m_ItemNameText->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 5 * 3.5f));
 	m_ItemNameText->SetFontColor(D2D1::ColorF::Brown);
-	SetText(m_ItemNameText, "くわ");
 
 	m_ItemTypeText->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5 * 3.5f));
 	m_ItemTypeText->SetFontColor(D2D1::ColorF::Gray);
-	SetText(m_ItemTypeText, "種類：装備");
 
 	m_ItemDescriptionText->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 5 * 3.75f));
 	m_ItemDescriptionText->SetFontColor(D2D1::ColorF::Black);
-	SetText(m_ItemDescriptionText, "畑を耕せる道具。");
 }
 
 void InventoryItemDescription::Uninit()
@@ -49,6 +47,26 @@ void InventoryItemDescription::Update()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
+
+	Scene* scene = Manager::GetScene();
+	m_Inventory = scene->GetGameObject<Inventory>();
+	m_InventoryItemCursor = scene->GetGameObject<InventoryItemCursor>();
+
+	if (m_InventoryItemCursor == nullptr) return;
+
+	Item * item = m_Inventory->GetItem(m_InventoryItemCursor->GetIndex());
+
+	if (item == nullptr)
+	{
+		SetText(m_ItemNameText, "");
+		SetText(m_ItemTypeText, "");
+		SetText(m_ItemDescriptionText, "");
+		return;
+	}
+	
+	SetText(m_ItemNameText, item->GetName());
+	SetText(m_ItemTypeText, "種類：" + item->GetType());
+	SetText(m_ItemDescriptionText, item->GetDescription());
 }
 
 void InventoryItemDescription::Draw()

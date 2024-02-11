@@ -28,6 +28,7 @@
 #endif
 
 
+
 #pragma warning(push)
 #pragma warning(disable:4005)
 #include <d2d1.h>						// Direct2D
@@ -43,6 +44,10 @@
 #include <d3d11.h>
 #include <d3dx9.h>//DirectXÅ@ver9
 #include <d3dx11.h>
+
+#include "../imgui/imgui.h"
+#include "../imgui/imgui_impl_dx11.h"
+#include "../imgui/imgui_impl_win32.h"
 
 #pragma warning(pop)
 

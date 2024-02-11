@@ -13,14 +13,17 @@
 void InventoryView::Init()
 {
 	Scene* scene = Manager::GetScene();
-	//アイテムの数に応じて増やす
+	m_InventoryInterface = scene->GetGameObject<Inventory>();
 	m_InventoryPanel = scene->AddGameObject<InventoryPanel>(LAYER_OBJECT_2D);
-	m_InventoryItemIcon = scene->AddGameObject<InventoryItemIcon>(LAYER_OBJECT_2D);
+	for (int i = 0; i < m_InventoryInterface->GetMaxCapacity(); i++)
+	{
+		m_InventoryItemIcons.push_back(scene->AddGameObject<InventoryItemIcon>(LAYER_OBJECT_2D));
+		m_InventoryItemIcons[i]->SetIsActive(false);
+	}
 	m_InventoryItemCursor = scene->AddGameObject<InventoryItemCursor>(LAYER_OBJECT_2D);
-	
+
 
 	m_InventoryPanel->SetIsActive(false);
-	m_InventoryItemIcon->SetIsActive(false);
 	m_InventoryItemCursor->SetIsActive(false);
 
 }
@@ -36,12 +39,24 @@ void InventoryView::Update()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
+
+	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
+	{
+		if (m_InventoryItemIcons[i] == nullptr) return;
+		m_InventoryItemIcons[i]->SetIndex(i);
+	}
 }
 
 void InventoryView::ShowInventory()
 {
 	Scene* scene = Manager::GetScene();
-	m_InventoryItemIcon->SetIsActive(true);
+	m_InventoryInterface = scene->GetGameObject<Inventory>();
+	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
+	{
+		if (m_InventoryItemIcons[i] == nullptr) return;
+		m_InventoryItemIcons[i]->SetIndex(i);
+		m_InventoryItemIcons[i]->SetIsActive(true);
+	}
 	m_InventoryPanel->SetIsActive(true);
 	m_InventoryItemCursor->SetIsActive(true);
 	m_InventoryItemDescription = scene->AddGameObject<InventoryItemDescription>(LAYER_OBJECT_2D);
@@ -50,7 +65,11 @@ void InventoryView::ShowInventory()
 
 void InventoryView::HideInventory()
 {
-	m_InventoryItemIcon->SetIsActive(false);
+	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
+	{
+		m_InventoryItemIcons[i]->SetIsActive(false);
+	}
+	
 	m_InventoryPanel->SetIsActive(false);
 	m_InventoryItemCursor->SetIsActive(false);
 	m_InventoryItemDescription->SetDestroy();

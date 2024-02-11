@@ -137,4 +137,6 @@ public:
 	int GetHpMax() {return m_HpMax;}
 	bool GetAttackflg() { return m_Attackflg; }
 	char GetInputData() { return m_InputData; }
+
+	void GetDebugData();
 };

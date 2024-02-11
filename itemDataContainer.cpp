@@ -3,8 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <vector>
-#include <string>
+
 
 std::vector<ItemData> ItemDataContainer::m_ItemData{};
 
@@ -24,10 +23,10 @@ void ItemDataContainer::Load()
             cells.push_back(cell); // 値をベクターに追加
         }
         // 最初の行（ヘッダー）をスキップ
-        if (cells[0] == "Key") continue;
+        if (cells[0] == "Type") continue;
 
-        // Personオブジェクトにデータを格納し、リストに追加
-        m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], cells[5], std::stoi(cells[6]), std::stoi(cells[7]) });
+        // ItemDataオブジェクトにデータを格納し、リストに追加
+        m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) });
     }
 }
 
