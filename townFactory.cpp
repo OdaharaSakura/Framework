@@ -131,11 +131,6 @@ void TownFactory::CreateTown()
 	fence6->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence6->SetRotation(D3DXVECTOR3(0.0f, -3.14f / 2, 0.0f));
 
-	//StaticObject* fence6 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence6->SetModel_Key("Fence");
-	//fence6->SetPosition(D3DXVECTOR3(-26.0f, 0.0f, -10.0f));
-	//fence6->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence6->SetRotation(D3DXVECTOR3(0.0f, -3.14f, 0.0f));
 
 	StaticObject* fence7 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	fence7->SetModel_Key("Fence");
@@ -205,7 +200,7 @@ void TownFactory::CreateTown()
 	}
 
 
-	StaticObject* treemiddle = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	/*StaticObject* treemiddle = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	treemiddle->SetModel_Key("MiddleTree");
 	treemiddle->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 80.0f));
 	treemiddle->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
@@ -233,7 +228,23 @@ void TownFactory::CreateTown()
 	treemiddle4->SetModel_Key("MiddleTree");
 	treemiddle4->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 180.0f));
 	treemiddle4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	treemiddle4->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	treemiddle4->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
+
+
+
+	const int maxtree = 5;
+
+	for (int i = 0; i < maxtree; i++)
+	{
+		StaticObject* treemiddle = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		treemiddle->SetModel_Key("MiddleTree");
+		treemiddle->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 60.0f + (i * 20.0f)));
+		treemiddle->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+		treemiddle->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	}
+
+
+
 
 	StaticObject* treemiddle5 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	treemiddle5->SetModel_Key("MiddleTree");
@@ -306,25 +317,8 @@ void TownFactory::CreateTown()
 	bridge->SetModel_Key("Bridge");
 	bridge->SetPosition(D3DXVECTOR3(110.0f, 0.0f, 70.0f));
 	bridge->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
-	bridge->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	bridge->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
-	StaticObject* pool = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	pool->SetModel_Key("Pool");
-	pool->SetPosition(D3DXVECTOR3(0.0f, 0.0f, -10.0f));
-	pool->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-	pool->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* wateringcan = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	wateringcan->SetModel_Key("WateringCan");
-	wateringcan->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	wateringcan->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
-	wateringcan->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* wateringcan2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	wateringcan2->SetModel_Key("WateringCan2");
-	wateringcan2->SetPosition(D3DXVECTOR3(10.0f, 0.0f, 10.0f));
-	wateringcan2->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
-	wateringcan2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
 	StaticObject* carriage = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	carriage->SetModel_Key("Carriage");
@@ -338,11 +332,7 @@ void TownFactory::CreateTown()
 	mountain->SetScale(D3DXVECTOR3(20.0f, 20.0f, 20.0f));
 	mountain->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
-	/*StaticObject* carriage = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	carriage->SetModel_Key("Barrel");
-	carriage->SetPosition(D3DXVECTOR3(50.0f, 2.0f, 120.0f));
-	carriage->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	carriage->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
+
 
 	//staticobject* dryfield = scene->addgameobject<staticobject>(layer_object_3d);
  //   dryfield->setmodel_key("dryfield");
