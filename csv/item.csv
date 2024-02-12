@@ -1,3 +1,10 @@
-Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice
-そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,100,0
-そうび,Kama,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,100,0
+Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat
+そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,0,0,0
+そうび,Kama,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,0
+そうび,Wand,equipment_icon_wand.dds,つえ,そうびすると畑に水を撒ける。,0,0,0
+さくもつ,Carrot,item_icon_Carrot.dds,にんじん,あきの月に収穫できる。甘みが強い。,150,200,1
+さくもつ,Eggplant,item_icon_Eggplant.dds,なす,なつの月に収穫できる。さっぱりしている。,150,200,1
+さくもつ,Kabu,item_icon_Kabu.dds,かぶ,,150,200,1
+さくもつ,Onion,item_icon_Onion.dds,たまねぎ,,150,200,1
+さくもつ,Potato,item_icon_Potato.dds,じゃがいも,,150,200,1
+さくもつ,Tomato,item_icon_Tomato.dds,トマト,,150,200,1

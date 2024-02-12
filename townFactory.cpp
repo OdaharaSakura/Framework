@@ -200,37 +200,6 @@ void TownFactory::CreateTown()
 	}
 
 
-	/*StaticObject* treemiddle = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	treemiddle->SetModel_Key("MiddleTree");
-	treemiddle->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 80.0f));
-	treemiddle->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-	treemiddle->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* treemiddle1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	treemiddle1->SetModel_Key("MiddleTree");
-	treemiddle1->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 100.0f));
-	treemiddle1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	treemiddle1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* treemiddle2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	treemiddle2->SetModel_Key("MiddleTree");
-	treemiddle2->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 120.0f));
-	treemiddle2->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	treemiddle2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* treemiddle3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	treemiddle3->SetModel_Key("MiddleTree");
-	treemiddle3->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 150.0f));
-	treemiddle3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	treemiddle3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* treemiddle4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	treemiddle4->SetModel_Key("MiddleTree");
-	treemiddle4->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 180.0f));
-	treemiddle4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	treemiddle4->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
-
-
 
 	const int maxtree = 5;
 
