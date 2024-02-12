@@ -9,8 +9,9 @@ struct ItemData
 	std::string m_TexturePass{};
 	std::string m_Name{};
 	std::string m_Description{};
-	int m_buyingPrice{};
-	int m_sellingPrice{};
+	int m_BuyingPrice{};
+	int m_SellingPrice{};
+	bool m_IsEat{};
 };
 
 
@@ -21,14 +22,33 @@ struct EquipmentData
 	std::string m_TexturePass{};
 	std::string m_Name{};
 	std::string m_Description{};
-	int m_buyingPrice{};
-	int m_sellingPrice{};
+	int m_BuyingPrice{};
+	int m_SellingPrice{};
+	bool m_IsEat{};
+	std::string m_ModelPass{};
 };
 
+struct CropData
+{
+	std::string m_Type{};
+	std::string m_Key{};
+	std::string m_TexturePass{};
+	std::string m_Name{};
+	std::string m_Description{};
+	int m_BuyingPrice{};
+	int m_SellingPrice{};
+	bool m_IsEat{};
+	int m_GrowthTime{};
+	std::string m_Season{};
+	int m_GrowTheFirstStage{};
+	int m_GrowTheSecondStage{};
+};
 class ItemDataContainer
 {
 private:
 	static std::vector<ItemData> m_ItemData; // 構造体のリストを保持
+	static std::vector<EquipmentData> m_EquipmentData; // 構造体のリストを保持
+	static std::vector<CropData> m_CropData; // 構造体のリストを保持
 public:
 	//sceneによってどれを読み込むかを決める
 	static void Load();
