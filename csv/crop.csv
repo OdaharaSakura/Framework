@@ -1,4 +1,6 @@
-Name,Age,Score
-Alice,30,85
-Bob,22,92
-Charlie,25,88
+CropName,DaysToGrow,SeasonalMoon,LastHarvestableMonth,DaysToGrowTheFirstStage,DaysToGrowTheSecondStage
+Eggplant,7,Autumn,Autumn,3,5
+Kabu,4,Spring,Autumn,2,3
+Onion,6,Summer,Autumn,3,4
+Potato,6,Spring,Autumn,2,4
+Tomato,7,Summer,Autumn,3,4
