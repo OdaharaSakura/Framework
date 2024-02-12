@@ -13,6 +13,18 @@ struct ItemData
 	int m_sellingPrice{};
 };
 
+
+struct EquipmentData
+{
+	std::string m_Type{};
+	std::string m_Key{};
+	std::string m_TexturePass{};
+	std::string m_Name{};
+	std::string m_Description{};
+	int m_buyingPrice{};
+	int m_sellingPrice{};
+};
+
 class ItemDataContainer
 {
 private:

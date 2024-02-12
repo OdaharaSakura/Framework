@@ -5,7 +5,9 @@
 
 class Equipment : public Item
 {
+	std::string m_Modelpass;
 public:
+	void Init() {};
 	virtual void Execute() {};
 };
 
@@ -19,11 +21,3 @@ public:
 };
 #pragma endregion
 
-//‚¶‚å‚¤‚ë
-#pragma region WateringCan 
-class WateringCan : public Equipment
-{
-public:
-	void Execute() override {};
-};
-#pragma endregion
