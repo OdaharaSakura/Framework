@@ -39,6 +39,7 @@ public:
 	void UpdateSelectHowToUse(Item* item);
 
 	void SetSelectHowToUse();
+	void SetSelectItem();
 
 	int GetIndex() { return m_Index; }
 	Item* GetSelectItem();
