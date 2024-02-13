@@ -6,13 +6,13 @@ class InventoryItemIcon;
 class InventoryView :public GameObject
 {
 private:
-	class Inventory* m_InventoryInterface;
-	class InventoryPanel* m_InventoryPanel;
-	class InventoryItemCursor* m_InventoryItemCursor;
-	class InventoryItemDescription* m_InventoryItemDescription;
-	std::vector<InventoryItemIcon*> m_InventoryItemIcons;
+	class Inventory* m_InventoryInterface{};
+	class InventoryPanel* m_InventoryPanel{};
+	class InventoryItemCursor* m_InventoryItemCursor{};
+	class InventoryItemDescription* m_InventoryItemDescription{};
+	std::vector<InventoryItemIcon*> m_InventoryItemIcons{};
 
-	class SubPanel* m_SelectPanel;
+	class SubPanel* m_SelectPanel{};
 public:
 	void Init();
 	void Uninit();

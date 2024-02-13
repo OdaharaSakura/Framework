@@ -376,20 +376,20 @@ void TownFactory::CreateTown()
 	carrot_seedling3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
 	
-	const int maxfieldx = 8;
-	const int maxfieldz = 11;
+	//const int maxfieldx = 8;
+	//const int maxfieldz = 11;
 
-	for (int z = 0; z < maxfieldz; z++)
-	{
-		for (int x = 0; x < maxfieldx; x++)
-		{
-			StaticObject* dryfield3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-			dryfield3->SetModel_Key("DryField");
-			dryfield3->SetPosition(D3DXVECTOR3(-9.0f - (x * 1.7f), 0.0f, -8.5f + (z *1.7f)));
-			dryfield3->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-			dryfield3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		}
-	}
+	//for (int z = 0; z < maxfieldz; z++)
+	//{
+	//	for (int x = 0; x < maxfieldx; x++)
+	//	{
+	//		StaticObject* dryfield3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	//		dryfield3->SetModel_Key("DryField");
+	//		dryfield3->SetPosition(D3DXVECTOR3(-9.0f - (x * 1.7f), 0.0f, -8.5f + (z *1.7f)));
+	//		dryfield3->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
+	//		dryfield3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	//	}
+	//}
 
 	StaticObject* tile = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	tile->SetModel_Key("Tile");

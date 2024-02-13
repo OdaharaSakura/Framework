@@ -1,6 +1,6 @@
 Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,ModelPass,Wastage,,,
 そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,0,0,Kuwa.obj,5,,,
-そうび,Kama,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,kama.obj,5,,,
+そうび,Sickle,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,kama.obj,5,,,
 そうび,Wand,equipment_icon_wand.dds,つえ,そうびすると畑に水を撒ける。,0,0,waterwand.obj,5,,,
 Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat,HoursToGrow,HoursToGrowTheFirstStage,HoursToGrowTheSecondStage,Healing
 さくもつ,Carrot,item_icon_Carrot.dds,にんじん,あきの月に育つさくもつ。,170,280,1,2,1,1.5,50

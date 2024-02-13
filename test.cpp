@@ -29,7 +29,7 @@
 #include "gamelogo.h"
 #include "treasureBox.h"
 #include "collider.h"
-#include "testObj.h"
+#include "equipmentObj.h"
 #include "time.h"
 #include "npc.h"
 #include "modelTest.h"
@@ -130,7 +130,7 @@ void Test::Init()
 	player = AddGameObject<Player>(LAYER_OBJECT_3D);
 	m_SphereCollider = player->AddComponent<SphereCollider>();
 	m_SphereCollider->m_testObj->SetParent(player);
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
+	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
 	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 
 	player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
@@ -205,7 +205,7 @@ void Test::Update()
 		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 
-	TestObj* test = (TestObj*)m_SphereCollider->m_testObj;
+	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
 	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 

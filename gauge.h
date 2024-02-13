@@ -13,9 +13,9 @@ private:
 
 
 	//ヒットポイント関連
-	int m_Hp;		//現在のヒットポイント
-	int m_HpMax;	//最大ヒットポイント
-	int m_HpOld;
+	float m_Hp;		//現在のヒットポイント
+	float m_HpMax;	//最大ヒットポイント
+	float m_HpOld;
 
 	class Player* m_PlayerParent{};//gameobjectの型を使った方が良い
 	class Enemy* m_EnemyParent;//gameobjectの型を使った方が良い

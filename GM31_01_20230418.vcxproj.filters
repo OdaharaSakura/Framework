@@ -74,6 +74,9 @@
     <Filter Include="1_Common\Game\Container">
       <UniqueIdentifier>{8e93e429-7b2e-44e9-ba36-f138176920e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Common\Game\Factory">
+      <UniqueIdentifier>{57d6f667-84f4-44ce-b2bf-e72c6b7fe113}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -335,8 +338,6 @@
     <ClCompile Include="inventoryView.cpp">
       <Filter>GameObject\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="equipmentFactory.cpp" />
-    <ClCompile Include="itemFactory.cpp" />
     <ClCompile Include="itemDataContainer.cpp">
       <Filter>1_Common\Game\Container</Filter>
     </ClCompile>
@@ -346,6 +347,17 @@
     <ClCompile Include="textureContainer.cpp">
       <Filter>1_Common\Game\Container</Filter>
     </ClCompile>
+    <ClCompile Include="subPanel.cpp" />
+    <ClCompile Include="equipmentFactory.cpp">
+      <Filter>1_Common\Game\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="itemFactory.cpp">
+      <Filter>1_Common\Game\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment.cpp">
+      <Filter>GameObject\equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="equipmentObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -512,7 +524,7 @@
     <ClInclude Include="camera.h">
       <Filter>GameObject\camera</Filter>
     </ClInclude>
-    <ClInclude Include="testObj.h">
+    <ClInclude Include="equipmentObj.h">
       <Filter>Test</Filter>
     </ClInclude>
     <ClInclude Include="time.h">
@@ -625,8 +637,6 @@
     <ClInclude Include="inventoryPanel.h">
       <Filter>GameObject\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="equipmentFactory.h" />
-    <ClInclude Include="itemFactory.h" />
     <ClInclude Include="itemDataContainer.h">
       <Filter>1_Common\Game\Container</Filter>
     </ClInclude>
@@ -635,6 +645,13 @@
     </ClInclude>
     <ClInclude Include="textureContainer.h">
       <Filter>1_Common\Game\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="subPanel.h" />
+    <ClInclude Include="equipmentFactory.h">
+      <Filter>1_Common\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="itemFactory.h">
+      <Filter>1_Common\Game\Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

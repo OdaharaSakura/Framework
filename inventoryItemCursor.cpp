@@ -127,8 +127,8 @@ void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 	{
 		Scene* scene = Manager::GetScene();
 		m_InventoryView = scene->GetGameObject<InventoryView>();
-		m_InventoryView->HideSelectPanel();
 		SetSelectItem();
+		m_InventoryView->HideSelectPanel();
 		m_SelectStage = SelectItem;
 	}
 }
@@ -149,6 +149,9 @@ void InventoryItemCursor::SetSelectItem()
 	m_Scale.x = m_SelectItemTextureWidth;
 	m_Scale.y = m_SelectItemTextureHeight;
 	m_StaticSprite->SetTexture(m_SelectItemTextureKey, m_SelectItemTexturePass);
+	m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
+	m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
+	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
 	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
 }
 

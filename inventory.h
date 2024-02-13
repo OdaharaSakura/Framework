@@ -15,7 +15,7 @@ public:
     void Show();
     void Hide();
 
-    bool AddItem(const Item* itemptr);
+    void AddItem(const Item* itemptr);
 
     bool RemoveItem(std::string& itemName);
 

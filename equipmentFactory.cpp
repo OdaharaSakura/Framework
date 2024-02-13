@@ -5,8 +5,7 @@
 
 EquipmentFactory::EquipmentFactory()
 {
-    equipmentMap["Hoe"] = []() { return new Hoe(); };
-    equipmentMap["Axe"] = []() { return new Axe(); };
-    equipmentMap["Pickaxe"] = []() { return new Pickaxe(); };
-    equipmentMap["WateringCan"] = []() { return new WateringCan(); };
+    RegisterEquipment<Hoe>("Hoe");
+    RegisterEquipment<Sickle>("Sickle");
 }
+

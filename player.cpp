@@ -27,6 +27,8 @@
 #include "iEquipment.h"
 #include "inventory.h"
 #include "itemFactory.h"
+#include "equipmentFactory.h"
+#include "equipment.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -55,12 +57,17 @@ void Player::Init()
 	m_EquipmentInterface = scene->GetGameObject<IEquipment>();
 	m_InventoryInterface = scene->GetGameObject<Inventory>();
 
-	m_ItemFactory= new ItemFactory();
-	auto Hoe = m_ItemFactory->CreateItem("Hoe");
-	m_InventoryInterface->AddItem(Hoe);
+	m_ItemFactory = new ItemFactory();
+	m_EquipmentFactory= new EquipmentFactory();
+	auto hoe = m_ItemFactory->CreateItem("Hoe");
+	m_InventoryInterface->AddItem(hoe);
 
-	auto Kama = m_ItemFactory->CreateItem("Kama");
-	m_InventoryInterface->AddItem(Kama);
+
+	auto kama = m_ItemFactory->CreateItem("Sickle");
+	m_InventoryInterface->AddItem(kama);
+
+	//auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
+	//m_EquipmentInterface->SetEquipment(equipmentHoe);
 	
 	Load();
 	
@@ -234,7 +241,22 @@ void Player::Update()
 	}
 
 
-
+	//Test============TODO:Œã‚ÅÁ‚·
+	if (Input::GetKeyTrigger('R'))
+	{
+		auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
+		m_EquipmentInterface->SetEquipment(equipmentHoe);
+	}
+	if (Input::GetKeyTrigger('F'))
+	{
+		m_EquipmentInterface->RemoveEquipment();
+	}
+	if (Input::GetKeyTrigger('V'))
+	{
+		auto equipmentSickle = m_EquipmentFactory->CreateEquipment("Sickle");
+		m_EquipmentInterface->SetEquipment(equipmentSickle);
+	}
+	//Test============
 	
 	//áŠQ•¨‚Æ‚ÌÕ“Ë”»’èªª=====================================
 

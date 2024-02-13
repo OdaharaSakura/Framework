@@ -72,6 +72,7 @@ public:
 	{
 		for (GameObject* gameObject : m_GameObject[LAYER_CAMERA])//範囲forループ
 		{
+			if (gameObject->GetIsEnable() == false) continue;
 			if (gameObject->GetIsActive() == false) continue;
 			gameObject->Draw();//ポリモフィズム
 		}

@@ -16,6 +16,7 @@ protected:
 	bool		m_IsActive = true;		
 	bool		m_IsDestroy = false;
 	bool		m_IsStatic = false;
+	bool		m_IsEnable = true;
 
 	bool		m_IsPlayer = false;
 
@@ -76,6 +77,7 @@ public:
 	void SetPlayer() { m_IsPlayer = true; }
 	void SetIsActive(bool isActive) { m_IsActive = isActive; }
 	void SetIsStatic(bool isStatic) { m_IsStatic = isStatic; }
+	void SetIsEnable(bool isEnable) { m_IsEnable = isEnable; }
 	
 
 	D3DXVECTOR3 GetPosition() { return m_WorldPosition; }
@@ -95,7 +97,7 @@ public:
 	bool GetPlayer() { return m_IsPlayer; }
 	bool GetIsStatic() { return m_IsStatic; }
 	bool GetIsActive() { return m_IsActive; }
-
+	bool GetIsEnable() { return m_IsEnable; }
 
 
 	template<typename T>

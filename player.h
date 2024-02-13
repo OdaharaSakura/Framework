@@ -31,6 +31,7 @@ private:
 	class IEquipment* m_EquipmentInterface;
 	class Inventory* m_InventoryInterface;
 	class ItemFactory* m_ItemFactory;
+	class EquipmentFactory* m_EquipmentFactory;
 
 	class Text* m_Description;//説明
 	class Conversation* m_Conversation;//会話
@@ -45,7 +46,7 @@ private:
 	class MeshField* m_MeshField{};
 
 	int m_Hp;
-	int m_HpMax = 300;
+	int m_HpMax = 500;
 
 	int m_Time{};
 	std::string m_AnimationName;
@@ -92,6 +93,7 @@ public:
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 	void SetPlayerState(int state) { m_PlayerState = state; }
+	void AddHp(int hp) { m_Hp += hp; }
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
 	{
