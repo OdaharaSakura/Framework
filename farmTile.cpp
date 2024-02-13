@@ -4,63 +4,43 @@
 #include "model.h"
 #include "shader.h"
 #include "crop.h"
+#include "modelContainer.h"
 
-
-
-void FarmTile::Load()
-{
-	//畑のモデルに変えるか、テクスチャでマップ使って盛り上げる
-	m_Model[FarmTileState::PLOWED] = new Model();
-	m_Model[FarmTileState::PLOWED]->Load("asset\\model\\obj\\calot.obj");
-
-	m_Model[FarmTileState::PLOWEDWATERED] = new Model();
-	m_Model[FarmTileState::PLOWEDWATERED]->Load("asset\\model\\obj\\carrot_1.obj");
-}
-
-void FarmTile::Unload()
-{
-}
 
 void FarmTile::Init()
 {
-
-	Load();
-
-	m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Scale = D3DXVECTOR3(0.7f, 0.7f, 0.7f);
 
 	AddComponent<VertexLighting>();
+	AddComponent<PixelLighting>();
 
-	m_FarmTileState == FarmTileState::EMPTY;
+	m_FarmTileState = FarmTileState::EMPTY;
 }
 
 void FarmTile::Uninit()
 {
-	for (int i = 0; i < MAX_FARMTILE_STAGE; i++)
-	{
-		if (m_Model[i] == nullptr) continue;
+	////TODO:ここエラー吐く、要改善
+	//if (m_FarmTileModel != nullptr)
+	//{
+	//	m_FarmTileModel->Unload();
+	//	delete m_FarmTileModel;
+	//}
 
-		m_Model[i]->Unload();
-		delete m_Model[i];
-	}
+	//if (m_CropModel != nullptr)
+	//{
+	//	m_CropModel->Unload();
+	//	delete m_CropModel;
+	//}
 }
 
 void FarmTile::Update()
 {
-	num++;
 
-	if (num >= 200)
-	{
-		m_FarmTileState = FarmTileState::PLOWED;
-	}
-	if (num >= 500)
-	{
-		m_FarmTileState = FarmTileState::PLOWEDWATERED;
-	}
 }
 
 void FarmTile::Draw()
 {
-	if (m_FarmTileState == FarmTileState::EMPTY) return;
+	if(m_FarmTileModel == nullptr) return;
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
@@ -68,20 +48,35 @@ void FarmTile::Draw()
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 
-	Renderer::SetWorldMatrix(&world);
+	Renderer::SetWorldMatrix(&world);	
 
-	switch (m_FarmTileState)
-	{
-	case FarmTileState::PLOWED:
-		m_Model[FarmTileState::PLOWED]->Draw();
-		break;
-	case FarmTileState::PLOWEDWATERED:
-		m_Model[FarmTileState::PLOWEDWATERED]->Draw();
-		break;
-	default:
-		break;
-	}
-	
+	m_FarmTileModel->Draw();
+	if(m_CropModel) m_CropModel->Draw();
 }
 
+void FarmTile::Plow()
+{
+	m_FarmTileState = FarmTileState::PLOWED;
+	m_FarmTileModel = ModelContainer::GetModelKey("DryField");
+}
 
+void FarmTile::Water()
+{
+	m_FarmTileState = FarmTileState::WATERED;
+	m_FarmTileModel = ModelContainer::GetModelKey("WetField");
+}
+
+void FarmTile::PlantCrop(Crop* crop)
+{
+	m_FarmTileState = FarmTileState::PLANTED;
+	//m_CropModel = ModelContainer::GetModelKey(crop->GetModelKey());
+	//m_Crop = crop;
+}
+
+void FarmTile::Harvest()
+{
+	m_FarmTileState = FarmTileState::EMPTY;
+	m_FarmTileModel = nullptr;
+	m_CropModel = nullptr;
+	m_Crop = nullptr;
+}

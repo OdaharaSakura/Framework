@@ -24,8 +24,8 @@ struct EquipmentData
 	std::string m_Description{};
 	int m_BuyingPrice{};
 	int m_SellingPrice{};
-	bool m_IsEat{};
 	std::string m_ModelPass{};
+	int m_LostHP{}; //Žg—p‚µ‚½Žž‚ÉŒ¸‚éHP
 };
 
 struct CropData
@@ -54,4 +54,6 @@ public:
 	static void Load();
 
 	static ItemData GetItemData_Key(std::string key);
+	static EquipmentData GetEquipmentData_Key(std::string key);
+	static CropData GetCropData_Key(std::string key);
 };

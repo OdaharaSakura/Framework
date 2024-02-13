@@ -18,6 +18,8 @@ void GameObject::Update()
 {
     for (Component* component : m_ComponentList)//範囲forループ
     {
+        if (component->GetIsStatic() == true) continue;
+        if (component->GetIsActive() == false) continue;
         component->Update();
     }
 }
@@ -26,6 +28,8 @@ void GameObject::Draw()
 {
     for (Component* component : m_ComponentList)//範囲forループ
     {
+        if (component->GetIsEnable() == false) continue;
+        if (component->GetIsActive() == false) continue;
         component->Draw();//ポリモフィズム
     }
 }

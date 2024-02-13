@@ -16,7 +16,7 @@ void TextureContainer::Load(int sceneIndex)
         break;
     case SCENE_GAME:
         LoadImageData("Hoe", "equipment_icon_kuwa.dds");//鍬
-        LoadImageData("Kama", "equipment_icon_kama.dds");//鎌
+        LoadImageData("Sickle", "equipment_icon_kama.dds");//鎌
         LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
         LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム

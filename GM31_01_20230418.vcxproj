@@ -205,8 +205,10 @@
     <ClCompile Include="DirectWriteCustomFont.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="equipment.cpp" />
     <ClCompile Include="equipmentFactory.cpp" />
     <ClCompile Include="equipmentIcon.cpp" />
+    <ClCompile Include="equipmentObj.cpp" />
     <ClCompile Include="equipmentPanel.cpp" />
     <ClCompile Include="equipmentView.cpp" />
     <ClCompile Include="explosion.cpp" />
@@ -406,7 +408,7 @@
     <ClInclude Include="subPanel.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testHouse.h" />
-    <ClInclude Include="testObj.h" />
+    <ClInclude Include="equipmentObj.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="textureContainer.h" />
     <ClInclude Include="time.h" />

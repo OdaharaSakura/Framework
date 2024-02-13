@@ -1,18 +1,38 @@
-#pragma once
 
 #include <map>
-
+#include <functional>
+#include <string>
 class Equipment;
+class ItemDataContainer;
 
 class EquipmentFactory
 {
 private:
-	std::map<std::string, std::function<const Equipment* ()>> equipmentMap;
+    std::map<std::string, std::function<Equipment* ()>> equipmentMap;
 
 public:
     EquipmentFactory();
 
-    const Equipment* CreateEquipment(const std::string& key) {
+    template<typename T>
+    void RegisterEquipment(const std::string& key) {
+        equipmentMap[key] = [key]() -> Equipment* {
+            auto equipmentData = ItemDataContainer::GetEquipmentData_Key(key);
+            return new T(
+                equipmentData.m_Type,
+                equipmentData.m_Key,
+                equipmentData.m_TexturePass,
+                equipmentData.m_Name,
+                equipmentData.m_Description,
+                equipmentData.m_BuyingPrice,
+                equipmentData.m_SellingPrice,
+                equipmentData.m_ModelPass,
+                equipmentData.m_LostHP 
+            );
+            };
+    }
+
+    Equipment* CreateEquipment(std::string key)
+    {
         auto it = equipmentMap.find(key);
         if (it != equipmentMap.end()) {
             return it->second(); // Œ©‚Â‚©‚Á‚½ê‡‚ÍŠÖ”‚ğÀs

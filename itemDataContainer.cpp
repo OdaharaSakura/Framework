@@ -6,7 +6,8 @@
 
 
 std::vector<ItemData> ItemDataContainer::m_ItemData{};
-
+std::vector<EquipmentData> ItemDataContainer::m_EquipmentData{};
+std::vector<CropData> ItemDataContainer::m_CropData{};
 void ItemDataContainer::Load()
 {
     std::string filename= "csv/item.csv";
@@ -35,9 +36,11 @@ void ItemDataContainer::Load()
                 cells[4],//Description
                 std::stoi(cells[5]),//BuyingPrice
                 std::stoi(cells[6]),//SellingPrice
-                cells[7] == "1",//IsEat
-                cells[8],//ModelPass
+                cells[7],//ModelPass
+                std::stoi(cells[8])//LostHP
                 });
+
+            m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]), false});
             continue;
         }
     //    if (cells[0] == "さくもつ")
@@ -55,6 +58,7 @@ void ItemDataContainer::Load()
 				//std::stoi(cells[9]),//HarvestCount
 				//std::stoi(cells[10]),//HarvestPrice
 				//});
+                // continue;
     //    }
 
         // ItemDataオブジェクトにデータを格納し、リストに追加
@@ -76,4 +80,37 @@ ItemData ItemDataContainer::GetItemData_Key(std::string key)
     else {
         return ItemData();
     }
+}
+
+EquipmentData ItemDataContainer::GetEquipmentData_Key(std::string key)
+{
+    // std::find_ifを使用して特定のm_Keyを持つEquipmentDataを検索
+    auto it = std::find_if(m_EquipmentData.begin(), m_EquipmentData.end(), [&key](const EquipmentData& equipment) {
+		return equipment.m_Key == key;
+		});
+
+
+    // 検索結果のチェックと表示
+    if (it != m_EquipmentData.end()) {
+        return *it;
+    }
+    else {
+        return EquipmentData();
+    }
+}
+
+CropData ItemDataContainer::GetCropData_Key(std::string key)
+{
+	// std::find_ifを使用して特定のm_Keyを持つCropDataを検索
+    auto it = std::find_if(m_CropData.begin(), m_CropData.end(), [&key](const CropData& crop) {
+		return crop.m_Key == key;
+		});
+
+	// 検索結果のチェックと表示
+    if (it != m_CropData.end()) {
+		return *it;
+	}
+    else {
+		return CropData();
+	}
 }

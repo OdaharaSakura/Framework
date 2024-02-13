@@ -44,8 +44,9 @@ void InventoryView::Update()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Update();
+	auto & items = m_InventoryInterface->GetItems();
 
-	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
+	for (int i = 0; i < items.size(); i++)
 	{
 		if (m_InventoryItemIcons[i] == nullptr) return;
 		m_InventoryItemIcons[i]->SetIndex(i);
@@ -56,7 +57,8 @@ void InventoryView::ShowInventory()
 {
 	Scene* scene = Manager::GetScene();
 	m_InventoryInterface = scene->GetGameObject<Inventory>();
-	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
+	auto& items = m_InventoryInterface->GetItems();
+	for (int i = 0; i < items.size(); i++)
 	{
 		if (m_InventoryItemIcons[i] == nullptr) return;
 		m_InventoryItemIcons[i]->SetIndex(i);

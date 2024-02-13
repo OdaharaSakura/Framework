@@ -10,26 +10,29 @@
 #include "textureContainer.h"
 
 
+
 void FarmField::Init()
 {
 	VERTEX_3D vertex[4];
 
-	vertex[0].Position = D3DXVECTOR3(-7.5f, 0.0f, 10.0f);
+
+
+	vertex[0].Position = D3DXVECTOR3(-1.0f, 0.0f, 1.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[0].TexCoord = D3DXVECTOR2(5.0f, 0.0f);
 
-	vertex[1].Position = D3DXVECTOR3(7.5f, 0.0f, 10.0f);
+	vertex[1].Position = D3DXVECTOR3(1.0f, 0.0f, 1.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[1].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
-	vertex[2].Position = D3DXVECTOR3(-7.5f, 0.0f, -10.0f);
+	vertex[2].Position = D3DXVECTOR3(-1.0f, 0.0f, -1.0f);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[2].TexCoord = D3DXVECTOR2(5.0f, 5.0f);
 
-	vertex[3].Position = D3DXVECTOR3(7.5f, 0.0f, -10.0f);
+	vertex[3].Position = D3DXVECTOR3(1.0f, 0.0f, -1.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = D3DXVECTOR2(0.0f, 5.0f);
@@ -61,19 +64,23 @@ void FarmField::Init()
 
 	m_WorldPosition = D3DXVECTOR3(-15.0f, 0.01f, 0.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	m_Scale = D3DXVECTOR3(7.5f, 1.0f, 10.0f);
+
 
 	Scene* scene = Manager::GetScene();
 
-	for (int z = 0; z < 3; z++)
-	{
-		for (int x = 0; x < 3; x++)
-		{
-			m_FarmTile[x][z] = scene->AddGameObject<FarmTile>(LAYER_OBJECT_3D);
-			m_FarmTile[x][z]->SetPosition(D3DXVECTOR3(-15.0f + x * 2.0f, 0.0f, z * 2.0f));
-		}
-	}
 	
+
+	for (int z = 0; z < m_Maxfieldz; z++)
+	{
+		for (int x = 0; x < m_Maxfieldx; x++)
+		{
+			auto farmtile = scene->AddGameObject<FarmTile>(LAYER_OBJECT_3D);
+			farmtile->SetPosition(D3DXVECTOR3(-9.0f - (x * 1.7f), 0.0f, -8.5f + (z * 1.7f)));
+			m_FarmTiles.push_back(farmtile);
+			
+		}
+	}	
 }
 
 

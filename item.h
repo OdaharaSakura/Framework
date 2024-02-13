@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
+
 #include <string>
 
 class Item
 {
-private:
+protected:
 	std::string m_Key{};
 	std::string m_TexturePass{};
 	std::string m_Name{};//–¼‘O

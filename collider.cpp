@@ -4,7 +4,7 @@
 #include "manager.h"
 #include "collider.h"
 #include "collision.h"
-#include "testObj.h"
+#include "equipmentObj.h"
 #include "gameObject.h"
 #include "model.h"
 
@@ -14,7 +14,7 @@ void SphereCollider::Init()
 {
 	//Collision::m_SphereColliderObjects.push_back(m_AttachGameObject);
 	
-	m_testObj = Manager::GetScene()->AddGameObject<TestObj>(LAYER_COLLIDER);//colliderを作るオブジェクトの生成
+	m_testObj = Manager::GetScene()->AddGameObject<EquipmentObj>(LAYER_COLLIDER);//colliderを作るオブジェクトの生成
 
 	m_testObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
 

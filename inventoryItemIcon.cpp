@@ -49,22 +49,24 @@ void InventoryItemIcon::SetIndex(int itemIndex)
 
 	m_Index = itemIndex;
 
+	// アイテムの取得
 	m_Item = m_Inventory->GetItem(m_Index);
 
-	//アイテムのインデックスに応じてアイコンの位置を設定
-	m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
-	m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
+	// m_Itemが有効かどうかをチェック
+	if (m_Item != nullptr) {
+		// アイテムのインデックスに応じてアイコンの位置を設定
+		m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
+		m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
 
+		if (m_StaticSprite == nullptr) {
+			m_StaticSprite = AddComponent<StaticSprite>();
+			m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, m_Item->GetKey(), m_Item->GetTexturePass());
+		}
+		else {
+			m_StaticSprite->SetTexture(m_Item->GetKey(), m_Item->GetTexturePass());
+			m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
+		}
+	}
 
-	if (m_StaticSprite == nullptr)
-	{
-		m_StaticSprite = AddComponent<StaticSprite>();
-		m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, m_Item->GetKey(), m_Item->GetTexturePass());
-	}
-	else
-	{
-		m_StaticSprite->SetTexture(m_Item->GetKey(), m_Item->GetTexturePass());
-		m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
-	}
 }
 

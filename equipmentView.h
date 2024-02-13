@@ -4,9 +4,9 @@
 class EquipmentView :public GameObject
 {
 private:
-	class IEquipment* m_EquipmentInterface;
-	class EquipmentPanel* m_EquipmentPanel;
-	class EquipmentIcon* m_EquipmentIcon;
+	class IEquipment* m_EquipmentInterface{};
+	class EquipmentPanel* m_EquipmentPanel{};
+	class EquipmentIcon* m_EquipmentIcon{};
 public:
 	void Init();
 	void Uninit();

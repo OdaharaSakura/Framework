@@ -50,7 +50,8 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
         LoadModelData("Tile", "tile.obj");//タイル
-
+        LoadModelData("Hoe", "Kuwa.obj");//くわ
+        LoadModelData("Sickle", "kama.obj");//鎌
         break;
     case SCENE_RESULT:
         break;
