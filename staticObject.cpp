@@ -33,7 +33,9 @@ void StaticObject::Draw()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	if (!camera->CheckView(m_WorldPosition)) return;
+	float objectSize = D3DXVec3Length(&m_Scale);
+
+	if (!camera->CheckViewWithBoundingSphere(m_WorldPosition, objectSize/2)) return;
 
 	if(m_Model == nullptr) return;
 	// マトリクス設定

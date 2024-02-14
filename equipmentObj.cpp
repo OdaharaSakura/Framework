@@ -14,9 +14,8 @@ void EquipmentObj::Init()
 {
 	AddComponent<VertexLighting>();
 
-	//鍬を持っているとき//TODO：モデルによって位置が変わる、向きはあってる、要改善
 	m_Rotation = D3DXVECTOR3(-3.14f / 4, 0.0f, -3.14f / 2);
-	m_WorldPosition = D3DXVECTOR3(0.0f, 0.5f, 0.0f);
+	m_WorldPosition = D3DXVECTOR3(0.0f, 0.125f, 0.0f);
 }
 
 void EquipmentObj::Update()

@@ -53,6 +53,7 @@ public:
 		m_ShakeAmplitude = Amplitude;
 	}
 
-	bool CheckView(D3DXVECTOR3 Position);
+	bool CheckView(D3DXVECTOR3 position);
+	bool CheckViewWithBoundingSphere(D3DXVECTOR3 position, float radius);
 
 };

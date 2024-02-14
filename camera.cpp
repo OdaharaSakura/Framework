@@ -120,3 +120,49 @@ bool Camera::CheckView(D3DXVECTOR3 Position)
 	
 	return true;
 }
+
+bool Camera::CheckViewWithBoundingSphere(D3DXVECTOR3 position, float radius) 
+{
+	D3DXMATRIX vp, invvp;
+	vp = m_ViewMatrix * m_ProjectionMatrix;
+	D3DXMatrixInverse(&invvp, NULL, &vp);
+
+	D3DXVECTOR3 vpos[8];
+	D3DXVECTOR3 wpos[8];
+
+	// ビューボリュームのコーナーを定義
+	vpos[0] = D3DXVECTOR3(-1.0f, 1.0f, 0.0f); // 近平面のコーナー
+	vpos[1] = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
+	vpos[2] = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
+	vpos[3] = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
+	vpos[4] = D3DXVECTOR3(-1.0f, 1.0f, 1.0f); // 遠平面のコーナー
+	vpos[5] = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
+	vpos[6] = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
+	vpos[7] = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
+	// ワールド空間への変換
+	for (int i = 0; i < 8; i++) {
+		D3DXVec3TransformCoord(&wpos[i], &vpos[i], &invvp);
+	}
+
+	D3DXVECTOR3 v, v1, v2, n;
+
+	v = position - m_WorldPosition;
+
+	//法線計算
+	for (int i = 0; i < 4; i++) {
+		v1 = wpos[i] - position;
+		v2 = wpos[(i + 1) % 4] - position;
+
+		// 外積計算
+		D3DXVec3Cross(&n, &v1, &v2);
+		D3DXVec3Normalize(&n, &n);
+
+		// オブジェクトの中心とバウンディングスフィアを考慮
+		if (D3DXVec3Dot(&n, &v) < -radius) {
+			return false;
+		}
+	}
+
+	return true;
+}
