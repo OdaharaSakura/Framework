@@ -21,6 +21,8 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Desk", "desk.obj");//Š÷
         LoadModelData("House1", "house1.obj");//‰Æ
         LoadModelData("House2", "house2.obj");//‰Æ2
+        LoadModelData("House3", "house3.obj");//‰Æ3
+        LoadModelData("House4", "house5.obj");//‰Æ3
         LoadModelData("Shop1", "shop1.obj");//ÔF‚Ì“X
         LoadModelData("Shop2", "shop2.obj");//äb‰F‚Ì“X
         LoadModelData("Shop3", "shop3.obj");//’ƒF‚Ì“X

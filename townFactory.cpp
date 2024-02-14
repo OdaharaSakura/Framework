@@ -46,35 +46,41 @@ void TownFactory::CreateTown()
 	desk->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
 	desk->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	StaticObject* house1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	house1->SetModel_Key("House1");
-	house1->SetPosition(D3DXVECTOR3(40.0f, 0.0f, 80.0f));
-	house1->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	house1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
 	StaticObject* house2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house2->SetModel_Key("House2");
 	house2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 80.0f));
 	house2->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
 	house2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
+	StaticObject* house3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	house3->SetModel_Key("House3");
+	house3->SetPosition(D3DXVECTOR3(40.0f, 0.0f, 80.0f));
+	house3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	house3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	StaticObject* house4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	house4->SetModel_Key("House4");
+	house4->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 130.0f));
+	house4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	house4->SetRotation(D3DXVECTOR3(0.0f, -90.0f, 0.0f));
+
 	StaticObject* shop1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop1->SetModel_Key("Shop1");
-	shop1->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 130.0f));
+	shop1->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 100.0f));
 	shop1->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	shop1->SetRotation(D3DXVECTOR3(0.0f, -90.0f, 0.0f));
+	shop1->SetRotation(D3DXVECTOR3(0.0f, 80.0f, 0.0f));
 
 	StaticObject* shop2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop2->SetModel_Key("Shop2");
-	shop2->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 130.0f));
+	shop2->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 140.0f));
 	shop2->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
 	shop2->SetRotation(D3DXVECTOR3(0.0f, 90.0f, 0.0f));
 
-	/*StaticObject* shop3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	StaticObject* shop3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop3->SetModel_Key("Shop3");
-	shop3->SetPosition(D3DXVECTOR3(70.0f, 0.0f, 100.0f));
-	shop3->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
-	shop3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
+	shop3->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 115.0f));
+	shop3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	shop3->SetRotation(D3DXVECTOR3(0.0f, 90.0f, 0.0f));
 
 
 
@@ -223,61 +229,61 @@ void TownFactory::CreateTown()
 
 	StaticObject* TAIZYU = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	TAIZYU->SetModel_Key("SymbolTree");
-	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -20.5f, 165.0f));
+	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -20.5f, 185.0f));
 	TAIZYU->SetScale(D3DXVECTOR3(5.0f, 5.0f, 5.0f));
 	TAIZYU->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* windmill = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	windmill->SetModel_Key("WindMill");
-	windmill->SetPosition(D3DXVECTOR3(-30.0f, 0.0f, 100.0f));
+	windmill->SetPosition(D3DXVECTOR3(-25.0f, 0.0f, 100.0f));
 	windmill->SetScale(D3DXVECTOR3(5.0f, 5.0f, 5.0f));
-	windmill->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
+	windmill->SetRotation(D3DXVECTOR3(0.0f, -80.0f, 0.0f));
 
 	StaticObject* gate1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	gate1->SetModel_Key("Gate");
-	gate1->SetPosition(D3DXVECTOR3(20.0f, 0.0f, 45.0f));
+	gate1->SetPosition(D3DXVECTOR3(20.0f, 0.0f, 42.0f));
 	gate1->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-	gate1->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
+	gate1->SetRotation(D3DXVECTOR3(0.0f, -132.0f, 0.0f));
 
 	StaticObject* gate2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	gate2->SetModel_Key("Gate2");
-	gate2->SetPosition(D3DXVECTOR3(20.0f, 0.0f, 80.0f));
+	gate2->SetPosition(D3DXVECTOR3(20.0f, 0.0f, 67.0f));
 	gate2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	gate2->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 	StaticObject* flower = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower->SetModel_Key("Flower");
-	flower->SetPosition(D3DXVECTOR3(26.0f, 0.0f, 80.0f));
+	flower->SetPosition(D3DXVECTOR3(26.0f, 0.0f, 67.0f));
 	flower->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	flower->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 	StaticObject* flower2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
     flower2->SetModel_Key("Flower2");
-    flower2->SetPosition(D3DXVECTOR3(27.0f, 0.0f, 80.0f));
+    flower2->SetPosition(D3DXVECTOR3(27.0f, 0.0f, 67.0f));
     flower2->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
     flower2->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 	StaticObject* flower3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower3->SetModel_Key("Flower3");
-	flower3->SetPosition(D3DXVECTOR3(28.0f, 0.0f, 80.0f));
+	flower3->SetPosition(D3DXVECTOR3(28.0f, 0.0f, 67.0f));
 	flower3->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	flower3->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f)); 
 
 	StaticObject* flower4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower4->SetModel_Key("Flower4");
-	flower4->SetPosition(D3DXVECTOR3(12.0f, 0.0f, 79.0f));
+	flower4->SetPosition(D3DXVECTOR3(12.0f, 0.0f, 67.0f));
 	flower4->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	flower4->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 	StaticObject* flower5 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower5->SetModel_Key("Flower5");
-	flower5->SetPosition(D3DXVECTOR3(13.0f, 0.0f, 79.0f));
+	flower5->SetPosition(D3DXVECTOR3(13.0f, 0.0f, 67.0f));
 	flower5->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	flower5->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 	StaticObject* flower6 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower6->SetModel_Key("Flower6");
-	flower6->SetPosition(D3DXVECTOR3(14.0f, 0.0f, 79.0f));
+	flower6->SetPosition(D3DXVECTOR3(14.0f, 0.0f, 67.0f));
 	flower6->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	flower6->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
@@ -289,11 +295,11 @@ void TownFactory::CreateTown()
 	bridge->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
 
-	StaticObject* carriage = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	/*StaticObject* carriage = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	carriage->SetModel_Key("Carriage");
 	carriage->SetPosition(D3DXVECTOR3(-20.0f, 0.0f, -25.0f));
 	carriage->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	carriage->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	carriage->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
 	StaticObject* mountain = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	mountain->SetModel_Key("Mountain");
@@ -393,8 +399,8 @@ void TownFactory::CreateTown()
 
 	StaticObject* tile = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	tile->SetModel_Key("Tile");
-	tile->SetPosition(D3DXVECTOR3(17.0f, -0.5f, 107.0f));
-	tile->SetScale(D3DXVECTOR3(6.0f, 6.0f, 6.0f));
+	tile->SetPosition(D3DXVECTOR3(19.0f, -0.99f, 108.0f));
+	tile->SetScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
 	tile->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f)); 
 
 
