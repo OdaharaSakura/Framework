@@ -62,7 +62,7 @@ void TownFactory::CreateTown()
 	house4->SetModel_Key("House4");
 	house4->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 130.0f));
 	house4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	house4->SetRotation(D3DXVECTOR3(0.0f, -90.0f, 0.0f));
+	house4->SetRotation(D3DXVECTOR3(0.0f, -3.14/6.0f, 0.0f));
 
 	StaticObject* shop1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop1->SetModel_Key("Shop1");
