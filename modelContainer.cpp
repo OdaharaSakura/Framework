@@ -23,7 +23,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("House2", "house2.obj");//‰Æ2
         LoadModelData("House3", "house3.obj");//‰Æ3
         LoadModelData("House4", "house5.obj");//‰Æ3
-        LoadModelData("Shop1", "shop1.obj");//ÔF‚Ì“X
+        LoadModelData("Shop1", "shop.obj");//ÔF‚Ì“X
         LoadModelData("Shop2", "shop2.obj");//äb‰F‚Ì“X
         LoadModelData("Shop3", "shop3.obj");//’ƒF‚Ì“X
         LoadModelData("Fence", "fence.obj");//ò
@@ -54,6 +54,8 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Tile", "tile.obj");//ƒ^ƒCƒ‹
         LoadModelData("Hoe", "Kuwa.obj");//‚­‚í
         LoadModelData("Sickle", "kama.obj");//Š™
+        LoadModelData("Wooden", "woodbox.obj");//–Ø” 
+
         break;
     case SCENE_RESULT:
         break;
