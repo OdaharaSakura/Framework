@@ -34,6 +34,7 @@
 #include <d2d1.h>						// Direct2D
 #include <DWrite.h>						// DirectWrite
 #include <D3DX10math.h>					// ”ŠwŒnƒ‰ƒCƒuƒ‰ƒŠ
+#include <DirectXMath.h> // ’Ç‰Á
 #include <stdio.h>
 #include <wrl.h>						// ComPtr
 #include <windows.h>
@@ -62,6 +63,7 @@
 #pragma comment (lib, "d3dx9.lib")
 #pragma comment (lib, "d3dx11.lib")
 
+#pragma omp simd
 
 
 

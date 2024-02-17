@@ -76,7 +76,10 @@ void FarmTile::PlantCrop(Crop* crop)
 void FarmTile::Harvest()
 {
 	m_FarmTileState = FarmTileState::EMPTY;
+	delete m_FarmTileModel;
 	m_FarmTileModel = nullptr;
+	delete m_CropModel;
 	m_CropModel = nullptr;
+	delete m_Crop;
 	m_Crop = nullptr;
 }
