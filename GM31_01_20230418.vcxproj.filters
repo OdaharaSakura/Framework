@@ -358,6 +358,7 @@
       <Filter>GameObject\equipment</Filter>
     </ClCompile>
     <ClCompile Include="equipmentObj.cpp" />
+    <ClCompile Include="subPanelOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -653,6 +654,7 @@
     <ClInclude Include="itemFactory.h">
       <Filter>1_Common\Game\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="subPanelOptions.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

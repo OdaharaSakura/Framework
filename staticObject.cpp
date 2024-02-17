@@ -32,10 +32,13 @@ void StaticObject::Draw()
 	//視錘台カリング
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
+	D3DXVECTOR3 length = D3DXVECTOR3(m_Scale.x, 0.0f, m_Scale.z);
+	float objectSize = D3DXVec3Length(&length);
 
-	float objectSize = D3DXVec3Length(&m_Scale);
-
-	if (!camera->CheckViewWithBoundingSphere(m_WorldPosition, objectSize/2)) return;
+	if (!camera->CheckViewWithBoundingSphere(m_WorldPosition, objectSize))
+	{
+		return;
+	}
 
 	if(m_Model == nullptr) return;
 	// マトリクス設定

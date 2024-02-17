@@ -287,6 +287,7 @@
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="staticSprite.cpp" />
     <ClCompile Include="subPanel.cpp" />
+    <ClCompile Include="subPanelOptions.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="testHouse.cpp" />
     <ClCompile Include="text.cpp" />
@@ -406,6 +407,7 @@
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="staticSprite.h" />
     <ClInclude Include="subPanel.h" />
+    <ClInclude Include="subPanelOptions.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testHouse.h" />
     <ClInclude Include="equipmentObj.h" />
