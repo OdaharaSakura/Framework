@@ -62,25 +62,31 @@ void TownFactory::CreateTown()
 	house4->SetModel_Key("House4");
 	house4->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 130.0f));
 	house4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	house4->SetRotation(D3DXVECTOR3(0.0f, -3.14/6.0f, 0.0f));
+	house4->SetRotation(D3DXVECTOR3(0.0f, -3.14/2.0f, 0.0f));
 
 	StaticObject* shop1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop1->SetModel_Key("Shop1");
 	shop1->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 100.0f));
 	shop1->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	shop1->SetRotation(D3DXVECTOR3(0.0f, 80.0f, 0.0f));
+	shop1->SetRotation(D3DXVECTOR3(0.0f, -3.14/2.0f, 0.0f));
 
 	StaticObject* shop2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop2->SetModel_Key("Shop2");
 	shop2->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 140.0f));
 	shop2->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	shop2->SetRotation(D3DXVECTOR3(0.0f, 90.0f, 0.0f));
+	shop2->SetRotation(D3DXVECTOR3(0.0f, 3.14/2.0f, 0.0f));
 
 	StaticObject* shop3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop3->SetModel_Key("Shop3");
 	shop3->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 115.0f));
 	shop3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	shop3->SetRotation(D3DXVECTOR3(0.0f, 90.0f, 0.0f));
+	shop3->SetRotation(D3DXVECTOR3(0.0f, 3.14/2.0f, 0.0f));
+
+	StaticObject* wooden = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	wooden->SetModel_Key("Wooden");
+	wooden->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 105.0f));
+	wooden->SetScale(D3DXVECTOR3(2.5f, 2.5f, 2.5f));
+	wooden->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
 
 
 
@@ -162,26 +168,39 @@ void TownFactory::CreateTown()
 	fence10->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fence10->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	//StaticObject* fence11 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence11->SetModel_Key("Fence");
-	//fence11->SetPosition(D3DXVECTOR3(-7.0f, 0.0f, -13.0f));
-	//fence11->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence11->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 
+	/*StaticObject* for1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	for1->SetModel_Key("MiddleTree");
+	for1->SetPosition(D3DXVECTOR3(-15.0f, 0.0f, -16.0f));
+	for1->SetScale(D3DXVECTOR3(2.5f, 2.5f, 2.5f));
+	for1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));*/
 
 
-	/*const int maxwfence = 15;
+	const int maxforest_ver = 5;
 
-	for (int i = 0; i < maxwfence; i++)
+	for (int i = 0; i < maxforest_ver; i++)
 	{
-		StaticObject* fence12 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-		fence12->SetModel_Key("Fence");
-		fence12->SetPosition(D3DXVECTOR3(-5.0f, 0.0f, 9.0f - (i * 1.0f)));
-		fence12->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-		fence12->SetRotation(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
+		StaticObject* forest_ver = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_ver->SetModel_Key("MiddleTree");
+		forest_ver->SetPosition(D3DXVECTOR3(-17.0f + (i * 5.0f), 0.0f, -16.0f));
+		forest_ver->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_ver->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	}*/
+	}
+
+
+	const int maxforest_bes = 9;
+
+	for (int i = 0; i < maxforest_bes; i++)
+	{
+		StaticObject* forest_bes = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_bes->SetModel_Key("MiddleTree");
+		forest_bes->SetPosition(D3DXVECTOR3(-17.0f, 0.0f, -16.0f - (i * 5.0f)));
+		forest_bes->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_bes->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	}
 
 
 
@@ -251,6 +270,12 @@ void TownFactory::CreateTown()
 	gate2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	gate2->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
+	StaticObject* gate3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	gate3->SetModel_Key("Gate3");
+	gate3->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gate3->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	gate3->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
+
 	StaticObject* flower = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower->SetModel_Key("Flower");
 	flower->SetPosition(D3DXVECTOR3(26.0f, 0.0f, 67.0f));
@@ -308,94 +333,6 @@ void TownFactory::CreateTown()
 	mountain->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
 
-
-	//staticobject* dryfield = scene->addgameobject<staticobject>(layer_object_3d);
- //   dryfield->setmodel_key("dryfield");
- //   dryfield->setposition(d3dxvector3(-10.2f, 0.0f, -9.0f));
- //   dryfield->setscale(d3dxvector3(0.7f, 0.7f, 0.7f));
- //   dryfield->setrotation(d3dxvector3(0.0f, 0.0f, 0.0f));
-
-	//staticobject* wetfield = scene->addgameobject<staticobject>(layer_object_3d);
-	//wetfield->setmodel_key("wetfield");
-	//wetfield->setposition(d3dxvector3(-8.5f, 0.0f, -9.0f));
-	//wetfield->setscale(d3dxvector3(0.7f, 0.7f, 0.7f));
-	//wetfield->setrotation(d3dxvector3(0.0f, 0.0f, 0.0f));
-
-	//staticobject* seed = scene->addgameobject<staticobject>(layer_object_3d);
-	//seed->setmodel_key("seed");
-	//seed->setposition(d3dxvector3(-10.2f, 0.2f, -9.0f));
-	//seed->setscale(d3dxvector3(0.7f, 0.7f, 0.7f));
-	//seed->setrotation(d3dxvector3(0.0f, 0.0f, 0.0f));
-
-	//staticobject* seed1 = scene->addgameobject<staticobject>(layer_object_3d);
-	//seed1->setmodel_key("seed");
-	//seed1->setposition(d3dxvector3(-8.5f, 0.2f, -9.0f));
-	//seed1->setscale(d3dxvector3(0.7f, 0.7f, 0.7f));
-	//seed1->setrotation(d3dxvector3(0.0f, 0.0f, 0.0f));
-
-	/*StaticObject* dryfield1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	dryfield1->SetModel_Key("DryField");
-	dryfield1->SetPosition(D3DXVECTOR3(-10.2f, 0.0f, -7.3f));
-	dryfield1->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	dryfield1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* wetfield1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	wetfield1->SetModel_Key("WetField");
-	wetfield1->SetPosition(D3DXVECTOR3(-8.5f, 0.0f, -7.3f));
-	wetfield1->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	wetfield1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* carrot_seedling = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	carrot_seedling->SetModel_Key("Carrot_Seedling");
-	carrot_seedling->SetPosition(D3DXVECTOR3(-10.2f, 0.2f, -7.3f));
-	carrot_seedling->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	carrot_seedling->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* carrot_seedling1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	carrot_seedling1->SetModel_Key("Carrot_Seedling");
-	carrot_seedling1->SetPosition(D3DXVECTOR3(-8.5f, 0.2f, -7.3f));
-	carrot_seedling1->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	carrot_seedling1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* dryfield2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	dryfield2->SetModel_Key("DryField");
-	dryfield2->SetPosition(D3DXVECTOR3(-10.2f, 0.0f, -5.6f));
-	dryfield2->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	dryfield2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* wetfield2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	wetfield2->SetModel_Key("WetField");
-	wetfield2->SetPosition(D3DXVECTOR3(-8.5f, 0.0f, -5.6f));
-	wetfield2->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	wetfield2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* carrot_seedling2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	carrot_seedling2->SetModel_Key("Carrot_Seedling2");
-	carrot_seedling2->SetPosition(D3DXVECTOR3(-10.2f, 0.2f, -5.6f));
-	carrot_seedling2->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	carrot_seedling2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
-	StaticObject* carrot_seedling3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	carrot_seedling3->SetModel_Key("Carrot_Seedling2");
-	carrot_seedling3->SetPosition(D3DXVECTOR3(-8.5f, 0.2f, -5.6f));
-	carrot_seedling3->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	carrot_seedling3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
-
-	
-	//const int maxfieldx = 8;
-	//const int maxfieldz = 11;
-
-	//for (int z = 0; z < maxfieldz; z++)
-	//{
-	//	for (int x = 0; x < maxfieldx; x++)
-	//	{
-	//		StaticObject* dryfield3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//		dryfield3->SetModel_Key("DryField");
-	//		dryfield3->SetPosition(D3DXVECTOR3(-9.0f - (x * 1.7f), 0.0f, -8.5f + (z *1.7f)));
-	//		dryfield3->SetScale(D3DXVECTOR3(0.7f, 0.7f, 0.7f));
-	//		dryfield3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	//	}
-	//}
 
 	StaticObject* tile = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	tile->SetModel_Key("Tile");
