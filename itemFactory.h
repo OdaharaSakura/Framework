@@ -9,5 +9,5 @@ public:
 
 
 
-	const Item* CreateItem(std::string key);
+	Item* CreateItem(std::string key);
 };

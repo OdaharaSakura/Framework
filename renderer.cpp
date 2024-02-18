@@ -552,11 +552,12 @@ void Renderer::Init()
 	//setup ImGui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//ImFontConfig config;
-	//config.MergeMode = true;
-	//io.Fonts->AddFontDefault();
-	//io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo UI •W€.ttc", 18.0f, &config, io.Fonts->GetGlyphRangesJapanese());
+	ImGuiIO& io = ImGui::GetIO();
+	ImFontConfig config;
+	config.MergeMode = true;
+	////io.Fonts->AddFontDefault();
+	io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo UI •W€.ttc", 18.0f, &config, io.Fonts->GetGlyphRangesJapanese());
+
 
 	ImGui::StyleColorsDark();
 

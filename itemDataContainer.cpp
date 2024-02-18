@@ -29,18 +29,13 @@ void ItemDataContainer::Load()
         if (cells[0] == "そうび")
         {
             m_EquipmentData.push_back({ 
-                cells[0],//Type
                 cells[1],//Key
                 cells[2],//TexturePass
-                cells[3],//Name
-                cells[4],//Description
-                std::stoi(cells[5]),//BuyingPrice
-                std::stoi(cells[6]),//SellingPrice
                 cells[7],//ModelPass
                 std::stoi(cells[8])//LostHP
                 });
 
-            m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]), false});
+            m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]), false, 0});
             continue;
         }
     //    if (cells[0] == "さくもつ")
@@ -58,11 +53,13 @@ void ItemDataContainer::Load()
 				//std::stoi(cells[9]),//HarvestCount
 				//std::stoi(cells[10]),//HarvestPrice
 				//});
+                //ItemDataオブジェクトにデータを格納し、リストに追加
+                //m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) , true , std::stoi(cells[8])});
                 // continue;
     //    }
 
         // ItemDataオブジェクトにデータを格納し、リストに追加
-        m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) });
+        m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) , cells[7] == "1", std::stoi(cells[8]) });
     }
 }
 

@@ -6,8 +6,6 @@
 #include "subPanel.h"
 #include "staticSprite.h"
 
-//test
-#include "input.h"
 
 void SubPanel::Init()
 {

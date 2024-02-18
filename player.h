@@ -38,6 +38,7 @@ private:
 	std::string m_Message;//会話中のメッセージ
 
 	D3DXVECTOR3			m_OldPosition{};
+	D3DXVECTOR3			m_MoveVec{};
 	D3DXVECTOR3			m_Velocity{};
 	D3DXVECTOR3			m_modelScale{};
 	D3DXQUATERNION		m_Quaternion{};

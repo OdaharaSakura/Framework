@@ -18,13 +18,8 @@ public:
         equipmentMap[key] = [key]() -> Equipment* {
             auto equipmentData = ItemDataContainer::GetEquipmentData_Key(key);
             return new T(
-                equipmentData.m_Type,
                 equipmentData.m_Key,
                 equipmentData.m_TexturePass,
-                equipmentData.m_Name,
-                equipmentData.m_Description,
-                equipmentData.m_BuyingPrice,
-                equipmentData.m_SellingPrice,
                 equipmentData.m_ModelPass,
                 equipmentData.m_LostHP 
             );

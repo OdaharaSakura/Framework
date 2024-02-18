@@ -256,6 +256,11 @@ void Player::Update()
 		auto equipmentSickle = m_EquipmentFactory->CreateEquipment("Sickle");
 		m_EquipmentInterface->SetEquipment(equipmentSickle);
 	}
+	if (Input::GetKeyTrigger('T'))
+	{
+		auto kama = m_ItemFactory->CreateItem("Sickle");
+		m_InventoryInterface->AddItem(kama);
+	}
 	//Test============
 	
 	//障害物との衝突判定↑↑=====================================
@@ -346,9 +351,9 @@ void Player::UpdateGround()
 			m_NextAnimationName = "LeftRun";
 			m_BlendRate = 0.0f;
 		}
-		//moveVec -= GetRight();
+		m_MoveVec -= cameraRight;
 		//m_WorldPosition.x -= 0.1f;
-		m_WorldPosition -= cameraRight * 0.1f;
+		//m_WorldPosition -= cameraRight * 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -371,9 +376,9 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 		
-		//moveVec += GetRight();
+		m_MoveVec += cameraRight;
 		//m_WorldPosition.x += 0.1f;
-		m_WorldPosition += cameraRight * 0.1f;
+		//m_WorldPosition += cameraRight * 0.1f;
 		
 
 		D3DXQUATERNION quat;
@@ -396,8 +401,8 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 
-		//moveVec += GetForward();
-		m_WorldPosition += cameraForward * 0.1f;
+		m_MoveVec += cameraForward;
+		//m_WorldPosition += cameraRight * 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -419,8 +424,8 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 
-		//moveVec -= GetForward();
-		m_WorldPosition -= cameraForward * 0.1f;
+		m_MoveVec -= cameraForward;
+		//m_WorldPosition -= cameraForward * 0.1f;
 		//m_WorldPosition.z -= 0.1f;
 
 		D3DXQUATERNION quat;
@@ -434,8 +439,8 @@ void Player::UpdateGround()
 		if (m_IsConnectNetWork) m_InputData = 'S';
 	}
 
-	//D3DXVec3Normalize(&moveVec, &moveVec);
-	//m_WorldPosition += moveVec * 0.1f;
+	D3DXVec3Normalize(&m_MoveVec, &m_MoveVec);
+	m_WorldPosition += m_MoveVec * 0.1f;
 
 
 
@@ -456,21 +461,6 @@ void Player::UpdateGround()
 	if (Input::GetKeyTrigger('I'))
 	{
 		UseEquipment();
-
-		/*m_ShotSE->Play(false);
-		if (m_NextAnimationName != "Attack")
-		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Attack";
-			m_BlendRate = 0.0f;
-		}
-		move = true;
-		m_PlayerState = PLAYER_STATE_ATTACK;
-		if (m_IsAttackflg)
-		{
-			m_Attackflg = true;
-		}*/
-
 	}
 
 	//ベッド
@@ -492,9 +482,9 @@ void Player::UpdateGround()
 				if (60 <= m_countnum) m_countnum = 0;
 
 			}
-			else m_Description->SetText("U：ベッドで眠る");
+			else m_Description->SetText("L：ベッドで眠る");
 
-			if (Input::GetKeyTrigger('U'))
+			if (Input::GetKeyTrigger('L'))
 			{
 				Time* time = scene->GetGameObject<Time>();
 				time->SetSleep();
@@ -544,6 +534,20 @@ void Player::UpdateGround()
 
 	//}
 
+			/*m_ShotSE->Play(false);
+		if (m_NextAnimationName != "Attack")
+		{
+			m_AnimationName = m_NextAnimationName;
+			m_NextAnimationName = "Attack";
+			m_BlendRate = 0.0f;
+		}
+		move = true;
+		m_PlayerState = PLAYER_STATE_ATTACK;
+		if (m_IsAttackflg)
+		{
+			m_Attackflg = true;
+		}*/
+
 	//インベントリを開く
 	if (Input::GetKeyTrigger(VK_TAB))
 	{
@@ -552,7 +556,7 @@ void Player::UpdateGround()
 	}
 
 	//ジャンプ
-	if (Input::GetKeyTrigger('J') && m_Velocity.y == 0.0f)
+	if (Input::GetKeyTrigger(VK_SPACE) && m_Velocity.y == 0.0f)
 	{
 		m_Velocity.y = 0.35f;
 		m_PlayerState = PLAYER_STATE_JUMP;
@@ -565,11 +569,12 @@ void Player::UpdateGround()
 			m_BlendRate = 0.0f;
 		}
 		
+		
 	}
 
 	if (Input::GetKeyTrigger('C'))
 	{
-		camera->Shake(1.5f);
+		camera->Shake(1.0f);
 	}
 
 
@@ -581,6 +586,7 @@ void Player::UpdateGround()
 			m_AnimationName = m_NextAnimationName;
 			m_NextAnimationName = "Idle";
 			m_BlendRate = 0.0f;
+			m_MoveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		}
 	}
 }
@@ -592,6 +598,7 @@ void Player::UpdateJump()
 		m_PlayerState = PLAYER_STATE_GROUND;
 
 	}
+	m_WorldPosition += m_MoveVec * 0.1f;
 }
 
 void Player::UpdateAttack()

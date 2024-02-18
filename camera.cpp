@@ -37,20 +37,20 @@ void Camera::Update()
 	//m_Target = player->GetPosition() + player->GetRight() * 0.5f + D3DXVECTOR3(0.0f, 3.0f, 0.0f);//少しだけ左にずれる
 	//m_WorldPosition = m_Target - player->GetForward() * 6.0f + D3DXVECTOR3(0.0f, 2.0f, 0.0f);
 
-	if (Input::GetKeyPress(VK_LEFT))
+	if (Input::GetKeyPress('U'))
 	{
 		m_Rotation += 0.1f;
 
 	}
-	if (Input::GetKeyPress(VK_RIGHT))
+	if (Input::GetKeyPress('O'))
 	{
 		m_Rotation -= 0.1f;
 
 	}
 	
 	//トップビュー
-	m_Target = player->GetPosition() + player->GetRight() * 0.5f + D3DXVECTOR3(0.0f, 2.0f, 0.0f);;
-	m_WorldPosition = m_Target + D3DXVECTOR3(sinf(m_Rotation) * 5.0f, 1.0f, -cosf(m_Rotation)*5.0f);
+	m_Target = player->GetPosition() + player->GetRight() * 0.5f + D3DXVECTOR3(0.0f, 1.0f, 0.0f);;
+	m_WorldPosition = m_Target + D3DXVECTOR3(sinf(m_Rotation) * 4.0f, 1.0f, -cosf(m_Rotation) * 4.0f);
 
 	//カメラシェイク
 	m_ShakeOffset = sinf(m_ShakeTime * 1.5f) * m_ShakeAmplitude;

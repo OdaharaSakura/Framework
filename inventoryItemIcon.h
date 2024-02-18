@@ -19,6 +19,7 @@ public:
 	void Draw();
 
 	void SetIndex(int itemIndex);
+	void SetTextureEnable(bool isEnable);
 
 	Item* GetItem() { return m_Item; }
 	int GetIndex() { return m_Index; }

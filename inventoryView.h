@@ -13,6 +13,7 @@ private:
 	std::vector<InventoryItemIcon*> m_InventoryItemIcons{};
 
 	class SubPanel* m_SelectPanel{};
+	class SubPanelOptions* m_SelectPanelOptions{};
 public:
 	void Init();
 	void Uninit();
@@ -22,7 +23,7 @@ public:
 	void ShowInventory();
 	void HideInventory();
 
-	void ShowSelectPanel();
+	void ShowSelectPanel(class Item* itemPtr);
 	void HideSelectPanel();
 
 	InventoryItemIcon* GetInventoryItemIcon(int index) 

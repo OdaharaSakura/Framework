@@ -15,9 +15,21 @@ public:
     void Show();
     void Hide();
 
-    void AddItem(const Item* itemptr);
+    void AddItem(Item* itemptr);
 
-    bool RemoveItem(std::string& itemName);
+    void AddItem(Item* itemptr, int quantity);
+
+    void RemoveItem(Item* itemptr);
+
+    void RemoveItem(std::string& itemName);
+
+    void RemoveItem(int index);
+
+    void DecreaseItem(Item* itemptr);
+
+    void DecreaseItem(int index);
+
+    void DecreaseItem(int index, int quantity);
 
     std::vector<Item>& GetItems() { return m_PossessionItems; }
 

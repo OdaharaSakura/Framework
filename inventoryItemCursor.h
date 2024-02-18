@@ -15,7 +15,8 @@ private:
 	class Inventory* m_Inventory{};
 	class InventoryView* m_InventoryView{};
 
-	int m_Index{};
+	int m_SelectItemIndex{};
+	int m_SelectHowToUseIndex{};
 	int m_SelectStage{};
 
 	float m_SelectItemTextureWidth = 100.0f;
@@ -41,7 +42,7 @@ public:
 	void SetSelectHowToUse();
 	void SetSelectItem();
 
-	int GetIndex() { return m_Index; }
+	int GetSelectItemIndex() { return m_SelectItemIndex; }
 	Item* GetSelectItem();
 
 };

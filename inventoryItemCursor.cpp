@@ -10,6 +10,7 @@
 #include "shader.h"
 #include "input.h"
 #include "item.h"
+#include "subPanelOptions.h"
 
 void InventoryItemCursor::Init()
 {
@@ -17,8 +18,8 @@ void InventoryItemCursor::Init()
 
 	m_Scale.x = m_SelectItemTextureWidth;
 	m_Scale.y = m_SelectItemTextureHeight;
-	m_WorldPosition.x = 225.0f + (m_Index % 7) * 125.0f;
-	m_WorldPosition.y = 170.0f + (m_Index / 7) * 100.0f;
+	m_WorldPosition.x = 225.0f + (m_SelectItemIndex % 7) * 125.0f;
+	m_WorldPosition.y = 170.0f + (m_SelectItemIndex / 7) * 100.0f;
 	m_SelectItemTextureKey = "InventoryItemIconCursor";
 	m_SelectItemTexturePass = "sentaku_frame.dds";
 
@@ -73,49 +74,54 @@ void InventoryItemCursor::UpdateSelectItem()
 
 	if (Input::GetKeyTrigger('W'))
 	{
-		m_Index -= 7;
-		if (m_Index < 0)
+		m_SelectItemIndex -= 7;
+		if (m_SelectItemIndex < 0)
 		{
-			m_Index += m_Inventory->GetMaxCapacity();
+			m_SelectItemIndex += m_Inventory->GetMaxCapacity();
 		}
 	}
 
 	if (Input::GetKeyTrigger('S'))
 	{
-		m_Index += 7;
-		if (m_Index >= m_Inventory->GetMaxCapacity())
+		m_SelectItemIndex += 7;
+		if (m_SelectItemIndex >= m_Inventory->GetMaxCapacity())
 		{
-			m_Index -= m_Inventory->GetMaxCapacity();
+			m_SelectItemIndex -= m_Inventory->GetMaxCapacity();
 		}
 	}
 
 	if (Input::GetKeyTrigger('A'))
 	{
-		m_Index--;
-		if (m_Index < 0)
+		m_SelectItemIndex--;
+		if (m_SelectItemIndex < 0)
 		{
-			m_Index += m_Inventory->GetMaxCapacity();
+			m_SelectItemIndex += m_Inventory->GetMaxCapacity();
 		}
 	}
 
 	if (Input::GetKeyTrigger('D'))
 	{
-		m_Index++;
-		if (m_Index >= m_Inventory->GetMaxCapacity())
+		m_SelectItemIndex++;
+		if (m_SelectItemIndex >= m_Inventory->GetMaxCapacity())
 		{
-			m_Index -= m_Inventory->GetMaxCapacity();
+			m_SelectItemIndex -= m_Inventory->GetMaxCapacity();
 		}
 	}
 
-	m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
-	m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
+	m_WorldPosition.x = 227.5f + (m_SelectItemIndex % 7) * 120.0f;
+	m_WorldPosition.y = 170.0f + (m_SelectItemIndex / 7) * 107.5f;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
 
-	if (Input::GetKeyTrigger(VK_SPACE))
+	if (Input::GetKeyTrigger('E'))
 	{
-		Scene* scene = Manager::GetScene();
-		m_InventoryView = scene->GetGameObject<InventoryView>();
-		m_InventoryView->ShowSelectPanel();
+		m_Inventory->DecreaseItem(m_SelectItemIndex);
+	}
+
+	if (Input::GetKeyTrigger('L'))
+	{
+		if (!GetSelectItem()) return;
+
+		m_InventoryView->ShowSelectPanel(GetSelectItem());
 		SetSelectHowToUse();
 		m_SelectStage = SelectHowToUse;
 	}
@@ -123,7 +129,41 @@ void InventoryItemCursor::UpdateSelectItem()
 
 void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 {
-	if (Input::GetKeyTrigger(VK_SPACE))
+	Scene* scene = Manager::GetScene();
+	auto subPanelOptions = scene->GetGameObject<SubPanelOptions>();
+
+	if (Input::GetKeyTrigger('W'))
+	{
+		m_SelectHowToUseIndex -= 1;
+		if (m_SelectHowToUseIndex < 0)
+		{
+			m_SelectHowToUseIndex += subPanelOptions->GetOptionsCount();
+		}
+	}
+
+	if (Input::GetKeyTrigger('S'))
+	{
+		m_SelectHowToUseIndex += 1;
+		if (m_SelectHowToUseIndex >= subPanelOptions->GetOptionsCount())
+		{
+			m_SelectHowToUseIndex -= subPanelOptions->GetOptionsCount();
+		}
+	}
+
+	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2 + (m_SelectHowToUseIndex * 120.0f);
+	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2 + (m_SelectHowToUseIndex * 107.5f);
+
+	if (Input::GetKeyTrigger('L'))
+	{
+		Scene* scene = Manager::GetScene();
+		m_InventoryView = scene->GetGameObject<InventoryView>();
+		SetSelectItem();
+		m_InventoryView->HideSelectPanel();
+		m_SelectStage = SelectItem;
+	}
+
+
+	if (Input::GetKeyTrigger('K'))
 	{
 		Scene* scene = Manager::GetScene();
 		m_InventoryView = scene->GetGameObject<InventoryView>();
@@ -141,7 +181,7 @@ void InventoryItemCursor::SetSelectHowToUse()
 	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2;
 	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
-	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
+	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scalessss.y));
 }
 
 void InventoryItemCursor::SetSelectItem()
@@ -149,14 +189,14 @@ void InventoryItemCursor::SetSelectItem()
 	m_Scale.x = m_SelectItemTextureWidth;
 	m_Scale.y = m_SelectItemTextureHeight;
 	m_StaticSprite->SetTexture(m_SelectItemTextureKey, m_SelectItemTexturePass);
-	m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
-	m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
+	m_WorldPosition.x = 227.5f + (m_SelectItemIndex % 7) * 120.0f;
+	m_WorldPosition.y = 170.0f + (m_SelectItemIndex / 7) * 107.5f;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
 	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
 }
 
 Item* InventoryItemCursor::GetSelectItem()
 {
-	Item* item = m_Inventory->GetItem(m_Index);
+	Item* item = m_Inventory->GetItem(m_SelectItemIndex);
 	return item;
 }

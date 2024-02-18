@@ -51,8 +51,8 @@ void DebugManager::Draw()
 	//	ImGui::ShowDemoWindow(&show_demo_window);
 
 	// ImGuiウィンドウやコントロールの作成と更新
-	ImGui::SetNextWindowSize(ImVec2(300, 500), ImGuiCond_Once);
-	ImGui::Begin("DebugWindow", ((bool*)0), ImGuiWindowFlags_MenuBar);
+	//ImGui::SetNextWindowSize(ImVec2(300, 500), ImGuiCond_Once);
+	//ImGui::Begin("DebugWindow", ((bool*)0), ImGuiWindowFlags_MenuBar);
 
 	if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("File"))
@@ -68,6 +68,15 @@ void DebugManager::Draw()
         }
         ImGui::EndMenuBar();
     }
+
+	const char* cd = "aaaaaaaaaaaaaaa";
+	char c = *cd;
+
+	ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
+	if (ImGui::Button("InputText")) {
+	}
+
+
 	
 	if(m_Player != nullptr)m_Player->GetDebugData();
 
