@@ -181,7 +181,7 @@ void InventoryItemCursor::SetSelectHowToUse()
 	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2;
 	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
-	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scalessss.y));
+	m_StaticSprite->SetScale(D3DXVECTOR2(m_Scale.x, m_Scale.y));
 }
 
 void InventoryItemCursor::SetSelectItem()
