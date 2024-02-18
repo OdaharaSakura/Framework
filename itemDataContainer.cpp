@@ -38,25 +38,21 @@ void ItemDataContainer::Load()
             m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]), false, 0});
             continue;
         }
-    //    if (cells[0] == "さくもつ")
-    //    {
-    //        m_CropData.push_back({
-				//cells[0],//Type
-				//cells[1],//Key
-				//cells[2],//TexturePass
-				//cells[3],//Name
-				//cells[4],//Description
-				//std::stoi(cells[5]),//BuyingPrice
-				//std::stoi(cells[6]),//SellingPrice
-    //            cells[7] == "1",//IsEat
-				//std::stoi(cells[8]),//GrowthTime
-				//std::stoi(cells[9]),//HarvestCount
-				//std::stoi(cells[10]),//HarvestPrice
-				//});
+        if (cells[0] == "さくもつ")
+        {
+            m_CropData.push_back({
+				cells[1],//Key
+				cells[2],//TexturePass
+				std::stoi(cells[9]),//GrowthTime
+				std::stoi(cells[10]),//GrowthFirstState
+				std::stoi(cells[11]),//GrowthHarvestState
+                cells[12],//FirstStateModelPass
+                cells[13],//HarvestModelPass
+				});
                 //ItemDataオブジェクトにデータを格納し、リストに追加
-                //m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) , true , std::stoi(cells[8])});
-                // continue;
-    //    }
+                m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) , true , std::stoi(cells[8])});
+                 continue;
+        }
 
         // ItemDataオブジェクトにデータを格納し、リストに追加
         m_ItemData.push_back({ cells[0], cells[1], cells[2], cells[3], cells[4], std::stoi(cells[5]), std::stoi(cells[6]) , cells[7] == "1", std::stoi(cells[8]) });

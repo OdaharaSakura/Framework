@@ -29,9 +29,10 @@ struct CropData
 	std::string m_Key{};
 	std::string m_TexturePass{};
 	int m_GrowthTime{};
-	std::string m_Season{};
-	int m_GrowTheFirstStage{};
-	int m_GrowTheSecondStage{};
+	int m_GrowthTimeToFirstState{};
+	int m_GrowthTimeToHarvest{};
+	std::string m_FirstStateModelPass{};
+	std::string m_HarvestModelPass{};
 };
 class ItemDataContainer
 {

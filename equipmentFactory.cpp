@@ -9,5 +9,6 @@ EquipmentFactory::EquipmentFactory()
     RegisterEquipment<Sickle>("Sickle");
     RegisterEquipment<WaterWand>("WaterWand");
     RegisterEquipment<TomatoSeed>("TomatoSeed");
+    RegisterEquipment<CarrotSeed>("CarrotSeed");
 }
 

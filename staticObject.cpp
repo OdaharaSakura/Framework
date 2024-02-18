@@ -29,6 +29,8 @@ void StaticObject::Update()
 
 void StaticObject::Draw()
 {
+	if (!m_Model) return;
+
 	//視錘台カリング
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
@@ -39,8 +41,6 @@ void StaticObject::Draw()
 	{
 		return;
 	}
-
-	if(m_Model == nullptr) return;
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
@@ -56,5 +56,16 @@ void StaticObject::Draw()
 void StaticObject::SetModel_Key(std::string model_Key)
 {
 	m_Model = ModelContainer::GetModelKey(model_Key);
-	AddComponent<PixelLighting>();
+	if(!m_Shader)AddComponent<PixelLighting>();
+}
+
+void StaticObject::SetModel_Path(std::string model_path)
+{
+	m_Model = ModelContainer::GetModelPath(model_path);
+	if (!m_Shader)AddComponent<PixelLighting>();
+}
+
+void StaticObject::SetModel_Null()
+{
+	m_Model = nullptr;
 }

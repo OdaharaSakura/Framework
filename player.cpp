@@ -30,6 +30,8 @@
 #include "equipmentFactory.h"
 #include "equipment.h"
 #include "item.h"
+#include "farmField.h"
+#include "farmTile.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -70,8 +72,11 @@ void Player::Init()
 	auto wand = m_ItemFactory->CreateItem("WaterWand");
 	m_InventoryInterface->AddItem(wand);
 
-	//auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
-	//m_EquipmentInterface->SetEquipment(equipmentHoe);
+	auto tomatoSeed = m_ItemFactory->CreateItem("TomatoSeed");
+	m_InventoryInterface->AddItem(tomatoSeed);
+
+	auto carrotSeed = m_ItemFactory->CreateItem("CarrotSeed");
+	m_InventoryInterface->AddItem(carrotSeed);
 	
 	Load();
 	
@@ -214,57 +219,57 @@ void Player::Update()
 	}
 	
 
-	//円柱
-	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
-	for (Cylinder* cylinder : cylinders)
-	{
-		D3DXVECTOR3 position = cylinder->GetPosition();
-		D3DXVECTOR3 scale = cylinder->GetScale();
-		D3DXVECTOR3 scalexz = cylinder->GetScale();
+	////円柱
+	//std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
+	//for (Cylinder* cylinder : cylinders)
+	//{
+	//	D3DXVECTOR3 position = cylinder->GetPosition();
+	//	D3DXVECTOR3 scale = cylinder->GetScale();
+	//	D3DXVECTOR3 scalexz = cylinder->GetScale();
 
-		D3DXVECTOR3 direction = m_WorldPosition - position;
-		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
-		scalexz.y = 0.0f;
-		float lengthxz = D3DXVec3Length(&scalexz);
-		if (length < lengthxz)
-		{
-			if (m_WorldPosition.y < position.y + scale.y - 0.5f)
-			{
-				m_WorldPosition.x = m_OldPosition.x;
-				m_WorldPosition.z = m_OldPosition.z;
-			}
+	//	D3DXVECTOR3 direction = m_WorldPosition - position;
+	//	direction.y = 0.0f;
+	//	float length = D3DXVec3Length(&direction);
+	//	scalexz.y = 0.0f;
+	//	float lengthxz = D3DXVec3Length(&scalexz);
+	//	if (length < lengthxz)
+	//	{
+	//		if (m_WorldPosition.y < position.y + scale.y - 0.5f)
+	//		{
+	//			m_WorldPosition.x = m_OldPosition.x;
+	//			m_WorldPosition.z = m_OldPosition.z;
+	//		}
 
-			else
-			{
-				groundHeight = position.y + scale.y;
-			}
+	//		else
+	//		{
+	//			groundHeight = position.y + scale.y;
+	//		}
 
-			break;
-		}
-	}
+	//		break;
+	//	}
+	//}
 
 
 	//Test============TODO:後で消す
-	if (Input::GetKeyTrigger('R'))
-	{
-		auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
-		m_EquipmentInterface->SetEquipment(equipmentHoe);
-	}
-	if (Input::GetKeyTrigger('F'))
+	//if (Input::GetKeyTrigger('R'))
+	//{
+	//	auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
+	//	m_EquipmentInterface->SetEquipment(equipmentHoe);
+	//}
+	if (Input::GetKeyTrigger('E'))
 	{
 		m_EquipmentInterface->RemoveEquipment();
 	}
-	if (Input::GetKeyTrigger('V'))
-	{
-		auto equipmentSickle = m_EquipmentFactory->CreateEquipment("Sickle");
-		m_EquipmentInterface->SetEquipment(equipmentSickle);
-	}
-	if (Input::GetKeyTrigger('T'))
-	{
-		auto kama = m_ItemFactory->CreateItem("Sickle");
-		m_InventoryInterface->AddItem(kama);
-	}
+	//if (Input::GetKeyTrigger('V'))
+	//{
+	//	auto equipmentSickle = m_EquipmentFactory->CreateEquipment("Sickle");
+	//	m_EquipmentInterface->SetEquipment(equipmentSickle);
+	//}
+	//if (Input::GetKeyTrigger('T'))
+	//{
+	//	auto kama = m_ItemFactory->CreateItem("Sickle");
+	//	m_InventoryInterface->AddItem(kama);
+	//}
 	//Test============
 	
 	//障害物との衝突判定↑↑=====================================
@@ -529,28 +534,23 @@ void Player::UpdateGround()
 		}
 	}
 
-	////話す、調べる
-	//if (Input::GetKeyPress('L'))
-	//{
-	//	//D3DXVECTOR3 earthPosition;
-	//	//earthPosition = m_WorldPosition + this->GetForward() * 2.0f;
-	//	//scene->AddGameObject<Earth>(LAYER_OBJECT_3D)->SetPosition(earthPosition);//プレイヤーの位置から発射させる
-
-	//}
-
-			/*m_ShotSE->Play(false);
-		if (m_NextAnimationName != "Attack")
+	auto farmField = scene->GetGameObject<FarmField>();
+	auto farmTile = farmField->GetFarmTileClosestToPlayer(FarmTileState::PLANTED, FarmTileState::PLANTED_WATERED);
+	if (farmTile)
+	{
+		if (farmTile->GetCropState() == CropState::Harvest)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Attack";
-			m_BlendRate = 0.0f;
+			m_Description->SetText("L：収穫する");
+			if (Input::GetKeyTrigger('L'))
+			{
+				farmTile->Harvest();
+			}
 		}
-		move = true;
-		m_PlayerState = PLAYER_STATE_ATTACK;
-		if (m_IsAttackflg)
-		{
-			m_Attackflg = true;
-		}*/
+	}
+	else
+	{
+		m_Description->SetText("");
+	}
 
 	//インベントリを開く
 	if (Input::GetKeyTrigger(VK_TAB))

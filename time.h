@@ -28,9 +28,11 @@ private:
 	int m_Minutes{};
 
 	float m_CountNum = 0.0f;
-	float m_TimeSpeed = 5.0f;
+	float m_TimeSpeed = 1.0f;
 
 	bool m_IsPause = false;
+
+	std::vector<class Observer*> m_Observers;
 
 public:
 	void Init();
@@ -53,4 +55,8 @@ public:
 	int GetDay() { return m_Day; }
 	int GetHours() { return m_Hours; }
 	int GetMinutes() { return m_Minutes; }
+
+	void NotifyAllObserversHour();
+	void AddObserver(class Observer* observer);
+	void RemoveObserver(class Observer* observer);
 };
