@@ -122,7 +122,7 @@ void Time::NotifyAllObserversHour()
 {
 	for (auto observer : m_Observers)
 	{
-		observer->UpdateHour();
+		observer->Update();
 	}
 }
 
