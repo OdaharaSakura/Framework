@@ -44,6 +44,10 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("DryField", "dryfield.obj");//乾燥畑
         LoadModelData("WetField", "wetfield.obj");//水やり畑
         LoadModelData("Seed", "seed.obj");//種
+        LoadModelData("Tomato_Seed", "bag1.obj");//トマトの種
+        LoadModelData("Eggplant_Seed", "bag3.obj");//なすの種
+        LoadModelData("Onion_Seed", "bag4.obj");//玉ねぎの種
+        LoadModelData("Carrot_Seed", "bag5.obj");//にんじんの種
         LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
         LoadModelData("Carrot_Seedling", "tomato_1.obj");//トマト第一段階
@@ -57,7 +61,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Tile", "tile.obj");//タイル
         LoadModelData("Hoe", "Kuwa.obj");//くわ
         LoadModelData("Sickle", "kama.obj");//鎌
-        LoadModelData("Waterwand", "waterwand.obj");//鎌
+        LoadModelData("WaterWand", "waterwand.obj");//つえ
         LoadModelData("Wooden", "woodbox.obj");//木箱
 
 

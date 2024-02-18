@@ -17,6 +17,7 @@ void TextureContainer::Load(int sceneIndex)
     case SCENE_GAME:
         LoadImageData("Hoe", "equipment_icon_kuwa.dds");//鍬
         LoadImageData("Sickle", "equipment_icon_kama.dds");//鎌
+        LoadImageData("WaterWand", "equipment_icon_wand.dds");//杖
         LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
         LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
@@ -34,6 +35,10 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
         LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
         LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
+        LoadImageData("Tomato_Seed", "tomatoseeds.dds");//カメラ回転キー
+        LoadImageData("Eggplant_Seed", "eggplantseeds.dds");//上下左右キー
+        LoadImageData("Onion_Seed", "onionseeds.dds");//決定キー
+        LoadImageData("Carrot_Seed", "carrotseeds.dds");//決定キー
         break;
     case SCENE_RESULT:
         break;
