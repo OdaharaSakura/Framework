@@ -22,10 +22,13 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("House1", "house1.obj");//‰Æ
         LoadModelData("House2", "house2.obj");//‰Æ2
         LoadModelData("House3", "house3.obj");//‰Æ3
-        LoadModelData("House4", "house5.obj");//‰Æ3
+        LoadModelData("House4", "house4.obj");//‰Æ3
+        LoadModelData("House5", "house5.obj");//‰Æ3
         LoadModelData("Shop1", "shop.obj");//ÔF‚Ì“X
         LoadModelData("Shop2", "shop2.obj");//äb‰F‚Ì“X
         LoadModelData("Shop3", "shop3.obj");//’ƒF‚Ì“X
+        LoadModelData("Shop4", "shop4.obj");//’ƒF‚Ì“X
+        LoadModelData("Bench", "bench.obj");//ƒxƒ“ƒ`
         LoadModelData("Fence", "fence.obj");//ò
         LoadModelData("FenceWood", "woodfence.obj");//–Ø»‚Ìò
         LoadModelData("MiddleTree", "treemiddle.obj");//•À–Ø“¹—p‚Ì÷–Ø
@@ -41,6 +44,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Flower4", "flower4.obj");//‰Ô4
         LoadModelData("Flower5", "flower5.obj");//‰Ô5
         LoadModelData("Flower6", "flower6.obj");//‰Ô6
+        LoadModelData("FlowerBed", "flowerbed.obj");//‰Ô’d
         LoadModelData("DryField", "dryfield.obj");//Š£‘‡”¨
         LoadModelData("WetField", "wetfield.obj");//…‚â‚è”¨
         LoadModelData("Seed", "seed.obj");//í
