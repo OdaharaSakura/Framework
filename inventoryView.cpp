@@ -9,7 +9,9 @@
 #include "inventoryItemIcon.h"
 #include "inventoryItemCursor.h"
 #include "inventoryItemDescription.h"
-#include "SubPanel.h"
+#include "item.h"
+#include "subPanel.h"
+#include "subPanelOptions.h"
 
 void InventoryView::Init()
 {
@@ -22,14 +24,15 @@ void InventoryView::Init()
 		m_InventoryItemIcons[i]->SetIsActive(false);
 	}
 	m_SelectPanel = scene->AddGameObject<SubPanel>(LAYER_OBJECT_2D);
+	m_SelectPanelOptions = scene->AddGameObject<SubPanelOptions>(LAYER_OBJECT_2D);
 	m_InventoryItemCursor = scene->AddGameObject<InventoryItemCursor>(LAYER_OBJECT_2D);
 
 
 
 
 	m_InventoryPanel->SetIsActive(false);
-	m_InventoryItemCursor->SetIsActive(false);
 	m_SelectPanel->SetIsActive(false);
+	m_InventoryItemCursor->SetIsActive(false);
 
 }
 
@@ -63,6 +66,7 @@ void InventoryView::ShowInventory()
 		if (m_InventoryItemIcons[i] == nullptr) return;
 		m_InventoryItemIcons[i]->SetIndex(i);
 		m_InventoryItemIcons[i]->SetIsActive(true);
+		m_InventoryItemIcons[i]->SetTextureEnable(true);
 	}
 	m_InventoryPanel->SetIsActive(true);
 	m_InventoryItemCursor->SetIsActive(true);
@@ -75,6 +79,7 @@ void InventoryView::HideInventory()
 	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
 	{
 		m_InventoryItemIcons[i]->SetIsActive(false);
+		m_InventoryItemIcons[i]->SetTextureEnable(false);
 	}
 	
 	m_InventoryPanel->SetIsActive(false);
@@ -82,12 +87,34 @@ void InventoryView::HideInventory()
 	m_InventoryItemDescription->SetDestroy();
 }
 
-void InventoryView::ShowSelectPanel()
+void InventoryView::ShowSelectPanel(Item* itemPtr)
 {
+	if (!itemPtr) return;
+
+	SubPanelOptionTypes type{};
+
+	if (itemPtr->GetType() == "‚»‚¤‚Ñ")
+	{
+		type = Inventory_Equipment;
+	}
+	else if (itemPtr->GetIsEat())
+	{
+		type = Inventory_Eat;
+	}
+	else
+	{
+		type = Inventory_NoUse;
+	}
+
+
 	m_SelectPanel->SetIsActive(true);
+	m_SelectPanelOptions->SetIsActive(true);
+	m_SelectPanelOptions->SetTypes(type);
 }
+
 
 void InventoryView::HideSelectPanel()
 {
 	m_SelectPanel->SetIsActive(false);
+	m_SelectPanelOptions->SetIsActive(false);
 }

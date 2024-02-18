@@ -12,15 +12,17 @@ protected:
 	std::string m_Description{};//説明文
 	int m_BuyingPrice{};//アイテムの買値
 	int m_SellingPrice{};//アイテムの売値
+	bool m_IsEat{};
+	int m_Healing{};
 
-	int m_Quantity{};//個数
+	int m_Quantity = 1;//個数
 
 public:
 
 	Item(std::string type, std::string key, std::string texturePass,
-		std::string name,  std::string description, int buyingPrice, int sellingPrice)
+		std::string name,  std::string description, int buyingPrice, int sellingPrice, bool isEat, int healing)
 		: m_Type(type), m_Key(key), m_TexturePass(texturePass),
-		m_Name(name),  m_Description(description), m_BuyingPrice(buyingPrice), m_SellingPrice(sellingPrice) {};
+		m_Name(name),  m_Description(description), m_BuyingPrice(buyingPrice), m_SellingPrice(sellingPrice), m_IsEat(isEat), m_Healing(healing){};
 	~Item() {};
 
 	int GetQuantity() { return m_Quantity; }
@@ -31,15 +33,8 @@ public:
 	std::string GetDescription() { return m_Description; }
 	int GetBuyingPrice() { return m_BuyingPrice; }
 	int GetSellingPrice() { return m_SellingPrice; }
-
-	void SetQuantity(int quantity) { m_Quantity = quantity; }
-	void SetKey(std::string key) { m_Key = key; }
-	void SetTexturePass(std::string texturePass) { m_TexturePass = texturePass; }
-	void SetName(std::string name) { m_Name = name; }
-	void SetType(std::string type) { m_Type = type; }
-	void SetDescription(std::string description) { m_Description = description; }
-	void SetBuyingPrice(int buyingPrice) { m_BuyingPrice = buyingPrice; }
-	void SetSellingPrice(int sellingPrice) { m_SellingPrice = sellingPrice; }
+	bool GetIsEat() { return m_IsEat; }
+	int GetHealing() { return m_Healing; }
 
 	void AddQuantity(int quantity) { m_Quantity += quantity; }
 	void SubQuantity(int quantity) 
@@ -48,7 +43,7 @@ public:
 		{
 			m_Quantity -= quantity;
 		}
-		if(m_Quantity < 0)
+		if(m_Quantity <= 0)
 		{
 			m_Quantity = 0;
 		}

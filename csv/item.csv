@@ -2,10 +2,10 @@ Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,ModelPass,Wastage
 そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,0,0,Kuwa.obj,2,,,
 そうび,Sickle,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,kama.obj,2,,,
 そうび,Wand,equipment_icon_wand.dds,つえ,そうびすると畑に水を撒ける。,0,0,waterwand.obj,2,,,
-Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat,HoursToGrow,HoursToGrowTheFirstStage,HoursToGrowTheSecondStage,Healing
-さくもつ,Carrot,item_icon_Carrot.dds,にんじん,あきの月に育つさくもつ。,170,280,1,2,1,1.5,50
-さくもつ,Eggplant,item_icon_Eggplant.dds,なす,あきの月に育つさくもつ。,180,350,1,2,1,1.5,60
-さくもつ,Kabu,item_icon_Kabu.dds,かぶ,はるの月に育つさくもつ。,120,240,1,0.5,0.1,0.3,35
-さくもつ,Onion,item_icon_Onion.dds,たまねぎ,なつの月に育つさくもつ。,80,160,1,1,0.5,0.6,20
-さくもつ,Potato,item_icon_Potato.dds,じゃがいも,はるの月に育つさくもつ。,150,200,1,1.5,0.5,1,45
-さくもつ,Tomato,item_icon_Tomato.dds,トマト,なつの月に育つさくもつ。,200,350,1,3,1,2,50
+Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat,Healing,HoursToGrow,HoursToGrowTheFirstStage,HoursToGrowTheSecondStage
+さくもつ,Carrot,item_icon_Carrot.dds,にんじん,あきの月に育つさくもつ。,170,280,1,50,2,1,1.5
+さくもつ,Eggplant,item_icon_Eggplant.dds,なす,あきの月に育つさくもつ。,180,350,1,60,2,1,1.5
+さくもつ,Kabu,item_icon_Kabu.dds,かぶ,はるの月に育つさくもつ。,120,240,1,35,0.5,0.1,0.3
+さくもつ,Onion,item_icon_Onion.dds,たまねぎ,なつの月に育つさくもつ。,80,160,1,20,1,0.5,0.6
+さくもつ,Potato,item_icon_Potato.dds,じゃがいも,はるの月に育つさくもつ。,150,200,1,45,1.5,0.5,1
+さくもつ,Tomato,item_icon_Tomato.dds,トマト,なつの月に育つさくもつ。,200,350,1,50,3,1,2

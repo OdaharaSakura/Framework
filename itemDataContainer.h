@@ -12,32 +12,22 @@ struct ItemData
 	int m_BuyingPrice{};
 	int m_SellingPrice{};
 	bool m_IsEat{};
+	int m_Healing{};
 };
 
 
 struct EquipmentData
 {
-	std::string m_Type{};
 	std::string m_Key{};
 	std::string m_TexturePass{};
-	std::string m_Name{};
-	std::string m_Description{};
-	int m_BuyingPrice{};
-	int m_SellingPrice{};
 	std::string m_ModelPass{};
 	int m_LostHP{}; //Žg—p‚µ‚½Žž‚ÉŒ¸‚éHP
 };
 
 struct CropData
 {
-	std::string m_Type{};
 	std::string m_Key{};
 	std::string m_TexturePass{};
-	std::string m_Name{};
-	std::string m_Description{};
-	int m_BuyingPrice{};
-	int m_SellingPrice{};
-	bool m_IsEat{};
 	int m_GrowthTime{};
 	std::string m_Season{};
 	int m_GrowTheFirstStage{};
