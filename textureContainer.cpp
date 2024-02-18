@@ -25,8 +25,8 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("SubPanelOptions_Inventory_Equipment", "subpanel1-1.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_Eat", "subpanel2-1.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_NoUse", "subpanel3-1.dds");//サブパネル
-        LoadImageData("SpecialTalk", "special_UI_I.dds");//特別キー
-        LoadImageData("UsualTalk", "usual_UI_I.dds");//汎用キー
+        LoadImageData("SpecialTalk", "special_UI_L.dds");//特別キー
+        LoadImageData("UsualTalk", "usual_UI_L.dds");//汎用キー
         LoadImageData("GaugeFrame", "gauge_frame.dds");//汎用キー
         break;
     case SCENE_RESULT:
