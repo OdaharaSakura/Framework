@@ -134,32 +134,33 @@ void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 
 	if (Input::GetKeyTrigger('W'))
 	{
-		m_SelectHowToUseIndex -= 1;
+		m_SelectHowToUseIndex--;
 		if (m_SelectHowToUseIndex < 0)
 		{
-			m_SelectHowToUseIndex += subPanelOptions->GetOptionsCount();
+			m_SelectHowToUseIndex = subPanelOptions->GetOptionsCount() - 1;
 		}
 	}
 
 	if (Input::GetKeyTrigger('S'))
 	{
-		m_SelectHowToUseIndex += 1;
+		m_SelectHowToUseIndex++;
 		if (m_SelectHowToUseIndex >= subPanelOptions->GetOptionsCount())
 		{
-			m_SelectHowToUseIndex -= subPanelOptions->GetOptionsCount();
+			m_SelectHowToUseIndex = 0;
 		}
 	}
 
-	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2 + (m_SelectHowToUseIndex * 120.0f);
-	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2 + (m_SelectHowToUseIndex * 107.5f);
+	m_WorldPosition.x = (SCREEN_WIDTH - m_Scale.x) / 2;
+	m_WorldPosition.y = (SCREEN_HEIGHT - m_Scale.y) / 2 + (m_SelectHowToUseIndex * 50.0f);
+	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
 
 	if (Input::GetKeyTrigger('L'))
 	{
+		subPanelOptions->SetSelectOption(m_SelectHowToUseIndex, item);
 		Scene* scene = Manager::GetScene();
 		m_InventoryView = scene->GetGameObject<InventoryView>();
 		SetSelectItem();
 		m_InventoryView->HideSelectPanel();
-		m_SelectStage = SelectItem;
 	}
 
 
@@ -175,6 +176,8 @@ void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 
 void InventoryItemCursor::SetSelectHowToUse()
 {
+	m_SelectStage = SelectStage::SelectHowToUse;
+	m_SelectHowToUseIndex = 0;
 	m_Scale.x = m_SelectHowToUseTextureWidth;
 	m_Scale.y = m_SelectHowToUseTextureHeight;
 	m_StaticSprite->SetTexture(m_SelectHowToUseTextureKey, m_SelectHowToUseTexturePass);
@@ -186,6 +189,7 @@ void InventoryItemCursor::SetSelectHowToUse()
 
 void InventoryItemCursor::SetSelectItem()
 {
+	m_SelectStage = SelectStage::SelectItem;
 	m_Scale.x = m_SelectItemTextureWidth;
 	m_Scale.y = m_SelectItemTextureHeight;
 	m_StaticSprite->SetTexture(m_SelectItemTextureKey, m_SelectItemTexturePass);

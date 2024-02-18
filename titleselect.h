@@ -10,6 +10,7 @@ private:
 	ID3D11InputLayout* m_VertexLayout{};
 
 	class Sprite* m_Sprite;
+	class Sprite* m_SpriteUI;
 
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 

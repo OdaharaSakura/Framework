@@ -84,11 +84,13 @@ void Inventory::AddItem(Item* itemptr, int quantity)
 
 void Inventory::RemoveItem(Item* itemptr)
 {
+    if (!itemptr) return;
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
     {
         if (it->GetName() == itemptr->GetName())
         {
             m_PossessionItems.erase(it);
+            break;
         }
     }
 }
@@ -100,6 +102,7 @@ void Inventory::RemoveItem(std::string& itemName)
         if (it->GetName() == itemName)
         {
             m_PossessionItems.erase(it);
+            break;
         }
     }
 }
@@ -127,7 +130,6 @@ void Inventory::DecreaseItem(Item* itemptr)
         if (it->GetName() == itemptr->GetName())
         {
             it->SubQuantity(1);
-
         }
     }
 
@@ -175,11 +177,11 @@ void Inventory::DecreaseItem(int index, int quantity)
     }
 }
 
-Item* Inventory::GetItem(std::string& itemName)
+Item* Inventory::GetItem(std::string itemkey)
 {
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
     {
-        if (it->GetName() == itemName)
+        if (it->GetKey() == itemkey)
         {
             return &(*it);
         }

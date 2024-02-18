@@ -5,6 +5,7 @@
 
 #include <string>
 
+class Item;
 
 enum PLAYER_STATE
 {
@@ -89,12 +90,18 @@ public:
 	void UpdateInventory();
 
 	void UseEquipment();
-	void SetEquipmentInterface(IEquipment* equipment);
+	void EatItem(std::string key);
+	void SetEquipment(std::string key);
+	void SetInventoryItem(std::string key);
 
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 	void SetPlayerState(int state) { m_PlayerState = state; }
-	void AddHp(int hp) { m_Hp += hp; }
+	void AddHp(int hp) 
+	{ 
+		m_Hp += hp; 
+		if (m_Hp > m_HpMax) m_Hp = m_HpMax;
+	}
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
 	{
