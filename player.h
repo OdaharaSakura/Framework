@@ -101,6 +101,7 @@ public:
 	{ 
 		m_Hp += hp; 
 		if (m_Hp > m_HpMax) m_Hp = m_HpMax;
+		if (m_Hp < 0) m_Hp = 0;
 	}
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得

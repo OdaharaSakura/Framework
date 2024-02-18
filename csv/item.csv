@@ -2,10 +2,10 @@ Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,ModelPass,Wastage
 そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,0,0,Kuwa.obj,2,,,,,
 そうび,Sickle,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,kama.obj,2,,,,,
 そうび,WaterWand,equipment_icon_wand.dds,つえ,そうびすると畑に水を撒ける。,0,0,waterwand.obj,2,,,,,
-そうび,Tomato_Seed,tomatoseeds.dds,トマトの種,そうびすると畑に種を撒ける。,60,70,bag1.obj,1,,,,,
-そうび,Eggplant_Seed,eggplantseeds.dds,なすの種,そうびすると畑に種を撒ける。,60,70,bag3.obj,1,,,,,
-そうび,Onion_Seed,onionseeds.dds,たまねぎの種,そうびすると畑に種を撒ける。,60,70,bag4.obj,1,,,,,
-そうび,Carrot_Seed,carrotseeds.dds,にんじんの種,そうびすると畑に種を撒ける。,60,70,bag5.obj,1,,,,,
+そうび,TomatoSeed,tomatoseeds.dds,トマトの種,そうびすると畑に種を撒ける。,60,70,bag1.obj,1,,,,,
+そうび,EggplantSeed,eggplantseeds.dds,なすの種,そうびすると畑に種を撒ける。,60,70,bag3.obj,1,,,,,
+そうび,OnionSeed,onionseeds.dds,たまねぎの種,そうびすると畑に種を撒ける。,60,70,bag4.obj,1,,,,,
+そうび,CarrotSeed,carrotseeds.dds,にんじんの種,そうびすると畑に種を撒ける。,60,70,bag5.obj,1,,,,,
 Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat,Healing,HoursToGrow,HoursToGrowTheFirstStage,HoursToGrowTheSecondStage,FirstGrowth,SecondGrowth
 さくもつ,Carrot,item_icon_Carrot.dds,にんじん,あきの月に育つさくもつ。,170,280,1,50,18,9,13,carrot_1.obj,carrot_2.obj
 さくもつ,Eggplant,item_icon_Eggplant.dds,なす,あきの月に育つさくもつ。,180,350,1,60,18,9,13,tomato_1.obj,eggplant_2.obj

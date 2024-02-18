@@ -29,10 +29,7 @@ void Title::Init()
 	AddGameObject<ResultSky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 	ResultPlayer* player = AddGameObject<ResultPlayer>(LAYER_OBJECT_3D);
-	//player->SetPlayerState(PLAYER_STATE::PLAYER_STATE_TITLE);
 
-	//Sphere* sphere = AddGameObject<Sphere>(LAYER_OBJECT_3D);
-	//sphere->SetPosition(D3DXVECTOR3(4.0f, 2.0f, 1.0f));
 	AddGameObject<Alpha>(LAYER_OBJECT_2D);
 	AddGameObject<TitleLogo>(LAYER_OBJECT_2D);
 	

@@ -9,6 +9,7 @@ enum FarmTileState
     PLOWED,     // k‚³‚ê‚½
     WATERED, //…‚â‚è‚µ‚½
     PLANTED,    // Ží‚ðA‚¦‚½
+    PLANTED_WATERED, //Ží‚ðA‚¦‚Ä…‚â‚è‚µ‚½
     MAX_FARMTILE_STAGE
 };
 

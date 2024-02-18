@@ -7,5 +7,7 @@ EquipmentFactory::EquipmentFactory()
 {
     RegisterEquipment<Hoe>("Hoe");
     RegisterEquipment<Sickle>("Sickle");
+    RegisterEquipment<WaterWand>("WaterWand");
+    RegisterEquipment<TomatoSeed>("TomatoSeed");
 }
 

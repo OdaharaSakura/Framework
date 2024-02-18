@@ -3,7 +3,7 @@
 #include "gameObject.h"
 
 class FarmTile;
-
+class Player;
 class FarmField : public GameObject 
 {
 private:
@@ -15,7 +15,7 @@ private:
 	const int m_Maxfieldz = 11;
 
 	std::vector<FarmTile*> m_FarmTiles;
-	
+	Player* m_Player{};
 
 public:
 	void Init() override;
@@ -24,6 +24,8 @@ public:
 	void Draw() override;
 
 	std::vector<FarmTile*> GetFarmTiles() { return m_FarmTiles; }
+	FarmTile* GetFarmTileClosestToPlayer(int state);
+	FarmTile* GetFarmTileClosestToPlayer(int state1, int state2);
 };
 
 
