@@ -192,14 +192,14 @@
     <ClCompile Include="bloomPolygon.cpp" />
     <ClCompile Include="box.cpp" />
     <ClCompile Include="bullet.cpp" />
-    <ClCompile Include="callBack.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="child.cpp" />
     <ClCompile Include="CNetwork_WS.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="conversation.cpp" />
-    <ClCompile Include="crop.cpp" />
+    <ClCompile Include="cropFactory.cpp" />
+    <ClCompile Include="cropObserver.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="debugmanager.cpp" />
     <ClCompile Include="DirectWriteCustomFont.cpp" />
@@ -318,7 +318,6 @@
     <ClInclude Include="bloomPolygon.h" />
     <ClInclude Include="box.h" />
     <ClInclude Include="bullet.h" />
-    <ClInclude Include="callBack.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="child.h" />
     <ClInclude Include="CNetwork.h" />
@@ -327,6 +326,8 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="conversation.h" />
     <ClInclude Include="crop.h" />
+    <ClInclude Include="cropFactory.h" />
+    <ClInclude Include="cropObserver.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="debugmanager.h" />
     <ClInclude Include="DirectWriteCustomFont.h" />
@@ -377,11 +378,13 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="meshField.h" />
+    <ClInclude Include="meshfieldheight.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="modelContainer.h" />
     <ClInclude Include="modelTest.h" />
     <ClInclude Include="networkTest.h" />
     <ClInclude Include="npc.h" />
+    <ClInclude Include="observer.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerGauge.h" />
     <ClInclude Include="playerNetwork.h" />

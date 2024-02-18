@@ -112,11 +112,6 @@ void InventoryItemCursor::UpdateSelectItem()
 	m_WorldPosition.y = 170.0f + (m_SelectItemIndex / 7) * 107.5f;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
 
-	if (Input::GetKeyTrigger('E'))
-	{
-		m_Inventory->DecreaseItem(m_SelectItemIndex);
-	}
-
 	if (Input::GetKeyTrigger('L'))
 	{
 		if (!GetSelectItem()) return;

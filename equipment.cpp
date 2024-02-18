@@ -5,6 +5,7 @@
 #include "player.h"
 #include "farmField.h"
 #include "farmTile.h"
+#include "cropFactory.h"
 
 void Hoe::Execute()
 {
@@ -42,4 +43,30 @@ void WaterWand::Execute()
 
 void TomatoSeed::Execute()
 {
+	Scene* scene = Manager::GetScene();
+	m_Player = scene->GetGameObject<Player>();
+	FarmField* farmField = scene->GetGameObject<FarmField>();
+	CropFactory* cropFactory = new CropFactory();
+	auto farmTile = farmField->GetFarmTileClosestToPlayer(FarmTileState::PLOWED, FarmTileState::WATERED);
+	if (farmTile != nullptr)
+	{
+		auto crop = cropFactory->CreateCrop("Tomato");
+		farmTile->PlantCrop(crop);
+		m_Player->AddHp(-m_LostHP);
+	}
+}
+
+void CarrotSeed::Execute()
+{
+	Scene* scene = Manager::GetScene();
+	m_Player = scene->GetGameObject<Player>();
+	FarmField* farmField = scene->GetGameObject<FarmField>();
+	CropFactory* cropFactory = new CropFactory();
+	auto farmTile = farmField->GetFarmTileClosestToPlayer(FarmTileState::PLOWED, FarmTileState::WATERED);
+	if (farmTile != nullptr)
+	{
+		auto crop = cropFactory->CreateCrop("Carrot");
+		farmTile->PlantCrop(crop);
+		m_Player->AddHp(-m_LostHP);
+	}
 }

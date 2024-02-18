@@ -1,6 +1,6 @@
 #pragma once
 #include "gameObject.h"
-
+#include "crop.h"
 
 //Å@åÕÇÍÇΩèÛë‘Çí«â¡Ç∑ÇÈÇ©çlÇ¶ÇÈ
 enum FarmTileState
@@ -17,9 +17,10 @@ class FarmTile : public GameObject
 {
 private:
     FarmTileState m_FarmTileState{};
-    class Crop* m_Crop{};
+    Crop* m_Crop{};
     class Model* m_FarmTileModel{}; 
-    class Model* m_CropModel{};
+    class StaticObject* m_CropStaticObject{};
+    class CropObserver* m_CropObserver{};
 
     int num{};
 
@@ -33,8 +34,12 @@ public:
 
     void Plow();
     void Water();
-    void PlantCrop(class Crop* crop);
+    void PlantCrop(Crop* crop);
     void Harvest();
+
+    void AdvanceCropState();
+
+    CropState GetCropState();
 };
 
 

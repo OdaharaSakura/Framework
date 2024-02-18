@@ -3,18 +3,27 @@
 #include "renderer.h"
 #include "model.h"
 #include "shader.h"
-#include "crop.h"
-#include "modelContainer.h"
 
+#include "modelContainer.h"
+#include "cropObserver.h"
+#include "scene.h"
+#include "manager.h"
+#include "inventory.h"
+#include "itemFactory.h"
+#include "staticObject.h"
+#include "gameObject.h"
 
 void FarmTile::Init()
 {
 	m_Scale = D3DXVECTOR3(0.7f, 0.7f, 0.7f);
 
-	AddComponent<VertexLighting>();
 	AddComponent<PixelLighting>();
 
 	m_FarmTileState = FarmTileState::EMPTY;
+
+	Scene* scene = Manager::GetScene();
+	m_CropStaticObject = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	m_CropStaticObject->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 0.2f, m_WorldPosition.z));
 }
 
 void FarmTile::Uninit()
@@ -26,16 +35,16 @@ void FarmTile::Uninit()
 	//	delete m_FarmTileModel;
 	//}
 
-	//if (m_CropModel != nullptr)
+	//if (m_CropStaticObject != nullptr)
 	//{
-	//	m_CropModel->Unload();
-	//	delete m_CropModel;
+	//	m_CropStaticObject->Unload();
+	//	delete m_CropStaticObject;
 	//}
 }
 
 void FarmTile::Update()
 {
-
+	m_CropStaticObject->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 0.2f, m_WorldPosition.z));
 }
 
 void FarmTile::Draw()
@@ -51,7 +60,7 @@ void FarmTile::Draw()
 	Renderer::SetWorldMatrix(&world);	
 
 	m_FarmTileModel->Draw();
-	if(m_CropModel) m_CropModel->Draw();
+	if(m_CropStaticObject) m_CropStaticObject->Draw();
 }
 
 void FarmTile::Plow()
@@ -62,24 +71,75 @@ void FarmTile::Plow()
 
 void FarmTile::Water()
 {
-	m_FarmTileState = FarmTileState::WATERED;
+	if (m_FarmTileState == FarmTileState::PLOWED)
+	{
+		m_FarmTileState = FarmTileState::WATERED;
+	}
+	if (m_FarmTileState == FarmTileState::PLANTED)
+	{
+		m_FarmTileState = FarmTileState::PLANTED_WATERED;
+	}
 	m_FarmTileModel = ModelContainer::GetModelKey("WetField");
 }
 
 void FarmTile::PlantCrop(Crop* crop)
 {
-	m_FarmTileState = FarmTileState::PLANTED;
-	//m_CropModel = ModelContainer::GetModelKey(crop->GetModelKey());
-	//m_Crop = crop;
+	if (m_FarmTileState == FarmTileState::PLOWED)
+	{
+		m_FarmTileState = FarmTileState::PLANTED;
+	}
+	if (m_FarmTileState == FarmTileState::WATERED)
+	{
+		m_FarmTileState = FarmTileState::PLANTED_WATERED;
+	}
+	m_Crop = crop;
+	m_CropObserver = new CropObserver(this, crop);
+	AdvanceCropState();
 }
 
 void FarmTile::Harvest()
 {
+	Scene* scene = Manager::GetScene();
+	Inventory* inventory = scene->GetGameObject<Inventory>();
+	ItemFactory* itemFactory = new ItemFactory();
+	auto crop = itemFactory->CreateItem(m_Crop->GetKey());
+	inventory->AddItem(crop);
 	m_FarmTileState = FarmTileState::EMPTY;
+	delete m_CropObserver;
+	m_CropObserver = nullptr;
 	delete m_FarmTileModel;
 	m_FarmTileModel = nullptr;
-	delete m_CropModel;
-	m_CropModel = nullptr;
+	delete m_CropStaticObject;
+	m_CropStaticObject = nullptr;
 	delete m_Crop;
 	m_Crop = nullptr;
+}
+
+void FarmTile::AdvanceCropState()
+{
+	if(m_CropStaticObject == nullptr) return;
+	switch (m_Crop->GetCropState())
+	{
+	case CropState::None:
+		m_Crop->SetCropState(CropState::Seed);
+		m_CropStaticObject->SetModel_Key("Seed");
+		break;
+	case CropState::Seed:
+		m_Crop->SetCropState(CropState::Seedling1);
+		m_CropStaticObject->SetModel_Key(m_Crop->GetFirstStateModelPass());
+		break;
+	case CropState::Seedling1:
+		m_Crop->SetCropState(CropState::Harvest);
+		m_CropStaticObject->SetModel_Key(m_Crop->GetHarvestModelPass());
+		break;
+	case CropState::Harvest:
+		m_Crop->SetCropState(CropState::None);
+		m_CropStaticObject->SetModel_Null();
+		break;
+	}
+}
+
+CropState FarmTile::GetCropState()
+{
+	if (m_Crop) return m_Crop->GetCropState();
 }

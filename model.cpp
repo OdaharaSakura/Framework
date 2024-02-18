@@ -44,7 +44,7 @@ void Model::Draw()
 
 void Model::Load( const char *FileName )
 {
-
+	m_Path = FileName;
 	MODEL model;
 	LoadObj( FileName, &model );
 

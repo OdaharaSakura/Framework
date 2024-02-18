@@ -21,6 +21,7 @@ public:
 	static void Unload(int sceneIndex);
 
 	static Model* GetModelKey(std::string key);
+	static Model* GetModelPath(std::string path);
 
 	static void LoadModelData(std::string key, std::string path);
 

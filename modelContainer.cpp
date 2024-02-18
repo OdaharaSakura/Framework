@@ -50,8 +50,8 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("CarrotSeed", "bag5.obj");//にんじんの種
         LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
-        LoadModelData("Carrot_Seedling", "tomato_1.obj");//トマト第一段階
-        LoadModelData("Carrot_Seedling2", "tomato_2.obj");//トマト第二段階
+        LoadModelData("Tomato_Seedling", "tomato_1.obj");//トマト第一段階
+        LoadModelData("Tomato_Seedling2", "tomato_2.obj");//トマト第二段階
         LoadModelData("Carrot_Seedling", "onion_1.obj");//玉ねぎ第一段階
         LoadModelData("Carrot_Seedling2", "onion_2.obj");//玉ねぎ第二段階
         LoadModelData("Carrot_Seedling", "eggplant_1.obj");//なす第一段階
@@ -63,7 +63,6 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Sickle", "kama.obj");//鎌
         LoadModelData("WaterWand", "waterwand.obj");//つえ
         LoadModelData("Wooden", "woodbox.obj");//木箱
-
 
         break;
     case SCENE_RESULT:
@@ -92,6 +91,24 @@ Model* ModelContainer::GetModelKey(std::string key)
         return nullptr;
     }
 }
+
+Model* ModelContainer::GetModelPath(std::string path)
+{
+    std::string fullPath = m_ModelsFrontPath + path;
+
+    auto itr = find_if(m_ModelDictionary.begin(), m_ModelDictionary.end(),
+        [&](std::pair < std::string, Model* > pair) { return strcmp(pair.second->GetPath(), fullPath.c_str()) == 0; });
+
+    if (itr != m_ModelDictionary.end())
+    {
+        return itr->second;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
 
 
 

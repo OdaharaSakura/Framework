@@ -70,13 +70,27 @@ public:
 	void Execute() override;
 };
 
-//水の杖
+//トマトの種
 #pragma region TomatoSeed
 class TomatoSeed : public Equipment
 {
 public:
 
 	TomatoSeed(std::string key, std::string texturePass,
+		std::string modelPass, int lostHP)
+		: Equipment(key, texturePass, modelPass, lostHP)
+	{}
+
+	void Execute() override;
+};
+
+//人参の種
+#pragma region CarrotSeed
+class CarrotSeed : public Equipment
+{
+public:
+
+	CarrotSeed(std::string key, std::string texturePass,
 		std::string modelPass, int lostHP)
 		: Equipment(key, texturePass, modelPass, lostHP)
 	{}

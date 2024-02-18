@@ -3,6 +3,7 @@
 #include "time.h"
 #include "text.h"
 #include "shader.h"
+#include "observer.h"
 
 void Time::Init()
 {
@@ -48,6 +49,7 @@ void Time::Update()
 			{
 				m_Hours += 1;
 				m_Minutes = 0;
+			NotifyAllObserversHour();
 			}
 			if (m_Hours >= 24)
 			{
@@ -113,8 +115,26 @@ void Time::SetSleep()
 	if (m_Hours <= 24 && m_Hours >= 6)
 	{
 		m_Day += 1;
-		//Memo::オブザーバー作って、スタミナ回復する
 	}
+}
+
+void Time::NotifyAllObserversHour()
+{
+	for (auto observer : m_Observers)
+	{
+		observer->UpdateHour();
+	}
+}
+
+void Time::AddObserver(Observer* observer)
+{
+	m_Observers.push_back(observer);
+}
+
+void Time::RemoveObserver(Observer* observer)
+{
+	auto it = std::remove(m_Observers.begin(), m_Observers.end(), observer);
+	m_Observers.erase(it, m_Observers.end());
 }
 
 
