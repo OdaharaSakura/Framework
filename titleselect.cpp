@@ -21,7 +21,10 @@ void TitleSelect::Init()
 	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
 	m_SpriteUI = AddComponent<Sprite>();
-	m_SpriteUI->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	//m_SpriteUI->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	m_SpriteUI->Init(900.0f, 600.0f, 310.0f, 24.0f, "asset/texture/TIPS_WASD.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+	m_SpriteUISpace = AddComponent<Sprite>();
+	m_SpriteUISpace->Init(900.0f, 650.0f, 310.0f, 24.0f, "asset/texture/TIPS_Space_DEC.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
 
 }
 
@@ -42,6 +45,7 @@ void TitleSelect::Update()
 
 	m_Sprite->SetColor(m_Color);
 	m_SpriteUI->SetColor(m_Color);
+	m_SpriteUISpace->SetColor(m_Color);
 }
 
 void TitleSelect::Draw()

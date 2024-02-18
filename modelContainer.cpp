@@ -33,10 +33,6 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("WindMill", "windmill.obj");//風車
         LoadModelData("Gate", "gate.obj");//門
         LoadModelData("Gate2", "gate2.obj");//門2
-        /*LoadModelData("Bridge", "bridge.obj");//橋
-        LoadModelData("Pool", "pool.obj");//水汲み場
-        LoadModelData("WateringCan", "wateringcan.obj");//空のじょうろ
-        LoadModelData("WateringCan2", "wateringcan2.obj");//水いっぱいのじょうろ*/
         LoadModelData("Carriage", "carriage.obj");//馬車
         LoadModelData("Mountain", "mountain.obj");//山
         LoadModelData("Flower", "flower.obj");//花
@@ -45,16 +41,25 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Flower4", "flower4.obj");//花4
         LoadModelData("Flower5", "flower5.obj");//花5
         LoadModelData("Flower6", "flower6.obj");//花6
-        //LoadModelData("Barrel", "barrel.obj");//たる
         LoadModelData("DryField", "dryfield.obj");//乾燥畑
         LoadModelData("WetField", "wetfield.obj");//水やり畑
         LoadModelData("Seed", "seed.obj");//種
         LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
+        LoadModelData("Carrot_Seedling", "tomato_1.obj");//トマト第一段階
+        LoadModelData("Carrot_Seedling2", "tomato_2.obj");//トマト第二段階
+        LoadModelData("Carrot_Seedling", "onion_1.obj");//玉ねぎ第一段階
+        LoadModelData("Carrot_Seedling2", "onion_2.obj");//玉ねぎ第二段階
+        LoadModelData("Carrot_Seedling", "eggplant_1.obj");//なす第一段階
+        LoadModelData("Carrot_Seedling2", "eggplant_2.obj");//なす第二段階
+        LoadModelData("Carrot_Seedling", "kabu_1.obj");//かぶ第一段階
+        LoadModelData("Carrot_Seedling2", "kabu_2.obj");//かぶ第二段階
         LoadModelData("Tile", "tile.obj");//タイル
         LoadModelData("Hoe", "Kuwa.obj");//くわ
         LoadModelData("Sickle", "kama.obj");//鎌
+        LoadModelData("Waterwand", "waterwand.obj");//鎌
         LoadModelData("Wooden", "woodbox.obj");//木箱
+
 
         break;
     case SCENE_RESULT:
