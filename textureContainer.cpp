@@ -28,6 +28,10 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("SpecialTalk", "special_UI_L.dds");//特別キー
         LoadImageData("UsualTalk", "usual_UI_L.dds");//汎用キー
         LoadImageData("GaugeFrame", "gauge_frame.dds");//汎用キー
+        LoadImageData("TIPS_E", "TIPS_E.dds");//Eキー
+        LoadImageData("TIPS_TAB", "TIPS_TAB.dds");//タブキー
+        LoadImageData("TIPS_Space", "TIPS_Space.dds");//スペースキー
+        LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
         break;
     case SCENE_RESULT:
         break;
