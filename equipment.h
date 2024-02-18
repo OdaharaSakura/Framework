@@ -56,3 +56,31 @@ public:
 };
 #pragma endregion
 
+//…‚Ìñ
+#pragma region WaterWand
+class WaterWand : public Equipment
+{
+public:
+	
+	WaterWand(std::string key, std::string texturePass,
+				std::string modelPass, int lostHP)
+		: Equipment(key, texturePass, modelPass, lostHP)
+	{}
+
+	void Execute() override;
+};
+
+//…‚Ìñ
+#pragma region TomatoSeed
+class TomatoSeed : public Equipment
+{
+public:
+
+	TomatoSeed(std::string key, std::string texturePass,
+		std::string modelPass, int lostHP)
+		: Equipment(key, texturePass, modelPass, lostHP)
+	{}
+
+	void Execute() override;
+};
+

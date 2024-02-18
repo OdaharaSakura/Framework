@@ -8,7 +8,7 @@
 #include "farmTile.h"
 #include "image.h"
 #include "textureContainer.h"
-
+#include "player.h"
 
 
 void FarmField::Init()
@@ -130,4 +130,103 @@ void FarmField::Draw()
 	// ポリゴン描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
+}
+
+FarmTile* FarmField::GetFarmTileClosestToPlayer(int state)
+{
+	Scene* scene = Manager::GetScene();
+	m_Player = scene->GetGameObject<Player>();
+
+	D3DXVECTOR3 playerPosition = m_Player->GetPosition();
+	D3DXVECTOR3 playerScale = m_Player->GetScale();
+
+	if (m_WorldPosition.x - m_Scale.x - (m_Scale.x / 2) < playerPosition.x &&
+		playerPosition.x < m_WorldPosition.x + m_Scale.x + (m_Scale.x / 2) &&
+		m_WorldPosition.z - m_Scale.z - (m_Scale.z / 2) < playerPosition.z &&
+		playerPosition.z < m_WorldPosition.z + m_Scale.z + (m_Scale.z / 2))
+	{
+		std::vector<FarmTile*> emptyFarmTiles;
+
+		for (int i = 0; i < m_FarmTiles.size(); i++)
+		{
+			if (m_FarmTiles[i]->GetFarmTileState() == state)
+			{
+				emptyFarmTiles.push_back(m_FarmTiles[i]);
+			}
+		}
+
+		// プレイヤーと一番近いstateのFarmTileを取得（距離の二乗を利用）
+		FarmTile* nearestFarmTile = nullptr;
+		float nearestDistanceSq = FLT_MAX; // 初期値は非常に大きな値
+
+		for (FarmTile* tile : emptyFarmTiles)
+		{
+			D3DXVECTOR3 tilePosition = tile->GetPosition();
+			// プレイヤーとこのFarmTileとの距離の二乗を計算
+			const D3DXVECTOR3 d = tilePosition - playerPosition;
+			float distanceSq = D3DXVec3LengthSq(&d);
+
+			// これまでの最小距離の二乗よりも短い場合は、このFarmTileを記録
+			if (distanceSq < nearestDistanceSq)
+			{
+				nearestDistanceSq = distanceSq;
+				nearestFarmTile = tile;
+			}
+		}
+		return nearestFarmTile;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+FarmTile* FarmField::GetFarmTileClosestToPlayer(int state1, int state2)
+{
+	//TODO:プレイヤーとの距離をここで取得する必要なし、farmfieldの中にプレイヤーがいるかどうかの判定を行う
+	Scene* scene = Manager::GetScene();
+	m_Player = scene->GetGameObject<Player>();
+
+	D3DXVECTOR3 playerPosition = m_Player->GetPosition();
+	D3DXVECTOR3 playerScale = m_Player->GetScale();
+
+	if (m_WorldPosition.x - m_Scale.x - (m_Scale.x / 2) < playerPosition.x &&
+		playerPosition.x < m_WorldPosition.x + m_Scale.x + (m_Scale.x / 2) &&
+		m_WorldPosition.z - m_Scale.z - (m_Scale.z / 2) < playerPosition.z &&
+		playerPosition.z < m_WorldPosition.z + m_Scale.z + (m_Scale.z / 2))
+	{
+		std::vector<FarmTile*> emptyFarmTiles;
+
+		for (int i = 0; i < m_FarmTiles.size(); i++)
+		{
+			if (m_FarmTiles[i]->GetFarmTileState() == state1 || m_FarmTiles[i]->GetFarmTileState() == state2)
+			{
+				emptyFarmTiles.push_back(m_FarmTiles[i]);
+			}
+		}
+
+		// プレイヤーと一番近いstateのFarmTileを取得（距離の二乗を利用）
+		FarmTile* nearestFarmTile = nullptr;
+		float nearestDistanceSq = FLT_MAX; // 初期値は非常に大きな値
+
+		for (FarmTile* tile : emptyFarmTiles)
+		{
+			D3DXVECTOR3 tilePosition = tile->GetPosition();
+			// プレイヤーとこのFarmTileとの距離の二乗を計算
+			const D3DXVECTOR3 d = tilePosition - playerPosition;
+			float distanceSq = D3DXVec3LengthSq(&d);
+
+			// これまでの最小距離の二乗よりも短い場合は、このFarmTileを記録
+			if (distanceSq < nearestDistanceSq)
+			{
+				nearestDistanceSq = distanceSq;
+				nearestFarmTile = tile;
+			}
+		}
+		return nearestFarmTile;
+	}
+	else
+	{
+		return nullptr;
+	}
 }

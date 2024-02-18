@@ -67,6 +67,9 @@ void Player::Init()
 	auto kama = m_ItemFactory->CreateItem("Sickle");
 	m_InventoryInterface->AddItem(kama);
 
+	auto wand = m_ItemFactory->CreateItem("WaterWand");
+	m_InventoryInterface->AddItem(wand);
+
 	//auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
 	//m_EquipmentInterface->SetEquipment(equipmentHoe);
 	

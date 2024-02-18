@@ -35,10 +35,10 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
         LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
         LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
-        LoadImageData("Tomato_Seed", "tomatoseeds.dds");//カメラ回転キー
-        LoadImageData("Eggplant_Seed", "eggplantseeds.dds");//上下左右キー
-        LoadImageData("Onion_Seed", "onionseeds.dds");//決定キー
-        LoadImageData("Carrot_Seed", "carrotseeds.dds");//決定キー
+        LoadImageData("TomatoSeed", "tomatoseeds.dds");//カメラ回転キー
+        LoadImageData("EggplantSeed", "eggplantseeds.dds");//上下左右キー
+        LoadImageData("OnionSeed", "onionseeds.dds");//決定キー
+        LoadImageData("CarrotSeed", "carrotseeds.dds");//決定キー
         break;
     case SCENE_RESULT:
         break;
