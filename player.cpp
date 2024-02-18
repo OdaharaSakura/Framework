@@ -29,6 +29,7 @@
 #include "itemFactory.h"
 #include "equipmentFactory.h"
 #include "equipment.h"
+#include "item.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -645,9 +646,24 @@ void Player::UseEquipment()
 	}
 }
 
-void Player::SetEquipmentInterface(IEquipment* equipment)
+void Player::EatItem(std::string key)
 {
-	m_EquipmentInterface = equipment;
+	auto itemPtr = m_InventoryInterface->GetItem(key);
+	int healing = itemPtr->GetHealing();
+	AddHp(healing);
+	m_InventoryInterface->DecreaseItem(itemPtr);
+}
 
+
+void Player::SetEquipment(std::string key)
+{
+	auto equipment = m_EquipmentFactory->CreateEquipment(key);
+	m_EquipmentInterface->SetEquipment(equipment);
+}
+
+void Player::SetInventoryItem(std::string key)
+{
+	auto item = m_ItemFactory->CreateItem(key);
+	m_InventoryInterface->AddItem(item);
 }
 

@@ -71,6 +71,8 @@ void InventoryView::ShowInventory()
 	m_InventoryPanel->SetIsActive(true);
 	m_InventoryItemCursor->SetIsActive(true);
 	m_InventoryItemDescription = scene->AddGameObject<InventoryItemDescription>(LAYER_OBJECT_2D);
+
+	m_IsInventoryActive = true;
 	
 }
 
@@ -83,8 +85,13 @@ void InventoryView::HideInventory()
 	}
 	
 	m_InventoryPanel->SetIsActive(false);
+	m_InventoryItemCursor->SetSelectItem();
 	m_InventoryItemCursor->SetIsActive(false);
 	m_InventoryItemDescription->SetDestroy();
+
+	HideSelectPanel();
+
+	m_IsInventoryActive = false;
 }
 
 void InventoryView::ShowSelectPanel(Item* itemPtr)

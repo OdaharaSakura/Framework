@@ -14,6 +14,8 @@ private:
 
 	class SubPanel* m_SelectPanel{};
 	class SubPanelOptions* m_SelectPanelOptions{};
+
+	bool m_IsInventoryActive{};
 public:
 	void Init();
 	void Uninit();
@@ -37,4 +39,6 @@ public:
 			return nullptr;
 		}
 	}
+
+	bool IsInventoryActive() { return m_IsInventoryActive; }
 };

@@ -5,6 +5,9 @@
 #include "shader.h"
 #include "subPanelOptions.h"
 #include "staticSprite.h"
+#include "item.h"
+#include "inventory.h"
+#include "player.h"
 
 
 void SubPanelOptions::Init()
@@ -19,15 +22,15 @@ void SubPanelOptions::Init()
 
 	m_TextureKeys.insert(std::make_pair(SubPanelOptionTypes::Inventory_Equipment, "SubPanelOptions_Inventory_Equipment"));
 	m_TexturePasses.insert(std::make_pair(SubPanelOptionTypes::Inventory_Equipment, "subpanel1-1.dds"));
-	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_Equipment, 3));
+	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_Equipment, EquipmentOptionTypes_Max));
 
 	m_TextureKeys.insert(std::make_pair(SubPanelOptionTypes::Inventory_Eat, "SubPanelOptions_Inventory_Eat"));
 	m_TexturePasses.insert(std::make_pair(SubPanelOptionTypes::Inventory_Eat, "subpanel2-1.dds"));
-	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_Eat, 3));
+	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_Eat, EatOptionTypes_Max));
 
 	m_TextureKeys.insert(std::make_pair(SubPanelOptionTypes::Inventory_NoUse, "SubPanelOptions_Inventory_NoUse"));
 	m_TexturePasses.insert(std::make_pair(SubPanelOptionTypes::Inventory_NoUse, "subpanel3-1.dds"));
-	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_NoUse, 2));
+	m_OptionCounts.insert(std::make_pair(SubPanelOptionTypes::Inventory_NoUse, NoUseOptionTypes_Max));
 
 }
 
@@ -77,8 +80,6 @@ void SubPanelOptions::SetTypes(SubPanelOptionTypes type)
 
 int SubPanelOptions::GetOptionsCount()
 {
-	if (m_OptionType = None) return 0;
-
 	int typeOptionsCount = 0;
 
 	auto it = m_OptionCounts.find(m_OptionType);
@@ -89,3 +90,38 @@ int SubPanelOptions::GetOptionsCount()
 	return typeOptionsCount;
 }
 
+
+void SubPanelOptions::SetSelectOption(int index, Item* itemPtr)
+{
+	Scene* scene = Manager::GetScene();
+	Inventory* inventory = scene->GetGameObject<Inventory>();
+	Player* player = scene->GetGameObject<Player>();
+
+	auto itemPtrKey = itemPtr->GetKey();
+
+	switch (index)
+	{
+	case SelectOptions::Special:
+			if (m_OptionType == SubPanelOptionTypes::Inventory_Equipment)
+			{
+				player->SetEquipment(itemPtrKey);
+			}
+			else if (m_OptionType == SubPanelOptionTypes::Inventory_Eat)
+			{
+				player->EatItem(itemPtrKey);
+			}
+
+		break;
+
+	case SelectOptions::LiftUp:
+		//Ž‚¿ã‚°‚é
+		break;
+
+	case SelectOptions::ThrowAway:
+		//ŽÌ‚Ä‚é
+			inventory->DecreaseItem(itemPtr);
+		break;
+	}
+
+
+}

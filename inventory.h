@@ -16,25 +16,19 @@ public:
     void Hide();
 
     void AddItem(Item* itemptr);
-
     void AddItem(Item* itemptr, int quantity);
 
     void RemoveItem(Item* itemptr);
-
     void RemoveItem(std::string& itemName);
-
     void RemoveItem(int index);
 
     void DecreaseItem(Item* itemptr);
-
     void DecreaseItem(int index);
-
     void DecreaseItem(int index, int quantity);
 
     std::vector<Item>& GetItems() { return m_PossessionItems; }
 
-    Item* GetItem(std::string& itemName);
-
+    Item* GetItem(std::string itemkey);
     Item* GetItem(int index);
 
     int GetMaxCapacity() { return maxCapacity; }

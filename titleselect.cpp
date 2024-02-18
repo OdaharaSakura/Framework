@@ -19,6 +19,10 @@ void TitleSelect::Init()
 
 	m_Sprite = AddComponent<Sprite>();
 	m_Sprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+
+	m_SpriteUI = AddComponent<Sprite>();
+	m_SpriteUI->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, "asset/texture/titleselect.dds");//è„ÇÃÇ∆Ç«Ç¡ÇøÇ≈Ç‡ÇÊÇ¢
+
 }
 
 void TitleSelect::Uninit()
@@ -37,6 +41,7 @@ void TitleSelect::Update()
 	GameObject::Update();
 
 	m_Sprite->SetColor(m_Color);
+	m_SpriteUI->SetColor(m_Color);
 }
 
 void TitleSelect::Draw()

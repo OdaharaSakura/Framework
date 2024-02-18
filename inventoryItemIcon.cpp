@@ -8,6 +8,7 @@
 #include "item.h"
 #include "staticSprite.h"
 #include "shader.h"
+#include "inventoryView.h"
 
 
 void InventoryItemIcon::Init()
@@ -34,6 +35,7 @@ void InventoryItemIcon::Update()
 
 	Scene* scene = Manager::GetScene();
 	m_Inventory = scene->GetGameObject<Inventory>();
+	InventoryView* inventoryView = scene->GetGameObject<InventoryView>();
 
 	// アイテムの取得
 	m_Item = m_Inventory->GetItem(m_Index);
@@ -41,6 +43,10 @@ void InventoryItemIcon::Update()
 	// m_Itemが有効かどうかをチェック
 	if (m_Item) 
 	{
+		if (inventoryView->IsInventoryActive())
+		{
+			m_StaticSprite->SetIsEnable(true);
+		}
 
 		if (!m_StaticSprite) {
 			m_StaticSprite = AddComponent<StaticSprite>();
@@ -70,6 +76,7 @@ void InventoryItemIcon::SetIndex(int itemIndex)
 {
 	Scene* scene = Manager::GetScene();
 	m_Inventory = scene->GetGameObject<Inventory>();
+	InventoryView* inventoryView = scene->GetGameObject<InventoryView>();
 
 	m_Index = itemIndex;
 
@@ -79,6 +86,11 @@ void InventoryItemIcon::SetIndex(int itemIndex)
 	// m_Itemが有効かどうかをチェック
 	if (m_Item) 
 	{
+		if (inventoryView->IsInventoryActive())
+		{
+			m_StaticSprite->SetIsEnable(true);
+		}
+
 		// アイテムのインデックスに応じてアイコンの位置を設定
 		m_WorldPosition.x = 227.5f + (m_Index % 7) * 120.0f;
 		m_WorldPosition.y = 170.0f + (m_Index / 7) * 107.5f;
