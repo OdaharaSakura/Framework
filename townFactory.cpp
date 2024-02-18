@@ -40,6 +40,12 @@ void TownFactory::CreateTown()
 	road5->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
 	road5->SetRotation(D3DXVECTOR3(0.0f, 3.14f, 0.0f));
 
+	Road* road6 = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
+	road6->SetPosition(D3DXVECTOR3(0.0f, 0.01f, -8.0f));
+	road6->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+
+
+
 	StaticObject* desk = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	desk->SetModel_Key("Desk");
 	desk->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 8.0f));
@@ -48,45 +54,81 @@ void TownFactory::CreateTown()
 
 	StaticObject* house2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house2->SetModel_Key("House2");
-	house2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 80.0f));
-	house2->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	house2->SetPosition(D3DXVECTOR3(8.0f, 0.0f, 80.0f));
+	house2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	house2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* house3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house3->SetModel_Key("House3");
-	house3->SetPosition(D3DXVECTOR3(40.0f, 0.0f, 80.0f));
-	house3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	house3->SetPosition(D3DXVECTOR3(32.0f, 0.0f, 80.0f));
+	house3->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	house3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	StaticObject* flowerbed = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	flowerbed->SetModel_Key("FlowerBed");
+	flowerbed->SetPosition(D3DXVECTOR3(15.0f, 0.0f, 80.0f));
+	flowerbed->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	flowerbed->SetRotation(D3DXVECTOR3(0.0f, 3.14f/-2, 0.0f));
+
+	StaticObject* flowerbed1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	flowerbed1->SetModel_Key("FlowerBed");
+	flowerbed1->SetPosition(D3DXVECTOR3(25.0f, 0.0f, 80.0f));
+	flowerbed1->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	flowerbed1->SetRotation(D3DXVECTOR3(0.0f, 3.14f/2, 0.0f));
 
 	StaticObject* house4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house4->SetModel_Key("House4");
-	house4->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 130.0f));
-	house4->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
-	house4->SetRotation(D3DXVECTOR3(0.0f, -3.14/2.0f, 0.0f));
+	house4->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 140.0f));
+	house4->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	house4->SetRotation(D3DXVECTOR3(0.0f, 3.14f, 0.0f));
+
+	StaticObject* house5 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	house5->SetModel_Key("House5");
+	house5->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 140.0f));
+	house5->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	house5->SetRotation(D3DXVECTOR3(0.0f, 3.14f, 0.0f));
 
 	StaticObject* shop1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop1->SetModel_Key("Shop1");
-	shop1->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 100.0f));
-	shop1->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	shop1->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 90.0f));
+	shop1->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	shop1->SetRotation(D3DXVECTOR3(0.0f, -3.14/2.0f, 0.0f));
 
 	StaticObject* shop2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop2->SetModel_Key("Shop2");
-	shop2->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 140.0f));
-	shop2->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	shop2->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 113.0f));
+	shop2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	shop2->SetRotation(D3DXVECTOR3(0.0f, 3.14/2.0f, 0.0f));
 
 	StaticObject* shop3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	shop3->SetModel_Key("Shop3");
-	shop3->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 115.0f));
-	shop3->SetScale(D3DXVECTOR3(4.0f, 4.0f, 4.0f));
+	shop3->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 90.0f));
+	shop3->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	shop3->SetRotation(D3DXVECTOR3(0.0f, 3.14/2.0f, 0.0f));
+
+	StaticObject* shop4 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	shop4->SetModel_Key("Shop4");
+	shop4->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 113.0f));
+	shop4->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
+	shop4->SetRotation(D3DXVECTOR3(0.0f, -3.14 / 2.0f, 0.0f));
 
 	StaticObject* wooden = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	wooden->SetModel_Key("Wooden");
-	wooden->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 105.0f));
-	wooden->SetScale(D3DXVECTOR3(2.5f, 2.5f, 2.5f));
+	wooden->SetPosition(D3DXVECTOR3(-6.0f, 0.0f, 83.0f));
+	wooden->SetScale(D3DXVECTOR3(0.80f, 0.80f, 0.80f));
 	wooden->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
+
+	StaticObject* bench = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	bench->SetModel_Key("Bench");
+	bench->SetPosition(D3DXVECTOR3(33.0f, 0.0f, 120.0f));
+	bench->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	bench->SetRotation(D3DXVECTOR3(0.0f, -3.14/6*5.0f, 0.0f));
+
+	StaticObject* bench2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	bench2->SetModel_Key("Bench");
+	bench2->SetPosition(D3DXVECTOR3(13.0f, 0.0f, 120.0f));
+	bench2->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	bench2->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 6 * 5.0f, 0.0f));
 
 
 
@@ -248,13 +290,13 @@ void TownFactory::CreateTown()
 
 	StaticObject* TAIZYU = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	TAIZYU->SetModel_Key("SymbolTree");
-	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -20.5f, 185.0f));
+	TAIZYU->SetPosition(D3DXVECTOR3(0.0f, -20.5f, 165.0f));
 	TAIZYU->SetScale(D3DXVECTOR3(5.0f, 5.0f, 5.0f));
 	TAIZYU->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	StaticObject* windmill = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	windmill->SetModel_Key("WindMill");
-	windmill->SetPosition(D3DXVECTOR3(-25.0f, 0.0f, 100.0f));
+	windmill->SetPosition(D3DXVECTOR3(-25.0f, 0.0f, 101.0f));
 	windmill->SetScale(D3DXVECTOR3(5.0f, 5.0f, 5.0f));
 	windmill->SetRotation(D3DXVECTOR3(0.0f, -80.0f, 0.0f));
 
@@ -336,8 +378,8 @@ void TownFactory::CreateTown()
 
 	StaticObject* tile = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	tile->SetModel_Key("Tile");
-	tile->SetPosition(D3DXVECTOR3(19.0f, -0.99f, 108.0f));
-	tile->SetScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+	tile->SetPosition(D3DXVECTOR3(20.0f, -0.99f, 104.0f));
+	tile->SetScale(D3DXVECTOR3(8.0f, 10.0f, 8.0f));
 	tile->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f)); 
 
 
