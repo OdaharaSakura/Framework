@@ -11,6 +11,7 @@ private:
 
 	class Sprite* m_Sprite;
 	class Sprite* m_SpriteUI;
+	class Sprite* m_SpriteUISpace;
 
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
