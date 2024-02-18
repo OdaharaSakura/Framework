@@ -32,6 +32,8 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_TAB", "TIPS_TAB.dds");//タブキー
         LoadImageData("TIPS_Space", "TIPS_Space.dds");//スペースキー
         LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
+        LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
+        LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
         break;
     case SCENE_RESULT:
         break;
