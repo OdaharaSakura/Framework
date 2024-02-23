@@ -48,10 +48,6 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("DryField", "dryfield.obj");//乾燥畑
         LoadModelData("WetField", "wetfield.obj");//水やり畑
         LoadModelData("Seed", "seed.obj");//種
-        LoadModelData("TomatoSeed", "bag1.obj");//トマトの種
-        LoadModelData("EggplantSeed", "bag3.obj");//なすの種
-        LoadModelData("OnionSeed", "bag4.obj");//玉ねぎの種
-        LoadModelData("CarrotSeed", "bag5.obj");//にんじんの種
         LoadModelData("Carrot_Seedling", "carrot_1.obj");//人参第一段階
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
         LoadModelData("Tomato_Seedling", "tomato_1.obj");//トマト第一段階
@@ -63,11 +59,14 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Carrot_Seedling", "kabu_1.obj");//かぶ第一段階
         LoadModelData("Carrot_Seedling2", "kabu_2.obj");//かぶ第二段階
         LoadModelData("Tile", "tile.obj");//タイル
+        LoadModelData("Wooden", "woodbox.obj");//木箱
         LoadModelData("Hoe", "Kuwa.obj");//くわ
         LoadModelData("Sickle", "kama.obj");//鎌
         LoadModelData("WaterWand", "waterwand.obj");//つえ
-        LoadModelData("Wooden", "woodbox.obj");//木箱
-
+        LoadModelData("TomatoSeed", "bag1.obj");//トマトの種
+        LoadModelData("EggplantSeed", "bag3.obj");//なすの種
+        LoadModelData("OnionSeed", "bag4.obj");//玉ねぎの種
+        LoadModelData("CarrotSeed", "bag5.obj");//にんじんの種
         break;
     case SCENE_RESULT:
         break;

@@ -28,11 +28,12 @@ private:
 	int m_Minutes{};
 
 	float m_CountNum = 0.0f;
-	float m_TimeSpeed = 1.0f;
+	float m_OneSecondCount = 1.0f;
+	float m_RealTimeSpeed = 1.0f;
 
 	bool m_IsPause = false;
 
-	std::vector<class Observer*> m_Observers;
+	std::vector<class TimeObserver*> m_Observers;
 
 public:
 	void Init();
@@ -56,7 +57,8 @@ public:
 	int GetHours() { return m_Hours; }
 	int GetMinutes() { return m_Minutes; }
 
-	void NotifyAllObserversHour();
-	void AddObserver(class Observer* observer);
-	void RemoveObserver(class Observer* observer);
+	void NotifyAllTimeObservers();
+	void NotifyAllTimeObserversHour();
+	void AddObserver(class TimeObserver* observer);
+	void RemoveObserver(class TimeObserver* observer);
 };

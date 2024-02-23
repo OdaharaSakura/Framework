@@ -3,7 +3,7 @@
 #include "time.h"
 #include "text.h"
 #include "shader.h"
-#include "observer.h"
+#include "timeObserver.h"
 
 void Time::Init()
 {
@@ -38,7 +38,14 @@ void Time::Update()
 		m_CountNum += std::chrono::duration<float>(std::chrono::system_clock::now() - m_Start).count();
 		m_Start = std::chrono::system_clock::now();
 
-		if (m_CountNum >= m_TimeSpeed )//5•b
+		if (m_OneSecondCount >= 1)
+		{
+			NotifyAllTimeObservers();
+			m_OneSecondCount = 0.0f;
+		}
+
+
+		if (m_CountNum >= m_RealTimeSpeed )
 		{
 			m_Minutes += 10;
 
@@ -49,14 +56,16 @@ void Time::Update()
 			{
 				m_Hours += 1;
 				m_Minutes = 0;
-			NotifyAllObserversHour();
+			NotifyAllTimeObserversHour();
 			}
 			if (m_Hours >= 24)
 			{
 				m_Hours = 0;
 				m_Day += 1;
 			}
-			if (m_Day >= 31)
+			
+			int monthDays = 31;
+			if (m_Day >= monthDays)
 			{
 				m_Day = 1;
 
@@ -118,20 +127,29 @@ void Time::SetSleep()
 	}
 }
 
-void Time::NotifyAllObserversHour()
+void Time::NotifyAllTimeObservers()
 {
 	for (auto observer : m_Observers)
 	{
-		observer->Update();
+		//TODO:observer‚É‚æ‚Á‚ÄŒv‘ª‚·‚é‚©‚Ç‚¤‚©l‚¦‚½‚Ù‚¤‚ª—Ç‚¢
+		observer->SetRealOneSecond();
 	}
 }
 
-void Time::AddObserver(Observer* observer)
+void Time::NotifyAllTimeObserversHour()
+{
+	for (auto observer : m_Observers)
+	{
+		observer->UpdateHour();
+	}
+}
+
+void Time::AddObserver(TimeObserver* observer)
 {
 	m_Observers.push_back(observer);
 }
 
-void Time::RemoveObserver(Observer* observer)
+void Time::RemoveObserver(TimeObserver* observer)
 {
 	auto it = std::remove(m_Observers.begin(), m_Observers.end(), observer);
 	m_Observers.erase(it, m_Observers.end());
