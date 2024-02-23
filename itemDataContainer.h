@@ -45,6 +45,11 @@ public:
 	static void Load();
 
 	static ItemData GetItemData_Key(std::string key);
+	static std::vector<ItemData> GetAllItemData() { return m_ItemData; }
+
 	static EquipmentData GetEquipmentData_Key(std::string key);
+	static std::vector<EquipmentData> GetAllEquipmentData() { return m_EquipmentData; }
+
 	static CropData GetCropData_Key(std::string key);
+	static std::vector<CropData> GetAllCropData() { return m_CropData; }
 };

@@ -1,6 +1,6 @@
 #pragma once
-#include "observer.h"
-class CropObserver : public Observer
+#include "timeObserver.h"
+class CropObserver : public TimeObserver
 {
 private:
 		class Crop* m_Crop;
@@ -11,6 +11,6 @@ public:
 	CropObserver(class FarmTile* farmTile ,class Crop* crop);
 	~CropObserver();
 
-	void Update();
+	void UpdateHour();
 
 };
