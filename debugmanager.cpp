@@ -54,27 +54,27 @@ void DebugManager::Draw()
 	//ImGui::SetNextWindowSize(ImVec2(300, 500), ImGuiCond_Once);
 	//ImGui::Begin("DebugWindow", ((bool*)0), ImGuiWindowFlags_MenuBar);
 
-	if (ImGui::BeginMenuBar()) {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Save")) {
+	//if (ImGui::BeginMenuBar()) {
+ //       if (ImGui::BeginMenu("File"))
+ //       {
+ //           if (ImGui::MenuItem("Save")) {
 
-            }
-            if (ImGui::MenuItem("Load")) {
+ //           }
+ //           if (ImGui::MenuItem("Load")) {
 
-            }
+ //           }
 
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
-    }
+ //           ImGui::EndMenu();
+ //       }
+ //       ImGui::EndMenuBar();
+ //   }
 
-	const char* cd = "aaaaaaaaaaaaaaa";
-	char c = *cd;
+	//const char* cd = "aaaaaaaaaaaaaaa";
+	//char c = *cd;
 
-	ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
-	if (ImGui::Button("InputText")) {
-	}
+	//ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
+	//if (ImGui::Button("InputText")) {
+	//}
 
 
 	
