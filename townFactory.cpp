@@ -6,6 +6,8 @@
 #include "road.h"
 #include "house.h"
 #include "cow.h"
+#include "tree_billboard.h"
+#include "tree.h"
 
 void TownFactory::CreateTown()
 {
@@ -220,29 +222,45 @@ void TownFactory::CreateTown()
 	for1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));*/
 
 
-	const int maxforest_ver = 5;
+	const int maxforest_ver = 7;
 
 	for (int i = 0; i < maxforest_ver; i++)
 	{
 		StaticObject* forest_ver = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 		forest_ver->SetModel_Key("MiddleTree");
-		forest_ver->SetPosition(D3DXVECTOR3(-17.0f + (i * 5.0f), 0.0f, -16.0f));
+		forest_ver->SetPosition(D3DXVECTOR3(-5.0f + (i * 5.0f), 0.0f, -34.0f));
 		forest_ver->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		forest_ver->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	}
 
 
-	const int maxforest_bes = 9;
+	const int maxforest_bes = 11;
 
 	for (int i = 0; i < maxforest_bes; i++)
 	{
 		StaticObject* forest_bes = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 		forest_bes->SetModel_Key("MiddleTree");
-		forest_bes->SetPosition(D3DXVECTOR3(-17.0f, 0.0f, -16.0f - (i * 5.0f)));
+		forest_bes->SetPosition(D3DXVECTOR3(-7.0f, 0.0f, -34.0f - (i * 5.0f)));
 		forest_bes->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		forest_bes->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
+	}
+
+
+	srand(0);
+
+	for (int i = 0; i < 12; i++)
+	{
+		StaticObject* staticObject = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		staticObject->SetModel_Key("ForestTree");
+
+		D3DXVECTOR3 pos;
+		pos.x = (float)rand() / RAND_MAX * 100.0f - 70.0f;
+		pos.z = (float)rand() / RAND_MAX * 100.0f - 40.0f;
+		pos.y = 0.0f;
+
+		staticObject->SetPosition(pos);
 	}
 
 

@@ -41,6 +41,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Fence", "fence.obj");//ò
         LoadModelData("FenceWood", "woodfence.obj");//–Ø»‚Ìò
         LoadModelData("MiddleTree", "treemiddle.obj");//•À–Ø“¹—p‚Ì÷–Ø
+        LoadModelData("ForestTree", "tree3.obj");//X—p‚Ì÷–Ø
         LoadModelData("SymbolTree", "TAIZYU.obj");//’†‰›‚Ì‘å÷
         LoadModelData("WindMill", "windmill.obj");//•—Ô
         LoadModelData("Gate", "gate.obj");//–å
