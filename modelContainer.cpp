@@ -1,6 +1,7 @@
 #include "main.h"
 #include "renderer.h"
 #include "modelContainer.h"
+#include "itemDataContainer.h"
 #include "scene.h"
 #include <algorithm>
 
@@ -11,6 +12,8 @@ std::string ModelContainer::m_ModelsFrontPath = "asset\\model\\obj\\";
 
 void ModelContainer::Load(int sceneIndex)
 {
+    auto equipmentdata = ItemDataContainer::GetAllEquipmentData();
+
     // シーンに基づいて特定のテクスチャをロード
     switch (sceneIndex) {
     case SCENE_TITLE:
@@ -18,6 +21,12 @@ void ModelContainer::Load(int sceneIndex)
         //AddImage("titleBackground", "path/to/title_background.png");
         break;
     case SCENE_GAME:
+
+        //装備データの数だけ
+        for (auto& it : equipmentdata) {
+            LoadModelData(it.m_Key, it.m_ModelPass);
+        }
+
         LoadModelData("Desk", "desk.obj");//机
         LoadModelData("House1", "house1.obj");//家
         LoadModelData("House2", "house2.obj");//家2
@@ -60,13 +69,6 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Carrot_Seedling2", "kabu_2.obj");//かぶ第二段階
         LoadModelData("Tile", "tile.obj");//タイル
         LoadModelData("Wooden", "woodbox.obj");//木箱
-        LoadModelData("Hoe", "Kuwa.obj");//くわ
-        LoadModelData("Sickle", "kama.obj");//鎌
-        LoadModelData("WaterWand", "waterwand.obj");//つえ
-        LoadModelData("TomatoSeed", "bag1.obj");//トマトの種
-        LoadModelData("EggplantSeed", "bag3.obj");//なすの種
-        LoadModelData("OnionSeed", "bag4.obj");//玉ねぎの種
-        LoadModelData("CarrotSeed", "bag5.obj");//にんじんの種
         break;
     case SCENE_RESULT:
         break;

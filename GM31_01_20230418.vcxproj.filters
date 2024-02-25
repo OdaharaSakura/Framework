@@ -77,6 +77,9 @@
     <Filter Include="1_Common\Game\Factory">
       <UniqueIdentifier>{57d6f667-84f4-44ce-b2bf-e72c6b7fe113}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Common\Game\Observer">
+      <UniqueIdentifier>{41a64cc1-54b3-460f-99ce-1da083169b6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -360,7 +363,9 @@
     <ClCompile Include="cropFactory.cpp">
       <Filter>1_Common\Game\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="cropObserver.cpp" />
+    <ClCompile Include="cropObserver.cpp">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -661,9 +666,15 @@
     <ClInclude Include="crop.h">
       <Filter>1_Common\Game</Filter>
     </ClInclude>
-    <ClInclude Include="cropObserver.h" />
     <ClInclude Include="meshfieldheight.h" />
     <ClInclude Include="observer.h" />
+    <ClInclude Include="savedata.h" />
+    <ClInclude Include="cropObserver.h">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="timeObserver.h">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

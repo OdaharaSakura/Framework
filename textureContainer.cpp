@@ -1,5 +1,6 @@
 #include "main.h"
 #include "textureContainer.h"
+#include "itemDataContainer.h"
 #include "scene.h"
 #include <algorithm>
 
@@ -8,6 +9,8 @@ std::string TextureContainer::m_FrontPath = "asset\\texture\\";
 
 void TextureContainer::Load(int sceneIndex)
 {
+    auto itemdata = ItemDataContainer::GetAllItemData();
+
     // シーンに基づいて特定のテクスチャをロード
     switch (sceneIndex) {
     case SCENE_TITLE:
@@ -15,9 +18,12 @@ void TextureContainer::Load(int sceneIndex)
         //LoadImageData("LoadingLogo", "lightgreen.jpg");
         break;
     case SCENE_GAME:
-        LoadImageData("Hoe", "equipment_icon_kuwa.dds");//鍬
-        LoadImageData("Sickle", "equipment_icon_kama.dds");//鎌
-        LoadImageData("WaterWand", "equipment_icon_wand.dds");//杖
+
+        //アイテムデータの数だけ
+        for (auto& it : itemdata) {
+			LoadImageData(it.m_Key, it.m_TexturePass);
+		}
+
         LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
         LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
@@ -35,10 +41,6 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
         LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
         LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
-        LoadImageData("TomatoSeed", "tomatoseeds.dds");//カメラ回転キー
-        LoadImageData("EggplantSeed", "eggplantseeds.dds");//上下左右キー
-        LoadImageData("OnionSeed", "onionseeds.dds");//決定キー
-        LoadImageData("CarrotSeed", "carrotseeds.dds");//決定キー
         break;
     case SCENE_RESULT:
         break;

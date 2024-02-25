@@ -13,6 +13,7 @@ void Time::Init()
 	m_Minutes = 0;
 
 	m_Start = std::chrono::system_clock::now();
+	m_Now = std::chrono::system_clock::now();
 
 	m_Text = AddComponent<Text>();
 	m_TimeStr = m_MonthStr + std::to_string(m_Day) + "“ú\n" + std::to_string(m_Hours) + "Žž" + std::to_string(m_Minutes) + "•ª";
@@ -35,8 +36,8 @@ void Time::Update()
 	if (!m_IsPause)
 	{
 		// ŽžŠÔŒv‘ª
-		m_CountNum += std::chrono::duration<float>(std::chrono::system_clock::now() - m_Start).count();
-		m_Start = std::chrono::system_clock::now();
+		m_CountNum += std::chrono::duration<float>(std::chrono::system_clock::now() - m_Now).count();
+		m_Now = std::chrono::system_clock::now();
 
 		if (m_OneSecondCount >= 1)
 		{
