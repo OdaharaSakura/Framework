@@ -266,6 +266,60 @@ void TownFactory::CreateTown()
 		fencewood->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
 	}
 
+	StaticObject* fencewood1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	fencewood1->SetModel_Key("FenceWood");
+	fencewood1->SetPosition(D3DXVECTOR3(18.0f, 0.0f, 26.0f));
+	fencewood1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	fencewood1->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
+
+	
+	
+	const int vermaxfence = 11;
+
+	for (int i = 0; i < vermaxfence; i++)
+	{
+	StaticObject* verfencewood = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	verfencewood->SetModel_Key("FenceWood");
+	verfencewood->SetPosition(D3DXVECTOR3(18.0f, 0.0f, 19.0f - (i * 3.0f)));
+	verfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	verfencewood->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
+	}
+
+
+	const int besmaxfence = 8;
+
+	for (int i = 0; i < besmaxfence; i++)
+	{
+		StaticObject* besfencewood = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		besfencewood->SetModel_Key("FenceWood");
+		besfencewood->SetPosition(D3DXVECTOR3(18.0f + (i * 4.0f), 0.0f, -15.0f));
+		besfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		besfencewood->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	}
+
+	const int oppbesmaxfence = 8;
+
+	for (int i = 0; i < oppbesmaxfence; i++)
+	{
+		StaticObject* oppbesfencewood = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		oppbesfencewood->SetModel_Key("FenceWood");
+		oppbesfencewood->SetPosition(D3DXVECTOR3(18.0f + (i * 4.0f), 0.0f, 26.0f));
+		oppbesfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		oppbesfencewood->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	}
+
+
+	const int oppvermaxfence = 10;
+
+	for (int i = 0; i < oppvermaxfence; i++)
+	{
+		StaticObject* oppverfencewood = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		oppverfencewood->SetModel_Key("FenceWood");
+		oppverfencewood->SetPosition(D3DXVECTOR3(50.0f, 0.0f, 25.0f - (i * 4.0f)));
+		oppverfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		oppverfencewood->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
+	}
+
 
 
 	const int maxtree = 5;
@@ -381,6 +435,12 @@ void TownFactory::CreateTown()
 	tile->SetPosition(D3DXVECTOR3(20.0f, -0.99f, 104.0f));
 	tile->SetScale(D3DXVECTOR3(8.0f, 10.0f, 8.0f));
 	tile->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f)); 
+
+	StaticObject* well = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	well->SetModel_Key("Well");
+	well->SetPosition(D3DXVECTOR3(10.0f, 0.0f, -3.0f));
+	well->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	well->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 
 
