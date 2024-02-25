@@ -222,42 +222,96 @@ void TownFactory::CreateTown()
 	for1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));*/
 
 
-	const int maxforest_ver = 7;
+	const int maxforest_bes1 = 4;
 
-	for (int i = 0; i < maxforest_ver; i++)
+	for (int i = 0; i < maxforest_bes1; i++)
 	{
-		StaticObject* forest_ver = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-		forest_ver->SetModel_Key("MiddleTree");
-		forest_ver->SetPosition(D3DXVECTOR3(-5.0f + (i * 5.0f), 0.0f, -34.0f));
-		forest_ver->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-		forest_ver->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		StaticObject* forest_bes1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_bes1->SetModel_Key("MiddleTree");
+		forest_bes1->SetPosition(D3DXVECTOR3(-19.0f + (i * 5.0f), 0.0f, -18.0f));
+		forest_bes1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_bes1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	}
+
+	const int maxforest_bes2 = 4;
+
+	for (int i = 0; i < maxforest_bes2; i++)
+	{
+		StaticObject* forest_bes2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_bes2->SetModel_Key("MiddleTree");
+		forest_bes2->SetPosition(D3DXVECTOR3(4.0f + (i * 5.0f), 0.0f, -18.0f));
+		forest_bes2->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_bes2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	}
+
+	const int maxforest_bes3 = 10;
+
+	for (int i = 0; i < maxforest_bes3; i++)
+	{
+		StaticObject* forest_bes3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_bes3->SetModel_Key("MiddleTree");
+		forest_bes3->SetPosition(D3DXVECTOR3(-14.0f + (i * 5.0f), 0.0f, -64.0f));
+		forest_bes3->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_bes3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	}
+
+	const int maxforest_ver1 = 10;
+
+	for (int i = 0; i < maxforest_ver1; i++)
+	{
+		StaticObject* forest_ver1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_ver1->SetModel_Key("MiddleTree");
+		forest_ver1->SetPosition(D3DXVECTOR3(-18.0f, 0.0f, -20.0f - (i * 5.0f)));
+		forest_ver1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_ver1->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	}
 
 
-	const int maxforest_bes = 11;
+	const int maxforest_ver2 = 10;
 
-	for (int i = 0; i < maxforest_bes; i++)
+	for (int i = 0; i < maxforest_ver2; i++)
 	{
-		StaticObject* forest_bes = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-		forest_bes->SetModel_Key("MiddleTree");
-		forest_bes->SetPosition(D3DXVECTOR3(-7.0f, 0.0f, -34.0f - (i * 5.0f)));
-		forest_bes->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-		forest_bes->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		StaticObject* forest_ver2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		forest_ver2->SetModel_Key("MiddleTree");
+		forest_ver2->SetPosition(D3DXVECTOR3(26.0f, 0.0f, -16.0f - (i * 5.0f)));
+		forest_ver2->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+		forest_ver2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	}
+
+
 
 
 	srand(0);
 
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 18; i++)
 	{
 		StaticObject* staticObject = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 		staticObject->SetModel_Key("ForestTree");
+		staticObject->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 		D3DXVECTOR3 pos;
-		pos.x = (float)rand() / RAND_MAX * 100.0f - 70.0f;
-		pos.z = (float)rand() / RAND_MAX * 100.0f - 40.0f;
+		pos.x = (float)rand() / RAND_MAX * 100.0f + 8.0f;
+		pos.z = (float)rand() / RAND_MAX * 100.0f + 140.0f;
+		pos.y = 0.0f;
+
+		staticObject->SetPosition(pos);
+	}
+
+
+	for (int i = 0; i < 25; i++)
+	{
+		StaticObject* staticObject = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+		staticObject->SetModel_Key("ForestTree");
+		staticObject->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+
+		D3DXVECTOR3 pos;
+		pos.x = (float)rand() / RAND_MAX * 100.0f - 45.0f;
+		pos.z = (float)rand() / RAND_MAX * 100.0f - 115.0f;
 		pos.y = 0.0f;
 
 		staticObject->SetPosition(pos);
