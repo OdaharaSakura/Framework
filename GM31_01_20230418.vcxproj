@@ -400,6 +400,7 @@
     <ClInclude Include="road.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="room.h" />
+    <ClInclude Include="savedata.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shader.h" />
@@ -417,6 +418,7 @@
     <ClInclude Include="text.h" />
     <ClInclude Include="textureContainer.h" />
     <ClInclude Include="time.h" />
+    <ClInclude Include="timeObserver.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titlecursor.h" />
     <ClInclude Include="titleenter.h" />

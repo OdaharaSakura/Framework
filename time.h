@@ -18,6 +18,7 @@ class Time : public GameObject
 {
 private:
 	std::chrono::time_point<std::chrono::system_clock> m_Start{};
+	std::chrono::time_point<std::chrono::system_clock> m_Now{};
 	class Text* m_Text = nullptr;
 	std::string m_MonthStr;
 	std::string m_TimeStr;

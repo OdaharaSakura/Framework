@@ -16,7 +16,7 @@
 #include "post.h"
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
-Scene* Manager::m_NextScene{};//静的メンバ変数は再宣言が必要
+Scene* Manager::m_NextScene{};
 Renderer* Manager::m_Renderer{};
 
 bool Manager::m_IsGameFinish{};
@@ -36,8 +36,6 @@ void Manager::Init()
 
 
 	SetScene<Title>();//ゲーム開始時のシーンを設定
-
-
 
 }
 
