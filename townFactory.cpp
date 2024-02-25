@@ -5,6 +5,7 @@
 #include "staticObject.h"
 #include "road.h"
 #include "house.h"
+#include "cow.h"
 
 void TownFactory::CreateTown()
 {
@@ -438,7 +439,7 @@ void TownFactory::CreateTown()
 
 	StaticObject* well = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	well->SetModel_Key("Well");
-	well->SetPosition(D3DXVECTOR3(10.0f, 0.0f, -3.0f));
+	well->SetPosition(D3DXVECTOR3(12.0f, 0.0f, 16.0f));
 	well->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	well->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
@@ -448,8 +449,8 @@ void TownFactory::CreateTown()
 	hut->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	hut->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
 
-
-
-	
+	scene->AddGameObject<COW>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(35.0f, 0.0f, 20.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	scene->AddGameObject<COW>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(30.0f, 0.0f, 10.0f), D3DXVECTOR3(0.0f, 55.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	scene->AddGameObject<COW>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(26.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 128.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
 }

@@ -23,8 +23,8 @@ void COW::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\cow.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\cowRun.fbx", "Walk");
+	m_Model->Load("asset\\model\\fbx\\cowpose.fbx");
+	m_Model->LoadAnimation("asset\\model\\fbx\\cowanime.fbx", "Walk");
 
 	AddComponent<VertexLighting>();
 
