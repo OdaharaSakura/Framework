@@ -198,6 +198,7 @@
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="conversation.cpp" />
+    <ClCompile Include="cow.cpp" />
     <ClCompile Include="cropFactory.cpp" />
     <ClCompile Include="cropObserver.cpp" />
     <ClCompile Include="cylinder.cpp" />
@@ -325,6 +326,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="conversation.h" />
+    <ClInclude Include="cow.h" />
     <ClInclude Include="crop.h" />
     <ClInclude Include="cropFactory.h" />
     <ClInclude Include="cropObserver.h" />

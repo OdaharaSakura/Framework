@@ -442,6 +442,12 @@ void TownFactory::CreateTown()
 	well->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	well->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
+	StaticObject* hut = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	hut->SetModel_Key("Hut");
+	hut->SetPosition(D3DXVECTOR3(43.0f, 0.0f, 20.0f));
+	hut->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	hut->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
+
 
 
 	
