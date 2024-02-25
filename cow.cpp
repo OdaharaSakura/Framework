@@ -24,20 +24,16 @@ void COW::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\cowpose.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\cowanime.fbx", CowAnimation::Cow_Walk);
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Cow);
 
 	AddComponent<VertexLighting>();
-
-	//m_Conversation = "こんにちは！\nいい天気ね！";
 
 }
 
 void COW::Uninit()
 {
 	GameObject::Uninit();
-	if(m_Model != nullptr)m_Model->Unload();
-	delete m_Model;
+	if (m_Model) m_Model = nullptr;
 }
 
 void COW::Update()

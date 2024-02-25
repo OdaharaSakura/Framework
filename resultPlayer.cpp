@@ -22,7 +22,7 @@ void ResultPlayer::Init()
 {
 	Scene* scene = Manager::GetScene();
 
-	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_ResultPlayer);
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Player);
 
 
 
@@ -35,9 +35,8 @@ void ResultPlayer::Init()
 void ResultPlayer::Uninit()
 {
 	GameObject::Uninit();
-	m_Model->Unload();
-	delete m_Model;
 
+	if (m_Model)m_Model = nullptr;
 
 }
 

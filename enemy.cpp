@@ -51,8 +51,7 @@ void Enemy::Init()
 void Enemy::Uninit()
 {
 	GameObject::Uninit();
-	m_Model->Unload();
-	delete m_Model;
+	if (m_Model) m_Model = nullptr;
 
 	m_VertexLayout->Release();
 	m_VertexShader->Release();

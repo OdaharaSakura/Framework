@@ -3,7 +3,7 @@
 #include "animationModel.h"
 
 
-
+std::string AnimationModel::m_FBXAnimationsFrontPath = "asset\\model\\fbx\\";
 
 void AnimationModel::Draw()
 {
@@ -67,9 +67,11 @@ void AnimationModel::Draw()
 
 void AnimationModel::Load( const char *FileName )
 {
-	const std::string modelPath( FileName );
+	auto fileName = m_FBXAnimationsFrontPath + FileName;
 
-	m_AiScene = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
+	const std::string modelPath(fileName);
+
+	m_AiScene = aiImportFile(fileName.c_str(), aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
 	assert(m_AiScene);
 
 	m_VertexBuffer = new ID3D11Buffer*[m_AiScene->mNumMeshes];
@@ -221,8 +223,9 @@ void AnimationModel::Load( const char *FileName )
 
 void AnimationModel::LoadAnimation( const char *FileName, int Index )
 {
+	auto fileName = m_FBXAnimationsFrontPath + FileName;
 
-	m_Animation[Index] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
+	m_Animation[Index] = aiImportFile(fileName.c_str(), aiProcess_ConvertToLeftHanded);
 	assert(m_Animation[Index]);
 
 }

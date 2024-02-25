@@ -35,8 +35,7 @@ void NPC::Init()
 void NPC::Uninit()
 {
 	GameObject::Uninit();
-	if(m_Model != nullptr)m_Model->Unload();
-	delete m_Model;
+	if (m_Model) m_Model = nullptr;
 }
 
 void NPC::Update()

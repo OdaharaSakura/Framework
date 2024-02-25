@@ -4,15 +4,17 @@
 #include <unordered_map>
 #include <string>
 
+//読み込むFBXモデルの種類
 enum FBXModel
 {
-	FBXModel_ResultPlayer,
 	FBXModel_Player,
 	FBXModel_Enemy,
 	FBXModel_NPC1,
+	FBXModel_Cow,
 	FBXModel_Max
 };
 
+//アニメーションインデックス
 enum PlayerAnimation
 {
 	Player_Idle,
@@ -50,8 +52,6 @@ class AnimationModelContainer
 {
 private:
 	static std::unordered_map<int, AnimationModel*> m_AnimationModelDictionary;//キー + Image
-
-	static std::string m_FBXAnimationsFrontPath;//ファイルのパス
 
 	static AnimationModel* m_FBXModel[FBXModel::FBXModel_Max];
 

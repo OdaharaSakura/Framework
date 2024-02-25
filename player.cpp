@@ -92,8 +92,7 @@ void Player::Init()
 void Player::Uninit()
 {
 	GameObject::Uninit();
-	if (m_Model != nullptr)m_Model->Unload();
-	delete m_Model;
+	if(m_Model) m_Model = nullptr;
 }
 
 void Player::Update()

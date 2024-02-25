@@ -45,6 +45,7 @@ private:
 	void CreateBone(aiNode* Node);
 	void UpdateBoneMatrix(aiNode* Node, aiMatrix4x4 Matrix);
 
+	static std::string m_FBXAnimationsFrontPath;//ファイルのパス
 
 public:
 	void Load( const char *FileName );
