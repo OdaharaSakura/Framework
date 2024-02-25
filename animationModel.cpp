@@ -219,11 +219,11 @@ void AnimationModel::Load( const char *FileName )
 
 
 
-void AnimationModel::LoadAnimation( const char *FileName, const char *Name )
+void AnimationModel::LoadAnimation( const char *FileName, int Index )
 {
 
-	m_Animation[Name] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
-	assert(m_Animation[Name]);
+	m_Animation[Index] = aiImportFile(FileName, aiProcess_ConvertToLeftHanded);
+	assert(m_Animation[Index]);
 
 }
 
@@ -266,7 +266,7 @@ void AnimationModel::Unload()
 	if(m_AiScene != nullptr) aiReleaseImport(m_AiScene);
 
 
-	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	for (std::pair<const int, const aiScene*> pair : m_Animation)
 	{
 		aiReleaseImport(pair.second);
 	}
@@ -277,8 +277,8 @@ void AnimationModel::Unload()
 
 
 
-void AnimationModel::Update(const char* AnimationName1, int Frame1,
-	const char* AnimationName2, int Frame2, float BlendRate)
+void AnimationModel::Update(int AnimationName1, int Frame1,
+	int AnimationName2, int Frame2, float BlendRate)
 {
 	if (m_Animation.count(AnimationName1) == 0)
 		return;

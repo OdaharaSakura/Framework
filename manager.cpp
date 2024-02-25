@@ -33,7 +33,7 @@ void Manager::Init()
 	m_IsGameFinish = false;
 
 
-
+	Title::Load();
 
 	SetScene<Title>();//ゲーム開始時のシーンを設定
 

@@ -45,12 +45,11 @@
 #include "road.h"
 #include "townFactory.h"
 #include "itemDataContainer.h"
-
+#include "player.h"
 #include "bloomPolygon.h"
 #include "luminance.h"
 #include "post.h"
 
-Player* player;
 bool Test::m_LoadFinish = false;
 
 void Test::Load()
@@ -58,7 +57,7 @@ void Test::Load()
 	ItemDataContainer::Load();
 	TextureContainer::Load(SCENE_GAME);
 	ModelContainer::Load(SCENE_GAME);
-	//AnimationModelContainer::Load(SCENE_GAME);
+	AnimationModelContainer::Load(SCENE_GAME);
 	Gauge::Load();
 	TreasureBox::Load();
 	TreeBillboard::Load();
@@ -69,6 +68,7 @@ void Test::Unload()
 	m_LoadFinish = false;
 	TextureContainer::Unload(SCENE_GAME);
 	ModelContainer::Unload(SCENE_GAME);
+	AnimationModelContainer::Unload(SCENE_GAME);
 	Gauge::Unload();
 	TreasureBox::Unload();
 	TreeBillboard::Unload();
@@ -127,13 +127,13 @@ void Test::Init()
 	
 	//AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	player = AddGameObject<Player>(LAYER_OBJECT_3D);
-	m_SphereCollider = player->AddComponent<SphereCollider>();
-	m_SphereCollider->m_testObj->SetParent(player);
+	m_Player = AddGameObject<Player>(LAYER_OBJECT_3D);
+	m_SphereCollider = m_Player->AddComponent<SphereCollider>();
+	m_SphereCollider->m_testObj->SetParent(m_Player);
 	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	test->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 
-	player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
+	m_Player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
 
 	AddGameObject<NPC>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-30.0f, 0.0f, 30.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
@@ -168,7 +168,7 @@ void Test::Init()
 	
 	PlayerGauge* playerGauge = AddGameObject<PlayerGauge>(LAYER_OBJECT_2D);
 	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
-	playerGauge->SetPlayerParent(player);
+	playerGauge->SetPlayerParent(m_Player);
 
 	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
@@ -206,7 +206,7 @@ void Test::Update()
 	}
 
 	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	test->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 
 void Test::SetStaticObject()

@@ -51,8 +51,8 @@ private:
 	int m_HpMax = 500;
 
 	int m_Time{};
-	std::string m_AnimationName;
-	std::string m_NextAnimationName;
+	int m_AnimationIndex;
+	int m_NextAnimationIndex;
 	float m_BlendRate{};
 
 	int m_AnimeState{};
@@ -61,17 +61,6 @@ private:
 
 	bool m_IsAttackflg{};//アタックできるか(敵の範囲内に入ったら)
 	bool m_Attackflg{};//攻撃したか
-
-
-	enum Animation {
-		IDOL,
-		RUN,
-		LEFTRUN,
-		RIGHTRUN,
-		BACKRUN,
-		ATTACK,
-		DEATH
-	};
 
 public:
 	static AnimationModel* m_Model;

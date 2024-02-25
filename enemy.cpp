@@ -6,8 +6,7 @@
 #include "scene.h"
 #include "gauge.h"
 #include "earth.h"
-
-
+#include "animationModelContainer.h"
 
 
 void Enemy::Load()
@@ -23,12 +22,7 @@ void Enemy::Unload()
 void Enemy::Init()
 {
 	Scene* scene = Manager::GetScene();
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\Mutant.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Idol.fbx", "Idol");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Mutant_Damage.fbx", "Damage");
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Enemy);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
 		&m_VertexLayout, "shader\\vertexLightingVS.cso");
@@ -76,11 +70,6 @@ void Enemy::Update()
 		m_Startflg = false;
 	}
 
-	if (m_AnimeFrame >= 17 || m_AnimeFrame == 0)
-	{
-		m_AnimeState = RUN;
-		m_AnimeFrame = 0;
-	}
 
 	D3DXVECTOR3 oldPosition = m_WorldPosition;
 	Scene* scene = Manager::GetScene();
@@ -184,7 +173,7 @@ void Enemy::Draw()
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 
-	m_Model->Update("Run", m_Time, "Run", m_Time, m_BlendRate);
+	m_Model->Update(EnemyAnimation::Enemy_Run, m_Time, EnemyAnimation::Enemy_Run, m_Time, m_BlendRate);
 
 
 	m_Time++;

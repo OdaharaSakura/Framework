@@ -17,8 +17,8 @@ private:
 	int m_AnimeState{};
 	int m_AnimeFrame{};
 
-	std::string m_AnimationName;
-	std::string m_NextAnimationName;
+	std::string m_AnimationIndex;
+	std::string m_NextAnimationIndex;
 	float m_BlendRate{};
 
 	enum Animation {

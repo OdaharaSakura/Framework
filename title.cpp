@@ -16,13 +16,24 @@
 #include "loading.h"
 #include "alpha.h"
 #include "sphere.h"
+#include "animationModelContainer.h"
 
 
 
+
+
+void Title::Load()
+{
+	AnimationModelContainer::Load(SCENE_TITLE);
+}
+
+void Title::Unload()
+{
+	AnimationModelContainer::Unload(SCENE_TITLE);
+}
 
 void Title::Init()
 {
-	
 
 	ResultCamera* camera = AddGameObject<ResultCamera>(LAYER_CAMERA);
 	camera->Setoffset(D3DXVECTOR3(2.0f, 1.0f, 1.0f));
@@ -53,6 +64,7 @@ void Title::Init()
 void Title::Uninit()
 {
 	Scene::Uninit();
+	Unload();
 }
 
 void Title::Update()

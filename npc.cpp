@@ -8,6 +8,7 @@
 #include "earth.h"
 #include "shader.h"
 #include "animationModel.h"
+#include "animationModelContainer.h"
 
 void NPC::Load()
 {
@@ -23,8 +24,7 @@ void NPC::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\GoGirl.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\GoGirl_Idle.fbx", "Idle");
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_NPC1);
 
 	AddComponent<VertexLighting>();
 
@@ -98,7 +98,7 @@ void NPC::Draw()
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 
-	m_Model->Update("Idle", m_Time, "Idle", m_Time, m_BlendRate);
+	m_Model->Update(NPCAnimation::NPC_Idle, m_Time, NPCAnimation::NPC_Idle, m_Time, m_BlendRate);
 
 
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;

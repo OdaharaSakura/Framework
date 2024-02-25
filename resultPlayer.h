@@ -25,15 +25,6 @@ private:
 
 	bool m_IsClearflg{};//çUåÇÇµÇΩÇ©
 
-	enum Animation {
-		IDOL,
-		RUN,
-		LEFTRUN,
-		RIGHTRUN,
-		BACKRUN,
-		ATTACK,
-		DEATH
-	};
 
 public:
 	void Init();

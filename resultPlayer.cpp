@@ -15,14 +15,15 @@
 #include "result.h"
 #include "earth.h"
 #include "shader.h"
+#include "animationModelContainer.h"
 
 
 void ResultPlayer::Init()
 {
 	Scene* scene = Manager::GetScene();
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idol");
+
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_ResultPlayer);
+
 
 
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
@@ -46,8 +47,6 @@ void ResultPlayer::Update()
 	Scene* scene = Manager::GetScene();
 
 
-	m_AnimeState = IDOL;
-
 	m_AnimeFrame++;
 	m_BlendRate += 0.01f;
 
@@ -67,7 +66,7 @@ void ResultPlayer::Draw()
 
 	Renderer::SetWorldMatrix(&matrix);
 
-	m_Model->Update("Idol", m_AnimeFrame, "Idol", m_AnimeFrame, m_BlendRate);
+	m_Model->Update(PlayerAnimation::Player_Idle, m_AnimeFrame, PlayerAnimation::Player_Idle, m_AnimeFrame, m_BlendRate);
 	
 
 	m_Model->Draw();

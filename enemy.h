@@ -29,19 +29,12 @@ private:
 	int m_AnimeFrame{};
 	int m_AttackDelaynum{};
 
-	std::string m_AnimationName;
-	std::string m_NextAnimationName;
+	std::string m_AnimationIndex;
+	std::string m_NextAnimationIndex;
 	float m_BlendRate{};
 
 	bool m_IsAttackflg{};//アタックできるか
 	bool m_Attackflg{};//攻撃したか
-
-	enum Animation {
-		IDOL,
-		RUN,
-		ATTACK,
-		DAMAGE
-	};
 
 public:
 	void Load();

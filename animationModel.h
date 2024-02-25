@@ -32,7 +32,7 @@ class AnimationModel
 {
 private:
 	const aiScene* m_AiScene = nullptr;
-	std::unordered_map<std::string, const aiScene*> m_Animation;
+	std::unordered_map<int, const aiScene*> m_Animation;
 
 	ID3D11Buffer**	m_VertexBuffer;
 	ID3D11Buffer**	m_IndexBuffer;
@@ -48,11 +48,11 @@ private:
 
 public:
 	void Load( const char *FileName );
-	void LoadAnimation( const char *FileName, const char *Name );
+	void LoadAnimation( const char *FileName, int Index );
 	void Unload();
 
-	void Update(const char *AnimationName1, int Frame1,
-				const char* AnimationName2, int Frame2, float BlendRate);
+	void Update(int AnimationName1, int Frame1,
+				int AnimationName2, int Frame2, float BlendRate);
 	void Draw();
 
 	std::unordered_map<std::string, BONE> GetBone() { return m_Bone; }

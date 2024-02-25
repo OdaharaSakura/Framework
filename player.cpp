@@ -32,27 +32,9 @@
 #include "item.h"
 #include "farmField.h"
 #include "farmTile.h"
+#include "animationModelContainer.h"
 
 AnimationModel* Player::m_Model{};
-
-void Player::Load()
-{
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idle");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
-}
-
-void Player::Unload()
-{
-
-}
 
 void Player::Init()
 {
@@ -78,10 +60,10 @@ void Player::Init()
 	auto carrotSeed = m_ItemFactory->CreateItem("CarrotSeed");
 	m_InventoryInterface->AddItem(carrotSeed);
 	
-	Load();
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Player);
 	
-	m_AnimationName = "Idle";
-	m_NextAnimationName = "Idle";
+	m_AnimationIndex = PlayerAnimation::Player_Idle;
+	m_NextAnimationIndex = PlayerAnimation::Player_Idle;
 
 
 	m_modelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
@@ -154,34 +136,34 @@ void Player::Update()
 		}
 	}
 
-	//プレイヤー当たり判定
-	std::vector<PlayerNetWork*> players = scene->GetGameObjects<PlayerNetWork>();
-	for (PlayerNetWork* player : players)
-	{
-		D3DXVECTOR3 position = player->GetPosition();
-		D3DXVECTOR3 scale = player->GetScale();
-		D3DXVECTOR3 scalexz = player->GetScale();
+	////プレイヤー当たり判定
+	//std::vector<PlayerNetWork*> players = scene->GetGameObjects<PlayerNetWork>();
+	//for (PlayerNetWork* player : players)
+	//{
+	//	D3DXVECTOR3 position = player->GetPosition();
+	//	D3DXVECTOR3 scale = player->GetScale();
+	//	D3DXVECTOR3 scalexz = player->GetScale();
 
 
-		D3DXVECTOR3 direction = m_WorldPosition - position;
-		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
-		scalexz.y = 0.0f;
-		float lengthxz = D3DXVec3Length(&scalexz);
-		if ((length * length) < (lengthxz * lengthxz))
-		{
-			m_WorldPosition.x = m_OldPosition.x;
-			m_WorldPosition.z = m_OldPosition.z;
-		}
-		else
-		{
+	//	D3DXVECTOR3 direction = m_WorldPosition - position;
+	//	direction.y = 0.0f;
+	//	float length = D3DXVec3Length(&direction);
+	//	scalexz.y = 0.0f;
+	//	float lengthxz = D3DXVec3Length(&scalexz);
+	//	if ((length * length) < (lengthxz * lengthxz))
+	//	{
+	//		m_WorldPosition.x = m_OldPosition.x;
+	//		m_WorldPosition.z = m_OldPosition.z;
+	//	}
+	//	else
+	//	{
 
-		}
-		if (length < lengthxz * lengthxz)
-		{
-			m_IsAttackflg = true;
-		}
-	}
+	//	}
+	//	if (length < lengthxz * lengthxz)
+	//	{
+	//		m_IsAttackflg = true;
+	//	}
+	//}
 
 	switch (m_PlayerState)
 	{
@@ -321,7 +303,7 @@ void Player::Draw()
 
 	Renderer::SetWorldMatrix(&matrix);
 	
-	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
+	m_Model->Update(m_AnimationIndex, m_Time, m_NextAnimationIndex, m_Time, m_BlendRate);
 
 
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
@@ -333,7 +315,7 @@ void Player::Draw()
 void Player::UpdateTitle()
 {
 
-	m_AnimationName = "Idle";
+	m_AnimationIndex = PlayerAnimation::Player_Idle;
 
 }
 
@@ -354,10 +336,10 @@ void Player::UpdateGround()
 	//サードパーソンビュー
 	if (Input::GetKeyPress('A'))
 	{
-		if (m_NextAnimationName != "LeftRun")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_LeftRun)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "LeftRun";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_LeftRun;
 			m_BlendRate = 0.0f;
 		}
 		m_MoveVec -= cameraRight;
@@ -378,10 +360,10 @@ void Player::UpdateGround()
 	}
 	if (Input::GetKeyPress('D'))
 	{
-		if (m_NextAnimationName != "RightRun")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_RightRun)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "RightRun";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_RightRun;
 			m_BlendRate = 0.0f;
 		}
 		
@@ -403,10 +385,10 @@ void Player::UpdateGround()
 	if (Input::GetKeyPress('W'))
 	{
 
-		if (m_NextAnimationName != "Run")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_Run)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Run";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_Run;
 			m_BlendRate = 0.0f;
 		}
 
@@ -426,10 +408,10 @@ void Player::UpdateGround()
 
 	if (Input::GetKeyPress('S'))
 	{
-		if (m_NextAnimationName != "BackRun")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_BackRun)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "BackRun";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_BackRun;
 			m_BlendRate = 0.0f;
 		}
 
@@ -460,10 +442,6 @@ void Player::UpdateGround()
 	if (Input::GetKeyPress('E'))
 	{
 		m_Rotation.y += 0.1f;
-	}
-	if (m_AnimeFrame < 17 && m_AnimeState == ATTACK)
-	{
-		m_AnimeState = ATTACK;
 	}
 
 	//装備品を使う
@@ -566,10 +544,10 @@ void Player::UpdateGround()
 		m_PlayerState = PLAYER_STATE_JUMP;
 		move = true;
 
-		if (m_NextAnimationName != "InPlaceJump")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_InPlaceJump)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "InPlaceJump";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_InPlaceJump;
 			m_BlendRate = 0.0f;
 		}
 		
@@ -585,10 +563,10 @@ void Player::UpdateGround()
 
 	if (move == false)
 	{
-		if (m_NextAnimationName != "Idle")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_Idle)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Idle";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_Idle;
 			m_BlendRate = 0.0f;
 			m_MoveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		}
@@ -635,7 +613,7 @@ void Player::UpdateInventory()
 
 void Player::GetDebugData()
 {
-	ImGui::Begin("Player");
+	ImGui::Begin("FBXModel_Player");
 	ImGui::Text("Position:%.2f,%.2f,%.2f", m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	ImGui::End();
 }

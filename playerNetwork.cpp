@@ -20,25 +20,16 @@
 #include "camera.h"
 #include "collider.h"
 #include "text.h"
-
+#include "animationModelContainer.h"
 
 
 void PlayerNetWork::Init()
 {
 	Scene* scene = Manager::GetScene();
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\model\\fbx\\Player.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Idle.fbx", "Idol");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_LeftRun.fbx", "LeftRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_RightRun.fbx", "RightRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_BackRun.fbx", "BackRun");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Attack.fbx", "Attack");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_Death.fbx", "Death");
-	m_Model->LoadAnimation("asset\\model\\fbx\\Player_InPlaceJump.fbx", "InPlaceJump");
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Player);
 
-	m_AnimationName = "Idol";
-	m_NextAnimationName = "Idol";
+	m_AnimationIndex = PlayerAnimation::Player_Idle;
+	m_NextAnimationIndex = PlayerAnimation::Player_Idle;
 
 	m_IsDisplayShadow = true;
 
@@ -223,7 +214,7 @@ void PlayerNetWork::Draw()
 	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1,
 		&depthShadowTexture);
 	
-	m_Model->Update(m_AnimationName.c_str(), m_Time, m_NextAnimationName.c_str(), m_Time, m_BlendRate);
+	m_Model->Update(m_AnimationIndex, m_Time, m_NextAnimationIndex, m_Time, m_BlendRate);
 
 	m_Time++;
 	m_BlendRate += 0.1f;
@@ -277,10 +268,10 @@ void PlayerNetWork::UpdateGround()
 			//サードパーソンビュー
 			if (m_PositionList[0].x < m_WorldPosition.x)
 			{
-				if (m_NextAnimationName != "LeftRun")
+				if (m_NextAnimationIndex != PlayerAnimation::Player_LeftRun)
 				{
-					m_AnimationName = m_NextAnimationName;
-					m_NextAnimationName = "LeftRun";
+					m_AnimationIndex = m_NextAnimationIndex;
+					m_NextAnimationIndex = PlayerAnimation::Player_LeftRun;
 					m_BlendRate = 0.0f;
 				}
 				moveVec -= GetRight();
@@ -297,10 +288,10 @@ void PlayerNetWork::UpdateGround()
 			}
 			if (m_PositionList[0].x > m_WorldPosition.x)
 			{
-				if (m_NextAnimationName != "RightRun")
+				if (m_NextAnimationIndex != PlayerAnimation::Player_RightRun)
 				{
-					m_AnimationName = m_NextAnimationName;
-					m_NextAnimationName = "RightRun";
+					m_AnimationIndex = m_NextAnimationIndex;
+					m_NextAnimationIndex = PlayerAnimation::Player_RightRun;
 					m_BlendRate = 0.0f;
 				}
 
@@ -316,10 +307,10 @@ void PlayerNetWork::UpdateGround()
 			if (m_PositionList[0].z > m_WorldPosition.z)
 			{
 
-				if (m_NextAnimationName != "Run")
+				if (m_NextAnimationIndex != PlayerAnimation::Player_Run)
 				{
-					m_AnimationName = m_NextAnimationName;
-					m_NextAnimationName = "Run";
+					m_AnimationIndex = m_NextAnimationIndex;
+					m_NextAnimationIndex = PlayerAnimation::Player_Run;
 					m_BlendRate = 0.0f;
 				}
 
@@ -338,10 +329,10 @@ void PlayerNetWork::UpdateGround()
 
 			if (m_PositionList[0].z < m_WorldPosition.z)
 			{
-				if (m_NextAnimationName != "BackRun")
+				if (m_NextAnimationIndex != PlayerAnimation::Player_BackRun)
 				{
-					m_AnimationName = m_NextAnimationName;
-					m_NextAnimationName = "BackRun";
+					m_AnimationIndex = m_NextAnimationIndex;
+					m_NextAnimationIndex = PlayerAnimation::Player_BackRun;
 					m_BlendRate = 0.0f;
 				}
 
@@ -360,10 +351,10 @@ void PlayerNetWork::UpdateGround()
 
 	if (move == false)
 	{
-		if (m_NextAnimationName != "Idol")
+		if (m_NextAnimationIndex != PlayerAnimation::Player_Idle)
 		{
-			m_AnimationName = m_NextAnimationName;
-			m_NextAnimationName = "Idol";
+			m_AnimationIndex = m_NextAnimationIndex;
+			m_NextAnimationIndex = PlayerAnimation::Player_Idle;
 			m_BlendRate = 0.0f;
 		}
 	}

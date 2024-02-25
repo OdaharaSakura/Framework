@@ -8,6 +8,7 @@
 #include "earth.h"
 #include "shader.h"
 #include "animationModel.h"
+#include "animationModelContainer.h"
 
 void COW::Load()
 {
@@ -24,7 +25,7 @@ void COW::Init()
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
 	m_Model->Load("asset\\model\\fbx\\cowpose.fbx");
-	m_Model->LoadAnimation("asset\\model\\fbx\\cowanime.fbx", "Walk");
+	m_Model->LoadAnimation("asset\\model\\fbx\\cowanime.fbx", CowAnimation::Cow_Walk);
 
 	AddComponent<VertexLighting>();
 
@@ -98,7 +99,7 @@ void COW::Draw()
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 
-	m_Model->Update("Walk", m_Time, "Walk", m_Time, m_BlendRate);
+	m_Model->Update(CowAnimation::Cow_Walk, m_Time, CowAnimation::Cow_Walk, m_Time, m_BlendRate);
 
 
 	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
