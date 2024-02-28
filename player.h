@@ -2,6 +2,7 @@
 
 #include "gameObject.h"
 #include "animationModel.h"
+#include "savedata.h"
 
 #include <string>
 
@@ -38,7 +39,6 @@ private:
 	class Conversation* m_Conversation;//会話
 	std::string m_Message;//会話中のメッセージ
 
-	D3DXVECTOR3			m_OldPosition{};
 	D3DXVECTOR3			m_MoveVec{};
 	D3DXVECTOR3			m_Velocity{};
 	D3DXVECTOR3			m_modelScale{};
@@ -65,8 +65,6 @@ private:
 public:
 	static AnimationModel* m_Model;
 
-	static void Load();
-	static void Unload();
 	void Init();
 	void Uninit();
 	void Update();
@@ -86,12 +84,9 @@ public:
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 	void SetPlayerState(int state) { m_PlayerState = state; }
-	void AddHp(int hp) 
-	{ 
-		m_Hp += hp; 
-		if (m_Hp > m_HpMax) m_Hp = m_HpMax;
-		if (m_Hp < 0) m_Hp = 0;
-	}
+	void AddHp(int hp);
+	void LoadPlayerData(PlayerData playerData);
+
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
 	{

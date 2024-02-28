@@ -12,7 +12,7 @@
 
 void EquipmentObj::Init()
 {
-	AddComponent<VertexLighting>();
+	AddComponent<PixelLighting>();
 
 	m_Rotation = D3DXVECTOR3(-3.14f / 4, 0.0f, -3.14f / 2);
 	m_WorldPosition = D3DXVECTOR3(0.0f, 0.125f, 0.0f);
@@ -55,8 +55,6 @@ void EquipmentObj::Draw()
 
 	Renderer::SetWorldMatrix(&world);
 
-	//#ifdef _DEBUG
 	m_Model->Draw();
 
-	//#endif
 }

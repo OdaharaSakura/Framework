@@ -13,21 +13,21 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 	float4 bloom = 0.0; //ブルーム処理の結果を格納する変数
 
 	//画面サイズ X960 Y540とした場合
-    for (int y = -3; y < 4; y++) //上下は±12ピクセルの範囲
+    for (int y = -9; y < 10; y++) //上下は±12ピクセルの範囲
 	{
-		for (int x = -1; x < 2; x++) //左右は±3ピクセルの範囲
+		for (int x = -4; x < 5; x++) //左右は±3ピクセルの範囲
 		{//式中の値の3を調節すると光の範囲が変化する
 			float2 texCoord = In.TexCoord +
-				float2(x * 0.03 / 960.0, y * 0.015 / 540.0); //テクスチャ座標をずらす
+				float2(x * 4 / 1280.0, y * 9 / 720.0); //テクスチャ座標をずらす
 			float4 color = g_Texture.Sample(g_SamplerState, texCoord);
 			//明度を計算
 			float bright = color.r * 0.299 + color.g * 0.587 + color.b * 0.114;
-			//明度が閾値0.7より大きい、かつ処理対象のピクセルでない
-			if (bright > 0.98 && (x != 0 || y != 0))
+
+			if (x != 0 || y != 0)
 			{
-				bloom += color / (x * x + y * y + 100.0f);//距離によって減衰（ブルームに丸みもできる）
+				bloom -= color / (x * x + y * y);//距離によって減衰
 			}
 		}
 	}
-	outDiffuse.rgb += bloom * 0.5f;//結果を加算
+	outDiffuse.rgb += bloom * 0.05f;//結果を加算
 }

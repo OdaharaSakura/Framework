@@ -1,7 +1,8 @@
 #pragma once
 #include "scene.h"
 #include "renderer.h"
-
+#include <thread>
+#include <memory>
 
 class Manager
 {
@@ -11,6 +12,8 @@ private:
 
 	static Renderer* m_Renderer;
 	static bool m_IsGameFinish;
+	static bool m_IsLoad;
+
 public:
 	static void Init();
 	static void Uninit();
@@ -30,5 +33,8 @@ public:
 	}
 
 	static void SetIsGameFinish() { m_IsGameFinish = true; }
+	static void SetIsLoad(bool isLoad) { m_IsLoad = isLoad; }
+
 	static bool GetIsGameFinish() { return m_IsGameFinish; }
+	static bool GetIsLoad() { return m_IsLoad; }
 };

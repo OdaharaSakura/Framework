@@ -1,10 +1,9 @@
-
 #include "main.h"
 #include "manager.h"
 #include "scene.h"
 #include "iEquipment.h"
-#include "equipment.h"
 #include "equipmentView.h"
+#include "equipmentFactory.h"
 
 void IEquipment::Init()
 	{
@@ -44,4 +43,12 @@ void IEquipment::ExecuteEquipment()
 	if (m_Equipment) {
 		m_Equipment->Execute();
 	}
+}
+
+void IEquipment::Load(PlayerData playerdata)
+{
+	auto equipmentFactory = new EquipmentFactory();
+	auto equipment = equipmentFactory->CreateEquipment(playerdata.equipmentItemKey);
+	if (equipment == nullptr) return;
+    SetEquipment(equipment);
 }

@@ -1,26 +1,38 @@
 #pragma once
 #include "main.h"
+#include <string>
 #include <vector>
 
 struct TimeData
 {
-	int Month;
-	int Day;
-	int Hours;
-	int Minutes;
+	int month;
+	int day;
+	int hour;
+	int minute;
 };
 
-struct FarmData
+struct FarmTileData
 {
-	int Money;
-	int Water;
-	int Fertilizer;
+	std::string cropKey;
+	int tileStage;
+	int cropStage;
+	int growthMinute;
 };
 
-// セーブデータ構造体
+struct PlayerData
+{
+	int money;
+	float positionx;
+	float positiony;
+	float positionz;
+	std::vector<std::string> possessionItemKeys;
+	std::string equipmentItemKey;
+};
+
+
 struct SaveData
 {
-	TargetBreakingMode TargetBreaking;
-	KumiteMode KumiteNormal;
-	KumiteMode KumiteHard;
+	TimeData timeData;
+	PlayerData playerData;
+	std::vector<FarmTileData> farmTileData;
 };

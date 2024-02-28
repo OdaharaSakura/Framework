@@ -1,7 +1,7 @@
 //#include "main.h"
 #include "renderer.h"
 #include "gameObject.h"
-
+#include "collider.h"
 
 
 void GameObject::Uninit()

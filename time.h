@@ -1,5 +1,6 @@
 #pragma once
 #include "gameObject.h"
+#include "savedata.h"
 
 #include <iostream>
 #include <string>
@@ -60,6 +61,9 @@ public:
 
 	void NotifyAllTimeObservers();
 	void NotifyAllTimeObserversHour();
+	void NotifyAllTimeObserversMinute();
 	void AddObserver(class TimeObserver* observer);
 	void RemoveObserver(class TimeObserver* observer);
+
+	void Load(TimeData timedata);
 };

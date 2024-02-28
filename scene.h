@@ -13,7 +13,8 @@ enum ObjectLayer
 	LAYER_OBJECT_NOTDRAW,
 	LAYER_CAMERA,
 	LAYER_OBJECT_3D,
-	LAYER_COLLIDER,
+	LAYER_SPHERECOLLIDER,
+	LAYER_BOXCOLLIDER,
 	LAYER_POSTEFFECT,
 	LAYER_OBJECT_2D,
 	LAYER_MAX
@@ -80,7 +81,7 @@ public:
 
 	void Draw3DObject()
 	{
-		for (int i = LAYER_OBJECT_3D; i <= LAYER_COLLIDER; i++)
+		for (int i = LAYER_OBJECT_3D; i <= LAYER_BOXCOLLIDER; i++)
 		{
 			for (GameObject* gameObject : m_GameObject[i])//”ÍˆÍforƒ‹[ƒv
 			{
@@ -145,6 +146,23 @@ public:
 	{
 		std::vector<T*> objects;
 		for (int i = 0; i < LAYER_MAX; i++)
+		{
+			for (GameObject* object : m_GameObject[i])
+			{
+				if (typeid(*object) == typeid(T))//Œ^‚ð’²‚×‚é(RTTI“®“IŒ^î•ñ)
+				{
+					objects.push_back((T*)object);//”z—ñ‚Ì’†‚É“ü‚ê‚é
+				}
+			}
+		}
+		return objects;
+	}
+
+	template<typename T>
+	std::vector<T*> GetColliderObjects()
+	{
+		std::vector<T*> objects;
+		for (int i = LAYER_SPHERECOLLIDER; i < LAYER_BOXCOLLIDER; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{

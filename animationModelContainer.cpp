@@ -85,9 +85,6 @@ void AnimationModelContainer::Unload(int sceneIndex)
     }
 }
 
-
-
-
 AnimationModel* AnimationModelContainer::GetAnimationModel_Key(int index)
 {
     auto it = m_AnimationModelDictionary.find(index);
@@ -101,16 +98,16 @@ AnimationModel* AnimationModelContainer::GetAnimationModel_Key(int index)
 
 void AnimationModelContainer::LoadAnimationModelData(int index, AnimationModel* model)
 {
-    	auto it = m_AnimationModelDictionary.find(index);
-        if (it == m_AnimationModelDictionary.end()) 
+    auto it = m_AnimationModelDictionary.find(index);
+    if (it == m_AnimationModelDictionary.end())
+    {
+        if (model != nullptr)
         {
-            if (model != nullptr)
-            {
-			m_AnimationModelDictionary[index] = model;
-		}
+            m_AnimationModelDictionary[index] = model;
+        }
         else
         {
-		//ロードに失敗した
+            //ロードに失敗した
         }
     }
 }

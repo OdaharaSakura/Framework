@@ -33,6 +33,8 @@
 #include "farmField.h"
 #include "farmTile.h"
 #include "animationModelContainer.h"
+#include "collider.h"
+#include "sphereObject.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -81,7 +83,7 @@ void Player::Init()
 	 //m_ShotSE = AddComponent<Audio>();
 	 //m_ShotSE->Load("asset\\audio\\åïÇ≈éaÇÈ3.wav");
 
-	 //AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
+	 //AddComponent<SphereCollider>()->SetSphereCollider(1.0f, m_WorldPosition);
 	 
 	 m_AttackDelaynum = 0;
 	 m_IsAttackflg = false;
@@ -135,34 +137,6 @@ void Player::Update()
 		}
 	}
 
-	////ÉvÉåÉCÉÑÅ[ìñÇΩÇËîªíË
-	//std::vector<PlayerNetWork*> players = scene->GetGameObjects<PlayerNetWork>();
-	//for (PlayerNetWork* player : players)
-	//{
-	//	D3DXVECTOR3 position = player->GetPosition();
-	//	D3DXVECTOR3 scale = player->GetScale();
-	//	D3DXVECTOR3 scalexz = player->GetScale();
-
-
-	//	D3DXVECTOR3 direction = m_WorldPosition - position;
-	//	direction.y = 0.0f;
-	//	float length = D3DXVec3Length(&direction);
-	//	scalexz.y = 0.0f;
-	//	float lengthxz = D3DXVec3Length(&scalexz);
-	//	if ((length * length) < (lengthxz * lengthxz))
-	//	{
-	//		m_WorldPosition.x = m_OldPosition.x;
-	//		m_WorldPosition.z = m_OldPosition.z;
-	//	}
-	//	else
-	//	{
-
-	//	}
-	//	if (length < lengthxz * lengthxz)
-	//	{
-	//		m_IsAttackflg = true;
-	//	}
-	//}
 
 	switch (m_PlayerState)
 	{
@@ -191,67 +165,40 @@ void Player::Update()
 	//è·äQï®Ç∆ÇÃè’ìÀîªíËÅ´Å´=====================================
 	float groundHeight{};
 
-	std::vector<MeshField*> meshFields = scene->GetGameObjects<MeshField>();
+	auto meshFields = scene->GetGameObjects<MeshField>();
 
-	for (MeshField* meshField : meshFields)
+	for (auto meshField : meshFields)
 	{
-		if (meshField != nullptr)groundHeight = meshField->GetHeight(m_WorldPosition);
+		if (meshField != nullptr) groundHeight = meshField->GetHeight(m_WorldPosition);
 		else groundHeight = 0.0f;
 	}
 	
 
-	////â~íå
-	//std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
-	//for (Cylinder* cylinder : cylinders)
-	//{
-	//	D3DXVECTOR3 position = cylinder->GetPosition();
-	//	D3DXVECTOR3 scale = cylinder->GetScale();
-	//	D3DXVECTOR3 scalexz = cylinder->GetScale();
+	//SphereCollider
+	std::vector<SphereObject*> sphereObjects = scene->GetColliderObjects<SphereObject>();
+	for (SphereObject* sphereObject : sphereObjects)
+	{
+		D3DXVECTOR3 position = sphereObject->GetPosition();
+		D3DXVECTOR3 scalexz = sphereObject->GetScale();
 
-	//	D3DXVECTOR3 direction = m_WorldPosition - position;
-	//	direction.y = 0.0f;
-	//	float length = D3DXVec3Length(&direction);
-	//	scalexz.y = 0.0f;
-	//	float lengthxz = D3DXVec3Length(&scalexz);
-	//	if (length < lengthxz)
-	//	{
-	//		if (m_WorldPosition.y < position.y + scale.y - 0.5f)
-	//		{
-	//			m_WorldPosition.x = m_OldPosition.x;
-	//			m_WorldPosition.z = m_OldPosition.z;
-	//		}
-
-	//		else
-	//		{
-	//			groundHeight = position.y + scale.y;
-	//		}
-
-	//		break;
-	//	}
-	//}
+		D3DXVECTOR3 direction = m_WorldPosition - position;
+		direction.y = 0.0f;
+		float length = D3DXVec3Length(&direction);
+		scalexz.y = 0.0f;
+		float lengthxz = D3DXVec3Length(&scalexz);
+		if ((length * length) <= lengthxz)
+		{
+			m_WorldPosition.x = m_OldPosition.x;
+			m_WorldPosition.z = m_OldPosition.z;
+		}
+	}
 
 
-	//Test============TODO:å„Ç≈è¡Ç∑
-	//if (Input::GetKeyTrigger('R'))
-	//{
-	//	auto equipmentHoe = m_EquipmentFactory->CreateEquipment("Hoe");
-	//	m_EquipmentInterface->SetEquipment(equipmentHoe);
-	//}
 	if (Input::GetKeyTrigger('E'))
 	{
 		m_EquipmentInterface->RemoveEquipment();
 	}
-	//if (Input::GetKeyTrigger('V'))
-	//{
-	//	auto equipmentSickle = m_EquipmentFactory->CreateEquipment("Sickle");
-	//	m_EquipmentInterface->SetEquipment(equipmentSickle);
-	//}
-	//if (Input::GetKeyTrigger('T'))
-	//{
-	//	auto kama = m_ItemFactory->CreateItem("Sickle");
-	//	m_InventoryInterface->AddItem(kama);
-	//}
-	//Test============
+
 	
 	//è·äQï®Ç∆ÇÃè’ìÀîªíËÅ™Å™=====================================
 
@@ -608,6 +555,18 @@ void Player::UpdateInventory()
 		m_InventoryInterface->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
+}
+
+void Player::AddHp(int hp)
+{
+	m_Hp += hp;
+	if (m_Hp > m_HpMax) m_Hp = m_HpMax;
+	if (m_Hp < 0) m_Hp = 0;
+}
+
+void Player::LoadPlayerData(PlayerData playerData)
+{
+	m_WorldPosition = D3DXVECTOR3(playerData.positionx, playerData.positiony, playerData.positionz);
 }
 
 void Player::GetDebugData()

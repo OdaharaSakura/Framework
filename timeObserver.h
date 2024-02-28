@@ -11,7 +11,9 @@ public:
 
 	~TimeObserver(){};
 
+	virtual void UpdateDay() = 0;
 	virtual void UpdateHour() = 0;
+	virtual void UpdateMinute() = 0;
 
 	void SetRealOneSecond()//ƒRƒR”÷–­
 	{

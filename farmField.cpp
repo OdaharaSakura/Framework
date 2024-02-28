@@ -230,3 +230,15 @@ FarmTile* FarmField::GetFarmTileClosestToPlayer(int state1, int state2)
 		return nullptr;
 	}
 }
+
+void FarmField::LoadFarmTileData(std::vector<FarmTileData> farmTileData)
+{
+	if (m_FarmTiles.size() <= 0) return;
+	for (int i = 0; i < m_FarmTiles.size(); i++)
+	{
+		FarmTileState farmTileState = (FarmTileState)farmTileData[i].tileStage;
+		CropState cropState = (CropState)farmTileData[i].cropStage;
+		
+		m_FarmTiles[i]->LoadData(farmTileState, cropState, farmTileData[i].cropKey, farmTileData[i].growthMinute);
+	}
+}

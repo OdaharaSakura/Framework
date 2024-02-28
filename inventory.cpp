@@ -5,6 +5,7 @@
 #include "player.h"
 #include "inventory.h"
 #include "inventoryView.h"
+#include "itemFactory.h"
 
 void Inventory::Init()
 {
@@ -178,6 +179,16 @@ void Inventory::DecreaseItem(int index, int quantity)
     }
 }
 
+std::vector<std::string> Inventory::GetPossessionItemKeys()
+{
+    std::vector<std::string> keys;
+    for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
+    {
+		keys.push_back(it->GetKey());
+	}
+	return keys;
+}
+
 Item* Inventory::GetItem(std::string itemkey)
 {
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
@@ -197,4 +208,20 @@ Item* Inventory::GetItem(int index)
 		return &m_PossessionItems[index];
 	}
 	return nullptr;
+}
+
+void Inventory::Load(PlayerData playerData)
+{
+    if (playerData.possessionItemKeys.size() <= 0)
+    {
+        return;
+    }
+
+    ItemFactory* itemFactory = new ItemFactory();
+        
+    for(auto it = playerData.possessionItemKeys.begin(); it != playerData.possessionItemKeys.end(); ++it)
+	{//TODO:ƒAƒCƒeƒ€‚Ì”‚à•Û‘¶‚·‚é
+        Item* item = itemFactory->CreateItem(*it);
+        AddItem(item);
+	}
 }

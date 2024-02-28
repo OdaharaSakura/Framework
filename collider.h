@@ -4,14 +4,13 @@
 #include <vector>
 
 class GameObject;
-
+class SphereObject;
 
 class SphereCollider : public Component
 {
 private:
 
 	class Model* m_Model{};
-	GameObject* m_AttachGameObject;
 
 	std::vector<GameObject*> m_HitGameObjectlist;
 
@@ -29,20 +28,17 @@ private:
 	std::string m_HitObjectTag{};
 		 
 public:
-	GameObject* m_testObj;
+	SphereObject* m_SphereObj;
 
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
 
-	/// <summary>
-	/// コライダーをつけるときは必ずこれを呼ぶ
-	/// </summary>
-	void SetSphireCollider(GameObject* gameobject, float radius) 
+	void SetSphereCollider(float radius, D3DXVECTOR3 position) 
 	{ 
 		m_Radius = radius;
-		m_AttachGameObject = gameobject;
+		m_WorldPosition = position;
 	}
 
 	float GetSphireColliderRadius(){ return m_Radius; }

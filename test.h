@@ -6,8 +6,12 @@ class Test : public Scene
 {
 private:
 	class Fade* m_Fade = nullptr;
-	class SphereCollider* m_SphereCollider = nullptr;
+	class EquipmentObj* m_EquipmentObj = nullptr;
 	class Player* m_Player = nullptr;
+	class Time* m_Time = nullptr;
+	class FarmField* m_FarmField = nullptr;
+	class IEquipment* m_Equipment = nullptr;
+	class Inventory* m_Inventory = nullptr;
 
 	static bool m_LoadFinish;
 

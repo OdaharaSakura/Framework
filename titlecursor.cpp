@@ -115,6 +115,13 @@ void TitleCursor::Update()
 			m_Fade->SetIsFadeOut();
 
 			break;
+
+		case Select::CONTINUE:
+			m_Fade->SetFadeSpeed(0.05f);
+			m_Fade->SetIsFadeOut();
+			Manager::SetIsLoad(true);
+			break;
+
 		case Select::UNINIT:
 			Manager::SetIsGameFinish();
 			break;

@@ -72,6 +72,8 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Wooden", "woodbox.obj");//ñÿî†
         LoadModelData("Well", "well.obj");//à‰åÀ
         LoadModelData("Hut", "hut.obj");//è¨âÆ
+        LoadModelData("Sphere", "Sphere.obj");//ãÖëÃ
+        LoadModelData("Box", "box.obj");//â~íå
         break;
     case SCENE_RESULT:
         break;

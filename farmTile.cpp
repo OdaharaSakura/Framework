@@ -3,7 +3,6 @@
 #include "renderer.h"
 #include "model.h"
 #include "shader.h"
-
 #include "modelContainer.h"
 #include "cropObserver.h"
 #include "scene.h"
@@ -12,6 +11,7 @@
 #include "itemFactory.h"
 #include "staticObject.h"
 #include "gameObject.h"
+#include "cropFactory.h"
 
 void FarmTile::Init()
 {
@@ -28,18 +28,21 @@ void FarmTile::Init()
 
 void FarmTile::Uninit()
 {
-	////TODO:‚±‚±ƒGƒ‰[“f‚­A—v‰ü‘P
-	//if (m_FarmTileModel != nullptr)
-	//{
-	//	m_FarmTileModel->Unload();
-	//	delete m_FarmTileModel;
-	//}
-
-	//if (m_CropStaticObject != nullptr)
-	//{
-	//	m_CropStaticObject->Unload();
-	//	delete m_CropStaticObject;
-	//}
+	if (m_CropObserver != nullptr)
+	{
+		delete m_CropObserver;
+		m_CropObserver = nullptr;
+	}
+	if (m_FarmTileModel != nullptr)
+	{
+		delete m_FarmTileModel;
+		m_FarmTileModel = nullptr;
+	}
+	if (m_Crop != nullptr)
+	{
+		delete m_Crop;
+		m_Crop = nullptr;
+	}
 }
 
 void FarmTile::Update()
@@ -105,13 +108,9 @@ void FarmTile::Harvest()
 	auto crop = itemFactory->CreateItem(m_Crop->GetKey());
 	inventory->AddItem(crop);
 	m_FarmTileState = FarmTileState::EMPTY;
-	delete m_CropObserver;
 	m_CropObserver = nullptr;
-	delete m_FarmTileModel;
 	m_FarmTileModel = nullptr;
-	delete m_CropStaticObject;
-	m_CropStaticObject = nullptr;
-	delete m_Crop;
+	m_CropStaticObject->SetModel_Null();
 	m_Crop = nullptr;
 }
 
@@ -142,4 +141,40 @@ void FarmTile::AdvanceCropState()
 CropState FarmTile::GetCropState()
 {
 	if (m_Crop) return m_Crop->GetCropState();
+	else
+	{
+		return CropState::None;
+	}
 }
+
+std::string FarmTile::GetCropKey()
+{
+	if (m_Crop) return m_Crop->GetKey();
+	else
+	{
+		return "";
+	}
+}
+
+int FarmTile::GetCropGrowTime()
+{
+	if (m_CropObserver) return m_CropObserver->GetMinute();
+	else
+	{
+		return 0;
+	}
+}
+
+void FarmTile::LoadData(FarmTileState farmTileState, CropState cropState, std::string cropKey, int cropGrowTime)
+{
+	m_FarmTileState = farmTileState;
+	if (m_FarmTileState == FarmTileState::PLANTED || m_FarmTileState == FarmTileState::PLANTED_WATERED)
+	{
+		CropFactory* cropFactory = new CropFactory();
+		m_Crop = cropFactory->CreateCrop(cropKey);
+		m_Crop->SetCropState(cropState);
+		m_CropObserver = new CropObserver(this, m_Crop);
+		m_CropObserver->SetMinute(cropGrowTime);
+	}
+}
+

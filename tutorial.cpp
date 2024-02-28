@@ -2,7 +2,6 @@
 #include "manager.h"
 #include "renderer.h"
 #include "tutorial.h"
-#include "game.h"
 #include "input.h"
 #include "camera.h"
 #include "polygon2D.h"
@@ -49,7 +48,7 @@ void Tutorial::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
-		Manager::SetScene<Game>();//エンターキーを押したらゲームシーンに移行	
+
 	}
 
 }

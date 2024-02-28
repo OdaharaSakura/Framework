@@ -3,7 +3,6 @@
 #include "renderer.h"
 #include "scene.h"
 #include "input.h"
-#include "game.h"
 #include "test.h"
 #include "title.h"
 #include "networkTest.h"
@@ -20,6 +19,7 @@ Scene* Manager::m_NextScene{};
 Renderer* Manager::m_Renderer{};
 
 bool Manager::m_IsGameFinish{};
+bool Manager::m_IsLoad{};
 
 void Manager::Init()
 {
@@ -65,6 +65,7 @@ void Manager::Update()
 		m_Scene = m_NextScene;
 		m_Scene->Init();
 
+		
 		
 
 		m_NextScene = nullptr;

@@ -31,6 +31,8 @@ public:
 	void SetIsNotSendToPixelShader() { m_IsSendToPixelShader = false; }
 	void SetIndex(int num) { m_Index = num; }
 	void SetTexture(std::string TextureKey, std::string TexturePath);
+	void SetTexture_Null() { m_Texture = nullptr; }
 
 	ID3D11ShaderResourceView* GetTexture() { return m_Texture; }
+
 };

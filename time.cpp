@@ -49,6 +49,7 @@ void Time::Update()
 		if (m_CountNum >= m_RealTimeSpeed )
 		{
 			m_Minutes += 10;
+			NotifyAllTimeObserversMinute();
 
 			m_CountNum = 0.0f;
 			
@@ -139,9 +140,14 @@ void Time::NotifyAllTimeObservers()
 
 void Time::NotifyAllTimeObserversHour()
 {
+
+}
+
+void Time::NotifyAllTimeObserversMinute()
+{
 	for (auto observer : m_Observers)
 	{
-		observer->UpdateHour();
+		observer->UpdateMinute();
 	}
 }
 
@@ -154,6 +160,14 @@ void Time::RemoveObserver(TimeObserver* observer)
 {
 	auto it = std::remove(m_Observers.begin(), m_Observers.end(), observer);
 	m_Observers.erase(it, m_Observers.end());
+}
+
+void Time::Load(TimeData timedata)
+{
+	m_Month = timedata.month;
+	m_Day = timedata.day;
+	m_Hours = timedata.hour;
+	m_Minutes = timedata.minute;
 }
 
 

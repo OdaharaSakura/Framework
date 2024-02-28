@@ -4,7 +4,7 @@
 #include "manager.h"
 #include "collider.h"
 #include "collision.h"
-#include "equipmentObj.h"
+#include "sphereObject.h"
 #include "gameObject.h"
 #include "model.h"
 
@@ -12,17 +12,14 @@
 
 void SphereCollider::Init()
 {
-	//Collision::m_SphereColliderObjects.push_back(m_AttachGameObject);
-	
-	m_testObj = Manager::GetScene()->AddGameObject<EquipmentObj>(LAYER_COLLIDER);//colliderを作るオブジェクトの生成
+	Scene* scene = Manager::GetScene();
+	m_SphereObj = scene->AddGameObject<SphereObject>(LAYER_SPHERECOLLIDER);//colliderを作るオブジェクトの生成
+	m_SphereObj->SetParent(m_AttachObject);//親子関係を設定
+	m_SphereObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
+	m_SphereObj->SetPosition(m_WorldPosition);
+	m_SphereObj->SetRadius(m_Radius);
+	SetIsStatic(false);
 
-	m_testObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
-
-	//m_Scale = D3DXVECTOR3(m_Radius, m_Radius, m_Radius);
-
-//#ifdef _DEBUG
-
-//#endif
 }
 
 
@@ -37,7 +34,8 @@ void SphereCollider::Uninit()
 
 void SphereCollider::Update()
 {
-	m_testObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
+	m_SphereObj->SetScale(D3DXVECTOR3(m_Radius, m_Radius, m_Radius) * m_ScaleOffset);
+	m_SphereObj->SetPosition(m_WorldPosition);
 }
 
 

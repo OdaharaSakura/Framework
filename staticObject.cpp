@@ -8,7 +8,10 @@
 #include "modelContainer.h"
 #include "shader.h"
 #include "camera.h"
-
+#include "collider.h"
+#include "sphereObject.h"
+#include "boxObject.h"
+#include "scene.h"
 
 void StaticObject::Init()
 {
@@ -24,7 +27,8 @@ void StaticObject::Uninit()
 
 void StaticObject::Update()
 {
-
+	//sphere->SetPosition(m_WorldPosition);
+	//sphere->SetScale(m_Scale);
 }
 
 void StaticObject::Draw()
@@ -47,6 +51,7 @@ void StaticObject::Draw()
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
+	m_Matrix = world;
 
 	Renderer::SetWorldMatrix(&world);
 

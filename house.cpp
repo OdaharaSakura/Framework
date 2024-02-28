@@ -3,6 +3,7 @@
 #include "house.h"
 #include "shader.h"
 
+
 void House::Init()
 {
 	m_Model = new Model();

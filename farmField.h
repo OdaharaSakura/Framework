@@ -1,7 +1,8 @@
 #pragma once
 
 #include "gameObject.h"
-
+#include "savedata.h"
+#include <vector>
 class FarmTile;
 class Player;
 class FarmField : public GameObject 
@@ -26,6 +27,8 @@ public:
 	std::vector<FarmTile*> GetFarmTiles() { return m_FarmTiles; }
 	FarmTile* GetFarmTileClosestToPlayer(int state);
 	FarmTile* GetFarmTileClosestToPlayer(int state1, int state2);
+
+	void LoadFarmTileData(std::vector<FarmTileData> farmTileData);
 };
 
 

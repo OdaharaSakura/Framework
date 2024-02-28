@@ -73,9 +73,16 @@ void SubPanelOptions::SetTypes(SubPanelOptionTypes type)
 		path = it->second;
 	}
 
-
-	m_StaticSprite = AddComponent<StaticSprite>();//ã‚Ì‚Æ‚Ç‚Á‚¿‚Å‚à‚æ‚¢
-	m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, key, path);
+	if(m_StaticSprite != nullptr)
+	{
+		m_StaticSprite->SetTexture_Null();
+		m_StaticSprite->SetTexture(key, path);
+	}
+	else
+	{
+		m_StaticSprite = AddComponent<StaticSprite>();//ã‚Ì‚Æ‚Ç‚Á‚¿‚Å‚à‚æ‚¢
+		m_StaticSprite->Init(m_WorldPosition.x, m_WorldPosition.y, m_Scale.x, m_Scale.y, key, path);
+	}
 }
 
 int SubPanelOptions::GetOptionsCount()

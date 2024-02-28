@@ -270,9 +270,6 @@
     <ClCompile Include="testHouse.cpp">
       <Filter>1_Common\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>1_Common\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>1_Common\Game</Filter>
     </ClCompile>
@@ -317,7 +314,6 @@
     <ClCompile Include="staticSprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="animationModelContainer.cpp" />
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="townFactory.cpp" />
@@ -366,6 +362,13 @@
     <ClCompile Include="cropObserver.cpp">
       <Filter>1_Common\Game\Observer</Filter>
     </ClCompile>
+    <ClCompile Include="cow.cpp" />
+    <ClCompile Include="savedataManager.cpp" />
+    <ClCompile Include="animationModelContainer.cpp">
+      <Filter>1_Common\Game\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="sphereObject.cpp" />
+    <ClCompile Include="boxObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -568,9 +571,6 @@
     <ClInclude Include="testHouse.h">
       <Filter>1_Common\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>1_Common\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="renderer.h">
       <Filter>1_Common\Game</Filter>
     </ClInclude>
@@ -621,7 +621,6 @@
     <ClInclude Include="staticSprite.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="animationModelContainer.h" />
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="townFactory.h" />
@@ -667,7 +666,6 @@
       <Filter>1_Common\Game</Filter>
     </ClInclude>
     <ClInclude Include="meshfieldheight.h" />
-    <ClInclude Include="observer.h" />
     <ClInclude Include="savedata.h" />
     <ClInclude Include="cropObserver.h">
       <Filter>1_Common\Game\Observer</Filter>
@@ -675,6 +673,13 @@
     <ClInclude Include="timeObserver.h">
       <Filter>1_Common\Game\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="cow.h" />
+    <ClInclude Include="savedataManager.h" />
+    <ClInclude Include="animationModelContainer.h">
+      <Filter>1_Common\Game\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="sphereObject.h" />
+    <ClInclude Include="boxObject.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

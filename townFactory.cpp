@@ -8,6 +8,32 @@
 #include "cow.h"
 #include "tree_billboard.h"
 #include "tree.h"
+#include "sphereObject.h"
+#include "boxObject.h"
+
+//SphereColliderの置き方
+//	SphereObject* sphereroad = scene->AddGameObject<SphereObject>(LAYER_SPHERECOLLIDER);
+//	sphereroad->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
+//	sphereroad->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+
+void TownFactory::SetSphereCollider(StaticObject* gameObject)
+{
+	Scene* scene = Manager::GetScene();
+
+	SphereObject* sphere = scene->AddGameObject<SphereObject>(LAYER_SPHERECOLLIDER);
+	sphere->SetPosition(gameObject->GetPosition());
+	sphere->SetScale(gameObject->GetScale());
+}
+
+void TownFactory::SetBoxCollider(StaticObject* gameObject)
+{
+	Scene* scene = Manager::GetScene();
+
+	BoxObject* box = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	box->SetPosition(gameObject->GetPosition());
+	box->SetScale(gameObject->GetScale());
+
+}
 
 void TownFactory::CreateTown()
 {
@@ -15,13 +41,26 @@ void TownFactory::CreateTown()
 
 	scene->AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(12.0f, 3.0f, 6.0f));
 
+
 	Road* road = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
 	road->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
 	road->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
 
+	//==========================丸いコライダーの置き方
+	SphereObject* sphereroad = scene->AddGameObject<SphereObject>(LAYER_SPHERECOLLIDER);
+	sphereroad->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
+	sphereroad->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+	//==========================
+
 	Road* road1 = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
 	road1->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 24.0f));
 	road1->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+
+	//==========================四角いコライダーの置き方
+	BoxObject* sphereroad = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	sphereroad->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
+	sphereroad->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+	//==========================
 
 	Road* road2 = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
 	road2->SetPosition(D3DXVECTOR3(10.0f, 0.01f, 36.0f));
@@ -48,24 +87,21 @@ void TownFactory::CreateTown()
 	road6->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
 
 
-
-	StaticObject* desk = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	desk->SetModel_Key("Desk");
-	desk->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 8.0f));
-	desk->SetScale(D3DXVECTOR3(0.01f, 0.01f, 0.01f));
-	desk->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
 	StaticObject* house2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house2->SetModel_Key("House2");
 	house2->SetPosition(D3DXVECTOR3(8.0f, 0.0f, 80.0f));
 	house2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	house2->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	SetBoxCollider(house2);
+
+
 
 	StaticObject* house3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	house3->SetModel_Key("House3");
 	house3->SetPosition(D3DXVECTOR3(32.0f, 0.0f, 80.0f));
 	house3->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	house3->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	SetSphereCollider(house3);
 
 	StaticObject* flowerbed = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flowerbed->SetModel_Key("FlowerBed");
@@ -146,7 +182,7 @@ void TownFactory::CreateTown()
 		fence->SetPosition(D3DXVECTOR3(-21.0f+ (i * 3.0f), 0.0f, 10.0f));
 		fence->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		fence->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-
+		SetBoxCollider(fence);
 	}
 
 

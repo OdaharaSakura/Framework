@@ -3,7 +3,6 @@
 #include "renderer.h"
 #include "input.h"
 #include "gameover.h"
-#include "game.h"
 #include "title.h"
 #include "gameoverlogo.h"
 #include "titleenter.h"

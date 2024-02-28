@@ -1,6 +1,7 @@
 #pragma once
 #include "gameObject.h"
 #include "item.h"
+#include "savedata.h"
 #include <vector>
 
 class Inventory : public GameObject
@@ -27,9 +28,12 @@ public:
     void DecreaseItem(int index, int quantity);
 
     std::vector<Item>& GetItems() { return m_PossessionItems; }
+    std::vector<std::string>GetPossessionItemKeys();
 
     Item* GetItem(std::string itemkey);
     Item* GetItem(int index);
 
     int GetMaxCapacity() { return maxCapacity; }
+
+    void Load(PlayerData playerData);
 };

@@ -191,6 +191,7 @@
     <ClCompile Include="bed.cpp" />
     <ClCompile Include="bloomPolygon.cpp" />
     <ClCompile Include="box.cpp" />
+    <ClCompile Include="boxObject.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="child.cpp" />
@@ -216,7 +217,6 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="farmField.cpp" />
     <ClCompile Include="farmTile.cpp" />
-    <ClCompile Include="game.cpp" />
     <ClCompile Include="gameDebugWindow.cpp" />
     <ClCompile Include="createGameWindow.cpp" />
     <ClCompile Include="gamelogo.cpp" />
@@ -279,11 +279,13 @@
     <ClCompile Include="road.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="room.cpp" />
+    <ClCompile Include="savedataManager.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="sphereObject.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="staticSprite.cpp" />
@@ -318,6 +320,7 @@
     <ClInclude Include="bed.h" />
     <ClInclude Include="bloomPolygon.h" />
     <ClInclude Include="box.h" />
+    <ClInclude Include="boxObject.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="child.h" />
@@ -344,7 +347,6 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="farmField.h" />
     <ClInclude Include="farmTile.h" />
-    <ClInclude Include="game.h" />
     <ClInclude Include="gameDebugWindow.h" />
     <ClInclude Include="createGameWindow.h" />
     <ClInclude Include="gamelogo.h" />
@@ -386,7 +388,6 @@
     <ClInclude Include="modelTest.h" />
     <ClInclude Include="networkTest.h" />
     <ClInclude Include="npc.h" />
-    <ClInclude Include="observer.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerGauge.h" />
     <ClInclude Include="playerNetwork.h" />
@@ -403,12 +404,14 @@
     <ClInclude Include="Rock.h" />
     <ClInclude Include="room.h" />
     <ClInclude Include="savedata.h" />
+    <ClInclude Include="savedataManager.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="sphere.h" />
+    <ClInclude Include="sphereObject.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="staticSprite.h" />

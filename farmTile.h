@@ -5,7 +5,7 @@
 //@ŒÍ‚ê‚½ó‘Ô‚ğ’Ç‰Á‚·‚é‚©l‚¦‚é
 enum FarmTileState
 {
-	EMPTY,      // ‹ó
+	EMPTY = 0,      // ‹ó
     PLOWED,     // k‚³‚ê‚½
     WATERED, //…‚â‚è‚µ‚½
     PLANTED,    // í‚ğA‚¦‚½
@@ -30,8 +30,6 @@ public:
     void Update();
     void Draw();
 
-    FarmTileState GetFarmTileState() { return m_FarmTileState; }
-
     void Plow();
     void Water();
     void PlantCrop(Crop* crop);
@@ -39,7 +37,13 @@ public:
 
     void AdvanceCropState();
 
+
+    FarmTileState GetFarmTileState() { return m_FarmTileState; }
     CropState GetCropState();
+    std::string GetCropKey();
+    int GetCropGrowTime();
+
+    void SetFarmTileState(FarmTileState farmTileState) { m_FarmTileState = farmTileState; }
+    
+    void LoadData(FarmTileState farmTileState, CropState cropState, std::string cropKey, int cropGrowTime);
 };
-
-

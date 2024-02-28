@@ -22,6 +22,7 @@ protected:
 
 	D3DXVECTOR3 m_WorldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_LocalPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 m_OldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	D3DXMATRIX m_Matrix{};
@@ -42,6 +43,8 @@ public:
 	virtual void Uninit();
 	virtual void Update();
 	virtual void Draw();
+
+
 
 	void SetDestroy(){ m_IsDestroy = true; }
 
@@ -157,7 +160,6 @@ public:
 		}
 		return components;
 	}
-
 
 
 };

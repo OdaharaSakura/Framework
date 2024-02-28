@@ -49,6 +49,7 @@
 #include "bloomPolygon.h"
 #include "luminance.h"
 #include "post.h"
+#include "savedataManager.h"
 
 bool Test::m_LoadFinish = false;
 
@@ -106,19 +107,17 @@ static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
 void Test::Init()
 {
 	//インターフェース
-	AddGameObject<IEquipment>(LAYER_OBJECT_NOTDRAW);
-	AddGameObject<Inventory>(LAYER_OBJECT_NOTDRAW);
+	m_Equipment = AddGameObject<IEquipment>(LAYER_OBJECT_NOTDRAW);
+	m_Inventory = AddGameObject<Inventory>(LAYER_OBJECT_NOTDRAW);
 
 
 	AddGameObject<Camera>(LAYER_CAMERA);//登録するListの種類を変える
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
-	//meshField->SetPosition(D3DXVECTOR3(-50.0f, 0.0f , 50.0f));
 	meshField->SetPosition(D3DXVECTOR3(0.0f, 0.0f , 0.0f));
 	MeshField* meshField2 = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 	meshField2->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 200.0f));
-	//meshField2->SetPosition(D3DXVECTOR3(-50.0f, 0.0f, 150.0f));
-	AddGameObject<FarmField>(LAYER_OBJECT_3D);
+	m_FarmField =  AddGameObject<FarmField>(LAYER_OBJECT_3D);
 
 	TownFactory* townFactory = new TownFactory();
 	townFactory->CreateTown();
@@ -128,20 +127,17 @@ void Test::Init()
 	//AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	m_Player = AddGameObject<Player>(LAYER_OBJECT_3D);
-	m_SphereCollider = m_Player->AddComponent<SphereCollider>();
-	m_SphereCollider->m_testObj->SetParent(m_Player);
-	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+
+	m_EquipmentObj = AddGameObject<EquipmentObj>(LAYER_OBJECT_3D);
+	m_EquipmentObj->SetParent(m_Player);
+	m_EquipmentObj->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 
 	m_Player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
 
-	AddGameObject<NPC>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	AddGameObject<NPC>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 3.14f/2, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-30.0f, 0.0f, 30.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 
-	//AddGameObject<TreasureBox>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(0.0, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-
-	//SetStaticObject();
 	
 
 	srand(0);
@@ -170,9 +166,8 @@ void Test::Init()
 	playerGauge->SetGameObject(D3DXVECTOR3(80.0f, SCREEN_HEIGHT - 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(300.0f, 50.0f, 0.0f));
 	playerGauge->SetPlayerParent(m_Player);
 
-	//AddGameObject<CountDown>(OBJECT_2D_LAYER);
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
-	AddGameObject<Time>(LAYER_OBJECT_2D);
+	m_Time = AddGameObject<Time>(LAYER_OBJECT_2D);
 
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
 	//BGM再生
@@ -180,12 +175,18 @@ void Test::Init()
 	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
 	bgm->Load("asset\\audio\\GameBGM.wav");
 	bgm->Play(true);
+
+	if (Manager::GetIsLoad())
+	{
+		SaveDataManager::Load(m_FarmField, m_Inventory, m_Equipment, m_Player, m_Time);
+		Manager::SetIsLoad(false);
+	}
 }
 
 void Test::Uninit()
 {
+	SaveDataManager::Save();
 	Scene::Uninit();
-
 	Unload();
 }
 
@@ -205,8 +206,7 @@ void Test::Update()
 		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 
-	EquipmentObj* test = (EquipmentObj*)m_SphereCollider->m_testObj;
-	test->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
+	m_EquipmentObj->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 
 void Test::SetStaticObject()

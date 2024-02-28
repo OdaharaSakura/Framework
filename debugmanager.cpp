@@ -11,6 +11,7 @@
 
 Renderer* DebugManager::m_Renderer{};
 Player* DebugManager::m_Player{};
+bool DebugManager::m_IsCollisionDrawActive{};
 Polygon2D* DebugManager::m_Polygon2D{};
 FPSCounter* DebugManager::m_FpsCounter{};
 
@@ -46,39 +47,12 @@ void DebugManager::Draw()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	//// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-	//if (show_demo_window)
-	//	ImGui::ShowDemoWindow(&show_demo_window);
-
-	// ImGuiウィンドウやコントロールの作成と更新
-	//ImGui::SetNextWindowSize(ImVec2(300, 500), ImGuiCond_Once);
-	//ImGui::Begin("DebugWindow", ((bool*)0), ImGuiWindowFlags_MenuBar);
-
-	//if (ImGui::BeginMenuBar()) {
- //       if (ImGui::BeginMenu("File"))
- //       {
- //           if (ImGui::MenuItem("Save")) {
-
- //           }
- //           if (ImGui::MenuItem("Load")) {
-
- //           }
-
- //           ImGui::EndMenu();
- //       }
- //       ImGui::EndMenuBar();
- //   }
-
-	//const char* cd = "aaaaaaaaaaaaaaa";
-	//char c = *cd;
-
-	//ImGui::InputTextMultiline("textbox 1", &c, sizeof(c));
-	//if (ImGui::Button("InputText")) {
-	//}
-
-
 	
 	if(m_Player != nullptr)m_Player->GetDebugData();
+
+	ImGui::Begin("Collider");
+	ImGui::Checkbox("Active", &m_IsCollisionDrawActive);
+	ImGui::End();
 
 	// ImGuiコード
 	//フレームの描画
