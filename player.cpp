@@ -107,38 +107,6 @@ void Player::Update()
 	m_IsAttackflg = false;
 	
 
-	//メモ：当たり判定コンポーネントにする（判定の仕方ごとに関数変える）
-	//ImGUIのカメラに映せるように変更したい
-
-	//敵当たり判定
-	std::vector<Enemy*> enemies = scene->GetGameObjects<Enemy>();
-	for (Enemy* enemy : enemies)
-	{
-		D3DXVECTOR3 position = enemy->GetPosition();
-		D3DXVECTOR3 scale = enemy->GetScale();
-		D3DXVECTOR3 scalexz = enemy->GetScale();
-
-		D3DXVECTOR3 direction = m_WorldPosition - position;
-		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
-		scalexz.y = 0.0f;
-		float lengthxz = D3DXVec3Length(&scalexz);
-		if (length < lengthxz)
-		{
-			if (m_WorldPosition.y + m_Scale.y < position.y + scale.y - 0.5f)
-			{
-				m_WorldPosition.x = m_OldPosition.x;
-				m_WorldPosition.z = m_OldPosition.z;
-				m_Hp -= 3;
-			}
-		}
-		if (length < lengthxz * lengthxz)
-		{
-			m_IsAttackflg  = true;
-		}
-	}
-
-
 	switch (m_PlayerState)
 	{
 	case PLAYER_STATE_TITLE:
@@ -213,14 +181,41 @@ void Player::Update()
 		}
 	}
 
+	//敵当たり判定
+	std::vector<Enemy*> enemies = scene->GetGameObjects<Enemy>();
+	for (Enemy* enemy : enemies)
+	{
+		D3DXVECTOR3 position = enemy->GetPosition();
+		D3DXVECTOR3 scale = enemy->GetScale();
+		D3DXVECTOR3 scalexz = enemy->GetScale();
+
+		D3DXVECTOR3 direction = m_WorldPosition - position;
+		direction.y = 0.0f;
+		float length = D3DXVec3Length(&direction);
+		scalexz.y = 0.0f;
+		float lengthxz = D3DXVec3Length(&scalexz);
+		if (length < lengthxz)
+		{
+			if (m_WorldPosition.y + m_Scale.y < position.y + scale.y - 0.5f)
+			{
+				m_WorldPosition.x = m_OldPosition.x;
+				m_WorldPosition.z = m_OldPosition.z;
+				m_Hp -= 3;
+			}
+		}
+		if (length < lengthxz * lengthxz)
+		{
+			m_IsAttackflg = true;
+		}
+	}
+
+	
+	//障害物との衝突判定↑↑=====================================
 
 	if (Input::GetKeyTrigger('E'))
 	{
 		m_EquipmentInterface->RemoveEquipment();
 	}
-
-	
-	//障害物との衝突判定↑↑=====================================
 
 		//重力
 	m_Velocity.y -= 0.015f;

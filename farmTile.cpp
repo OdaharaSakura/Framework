@@ -168,11 +168,48 @@ int FarmTile::GetCropGrowTime()
 void FarmTile::LoadData(FarmTileState farmTileState, CropState cropState, std::string cropKey, int cropGrowTime)
 {
 	m_FarmTileState = farmTileState;
+
+	switch (m_FarmTileState)
+	{
+	case FarmTileState::EMPTY:
+		m_FarmTileModel = nullptr;
+		break;
+	case FarmTileState::PLOWED:
+	case FarmTileState::PLANTED:
+
+		m_FarmTileModel = ModelContainer::GetModelKey("DryField");
+		break;
+	case FarmTileState::WATERED:
+	case FarmTileState::PLANTED_WATERED:
+		m_FarmTileModel = ModelContainer::GetModelKey("WetField");
+		break;
+	default:
+		m_FarmTileModel = nullptr;
+		break;
+	}
+
 	if (m_FarmTileState == FarmTileState::PLANTED || m_FarmTileState == FarmTileState::PLANTED_WATERED)
 	{
 		CropFactory* cropFactory = new CropFactory();
 		m_Crop = cropFactory->CreateCrop(cropKey);
 		m_Crop->SetCropState(cropState);
+
+		switch (m_Crop->GetCropState())
+		{
+		case CropState::Seed:
+			m_CropStaticObject->SetModel_Key("Seed");
+			break;
+		case CropState::Seedling1:
+			m_CropStaticObject->SetModel_Key(m_Crop->GetFirstStateModelPass());
+			break;
+		case CropState::Harvest:
+			m_CropStaticObject->SetModel_Key(m_Crop->GetHarvestModelPass());
+			break;
+		default:
+			m_CropStaticObject->SetModel_Null();
+			break;
+		}
+
 		m_CropObserver = new CropObserver(this, m_Crop);
 		m_CropObserver->SetMinute(cropGrowTime);
 	}

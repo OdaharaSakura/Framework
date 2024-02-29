@@ -65,5 +65,7 @@ public:
 	void AddObserver(class TimeObserver* observer);
 	void RemoveObserver(class TimeObserver* observer);
 
+	void ClearObserver();
+
 	void Load(TimeData timedata);
 };

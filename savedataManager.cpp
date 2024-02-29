@@ -72,7 +72,7 @@ void from_json(const json& j, PlayerData& p) {
 
 void SaveDataManager::Save()
 {
-    std::vector<FarmTileData> farmTilesData;
+    std::vector<FarmTileData> farmTilesData{};
     Scene* scene = Manager::GetScene();
 
     // シーンから全てのFarmTileを取得し、それぞれのデータを保存
@@ -89,7 +89,7 @@ void SaveDataManager::Save()
     }
 
     auto time = scene->GetGameObject<Time>();
-    TimeData timeData;
+    TimeData timeData{};
     timeData.minute = time->GetMinutes();
     timeData.hour = time->GetHours();
     timeData.day = time->GetDay();
@@ -98,7 +98,7 @@ void SaveDataManager::Save()
     auto player = scene->GetGameObject<Player>();
     auto inventory = scene->GetGameObject<Inventory>();
     auto equipment = scene->GetGameObject<IEquipment>();
-    PlayerData playerData;
+    PlayerData playerData{};
     playerData.money = 0;//後で変える
     playerData.positionx = player->GetPosition().x;
     playerData.positiony = player->GetPosition().y;

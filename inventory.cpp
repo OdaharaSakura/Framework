@@ -181,7 +181,8 @@ void Inventory::DecreaseItem(int index, int quantity)
 
 std::vector<std::string> Inventory::GetPossessionItemKeys()
 {
-    std::vector<std::string> keys;
+    std::vector<std::string> keys{};
+    if(m_PossessionItems.size() <= 0) return keys;
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
     {
 		keys.push_back(it->GetKey());

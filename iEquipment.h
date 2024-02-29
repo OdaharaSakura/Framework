@@ -7,7 +7,7 @@
 class IEquipment : public GameObject
 {
 private:
-	Equipment* m_Equipment;
+	Equipment* m_Equipment{};
 public:
 	void Init();
 	void Uninit(){}
@@ -18,7 +18,13 @@ public:
 	void SetEquipmentInName(Equipment* equipment);
 	void RemoveEquipment();
 	Equipment* GetEquipment() { return m_Equipment; };
-	std::string GetEquipmentKey() { return m_Equipment->GetKey(); };
+	std::string GetEquipmentKey() 
+	{
+		std::string key{};
+		if(m_Equipment == nullptr) return key;
+		key = m_Equipment->GetKey();
+		return key;
+	};
 
 	void ExecuteEquipment();
 	void Load(PlayerData playerdata);

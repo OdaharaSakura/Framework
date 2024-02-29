@@ -10,6 +10,7 @@
 #include "animationModel.h"
 #include "animationModelContainer.h"
 
+
 void NPC::Load()
 {
 	
@@ -29,6 +30,8 @@ void NPC::Init()
 	AddComponent<VertexLighting>();
 
 	m_Conversation = "こんにちは！\nいい天気ね！";
+
+
 
 }
 
@@ -58,11 +61,6 @@ void NPC::Update()
 	float length = D3DXVec3Length(&direction);
 	playerscale.y = 0.0f;
 	float scalexz = D3DXVec3Length(&playerscale);
-	if (length < scalexz)
-	{
-		m_WorldPosition.x = oldPosition.x;
-		m_WorldPosition.z = oldPosition.z;
-	}
 	if (length < scalexz * scalexz + 3.0f)
 	{
 		m_IsHitPlayer = true;

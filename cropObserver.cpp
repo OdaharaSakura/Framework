@@ -19,7 +19,7 @@ CropObserver::~CropObserver()
 {
 	Scene* scene = Manager::GetScene();
 	Time * time = scene->GetGameObject<Time>();
-	time->RemoveObserver(this);
+	if(time != nullptr)time->RemoveObserver(this);
 }
 
 void CropObserver::UpdateMinute()

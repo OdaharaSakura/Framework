@@ -25,6 +25,7 @@ void Time::Init()
 
 void Time::Uninit()
 {
+	//ClearObserver();
 	//基底クラスのメソッド呼び出し
 	GameObject::Uninit();
 }
@@ -160,6 +161,12 @@ void Time::RemoveObserver(TimeObserver* observer)
 {
 	auto it = std::remove(m_Observers.begin(), m_Observers.end(), observer);
 	m_Observers.erase(it, m_Observers.end());
+}
+
+void Time::ClearObserver()
+{
+    //全てのオブザーバーを削除
+    m_Observers.clear();
 }
 
 void Time::Load(TimeData timedata)

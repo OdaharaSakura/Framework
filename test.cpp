@@ -50,6 +50,7 @@
 #include "luminance.h"
 #include "post.h"
 #include "savedataManager.h"
+#include "sphereObject.h"
 
 bool Test::m_LoadFinish = false;
 
@@ -134,7 +135,12 @@ void Test::Init()
 
 	m_Player->SetPosition(D3DXVECTOR3(-1.0f, 0.0f, -4.0f));
 
-	AddGameObject<NPC>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 3.14f/2, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	NPC* npc1 = AddGameObject<NPC>(LAYER_OBJECT_3D);
+	npc1->SetGameObject(D3DXVECTOR3(-5.0f, 0.0f, 15.0f), D3DXVECTOR3(0.0f, 3.14f/2, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	SphereObject* sphereroad = AddGameObject<SphereObject>(LAYER_SPHERECOLLIDER);
+	sphereroad->SetPosition(npc1->GetPosition());
+	sphereroad->SetScale(npc1->GetScale());
+
 	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-30.0f, 0.0f, 30.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 
