@@ -231,42 +231,6 @@ void TownFactory::CreateTown()
 	}
 
 
-	//StaticObject* fence7 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence7->SetModel_Key("Fence");
-	//fence7->SetPosition(D3DXVECTOR3(-21.0f, 0.0f, -13.0f));
-	//fence7->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence7->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	//SetBoxCollider(fence7);
-
-	//StaticObject* fence8 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence8->SetModel_Key("Fence");
-	//fence8->SetPosition(D3DXVECTOR3(-17.0f, 0.0f, -13.0f));
-	//fence8->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence8->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	//SetBoxCollider(fence8);
-
-	//StaticObject* fence9 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence9->SetModel_Key("Fence");
-	//fence9->SetPosition(D3DXVECTOR3(-13.0f, 0.0f, -13.0f));
-	//fence9->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence9->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	//SetBoxCollider(fence9);
-
-	//StaticObject* fence10 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	//fence10->SetModel_Key("Fence");
-	//fence10->SetPosition(D3DXVECTOR3(-9.0f, 0.0f, -13.0f));
-	//fence10->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
-	//fence10->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	//SetBoxCollider(fence10);
-
-
-
-	/*StaticObject* for1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	for1->SetModel_Key("MiddleTree");
-	for1->SetPosition(D3DXVECTOR3(-15.0f, 0.0f, -16.0f));
-	for1->SetScale(D3DXVECTOR3(2.5f, 2.5f, 2.5f));
-	for1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));*/
-
 
 	const int maxforest_bes1 = 4;
 
@@ -401,7 +365,9 @@ void TownFactory::CreateTown()
 	fencewood1->SetPosition(D3DXVECTOR3(18.0f, 0.0f, 26.0f));
 	fencewood1->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	fencewood1->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
-	SetBoxCollider(fencewood1);
+	BoxObject* fenceboxcollider = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	fenceboxcollider->SetPosition(D3DXVECTOR3(16.5f, 0.0f, 26.0f));
+	fenceboxcollider->SetScale(D3DXVECTOR3(0.5f, 2.0f, 2.0f));
 
 	
 	
@@ -414,7 +380,10 @@ void TownFactory::CreateTown()
 	verfencewood->SetPosition(D3DXVECTOR3(18.0f, 0.0f, 19.0f - (i * 3.0f)));
 	verfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 	verfencewood->SetRotation(D3DXVECTOR3(0.0f, 55.0f, 0.0f));
-	SetBoxCollider(verfencewood);
+
+	BoxObject* fenceboxcollider = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	fenceboxcollider->SetPosition(D3DXVECTOR3(16.5f, 0.0f, 19.0f - (i * 3.0f)));
+	fenceboxcollider->SetScale(D3DXVECTOR3(0.5f, 2.0f, 2.0f));
 	}
 
 
@@ -439,7 +408,10 @@ void TownFactory::CreateTown()
 		oppbesfencewood->SetPosition(D3DXVECTOR3(18.0f + (i * 4.0f), 0.0f, 26.0f));
 		oppbesfencewood->SetScale(D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 		oppbesfencewood->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		SetBoxCollider(oppbesfencewood);
+
+		BoxObject* fenceboxcollider = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+		fenceboxcollider->SetPosition(D3DXVECTOR3(18.0f + (i * 4.0f), 0.0f, 27.5f));
+		fenceboxcollider->SetScale(D3DXVECTOR3(2.0f, 2.0f, 0.5f));
 	}
 
 
