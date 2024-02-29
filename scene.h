@@ -159,17 +159,28 @@ public:
 	}
 
 	template<typename T>
-	std::vector<T*> GetColliderObjects()
+	std::vector<T*> GetSphereColliderObjects()
 	{
 		std::vector<T*> objects;
-		for (int i = LAYER_SPHERECOLLIDER; i < LAYER_BOXCOLLIDER; i++)
+		for (GameObject* object : m_GameObject[LAYER_SPHERECOLLIDER])
 		{
-			for (GameObject* object : m_GameObject[i])
+			if (typeid(*object) == typeid(T))//Œ^‚ğ’²‚×‚é(RTTI“®“IŒ^î•ñ)
 			{
-				if (typeid(*object) == typeid(T))//Œ^‚ğ’²‚×‚é(RTTI“®“IŒ^î•ñ)
-				{
-					objects.push_back((T*)object);//”z—ñ‚Ì’†‚É“ü‚ê‚é
-				}
+				objects.push_back((T*)object);//”z—ñ‚Ì’†‚É“ü‚ê‚é
+			}
+		}
+		return objects;
+	}
+
+	template<typename T>
+	std::vector<T*> GetBoxColliderObjects()
+	{
+		std::vector<T*> objects;
+		for (GameObject* object : m_GameObject[LAYER_BOXCOLLIDER])
+		{
+			if (typeid(*object) == typeid(T))//Œ^‚ğ’²‚×‚é(RTTI“®“IŒ^î•ñ)
+			{
+				objects.push_back((T*)object);//”z—ñ‚Ì’†‚É“ü‚ê‚é
 			}
 		}
 		return objects;
