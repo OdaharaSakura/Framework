@@ -35,6 +35,7 @@
 #include "animationModelContainer.h"
 #include "collider.h"
 #include "sphereObject.h"
+#include "boxObject.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -175,7 +176,7 @@ void Player::Update()
 	
 
 	//SphereCollider
-	std::vector<SphereObject*> sphereObjects = scene->GetColliderObjects<SphereObject>();
+	std::vector<SphereObject*> sphereObjects = scene->GetSphereColliderObjects<SphereObject>();
 	for (SphereObject* sphereObject : sphereObjects)
 	{
 		D3DXVECTOR3 position = sphereObject->GetPosition();
@@ -190,6 +191,25 @@ void Player::Update()
 		{
 			m_WorldPosition.x = m_OldPosition.x;
 			m_WorldPosition.z = m_OldPosition.z;
+		}
+	}
+
+	//BoxCollider
+	std::vector<BoxObject*> boxObjects = scene->GetBoxColliderObjects<BoxObject>();
+	for (BoxObject* boxObject : boxObjects)
+	{
+		D3DXVECTOR3 position = boxObject->GetPosition();
+		D3DXVECTOR3 scale = boxObject->GetScale();
+
+		if (position.x - scale.x - (scale.x / 2) < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + scale.x + (scale.x / 2) &&
+			position.z - scale.z - (scale.z / 2) < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + scale.z + (scale.z / 2))
+		{
+
+			m_WorldPosition.x = m_OldPosition.x;
+			m_WorldPosition.z = m_OldPosition.z;
+
 		}
 	}
 
