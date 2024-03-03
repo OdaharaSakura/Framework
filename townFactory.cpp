@@ -652,7 +652,28 @@ void TownFactory::CreateTown()
 	board1->SetPosition(D3DXVECTOR3(43.0f, 0.0f, 114.0f));
 	board1->SetScale(D3DXVECTOR3(0.2f, 0.2f, 0.2f));
 	board1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
-	SetBoxCollider(board);
+	SetBoxCollider(board1);
+
+	StaticObject* stlight1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	stlight1->SetModel_Key("Streetlight");
+	stlight1->SetPosition(D3DXVECTOR3(14.0f, 0.0f, 44.0f));
+	stlight1->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	stlight1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
+	SetBoxCollider(stlight1);
+
+	StaticObject* stlight2 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	stlight2->SetModel_Key("Streetlight");
+	stlight2->SetPosition(D3DXVECTOR3(44.0f, 0.0f, 101.0f));
+	stlight2->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	stlight2->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
+	SetBoxCollider(stlight2);
+
+	StaticObject* stlight3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	stlight3->SetModel_Key("Streetlight");
+	stlight3->SetPosition(D3DXVECTOR3(-9.0f, 0.0f, 126.0f));
+	stlight3->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	stlight3->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
+	SetBoxCollider(stlight3);
 
 
 }
