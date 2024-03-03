@@ -39,8 +39,27 @@ void TownFactory::SetBoxCollider(StaticObject* gameObject)
 void TownFactory::CreateTown()
 {
 	Scene* scene = Manager::GetScene();
+	BoxObject* boxColliderTown1 = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	boxColliderTown1->SetPosition(D3DXVECTOR3(0.0f, 0.01f, -80.0f));
+	boxColliderTown1->SetScale(D3DXVECTOR3(200.0f, 1.0f, 10.0f));
+
+	BoxObject* boxColliderTown2 = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	boxColliderTown2->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 165.0f));
+	boxColliderTown2->SetScale(D3DXVECTOR3(200.0f, 1.0f, 10.0f));
+
+	BoxObject* boxColliderTown3 = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	boxColliderTown3->SetPosition(D3DXVECTOR3(60.0f, 0.01f, 0.0f));
+	boxColliderTown3->SetScale(D3DXVECTOR3(10.0f, 1.0f, 400.0f));
+
+	BoxObject* boxColliderTown4 = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	boxColliderTown4->SetPosition(D3DXVECTOR3(-38.0f, 0.01f, 0.0f));
+	boxColliderTown4->SetScale(D3DXVECTOR3(10.0f, 1.0f, 400.0f));
+
 
 	scene->AddGameObject<House>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(12.0f, 3.0f, 6.0f));
+	BoxObject* boxColliderHouse = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	boxColliderHouse->SetPosition(D3DXVECTOR3(11.0f,1.0f, 7.0f));
+	boxColliderHouse->SetScale(D3DXVECTOR3(3.0f, 1.0f, 4.5f));
 
 
 	Road* road = scene->AddGameObject<Road>(LAYER_OBJECT_3D);
@@ -584,12 +603,14 @@ void TownFactory::CreateTown()
 	carriage->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));*/
 
 	StaticObject* mountain = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-		mountain->SetModel_Key("Mountain");
-		mountain->SetPosition(D3DXVECTOR3(60.0f, 9.0f, -80.0f));
+	mountain->SetModel_Key("Mountain");
+	mountain->SetPosition(D3DXVECTOR3(60.0f, 9.0f, -80.0f));
 	mountain->SetScale(D3DXVECTOR3(20.0f, 20.0f, 20.0f));
 	mountain->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f)); 
-	SetSphereCollider(mountain);
 	
+	BoxObject* spheremountain = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
+	spheremountain->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
+	spheremountain->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
 
 
 
