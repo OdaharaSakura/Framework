@@ -205,6 +205,7 @@ void Game::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
+		Manager::SetIsLoad(true);
 		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 

@@ -58,6 +58,20 @@ void AnimationModelContainer::Load(int sceneIndex)
         LoadAnimationModelData(FBXModel::FBXModel_Cow, m_FBXModel[FBXModel::FBXModel_Cow]);
     }
     break;
+    case SCENE_HOUSEROOM:
+        m_FBXModel[FBXModel::FBXModel_Player]->Load("Player.fbx");
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Idle.fbx", PlayerAnimation::Player_Idle);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Run.fbx", PlayerAnimation::Player_Run);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_LeftRun.fbx", PlayerAnimation::Player_LeftRun);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_RightRun.fbx", PlayerAnimation::Player_RightRun);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_BackRun.fbx", PlayerAnimation::Player_BackRun);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Attack.fbx", PlayerAnimation::Player_Attack);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Death.fbx", PlayerAnimation::Player_Death);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_InPlaceJump.fbx", PlayerAnimation::Player_InPlaceJump);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Plowing.fbx", PlayerAnimation::Player_Plowing);
+        LoadAnimationModelData(FBXModel::FBXModel_Player, m_FBXModel[FBXModel::FBXModel_Player]);
+        break;
+
     case SCENE_RESULT:
         break;
     default:

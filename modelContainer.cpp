@@ -77,6 +77,9 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Board", "board.obj");//ŠÅ”Â
         LoadModelData("Streetlight", "gaitou.obj");//ŠÅ”Â
         break;
+
+    case SCENE_HOUSEROOM:
+        break;
     case SCENE_RESULT:
         break;
     default:
