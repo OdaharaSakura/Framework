@@ -54,7 +54,7 @@ void Title::Init()
 	Audio* bgm;
 	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
 	bgm->Load("asset\\audio\\TitleBGM.wav");
-	
+	bgm->SetVolume(0.5f);
 	bgm->Play(true);
 	
 	//m_ShotSE1 = AddGameObject<GameObject>(LAYER_OBJECT_NOTDRAW)->AddComponent<Audio>();

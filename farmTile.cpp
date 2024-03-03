@@ -12,6 +12,7 @@
 #include "staticObject.h"
 #include "gameObject.h"
 #include "cropFactory.h"
+#include "time.h"
 
 void FarmTile::Init()
 {
@@ -28,9 +29,9 @@ void FarmTile::Init()
 
 void FarmTile::Uninit()
 {
+
 	if (m_CropObserver != nullptr)
 	{
-		delete m_CropObserver;
 		m_CropObserver = nullptr;
 	}
 	if (m_FarmTileModel != nullptr)

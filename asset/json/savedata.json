@@ -1,18 +1,6 @@
 {
     "farmTilesData": [
         {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 340,
-            "tileStage": 4
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 0,
-            "tileStage": 3
-        },
-        {
             "cropKey": "",
             "cropStage": 0,
             "growthMinute": 0,
@@ -47,114 +35,6 @@
             "cropStage": 0,
             "growthMinute": 0,
             "tileStage": 0
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 340,
-            "tileStage": 4
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 0,
-            "tileStage": 3
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 340,
-            "tileStage": 4
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 0,
-            "tileStage": 3
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 0
-        },
-        {
-            "cropKey": "Carrot",
-            "cropStage": 1,
-            "growthMinute": 0,
-            "tileStage": 3
-        },
-        {
-            "cropKey": "",
-            "cropStage": 0,
-            "growthMinute": 0,
-            "tileStage": 1
         },
         {
             "cropKey": "",
@@ -196,13 +76,37 @@
             "cropKey": "",
             "cropStage": 0,
             "growthMinute": 0,
-            "tileStage": 1
+            "tileStage": 0
         },
         {
             "cropKey": "",
             "cropStage": 0,
             "growthMinute": 0,
-            "tileStage": 1
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
         },
         {
             "cropKey": "",
@@ -244,7 +148,103 @@
             "cropKey": "",
             "cropStage": 0,
             "growthMinute": 0,
-            "tileStage": 1
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
+        },
+        {
+            "cropKey": "",
+            "cropStage": 0,
+            "growthMinute": 0,
+            "tileStage": 0
         },
         {
             "cropKey": "",
@@ -532,9 +532,9 @@
     "playerData": {
         "equipmentItemKey": "",
         "money": 0,
-        "positionx": -0.6448622345924377,
+        "positionx": -1.0,
         "positiony": 0.0,
-        "positionz": 5.448550701141357,
+        "positionz": -4.0,
         "possessionItemKeys": [
             "Hoe",
             "Sickle",
@@ -545,8 +545,8 @@
     },
     "timeData": {
         "day": 1,
-        "hour": 16,
-        "minute": 30,
+        "hour": 6,
+        "minute": 10,
         "month": 0
     }
 }

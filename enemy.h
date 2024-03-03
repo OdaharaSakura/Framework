@@ -7,10 +7,6 @@ class Enemy : public GameObject//åpè≥
 private:
 	AnimationModel* m_Model;
 
-	ID3D11VertexShader* m_VertexShader{};
-	ID3D11PixelShader* m_PixelShader{};
-	ID3D11InputLayout* m_VertexLayout{};
-
 	class Gauge* m_Gauge{};
 
 	D3DXVECTOR3 m_StartPosition{};
@@ -44,8 +40,10 @@ public:
 	void Update();
 	void Draw();
 
+	void AddHp(int hp);
 	int GetHp() { return m_Hp; }
 	int GetHpMax() { return m_HpMax; }
+
 
 	bool GetAttackflg() { return m_Attackflg; }
 	void SetNonAttackflg() { m_Attackflg = false; }

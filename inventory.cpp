@@ -36,6 +36,7 @@ void Inventory::Hide()
 
 void Inventory::AddItem(Item* itemptr)
 {
+    if(itemptr == nullptr) return;
     if (m_PossessionItems.size() < 0) return;
         if (m_PossessionItems.size() >= maxCapacity)//�͈͊O
     {

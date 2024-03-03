@@ -9,7 +9,7 @@
 
 
 const char* g_CLASS_NAME = "AppClass";
-const char* g_WINDOW_NAME = "AT13A114_12_小田原さくら";
+const char* g_WINDOW_NAME = "GreenLife_小田原さくら";
 
 int g_CountFPS;				// FPS値
 char g_DebugStr[2048];		// ウィンドウキャプションにつなげて表示する情報
@@ -118,8 +118,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 					dwFPSLastTime = dwCurrentTime;
 					dwFrameCount = 0;
 					wsprintf(g_DebugStr, g_WINDOW_NAME);
-					wsprintf(&g_DebugStr[strlen(g_DebugStr)], " FPS:%d", g_CountFPS);
-					SetWindowText(g_Window, g_DebugStr);
+					//wsprintf(&g_DebugStr[strlen(g_DebugStr)], " FPS:%d", g_CountFPS);
+					//SetWindowText(g_Window, g_DebugStr);
 				}
 			}
 		}

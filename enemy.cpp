@@ -7,6 +7,7 @@
 #include "gauge.h"
 #include "earth.h"
 #include "animationModelContainer.h"
+#include "shader.h"
 
 
 void Enemy::Load()
@@ -24,10 +25,6 @@ void Enemy::Init()
 	Scene* scene = Manager::GetScene();
 	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Enemy);
 
-	Renderer::CreateVertexShader(&m_VertexShader,
-		&m_VertexLayout, "shader\\vertexLightingVS.cso");
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\vertexLightingPS.cso");
 
 	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 
@@ -41,21 +38,15 @@ void Enemy::Init()
 	m_IsAttackflg = false;
 	m_Attackflg = false;
 
-	//AddComponent<SphireCollider>()->SetSphireCollider(this, 1.0f);
 
 	m_Hp = m_HpMax;
 
-	m_Hp = m_HpMax;
 }
 
 void Enemy::Uninit()
 {
 	GameObject::Uninit();
 	if (m_Model) m_Model = nullptr;
-
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
 }
 
 void Enemy::Update()
@@ -96,32 +87,7 @@ void Enemy::Update()
 
 
 	//移動処理（プレイヤーに向かってくる）
-	D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
-
-	//土
-	std::vector<Earth*> Earths = scene->GetGameObjects<Earth>();
-	for (Earth* Earth : Earths)
-	{
-		D3DXVECTOR3 position = Earth->GetPosition();
-		D3DXVECTOR3 scale = Earth->GetScale();
-
-
-
-		if (position.x - scale.x - 0.5f < m_WorldPosition.x + m_Scale.x&&
-			m_WorldPosition.x - m_Scale.x  < position.x + scale.x + 0.5f &&
-			position.z - scale.z - 0.5f < m_WorldPosition.z + m_Scale.z &&
-			m_WorldPosition.z - m_Scale.z  < position.z + scale.z + 0.5f)
-		{
-
-			if (m_WorldPosition.y < position.y + scale.y * 2.0f - 0.5f)//2.0fはモデルの大きさ高さ1じゃなくて2だとこうなる
-			{
-				m_WorldPosition.x = oldPosition.x;
-				m_WorldPosition.z = oldPosition.z;
-			}
-
-			break;
-		}
-	}
+	//D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
 
 	//プレイヤー当たり判定
 		D3DXVECTOR3 playerposition = player->GetPosition();
@@ -131,7 +97,7 @@ void Enemy::Update()
 		direction.y = 0.0f;
 		float length = D3DXVec3Length(&direction);
 		playerscale.y = 0.0f;
-		float scalexz = D3DXVec3Length(&playerscale) * 100.0f;//プレイヤーのスケールを100分の1にしているため
+		float scalexz = D3DXVec3Length(&playerscale);//プレイヤーのスケールを100分の1にしているため
 		if (length < scalexz)
 		{
 			m_WorldPosition.x = oldPosition.x;
@@ -143,9 +109,13 @@ void Enemy::Update()
 			//m_Hp -= 3;
 
 		}
+		if (length < scalexz * scalexz + 10.0f)
+		{
 
+			//m_Hp -= 3;
 
-	//test += 0.01f;
+		}
+
 }
 
 void Enemy::Draw()
@@ -153,12 +123,6 @@ void Enemy::Draw()
 	GameObject::Draw();
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
-
-	// 入力レイアウト設定ト（DirectXへ頂点の構造を教える）
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	// 使用するシェーダを設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);//バーテックスシェーダーオブジェクトのセット
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);//ピクセルシェーダーオブジェクトのセット
 
 	// マトリクス設定
 	D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
@@ -177,6 +141,19 @@ void Enemy::Draw()
 
 	m_Time++;
 	m_Model->Draw();
+}
+
+void Enemy::AddHp(int hp)
+{
+		m_Hp += hp;
+		if (m_Hp > m_HpMax)
+		{
+		m_Hp = m_HpMax;
+	}
+		else if (m_Hp < 0)
+		{
+		m_Hp = 0;
+	}
 }
 
 //キャラクターを向かせる関数
