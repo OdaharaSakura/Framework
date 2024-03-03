@@ -65,9 +65,6 @@ void Player::Init()
 
 	auto carrotSeed = m_ItemFactory->CreateItem("CarrotSeed");
 	m_InventoryInterface->AddItem(carrotSeed);
-
-	auto enemyStone = m_ItemFactory->CreateItem("EnemyStone");
-	m_InventoryInterface->AddItem(enemyStone);
 	
 	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Player);
 	

@@ -1,5 +1,5 @@
 Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,IsEat,Healing,,,,,
-アイテム,EnemyStone,onionseeds.dds,ふしぎな石,ふしぎな石。高く売れる。,0,150,0,0,,,,,
+アイテム,EnemyStone,enemystone.dds,ふしぎな石,ふしぎな石。高く売れる。,0,500,0,0,,,,,
 Type,Key,TexturePass,Name,Description,BuyingPrice,SellingPrice,ModelPass,Wastage,,,,,
 そうび,Hoe,equipment_icon_kuwa.dds,クワ,そうびすると畑を耕せる。,0,0,Kuwa.obj,2,,,,,
 そうび,Sickle,equipment_icon_kama.dds,カマ,そうびすると草を刈りとれる。,0,0,kama.obj,2,,,,,
