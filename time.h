@@ -29,6 +29,10 @@ private:
 	int m_Hours = 6;
 	int m_Minutes{};
 
+	int m_IncrementDay{};
+	int m_IncrementHour{};
+	int m_IncrementMinute{};
+
 	float m_CountNum = 0.0f;
 	float m_OneSecondCount = 1.0f;
 	float m_RealTimeSpeed = 1.0f;
@@ -58,6 +62,10 @@ public:
 	int GetDay() { return m_Day; }
 	int GetHours() { return m_Hours; }
 	int GetMinutes() { return m_Minutes; }
+
+	int GetIncrementDay() { return m_IncrementDay; }
+	int GetIncrementHour() { return m_IncrementHour; }
+	int GetIncrementMinute() { return m_IncrementMinute; }
 
 	void NotifyAllTimeObservers();
 	void NotifyAllTimeObserversHour();

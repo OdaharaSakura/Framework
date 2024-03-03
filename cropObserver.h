@@ -16,6 +16,8 @@ public:
 	void UpdateHour() {}
 	void UpdateDay() {}
 
+	void SetIncrementTime(int minute, int hour, int day);
+
 	int GetMinute() { return m_Minute; }
 
 	void SetMinute(int minute) { m_Minute = minute; }

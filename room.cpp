@@ -7,7 +7,7 @@
 void Room::Init()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\obj\\room.obj");
+	m_Model->Load("asset\\model\\obj\\room1.obj");
 
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 3.15f, 0.0f);

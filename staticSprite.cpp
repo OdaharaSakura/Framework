@@ -164,7 +164,7 @@ void StaticSprite::Draw()
 void StaticSprite::SetTexture(std::string TextureKey, std::string TexturePath)
 {
 	m_Image = TextureContainer::GetImage_Key(TextureKey);
-	if (m_Image == nullptr) TextureContainer::GetImage_Path(TexturePath);
+	if (m_Image == nullptr) m_Image = TextureContainer::GetImage_Path(TexturePath);
 	m_Texture = m_Image->GetShaderResourceView();
 }
 

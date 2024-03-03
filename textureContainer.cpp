@@ -42,6 +42,31 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
         LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
         break;
+
+    case SCENE_HOUSEROOM:
+        //アイテムデータの数だけ
+        for (auto& it : itemdata) {
+            LoadImageData(it.m_Key, it.m_TexturePass);
+        }
+
+        LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
+        LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
+        LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
+        LoadImageData("SubPanel", "subpanel.dds");//サブパネル
+        LoadImageData("SubPanelCursor", "subpanelCursor.dds");//サブパネル
+        LoadImageData("SubPanelOptions_Inventory_Equipment", "subpanel1-1.dds");//サブパネル
+        LoadImageData("SubPanelOptions_Inventory_Eat", "subpanel2-1.dds");//サブパネル
+        LoadImageData("SubPanelOptions_Inventory_NoUse", "subpanel3-1.dds");//サブパネル
+        LoadImageData("SpecialTalk", "special_UI_L.dds");//特別キー
+        LoadImageData("UsualTalk", "usual_UI_L.dds");//汎用キー
+        LoadImageData("GaugeFrame", "gauge_frame.dds");//汎用キー
+        LoadImageData("TIPS_E", "TIPS_E.dds");//Eキー
+        LoadImageData("TIPS_TAB", "TIPS_TAB.dds");//タブキー
+        LoadImageData("TIPS_Space", "TIPS_Space.dds");//スペースキー
+        LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
+        LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
+
+        break;
     case SCENE_RESULT:
         break;
     default:

@@ -369,6 +369,8 @@
     <ClCompile Include="enemyObserver.cpp">
       <Filter>1_Common\Game\Observer</Filter>
     </ClCompile>
+    <ClCompile Include="uiObserver.cpp" />
+    <ClCompile Include="gaugeFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -680,6 +682,8 @@
     <ClInclude Include="enemyObserver.h">
       <Filter>1_Common\Game\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="uiObserver.h" />
+    <ClInclude Include="gaugeFrame.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

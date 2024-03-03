@@ -121,6 +121,21 @@ void Time::Draw()
 
 void Time::SetSleep()
 {
+	m_IncrementMinute += 60 - m_Minutes;
+	m_IncrementHour += 24 - m_Hours;
+	m_IncrementHour+= 6;
+
+	if (m_IncrementHour >= 24)
+	{
+		m_IncrementDay += 1;
+		m_IncrementHour -= 24;
+	}
+
+	for (auto observer : m_Observers)
+	{
+		observer->SetIncrementTime(m_IncrementMinute, m_IncrementHour, m_IncrementDay);
+	}
+
 	m_Hours = 6;
 	m_Minutes = 0;
 
@@ -134,8 +149,7 @@ void Time::NotifyAllTimeObservers()
 {
 	for (auto observer : m_Observers)
 	{
-		//TODO:observer‚É‚æ‚Á‚ÄŒv‘ª‚·‚é‚©‚Ç‚¤‚©l‚¦‚½‚Ù‚¤‚ª—Ç‚¢
-		observer->SetRealOneSecond();
+		observer->SetIncrementTime(m_IncrementMinute, m_IncrementHour, m_IncrementDay);
 	}
 }
 
@@ -158,6 +172,7 @@ void Time::NotifyAllTimeObserversMinute()
 void Time::AddObserver(TimeObserver* observer)
 {
 	m_Observers.push_back(observer);
+	observer->SetIncrementTime(m_IncrementMinute, m_IncrementHour, m_IncrementDay);
 }
 
 void Time::RemoveObserver(TimeObserver* observer)
@@ -178,6 +193,9 @@ void Time::Load(TimeData timedata)
 	m_Day = timedata.day;
 	m_Hours = timedata.hour;
 	m_Minutes = timedata.minute;
+	m_IncrementMinute = timedata.incrementMinute;
+	m_IncrementHour = timedata.incrementHour;
+	m_IncrementDay = timedata.incrementDay;
 }
 
 

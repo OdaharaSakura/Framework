@@ -225,6 +225,7 @@
     <ClCompile Include="gameover.cpp" />
     <ClCompile Include="gameoverlogo.cpp" />
     <ClCompile Include="gauge.cpp" />
+    <ClCompile Include="gaugeFrame.cpp" />
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="house.cpp" />
     <ClCompile Include="iEquipment.cpp" />
@@ -311,6 +312,7 @@
     </ClCompile>
     <ClCompile Include="tree_billboard.cpp" />
     <ClCompile Include="tutorial.cpp" />
+    <ClCompile Include="uiObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alpha.h" />
@@ -355,6 +357,7 @@
     <ClInclude Include="gameover.h" />
     <ClInclude Include="gameoverlogo.h" />
     <ClInclude Include="gauge.h" />
+    <ClInclude Include="gaugeFrame.h" />
     <ClInclude Include="grass.h" />
     <ClInclude Include="house.h" />
     <ClInclude Include="iEquipment.h" />
@@ -439,6 +442,7 @@
     </ClInclude>
     <ClInclude Include="tree_billboard.h" />
     <ClInclude Include="tutorial.h" />
+    <ClInclude Include="uiObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\alphaBlendingPS.hlsl">

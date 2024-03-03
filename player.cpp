@@ -36,6 +36,9 @@
 #include "collider.h"
 #include "sphereObject.h"
 #include "boxObject.h"
+#include "house.h"
+#include "fade.h"
+#include "testHouse.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -106,7 +109,7 @@ void Player::Update()
 	//GameObject::Update();
 	Scene* scene = Manager::GetScene();
 	m_OldPosition = m_WorldPosition;
-
+	m_Description->SetText("");
 	m_IsAttackflg = false;
 	
 
@@ -311,8 +314,6 @@ void Player::UpdateGround()
 		UpdateAnimation(PlayerAnimation::Player_LeftRun);
 
 		m_MoveVec -= cameraRight;
-		//m_WorldPosition.x -= 0.1f;
-		//m_WorldPosition -= cameraRight * 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -331,8 +332,6 @@ void Player::UpdateGround()
 		UpdateAnimation(PlayerAnimation::Player_RightRun);
 		
 		m_MoveVec += cameraRight;
-		//m_WorldPosition.x += 0.1f;
-		//m_WorldPosition += cameraRight * 0.1f;
 		
 
 		D3DXQUATERNION quat;
@@ -368,8 +367,6 @@ void Player::UpdateGround()
 		UpdateAnimation(PlayerAnimation::Player_BackRun);
 
 		m_MoveVec -= cameraForward;
-		//m_WorldPosition -= cameraForward * 0.1f;
-		//m_WorldPosition.z -= 0.1f;
 
 		D3DXQUATERNION quat;
 		D3DXVECTOR3 axis = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -441,10 +438,6 @@ void Player::UpdateGround()
 			}
 
 		}
-		else
-		{
-			m_Description->SetText("");
-		}
 	}
 
 	//NPC
@@ -454,6 +447,7 @@ void Player::UpdateGround()
 	{
 		if (npc->GetIsHitPlayer())
 		{
+			m_Description->SetText("L：話す");
 			if (Input::GetKeyTrigger('L'))
 			{
 				m_Conversation = scene->AddGameObject<Conversation>(LAYER_OBJECT_2D);
@@ -465,25 +459,47 @@ void Player::UpdateGround()
 	}
 
 	auto farmField = scene->GetGameObject<FarmField>();
-	auto farmTile = farmField->GetFarmTileClosestToPlayer(FarmTileState::PLANTED, FarmTileState::PLANTED_WATERED);
-	if (farmTile)
+	if (farmField != nullptr)
 	{
-		if (farmTile->GetCropState() == CropState::Harvest)
+		auto farmTile = farmField->GetFarmTileClosestToPlayer(FarmTileState::PLANTED, FarmTileState::PLANTED_WATERED);
+		if (farmTile)
 		{
-			m_Description->SetText("L：収穫する");
-			if (Input::GetKeyTrigger('L'))
+			if (farmTile->GetCropState() == CropState::Harvest)
 			{
-				farmTile->Harvest();
+				m_Description->SetText("L：収穫する");
+				if (Input::GetKeyTrigger('L'))
+				{
+					farmTile->Harvest();
+				}
 			}
 		}
-		else
+	}
+
+	auto house = scene->GetGameObject<House>();
+	auto fade = scene->GetGameObject<Fade>();
+	if (house != nullptr)
+	{
+		D3DXVECTOR3 position = house->GetPosition();
+		D3DXVECTOR3 scale = house->GetScale();
+
+		if (position.x - (scale.x * 6.0f) - (scale.x / 2) < m_WorldPosition.x &&
+			m_WorldPosition.x < position.x + (scale.x * 6.0f) + (scale.x / 2) &&
+			position.z - (scale.z * 6.0f) - (scale.z / 2) < m_WorldPosition.z &&
+			m_WorldPosition.z < position.z + (scale.z * 6.0f) + (scale.z / 2))
 		{
-			m_Description->SetText("");
+			m_Description->SetText("L：家に入る");
+			if (Input::GetKeyPress('L'))
+			{
+				fade->SetIsFadeOut();
+
+			}
+
 		}
 	}
-	else
+	if (fade->GetFadeOutFinish())
 	{
-		m_Description->SetText("");
+		Manager::SetIsLoad(true);
+		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
 	}
 
 	//インベントリを開く
@@ -566,6 +582,11 @@ void Player::UpdateInventory()
 		m_InventoryInterface->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
+}
+
+void Player::SetDescriptionText(std::string text)
+{
+		m_Description->SetText(text);
 }
 
 

@@ -4,7 +4,7 @@ class TimeObserver
 {
 private:
 	int m_RealSeconds{};//設定はTimeクラスで行うのでコンストラクタで呼び出すこと
-		
+
 public:
 
 	TimeObserver(){};
@@ -14,6 +14,8 @@ public:
 	virtual void UpdateDay() = 0;
 	virtual void UpdateHour() = 0;
 	virtual void UpdateMinute() = 0;
+
+	virtual void SetIncrementTime(int minute, int hour, int day) = 0;
 
 	void SetRealOneSecond()//ココ微妙
 	{

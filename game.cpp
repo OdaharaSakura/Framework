@@ -51,6 +51,9 @@
 #include "savedataManager.h"
 #include "sphereObject.h"
 #include "enemyObserver.h"
+#include "uiObserver.h"
+#include "gaugeFrame.h"
+
 bool Game::m_LoadFinish = false;
 
 void Game::Load()
@@ -167,8 +170,11 @@ void Game::Init()
 	playerGauge->SetPlayerParent(m_Player);
 
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
+	AddGameObject<GaugeFrame>(LAYER_OBJECT_2D);
 	m_Time = AddGameObject<Time>(LAYER_OBJECT_2D);
+
 	m_EnemyObserver = new EnemyObserver();
+	m_UIObserver = new UIObserver();
 
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
 
@@ -181,13 +187,14 @@ void Game::Init()
 	if (Manager::GetIsLoad())
 	{
 		SaveDataManager::Load(m_FarmField, m_Inventory, m_Equipment, m_Player, m_Time);
+		m_Time->NotifyAllTimeObservers();
 		Manager::SetIsLoad(false);
 	}
 }
 
 void Game::Uninit()
 {
-	SaveDataManager::Save();
+	SaveDataManager::Save(SCENE_GAME);
 	Scene::Uninit();
 	Unload();
 }
@@ -195,19 +202,6 @@ void Game::Uninit()
 void Game::Update()
 {
 	Scene::Update();
-
-	//Collision::CheckSphereCollider();
-
-	if (Input::GetKeyPress(VK_F2))
-	{
-		m_Fade->SetIsFadeOut();
-
-	}
-	if (m_Fade->GetFadeOutFinish())
-	{
-		Manager::SetIsLoad(true);
-		Manager::SetScene<TestHouse>();//エンターキーを押したらゲームシーンに移行	
-	}
 
 	m_EquipmentObj->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }

@@ -62,12 +62,12 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Carrot_Seedling2", "carrot_2.obj");//人参第二段階
         LoadModelData("Tomato_Seedling", "tomato_1.obj");//トマト第一段階
         LoadModelData("Tomato_Seedling2", "tomato_2.obj");//トマト第二段階
-        LoadModelData("Carrot_Seedling", "onion_1.obj");//玉ねぎ第一段階
-        LoadModelData("Carrot_Seedling2", "onion_2.obj");//玉ねぎ第二段階
-        LoadModelData("Carrot_Seedling", "eggplant_1.obj");//なす第一段階
-        LoadModelData("Carrot_Seedling2", "eggplant_2.obj");//なす第二段階
-        LoadModelData("Carrot_Seedling", "kabu_1.obj");//かぶ第一段階
-        LoadModelData("Carrot_Seedling2", "kabu_2.obj");//かぶ第二段階
+        LoadModelData("Onion_Seedling", "onion_1.obj");//玉ねぎ第一段階
+        LoadModelData("Onion_Seedling2", "onion_2.obj");//玉ねぎ第二段階
+ //       LoadModelData("Eggplant_Seedling", "eggplant_1.obj");//なす第一段階
+ //       LoadModelData("Eggplant_Seedling2", "eggplant_2.obj");//なす第二段階
+        LoadModelData("Kabu_Seedling", "kabu_1.obj");//かぶ第一段階
+        LoadModelData("Kabu_Seedling2", "kabu_2.obj");//かぶ第二段階
         LoadModelData("Tile", "tile.obj");//タイル
         LoadModelData("Wooden", "woodbox.obj");//木箱
         LoadModelData("Well", "well.obj");//井戸
@@ -79,6 +79,12 @@ void ModelContainer::Load(int sceneIndex)
         break;
 
     case SCENE_HOUSEROOM:
+        //装備データの数だけ
+        for (auto& it : equipmentdata) {
+            LoadModelData(it.m_Key, it.m_ModelPass);
+        }
+        LoadModelData("Sphere", "Sphere.obj");//球体
+        LoadModelData("Box", "box.obj");//円柱
         break;
     case SCENE_RESULT:
         break;

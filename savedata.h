@@ -9,6 +9,9 @@ struct TimeData
 	int day;
 	int hour;
 	int minute;
+	int incrementMinute;
+	int incrementHour;
+	int incrementDay;
 };
 
 struct FarmTileData

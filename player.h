@@ -84,6 +84,7 @@ public:
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 	void SetPlayerState(int state) { m_PlayerState = state; }
+	void SetDescriptionText(std::string text);
 	void AddHp(int hp);
 	void LoadPlayerData(PlayerData playerData);
 	void UpdateAnimation(int playerAnimation);

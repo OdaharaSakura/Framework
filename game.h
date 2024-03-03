@@ -14,6 +14,7 @@ private:
 	class Inventory* m_Inventory = nullptr;
 
 	class EnemyObserver* m_EnemyObserver = nullptr;
+	class UIObserver* m_UIObserver = nullptr;
 
 	static bool m_LoadFinish;
 

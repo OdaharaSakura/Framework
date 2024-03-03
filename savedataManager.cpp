@@ -39,7 +39,10 @@ void to_json(json& j, const TimeData& t) {
         {"minute", t.minute},
         {"hour", t.hour},
         {"day", t.day},
-        {"month", t.month}
+        {"month", t.month},
+        {"incrementMinute", t.incrementMinute},
+        {"incrementHour", t.incrementHour},
+		{"incrementDay", t.incrementDay}
     };
 }
 
@@ -48,6 +51,9 @@ void from_json(const json& j, TimeData& t) {
     j.at("hour").get_to(t.hour);
     j.at("day").get_to(t.day);
     j.at("month").get_to(t.month);
+    j.at("incrementMinute").get_to(t.incrementMinute);
+    j.at("incrementHour").get_to(t.incrementHour);
+    j.at("incrementDay").get_to(t.incrementDay);
 }
 
 void to_json(json& j, const PlayerData& p) {
@@ -70,23 +76,30 @@ void from_json(const json& j, PlayerData& p) {
     j.at("equipmentItemKey").get<std::string>();
 }
 
-void SaveDataManager::Save()
+void SaveDataManager::Save(int sceneIndex)
 {
-    std::vector<FarmTileData> farmTilesData{};
+
     Scene* scene = Manager::GetScene();
 
-    // シーンから全てのFarmTileを取得し、それぞれのデータを保存
-    auto farmField = scene->GetGameObject<FarmField>();
-    std::vector<FarmTile*> farmTiles = farmField->GetFarmTiles();
-    for (auto tile : farmTiles) {
-        FarmTileData data;
-        // tileからデータを取得してdataにセット
-        data.cropKey = tile->GetCropKey();
-        data.cropStage = tile->GetCropState();
-        data.tileStage = tile->GetFarmTileState();
-        data.growthMinute = tile->GetCropGrowTime();
-        farmTilesData.push_back(data);
+    if (sceneIndex == SCENE_GAME)
+    {
+        std::vector<FarmTileData> farmTilesData{};
+
+        // シーンから全てのFarmTileを取得し、それぞれのデータを保存
+        auto farmField = scene->GetGameObject<FarmField>();
+        std::vector<FarmTile*> farmTiles = farmField->GetFarmTiles();
+        for (auto tile : farmTiles) {
+            FarmTileData data;
+            // tileからデータを取得してdataにセット
+            data.cropKey = tile->GetCropKey();
+            data.cropStage = tile->GetCropState();
+            data.tileStage = tile->GetFarmTileState();
+            data.growthMinute = tile->GetCropGrowTime();
+            farmTilesData.push_back(data);
+        }
+        m_SaveData.farmTileData = farmTilesData;
     }
+
 
     auto time = scene->GetGameObject<Time>();
     TimeData timeData{};
@@ -94,6 +107,19 @@ void SaveDataManager::Save()
     timeData.hour = time->GetHours();
     timeData.day = time->GetDay();
     timeData.month = time->GetMonth();
+    if (sceneIndex == SCENE_HOUSEROOM)
+    {
+        timeData.incrementMinute = time->GetIncrementMinute();
+        timeData.incrementHour = time->GetIncrementHour();
+        timeData.incrementDay = time->GetIncrementDay();
+    }
+    else
+    {
+        timeData.incrementMinute = 0;
+		timeData.incrementHour = 0;
+		timeData.incrementDay = 0;
+    }
+
 
     auto player = scene->GetGameObject<Player>();
     auto inventory = scene->GetGameObject<Inventory>();
@@ -106,7 +132,7 @@ void SaveDataManager::Save()
     playerData.possessionItemKeys = inventory->GetPossessionItemKeys();
     playerData.equipmentItemKey = equipment->GetEquipmentKey();
 
-    m_SaveData.farmTileData = farmTilesData;
+
     m_SaveData.timeData = timeData;
     m_SaveData.playerData = playerData;
 
@@ -138,6 +164,22 @@ void SaveDataManager::Load(FarmField* farmField, Inventory* inventory, IEquipmen
     iEquipment->Load(m_SaveData.playerData);
     inventory->Load(m_SaveData.playerData);
     player->LoadPlayerData(m_SaveData.playerData);
+}
+
+void SaveDataManager::Load(Inventory* inventory, IEquipment* iEquipment, Player* player, Time* time)
+{
+	std::ifstream i("asset\\json\\savedata.json");
+	json j;
+	i >> j;
+
+	
+	m_SaveData.timeData = j.at("timeData").get<TimeData>();
+	m_SaveData.playerData = j.at("playerData").get<PlayerData>();
+
+	time->Load(m_SaveData.timeData);
+	iEquipment->Load(m_SaveData.playerData);
+	inventory->Load(m_SaveData.playerData);
+ 
 }
 
 void SaveDataManager::Delete()

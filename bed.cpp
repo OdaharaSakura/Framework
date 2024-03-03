@@ -8,7 +8,7 @@ void Bed::Init()
 	m_Model = new Model();
 	m_Model->Load("asset\\model\\obj\\bed.obj");
 
-	m_WorldPosition = D3DXVECTOR3(-4.0f, 0.0f, 2.0f);
+	m_WorldPosition = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Rotation = D3DXVECTOR3(0.0f, 3.15f, 0.0f);
 

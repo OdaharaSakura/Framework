@@ -41,3 +41,21 @@ void CropObserver::UpdateMinute()
 	}
 }
 
+void CropObserver::SetIncrementTime(int minute, int hour, int day)
+{
+	if (m_FarmTile->GetFarmTileState() == FarmTileState::PLANTED_WATERED) { // FarmTileが水やりされている状態であるかチェック
+		m_Minute += (minute + (hour * 60) + (day * 24 * 60));
+
+		m_Hour = m_Minute / 60; // 時間を更新
+		if (m_Hour >= m_Crop->GetGrowthTimeToFirstState() && m_Crop->GetCropState() == CropState::Seed)
+		{ // 最初の成長段階に達したかチェック		
+			m_FarmTile->AdvanceCropState();
+		}
+
+		if (m_Hour >= m_Crop->GetGrowthTime() && m_Crop->GetCropState() == CropState::Seedling1)
+		{ // 収穫可能な状態に達したかチェック
+			m_FarmTile->AdvanceCropState();
+		}
+	}
+}
+
