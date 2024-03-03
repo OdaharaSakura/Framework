@@ -74,6 +74,7 @@ void ModelContainer::Load(int sceneIndex)
         LoadModelData("Hut", "hut.obj");//¬‰®
         LoadModelData("Sphere", "Sphere.obj");//‹…‘Ì
         LoadModelData("Box", "box.obj");//‰~’Œ
+        LoadModelData("Board", "board.obj");//ŠÅ”Â
         break;
     case SCENE_RESULT:
         break;

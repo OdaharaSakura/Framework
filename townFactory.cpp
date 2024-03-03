@@ -619,4 +619,19 @@ void TownFactory::CreateTown()
 	scene->AddGameObject<COW>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(30.0f, 0.0f, 10.0f), D3DXVECTOR3(0.0f, 55.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	scene->AddGameObject<COW>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(26.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 128.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
+	StaticObject* board = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	board->SetModel_Key("Board");
+	board->SetPosition(D3DXVECTOR3(43.0f, 0.0f, 91.0f));
+	board->SetScale(D3DXVECTOR3(0.2f, 0.2f, 0.2f));
+	board->SetRotation(D3DXVECTOR3(0.0f, 3.14/2.0f, 0.0f));
+	SetBoxCollider(board);
+
+	StaticObject* board1 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
+	board1->SetModel_Key("Board");
+	board1->SetPosition(D3DXVECTOR3(43.0f, 0.0f, 114.0f));
+	board1->SetScale(D3DXVECTOR3(0.2f, 0.2f, 0.2f));
+	board1->SetRotation(D3DXVECTOR3(0.0f, 3.14 / 2.0f, 0.0f));
+	SetBoxCollider(board);
+
+
 }
