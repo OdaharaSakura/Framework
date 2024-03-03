@@ -98,11 +98,11 @@ void Inventory::RemoveItem(Item* itemptr)
     }
 }
 
-void Inventory::RemoveItem(std::string& itemName)
+void Inventory::RemoveItem(std::string& itemKey)
 {
     for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)
     {
-        if (it->GetName() == itemName)
+        if (it->GetKey() == itemKey)
         {
             m_PossessionItems.erase(it);
             break;
@@ -140,6 +140,28 @@ void Inventory::DecreaseItem(Item* itemptr)
     {
         RemoveItem(itemptr);
     }
+}
+
+void Inventory::DecreaseItem(std::string itemkey)
+{
+    if (m_PossessionItems.size() <= 0)//範囲外
+    {
+		//インベントリにアイテムが０
+		return;
+	}
+
+    for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)//すでにアイテムにあるか
+    {
+        if (it->GetKey() == itemkey)
+        {
+			it->SubQuantity(1);
+		}
+	}
+
+    if (GetItem(itemkey)->GetQuantity() <= 0)
+    {
+		RemoveItem(itemkey);
+	}   
 }
 
 void Inventory::DecreaseItem(int index)

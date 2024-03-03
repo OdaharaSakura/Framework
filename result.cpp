@@ -12,11 +12,9 @@
 #include "resultsky.h"
 #include "titleenter.h"
 #include "tree.h"
-#include "treasureBox.h"
 #include "meshField.h"
 void Result::Init()
 {
-	TreasureBox::Load();
 	AddGameObject<ResultCamera>(0);
 	AddGameObject<ResultSky>(1);
 	AddGameObject<MeshField>(1);
@@ -36,7 +34,6 @@ void Result::Init()
 
 void Result::Uninit()
 {
-	TreasureBox::Unload();
 	Scene::Uninit();
 }
 

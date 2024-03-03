@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "scene.h"
 #include "input.h"
-#include "test.h"
+#include "game.h"
 #include "title.h"
 #include "networkTest.h"
 #include "audio.h"

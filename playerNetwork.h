@@ -18,7 +18,7 @@ private:
 	ID3D11InputLayout* m_VertexLayout{};
 
 	D3DXVECTOR3			m_Velocity{};
-	D3DXVECTOR3			m_modelScale{};
+	D3DXVECTOR3			m_ModelScale{};
 	D3DXQUATERNION		m_Quaternion{};
 
 	class Audio* m_ShotSE{};

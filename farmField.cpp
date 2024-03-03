@@ -183,7 +183,6 @@ FarmTile* FarmField::GetFarmTileClosestToPlayer(int state)
 
 FarmTile* FarmField::GetFarmTileClosestToPlayer(int state1, int state2)
 {
-	//TODO:プレイヤーとの距離をここで取得する必要なし、farmfieldの中にプレイヤーがいるかどうかの判定を行う
 	Scene* scene = Manager::GetScene();
 	m_Player = scene->GetGameObject<Player>();
 

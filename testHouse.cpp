@@ -1,7 +1,7 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "test.h"
+#include "game.h"
 #include "testHouse.h"
 #include "input.h"
 #include "camera.h"
@@ -64,7 +64,7 @@ void TestHouse::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
-		Manager::SetScene<Test>();//エンターキーを押したらゲームシーンに移行	
+		Manager::SetScene<Game>();//エンターキーを押したらゲームシーンに移行	
 	}
 }
 

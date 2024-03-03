@@ -71,6 +71,21 @@ public:
 };
 #pragma endregion
 
+//Œ•
+#pragma region Sword
+class Sword : public Equipment
+{
+public:
+
+	Sword(std::string key, std::string texturePass,
+		std::string modelPass, int lostHP)
+		: Equipment(key, texturePass, modelPass, lostHP)
+	{}
+
+	void Execute() override;
+};
+#pragma endregion
+
 //ƒgƒ}ƒg‚ÌŽí
 #pragma region TomatoSeed
 class TomatoSeed : public Equipment

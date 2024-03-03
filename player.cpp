@@ -57,11 +57,17 @@ void Player::Init()
 	auto wand = m_ItemFactory->CreateItem("WaterWand");
 	m_InventoryInterface->AddItem(wand);
 
+	auto sword = m_ItemFactory->CreateItem("Sword");
+	m_InventoryInterface->AddItem(sword);
+
 	auto tomatoSeed = m_ItemFactory->CreateItem("TomatoSeed");
 	m_InventoryInterface->AddItem(tomatoSeed);
 
 	auto carrotSeed = m_ItemFactory->CreateItem("CarrotSeed");
 	m_InventoryInterface->AddItem(carrotSeed);
+
+	auto enemyStone = m_ItemFactory->CreateItem("EnemyStone");
+	m_InventoryInterface->AddItem(enemyStone);
 	
 	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Player);
 	
@@ -69,7 +75,7 @@ void Player::Init()
 	m_NextAnimationIndex = PlayerAnimation::Player_Idle;
 
 
-	m_modelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	m_ModelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	SetPlayer();//Sceneにpositionを渡すための
 	m_IsPlayer = true;
@@ -123,8 +129,12 @@ void Player::Update()
 		break;
 	case PLAYER_STATE_CONVERSATION:
 		UpdateConversation();
+		break;
 	case PLAYER_STATE_INVENTORY:
 		UpdateInventory();
+		break;
+	case PLAYER_STATE_PLOW:
+		UpdatePlow();
 		break;
 	}
 
@@ -205,7 +215,11 @@ void Player::Update()
 		}
 		if (length < lengthxz * lengthxz)
 		{
-			m_IsAttackflg = true;
+			enemy->SetDamageflg(true);
+		}
+		else
+		{
+			enemy->SetDamageflg(false);
 		}
 	}
 
@@ -235,7 +249,7 @@ void Player::Update()
 
 	if (m_Hp <= 0)
 	{
-		//Manager::SetScene<GameOver>();
+		Manager::SetScene<GameOver>();
 	}
 
 	m_Time++;
@@ -255,7 +269,7 @@ void Player::Draw()
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_modelScale.x, m_modelScale.y, m_modelScale.z);
+	D3DXMatrixScaling(&scale, m_ModelScale.x, m_ModelScale.y, m_ModelScale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
 	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
@@ -292,17 +306,13 @@ void Player::UpdateGround()
 	D3DXVec3Normalize(&cameraRight, &cameraRight);
 	bool move = false;
 
-	D3DXVECTOR3 moveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_MoveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	//サードパーソンビュー
 	if (Input::GetKeyPress('A'))
 	{
-		if (m_NextAnimationIndex != PlayerAnimation::Player_LeftRun)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_LeftRun;
-			m_BlendRate = 0.0f;
-		}
+		UpdateAnimation(PlayerAnimation::Player_LeftRun);
+
 		m_MoveVec -= cameraRight;
 		//m_WorldPosition.x -= 0.1f;
 		//m_WorldPosition -= cameraRight * 0.1f;
@@ -321,12 +331,7 @@ void Player::UpdateGround()
 	}
 	if (Input::GetKeyPress('D'))
 	{
-		if (m_NextAnimationIndex != PlayerAnimation::Player_RightRun)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_RightRun;
-			m_BlendRate = 0.0f;
-		}
+		UpdateAnimation(PlayerAnimation::Player_RightRun);
 		
 		m_MoveVec += cameraRight;
 		//m_WorldPosition.x += 0.1f;
@@ -345,13 +350,7 @@ void Player::UpdateGround()
 	}
 	if (Input::GetKeyPress('W'))
 	{
-
-		if (m_NextAnimationIndex != PlayerAnimation::Player_Run)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_Run;
-			m_BlendRate = 0.0f;
-		}
+		UpdateAnimation(PlayerAnimation::Player_Run);
 
 		m_MoveVec += cameraForward;
 		//m_WorldPosition += cameraRight * 0.1f;
@@ -369,12 +368,7 @@ void Player::UpdateGround()
 
 	if (Input::GetKeyPress('S'))
 	{
-		if (m_NextAnimationIndex != PlayerAnimation::Player_BackRun)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_BackRun;
-			m_BlendRate = 0.0f;
-		}
+		UpdateAnimation(PlayerAnimation::Player_BackRun);
 
 		m_MoveVec -= cameraForward;
 		//m_WorldPosition -= cameraForward * 0.1f;
@@ -485,6 +479,10 @@ void Player::UpdateGround()
 				farmTile->Harvest();
 			}
 		}
+		else
+		{
+			m_Description->SetText("");
+		}
 	}
 	else
 	{
@@ -505,14 +503,7 @@ void Player::UpdateGround()
 		m_PlayerState = PLAYER_STATE_JUMP;
 		move = true;
 
-		if (m_NextAnimationIndex != PlayerAnimation::Player_InPlaceJump)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_InPlaceJump;
-			m_BlendRate = 0.0f;
-		}
-		
-		
+		UpdateAnimation(PlayerAnimation::Player_InPlaceJump);		
 	}
 
 	if (Input::GetKeyTrigger('C'))
@@ -524,13 +515,7 @@ void Player::UpdateGround()
 
 	if (move == false)
 	{
-		if (m_NextAnimationIndex != PlayerAnimation::Player_Idle)
-		{
-			m_AnimationIndex = m_NextAnimationIndex;
-			m_NextAnimationIndex = PlayerAnimation::Player_Idle;
-			m_BlendRate = 0.0f;
-			m_MoveVec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		}
+		UpdateAnimation(PlayerAnimation::Player_Idle);
 	}
 }
 
@@ -544,10 +529,24 @@ void Player::UpdateJump()
 	m_WorldPosition += m_MoveVec * 0.1f;
 }
 
+void Player::UpdatePlow()
+{
+	UpdateAnimation(PlayerAnimation::Player_Plowing);
+	m_AttackDelaynum++;
+
+	if (m_AttackDelaynum > 16)
+	{
+		m_PlayerState = PLAYER_STATE_GROUND;
+		m_AttackDelaynum = 0;
+	}
+}
+
 void Player::UpdateAttack()
 {
+	UpdateAnimation(PlayerAnimation::Player_Attack);
 	m_AttackDelaynum++;
-	if (m_AttackDelaynum > 25)
+
+	if (m_AttackDelaynum > 17)
 	{
 		m_PlayerState = PLAYER_STATE_GROUND;
 		m_AttackDelaynum = 0;
@@ -572,6 +571,17 @@ void Player::UpdateInventory()
 	}
 }
 
+
+void Player::UpdateAnimation(int playerAnimation)
+{
+	if (m_NextAnimationIndex != playerAnimation)
+	{
+		m_AnimationIndex = m_NextAnimationIndex;
+		m_NextAnimationIndex = playerAnimation;
+		m_BlendRate = 0.0f;
+	}
+}
+
 void Player::AddHp(int hp)
 {
 	m_Hp += hp;
@@ -586,7 +596,7 @@ void Player::LoadPlayerData(PlayerData playerData)
 
 void Player::GetDebugData()
 {
-	ImGui::Begin("FBXModel_Player");
+	ImGui::Begin("Player");
 	ImGui::Text("Position:%.2f,%.2f,%.2f", m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	ImGui::End();
 }

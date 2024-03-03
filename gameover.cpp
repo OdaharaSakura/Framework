@@ -13,9 +13,9 @@
 void GameOver::Init()
 {
 
-	AddGameObject<GameOverLogo>(2);
-	AddGameObject<TitleEnter>(2);
-	m_Fade = AddGameObject<Fade>(2);
+	AddGameObject<GameOverLogo>(LAYER_OBJECT_2D);
+	AddGameObject<TitleEnter>(LAYER_OBJECT_2D);
+	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
 
 	////BGM再生
 	//Audio* bgm;
@@ -40,6 +40,7 @@ void GameOver::Update()
 	}
 	if (m_Fade->GetFadeOutFinish())
 	{
+		Title::Load();
 		Manager::SetScene<Title>();//エンターキーを押したらゲームシーンに移行	
 	}
 

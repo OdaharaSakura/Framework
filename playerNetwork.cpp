@@ -33,7 +33,7 @@ void PlayerNetWork::Init()
 
 	m_IsDisplayShadow = true;
 
-	m_modelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
 	m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	Renderer::CreateVertexShader(&m_VertexShader,
@@ -198,7 +198,7 @@ void PlayerNetWork::Draw()
 
 	// マトリクス設定
 	D3DXMATRIX matrix, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_modelScale.x, m_modelScale.y, m_modelScale.z);
+	D3DXMatrixScaling(&scale, m_ModelScale.x, m_ModelScale.y, m_ModelScale.z);
 	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);//モデルによるが、後ろ向いてたら+ D3DX_PIで180度回転させる
 	D3DXMatrixRotationQuaternion(&rot, &m_Quaternion);
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);

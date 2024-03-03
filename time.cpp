@@ -141,7 +141,10 @@ void Time::NotifyAllTimeObservers()
 
 void Time::NotifyAllTimeObserversHour()
 {
-
+	for (auto observer : m_Observers)
+	{
+		observer->UpdateHour();
+	}
 }
 
 void Time::NotifyAllTimeObserversMinute()

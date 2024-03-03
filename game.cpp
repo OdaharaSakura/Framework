@@ -1,7 +1,7 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "test.h"
+#include "game.h"
 #include "result.h"
 #include "gameover.h"
 #include "input.h"
@@ -27,7 +27,6 @@
 #include "tree_billboard.h"
 #include "testHouse.h"
 #include "gamelogo.h"
-#include "treasureBox.h"
 #include "collider.h"
 #include "equipmentObj.h"
 #include "time.h"
@@ -51,28 +50,26 @@
 #include "post.h"
 #include "savedataManager.h"
 #include "sphereObject.h"
+#include "enemyObserver.h"
+bool Game::m_LoadFinish = false;
 
-bool Test::m_LoadFinish = false;
-
-void Test::Load()
+void Game::Load()
 {
 	ItemDataContainer::Load();
 	TextureContainer::Load(SCENE_GAME);
 	ModelContainer::Load(SCENE_GAME);
 	AnimationModelContainer::Load(SCENE_GAME);
 	Gauge::Load();
-	TreasureBox::Load();
 	TreeBillboard::Load();
 	m_LoadFinish = true;
 }
-void Test::Unload()
+void Game::Unload()
 {
 	m_LoadFinish = false;
 	TextureContainer::Unload(SCENE_GAME);
 	ModelContainer::Unload(SCENE_GAME);
 	AnimationModelContainer::Unload(SCENE_GAME);
 	Gauge::Unload();
-	TreasureBox::Unload();
 	TreeBillboard::Unload();
 }
 D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix);
@@ -105,14 +102,14 @@ static D3DXMATRIX MatrixConvert(aiMatrix4x4 aiMatrix)
 }
 
 
-void Test::Init()
+void Game::Init()
 {
 	//インターフェース
 	m_Equipment = AddGameObject<IEquipment>(LAYER_OBJECT_NOTDRAW);
 	m_Inventory = AddGameObject<Inventory>(LAYER_OBJECT_NOTDRAW);
 
 
-	AddGameObject<Camera>(LAYER_CAMERA);//登録するListの種類を変える
+	AddGameObject<Camera>(LAYER_CAMERA);
 	AddGameObject<Sky>(LAYER_OBJECT_3D);
 	MeshField* meshField = AddGameObject<MeshField>(LAYER_OBJECT_3D);
 	meshField->SetPosition(D3DXVECTOR3(0.0f, 0.0f , 0.0f));
@@ -123,9 +120,6 @@ void Test::Init()
 	TownFactory* townFactory = new TownFactory();
 	townFactory->CreateTown();
 
-
-	
-	//AddGameObject<ModelTest>(LAYER_OBJECT_3D)->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	m_Player = AddGameObject<Player>(LAYER_OBJECT_3D);
 
@@ -141,7 +135,7 @@ void Test::Init()
 	sphereroad->SetPosition(npc1->GetPosition());
 	sphereroad->SetScale(npc1->GetScale());
 
-	//AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(-30.0f, 0.0f, 30.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
+	AddGameObject<Enemy>(LAYER_OBJECT_3D)->SetGameObject(D3DXVECTOR3(0.0f, 1.0f, -40.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f));
 
 
 	
@@ -174,8 +168,10 @@ void Test::Init()
 
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
 	m_Time = AddGameObject<Time>(LAYER_OBJECT_2D);
+	m_EnemyObserver = new EnemyObserver();
 
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
+
 	//BGM再生
 	Audio* bgm;
 	bgm = AddGameObject<GameObject>(0)->AddComponent<Audio>();
@@ -189,14 +185,14 @@ void Test::Init()
 	}
 }
 
-void Test::Uninit()
+void Game::Uninit()
 {
 	SaveDataManager::Save();
 	Scene::Uninit();
 	Unload();
 }
 
-void Test::Update()
+void Game::Update()
 {
 	Scene::Update();
 
@@ -215,7 +211,7 @@ void Test::Update()
 	m_EquipmentObj->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
 }
 
-void Test::SetStaticObject()
+void Game::SetStaticObject()
 {
 	
 }

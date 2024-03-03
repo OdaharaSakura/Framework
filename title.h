@@ -21,9 +21,6 @@ private:
 
 	int m_Phase = 0;
 
-
-
-
 public:
 	static void Load();
 	static void Unload();

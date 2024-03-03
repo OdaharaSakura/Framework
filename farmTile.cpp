@@ -36,12 +36,10 @@ void FarmTile::Uninit()
 	}
 	if (m_FarmTileModel != nullptr)
 	{
-		delete m_FarmTileModel;
 		m_FarmTileModel = nullptr;
 	}
 	if (m_Crop != nullptr)
 	{
-		delete m_Crop;
 		m_Crop = nullptr;
 	}
 }

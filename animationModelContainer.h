@@ -24,7 +24,8 @@ enum PlayerAnimation
 	Player_BackRun,
 	Player_Attack,
 	Player_Death,
-	Player_InPlaceJump
+	Player_InPlaceJump,
+	Player_Plowing
 };
 
 enum EnemyAnimation

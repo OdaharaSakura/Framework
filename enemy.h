@@ -2,6 +2,16 @@
 
 #include "animationModel.h"
 #include "gameObject.h"
+
+enum ENEMY_STATE
+{
+	EnemyState_Wait,
+	EnemyState_Tracking,
+	EnemyState_Attack,
+	EnemyState_Damage,
+	EnemyState_Death
+};
+
 class Enemy : public GameObject//継承
 {
 private:
@@ -13,24 +23,23 @@ private:
 	D3DXVECTOR3 m_ModelScale{};
 	D3DXVECTOR3 m_StartScale{};
 
-
+	int m_EnemyState = EnemyState_Wait;
 	int m_Hp;
 	int m_HpMax = 300;
 
 	float test = 0.005f;
-	bool m_Startflg;
+
 
 	int m_Time{};
-	int m_AnimeState{};
 	int m_AnimeFrame{};
 	int m_AttackDelaynum{};
 
-	std::string m_AnimationIndex;
-	std::string m_NextAnimationIndex;
+	int m_AnimationIndex;
+	int m_NextAnimationIndex;
 	float m_BlendRate{};
 
-	bool m_IsAttackflg{};//アタックできるか
-	bool m_Attackflg{};//攻撃したか
+	bool m_IsDamageflg{};//プレイヤーがアタックできるか
+	bool m_Startflg{};//初期化フラグ
 
 public:
 	void Load();
@@ -40,13 +49,22 @@ public:
 	void Update();
 	void Draw();
 
+	void UpdateAnimation(int enemyAnimation);
+
+	void UpdateWait();
+	void UpdateTracking();
+	void UpdateAttack();
+	void UpdateDamage();
+	void UpdateDeath();
+
+	bool CheckPlayerDistance(float distance);
+
 	void AddHp(int hp);
 	int GetHp() { return m_Hp; }
 	int GetHpMax() { return m_HpMax; }
 
-
-	bool GetAttackflg() { return m_Attackflg; }
-	void SetNonAttackflg() { m_Attackflg = false; }
+	bool GetDamageflg() { return m_IsDamageflg; }
+	void SetDamageflg(bool isDamage) { m_IsDamageflg = isDamage; }
 
 	D3DXMATRIX* CalcLookAtMatrixAxisFix(
 		D3DXMATRIX* pout,

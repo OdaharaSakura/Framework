@@ -539,8 +539,10 @@
             "Hoe",
             "Sickle",
             "WaterWand",
+            "Sword",
             "TomatoSeed",
-            "CarrotSeed"
+            "CarrotSeed",
+            "EnemyStone"
         ]
     },
     "timeData": {

@@ -20,10 +20,11 @@ public:
     void AddItem(Item* itemptr, int quantity);
 
     void RemoveItem(Item* itemptr);
-    void RemoveItem(std::string& itemName);
+    void RemoveItem(std::string& itemKey);
     void RemoveItem(int index);
 
     void DecreaseItem(Item* itemptr);
+    void DecreaseItem(std::string itemkey);
     void DecreaseItem(int index);
     void DecreaseItem(int index, int quantity);
 

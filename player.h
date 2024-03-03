@@ -15,7 +15,8 @@ enum PLAYER_STATE
 	PLAYER_STATE_JUMP,
 	PLAYER_STATE_ATTACK,
 	PLAYER_STATE_CONVERSATION,//会話
-	PLAYER_STATE_INVENTORY//インベントリ
+	PLAYER_STATE_INVENTORY,//インベントリ
+	PLAYER_STATE_PLOW
 };
 
 class Player : public GameObject//継承
@@ -41,7 +42,7 @@ private:
 
 	D3DXVECTOR3			m_MoveVec{};
 	D3DXVECTOR3			m_Velocity{};
-	D3DXVECTOR3			m_modelScale{};
+	D3DXVECTOR3			m_ModelScale{};
 	D3DXQUATERNION		m_Quaternion{};
 
 	class Audio* m_ShotSE{};
@@ -55,8 +56,6 @@ private:
 	int m_NextAnimationIndex;
 	float m_BlendRate{};
 
-	int m_AnimeState{};
-	int m_AnimeFrame{};
 	int m_AttackDelaynum{};
 
 	bool m_IsAttackflg{};//アタックできるか(敵の範囲内に入ったら)
@@ -75,6 +74,7 @@ public:
 	void UpdateAttack();
 	void UpdateConversation();
 	void UpdateInventory();
+	void UpdatePlow();
 
 	void UseEquipment();
 	void EatItem(std::string key);
@@ -86,6 +86,7 @@ public:
 	void SetPlayerState(int state) { m_PlayerState = state; }
 	void AddHp(int hp);
 	void LoadPlayerData(PlayerData playerData);
+	void UpdateAnimation(int playerAnimation);
 
 
 	D3DXVECTOR3 GetForward()//前方向ベクトル取得
@@ -132,6 +133,7 @@ public:
 	int GetHpMax() {return m_HpMax;}
 	bool GetAttackflg() { return m_Attackflg; }
 	char GetInputData() { return m_InputData; }
+	int GetPlayerState() { return m_PlayerState; }
 
 	void GetDebugData();
 };

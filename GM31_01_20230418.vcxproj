@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -207,6 +207,7 @@
     <ClCompile Include="DirectWriteCustomFont.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyObserver.cpp" />
     <ClCompile Include="equipment.cpp" />
     <ClCompile Include="equipmentFactory.cpp" />
     <ClCompile Include="equipmentIcon.cpp" />
@@ -291,7 +292,7 @@
     <ClCompile Include="staticSprite.cpp" />
     <ClCompile Include="subPanel.cpp" />
     <ClCompile Include="subPanelOptions.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="testHouse.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="textureContainer.cpp" />
@@ -302,7 +303,6 @@
     <ClCompile Include="titlelogo.cpp" />
     <ClCompile Include="titleselect.cpp" />
     <ClCompile Include="townFactory.cpp" />
-    <ClCompile Include="treasureBox.cpp" />
     <ClCompile Include="tree.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -338,6 +338,7 @@
     <ClInclude Include="DirectWriteCustomFont.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyObserver.h" />
     <ClInclude Include="equipment.h" />
     <ClInclude Include="equipmentFactory.h" />
     <ClInclude Include="equipmentIcon.h" />
@@ -417,7 +418,7 @@
     <ClInclude Include="staticSprite.h" />
     <ClInclude Include="subPanel.h" />
     <ClInclude Include="subPanelOptions.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="testHouse.h" />
     <ClInclude Include="equipmentObj.h" />
     <ClInclude Include="text.h" />
@@ -430,7 +431,6 @@
     <ClInclude Include="titlelogo.h" />
     <ClInclude Include="titleselect.h" />
     <ClInclude Include="townFactory.h" />
-    <ClInclude Include="treasureBox.h" />
     <ClInclude Include="tree.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

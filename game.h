@@ -2,7 +2,7 @@
 
 #include "scene.h"
 
-class Test : public Scene
+class Game : public Scene
 {
 private:
 	class Fade* m_Fade = nullptr;
@@ -12,6 +12,8 @@ private:
 	class FarmField* m_FarmField = nullptr;
 	class IEquipment* m_Equipment = nullptr;
 	class Inventory* m_Inventory = nullptr;
+
+	class EnemyObserver* m_EnemyObserver = nullptr;
 
 	static bool m_LoadFinish;
 

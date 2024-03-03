@@ -7,7 +7,6 @@
 #include "camera.h"
 #include "player.h"
 #include "enemy.h"
-#include "treasureBox.h"
 #include <iostream>
 #include <cmath>
 
@@ -115,17 +114,6 @@ void Gauge::Update()
 			m_EnemyParent->GetPosition().x,
 			m_EnemyParent->GetPosition().y + m_EnemyParent->GetScale().y,
 			m_EnemyParent->GetPosition().z
-		);
-	}
-
-	if (m_BoxParent != NULL)
-	{
-		m_Hp = m_BoxParent->GetHp();
-		m_HpMax = m_BoxParent->GetHpMax();
-		m_WorldPosition = D3DXVECTOR3(
-			m_BoxParent->GetPosition().x,
-			m_BoxParent->GetPosition().y + m_BoxParent->GetScale().y,
-			m_BoxParent->GetPosition().z
 		);
 	}
 

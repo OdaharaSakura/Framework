@@ -8,7 +8,9 @@
 #include "earth.h"
 #include "animationModelContainer.h"
 #include "shader.h"
-
+#include "gameover.h"
+#include "inventory.h"
+#include "itemFactory.h"
 
 void Enemy::Load()
 {
@@ -26,21 +28,20 @@ void Enemy::Init()
 	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_Enemy);
 
 
-	m_ModelScale = D3DXVECTOR3(0.015f, 0.015f, 0.015f);
+	m_ModelScale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	Gauge* gauge = scene->AddGameObject<Gauge>(LAYER_OBJECT_3D);
-	gauge->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 3.0f, m_WorldPosition.z));
+	gauge->SetPosition(D3DXVECTOR3(m_WorldPosition.x, 8.0f, m_WorldPosition.z));
 	gauge->SetEnemyParent(this);
 
-	m_Startflg = true;
 
 	m_AttackDelaynum = 0;
-	m_IsAttackflg = false;
-	m_Attackflg = false;
+	m_IsDamageflg = false;
 
 
 	m_Hp = m_HpMax;
 
+	m_EnemyState = EnemyState_Wait;
 }
 
 void Enemy::Uninit()
@@ -53,11 +54,24 @@ void Enemy::Update()
 {
 	GameObject::Update();
 
-	if (m_Startflg)
+
+	switch (m_EnemyState)
 	{
-		m_StartPosition = m_WorldPosition;
-		m_StartScale = m_Scale;
-		m_Startflg = false;
+	case EnemyState_Wait:
+		UpdateWait();
+		break;
+	case EnemyState_Tracking:
+		UpdateTracking();
+		break;
+	case EnemyState_Attack:
+		UpdateAttack();
+		break;
+	case EnemyState_Damage:
+		UpdateDamage();
+		break;
+	case EnemyState_Death:
+		UpdateDeath();
+		break;
 	}
 
 
@@ -67,55 +81,23 @@ void Enemy::Update()
 
 	D3DXVECTOR3 position = player->GetPosition();
 
-	if (m_Hp == 0)
+	if (m_Hp <= 0)
 	{
-
-		Enemy* enemy;
-		enemy = scene->AddGameObject<Enemy>(LAYER_OBJECT_3D);
-		enemy->SetGameObject(m_StartPosition, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_StartScale);
-
-		SetDestroy();
+		m_EnemyState = EnemyState_Death;
 	}
 		
 
-	if (player->GetAttackflg())
-	{
-		m_Hp -= 50;
-		player->SetNonAttackflg();
-	}
-
-
-
-	//移動処理（プレイヤーに向かってくる）
-	//D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
 
 	//プレイヤー当たり判定
-		D3DXVECTOR3 playerposition = player->GetPosition();
-		D3DXVECTOR3 playerscale = player->GetScale();
+	D3DXVECTOR3 playerscale = player->GetScale();
+	playerscale.y = 0.0f;
+	float scalexz = D3DXVec3Length(&playerscale);
 
-		D3DXVECTOR3 direction = m_WorldPosition - playerposition;
-		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
-		playerscale.y = 0.0f;
-		float scalexz = D3DXVec3Length(&playerscale);//プレイヤーのスケールを100分の1にしているため
-		if (length < scalexz)
-		{
-			m_WorldPosition.x = oldPosition.x;
-			m_WorldPosition.z = oldPosition.z;
-		}
-		if (length < scalexz * scalexz + 3.0f)
-		{
-
-			//m_Hp -= 3;
-
-		}
-		if (length < scalexz * scalexz + 10.0f)
-		{
-
-			//m_Hp -= 3;
-
-		}
-
+	if (CheckPlayerDistance(scalexz))
+	{
+		m_WorldPosition.x = oldPosition.x;
+		m_WorldPosition.z = oldPosition.z;
+	}
 }
 
 void Enemy::Draw()
@@ -130,17 +112,125 @@ void Enemy::Draw()
 
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_ModelScale.x, m_ModelScale.y, m_ModelScale.z);
-	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	CalcLookAtMatrixAxisFix(&rot, &m_WorldPosition, &target, &up);
+	if (m_EnemyState == EnemyState_Wait)
+	{
+		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+	}
+	else
+	{
+		CalcLookAtMatrixAxisFix(&rot, &m_WorldPosition, &target, &up);
+	}
 	D3DXMatrixTranslation(&trans, m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 	world = scale * rot * trans;
 	Renderer::SetWorldMatrix(&world);
 
-	m_Model->Update(EnemyAnimation::Enemy_Run, m_Time, EnemyAnimation::Enemy_Run, m_Time, m_BlendRate);
+	m_Model->Update(m_AnimationIndex, m_Time, m_NextAnimationIndex, m_Time, m_BlendRate);
 
 
 	m_Time++;
 	m_Model->Draw();
+}
+
+void Enemy::UpdateAnimation(int enemyAnimation)
+{
+	if (m_NextAnimationIndex != enemyAnimation)
+	{
+		m_AnimationIndex = m_NextAnimationIndex;
+		m_NextAnimationIndex = enemyAnimation;
+		m_BlendRate = 0.0f;
+	}
+}
+
+void Enemy::UpdateWait()
+{
+	UpdateAnimation(EnemyAnimation::Enemy_Idle);
+
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+
+	D3DXVECTOR3 playerscale = player->GetScale();
+	playerscale.y = 0.0f;
+	float scalexz = D3DXVec3Length(&playerscale);
+	if (CheckPlayerDistance(scalexz * scalexz + 10.0f))
+	{
+		m_EnemyState = EnemyState_Tracking;
+	}
+}
+
+void Enemy::UpdateTracking()
+{
+	UpdateAnimation(EnemyAnimation::Enemy_Run);
+
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+	D3DXVECTOR3 position = player->GetPosition();
+
+	D3DXVECTOR3 playerscale = player->GetScale();
+	playerscale.y = 0.0f;
+	float scalexz = D3DXVec3Length(&playerscale);
+
+	if (!CheckPlayerDistance(scalexz * scalexz + 10.0f))
+	{
+		m_EnemyState = EnemyState_Wait;
+	}
+	if (CheckPlayerDistance(scalexz * scalexz + 3.0f))
+	{
+		m_EnemyState = EnemyState_Attack;
+	}
+
+
+	//移動処理（プレイヤーに向かってくる）
+	D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
+}
+
+void Enemy::UpdateAttack()
+{
+	Player* player = Manager::GetScene()->GetGameObject<Player>();
+	UpdateAnimation(EnemyAnimation::Enemy_Attack);
+	m_AnimeFrame++;
+
+	if (m_AnimeFrame >= 15)
+	{
+		m_AnimeFrame = 0;
+		player->AddHp(-10);
+		m_EnemyState = EnemyState_Tracking;
+	}
+}
+
+void Enemy::UpdateDamage()
+{
+}
+
+void Enemy::UpdateDeath()
+{
+	Scene* scene = Manager::GetScene();
+	Inventory* inventory = scene->GetGameObject<Inventory>();
+	ItemFactory* itemFactory = scene->GetGameObject<ItemFactory>();
+	inventory->AddItem(itemFactory->CreateItem("EnemyStone"));
+
+
+	SetDestroy();
+}
+
+bool Enemy::CheckPlayerDistance(float distance)
+{
+	Scene* scene = Manager::GetScene();
+	Player* player = scene->GetGameObject<Player>();
+
+	D3DXVECTOR3 playerposition = player->GetPosition();
+
+	D3DXVECTOR3 direction = m_WorldPosition - playerposition;
+	direction.y = 0.0f;
+	float length = D3DXVec3Length(&direction);
+
+	if (length < distance)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Enemy::AddHp(int hp)

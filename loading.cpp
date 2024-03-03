@@ -4,7 +4,7 @@
 #include "input.h"
 #include "loading.h"
 #include "tutorial.h"
-#include "test.h"
+#include "game.h"
 #include "resultcamera.h"
 #include "resultplayer.h"
 #include "resultsky.h"
@@ -18,7 +18,7 @@ void Loading::Init()
 
 	AddGameObject<LoadingLogo>(LAYER_OBJECT_2D);
 
-	std::thread th(&Test::Load);
+	std::thread th(&Game::Load);
 	th.detach();
 
 }
@@ -31,9 +31,9 @@ void Loading::Update()
 {
 	Scene::Update();
 
-	if (Test::GetLoadFinish())
+	if (Game::GetLoadFinish())
 	{
-		Manager::SetScene<Test>();
+		Manager::SetScene<Game>();
 	}
 
 }

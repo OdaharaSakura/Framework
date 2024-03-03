@@ -136,9 +136,6 @@
     <ClCompile Include="earth.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="treasureBox.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="child.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -264,7 +261,7 @@
     <ClCompile Include="result.cpp">
       <Filter>1_Common\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="game.cpp">
       <Filter>1_Common\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="testHouse.cpp">
@@ -369,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="sphereObject.cpp" />
     <ClCompile Include="boxObject.cpp" />
+    <ClCompile Include="enemyObserver.cpp">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -423,9 +423,6 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="earth.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="treasureBox.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="child.h">
@@ -565,7 +562,7 @@
     <ClInclude Include="result.h">
       <Filter>1_Common\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="game.h">
       <Filter>1_Common\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="testHouse.h">
@@ -680,6 +677,9 @@
     </ClInclude>
     <ClInclude Include="sphereObject.h" />
     <ClInclude Include="boxObject.h" />
+    <ClInclude Include="enemyObserver.h">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

@@ -39,6 +39,7 @@ void AnimationModelContainer::Load(int sceneIndex)
         m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Attack.fbx", PlayerAnimation::Player_Attack);
         m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Death.fbx", PlayerAnimation::Player_Death);
         m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_InPlaceJump.fbx", PlayerAnimation::Player_InPlaceJump);
+        m_FBXModel[FBXModel::FBXModel_Player]->LoadAnimation("Player_Plowing.fbx", PlayerAnimation::Player_Plowing);
         LoadAnimationModelData(FBXModel::FBXModel_Player, m_FBXModel[FBXModel::FBXModel_Player]);
 
         m_FBXModel[FBXModel::FBXModel_Enemy]->Load("Mutant.fbx");
