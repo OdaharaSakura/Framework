@@ -609,8 +609,8 @@ void TownFactory::CreateTown()
 	mountain->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f)); 
 	
 	BoxObject* spheremountain = scene->AddGameObject<BoxObject>(LAYER_BOXCOLLIDER);
-	spheremountain->SetPosition(D3DXVECTOR3(0.0f, 0.01f, 8.0f));
-	spheremountain->SetScale(D3DXVECTOR3(3.0f, 1.0f, 8.0f));
+	spheremountain->SetPosition(D3DXVECTOR3(60.0f, 9.0f, -80.0f));
+	spheremountain->SetScale(D3DXVECTOR3(25.0f, 20.0f, 30.0f));
 
 
 
