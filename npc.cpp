@@ -25,7 +25,7 @@ void NPC::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_NPC1);
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_NPCBlue);
 
 	AddComponent<VertexLighting>();
 
