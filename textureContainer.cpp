@@ -26,8 +26,10 @@ void TextureContainer::Load(int sceneIndex)
 
         LoadImageData("EquipmentPanel", "equipment_Panel.png");//装備パネル
         LoadImageData("InventoryPanel", "Windows_item.dds");//インベントリパネル
+        LoadImageData("BuyingPanel", "Shop_Buying.dds");//ショップパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
         LoadImageData("SubPanel", "subpanel.dds");//サブパネル
+        LoadImageData("SellSubPanel", "subpanel_selling.dds");//売却パネル
         LoadImageData("SubPanelCursor", "subpanelCursor.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_Equipment", "subpanel1-1.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_Eat", "subpanel2-1.dds");//サブパネル
