@@ -540,11 +540,7 @@ void TownFactory::CreateTown()
 	gate2->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
 	gate2->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
 
-	StaticObject* gate3 = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
-	gate3->SetModel_Key("Gate3");
-	gate3->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	gate3->SetScale(D3DXVECTOR3(3.0f, 3.0f, 3.0f));
-	gate3->SetRotation(D3DXVECTOR3(0.0f, 135.0f, 0.0f));
+
 
 	StaticObject* flower = scene->AddGameObject<StaticObject>(LAYER_OBJECT_3D);
 	flower->SetModel_Key("Flower");

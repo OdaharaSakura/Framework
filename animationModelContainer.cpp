@@ -53,6 +53,14 @@ void AnimationModelContainer::Load(int sceneIndex)
         m_FBXModel[FBXModel::FBXModel_NPC1]->LoadAnimation("GoGirl_Idle.fbx", NPCAnimation::NPC_Idle);
         LoadAnimationModelData(FBXModel::FBXModel_NPC1, m_FBXModel[FBXModel::FBXModel_NPC1]);
 
+        m_FBXModel[FBXModel::FBXModel_NPCBlue]->Load("BlueBoy.fbx");
+        m_FBXModel[FBXModel::FBXModel_NPCBlue]->LoadAnimation("BlueBoy_Idle.fbx", NPCAnimation::NPC_Idle);
+        LoadAnimationModelData(FBXModel::FBXModel_NPCBlue, m_FBXModel[FBXModel::FBXModel_NPCBlue]);
+
+        m_FBXModel[FBXModel::FBXModel_NPCShort]->Load("ShortGirl.fbx");
+        m_FBXModel[FBXModel::FBXModel_NPCShort]->LoadAnimation("ShortGirl_Idle.fbx", NPCAnimation::NPC_Idle);
+        LoadAnimationModelData(FBXModel::FBXModel_NPCShort, m_FBXModel[FBXModel::FBXModel_NPCShort]);
+
         m_FBXModel[FBXModel::FBXModel_Cow]->Load("cowpose.fbx");
         m_FBXModel[FBXModel::FBXModel_Cow]->LoadAnimation("cowanime.fbx", CowAnimation::Cow_Walk);
         LoadAnimationModelData(FBXModel::FBXModel_Cow, m_FBXModel[FBXModel::FBXModel_Cow]);

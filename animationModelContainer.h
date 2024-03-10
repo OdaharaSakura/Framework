@@ -10,6 +10,8 @@ enum FBXModel
 	FBXModel_Player,
 	FBXModel_Enemy,
 	FBXModel_NPC1,
+	FBXModel_NPCBlue,
+	FBXModel_NPCShort,
 	FBXModel_Cow,
 	FBXModel_Max
 };
