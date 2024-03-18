@@ -8,7 +8,9 @@ private:
 	enum SelectStage
 	{
 		SelectItem,
-		SelectHowToUse
+		SelectHowToUse,
+		SelectSellingItem,
+		SelectSellingItemQuantity
 	};
 
 	class StaticSprite* m_StaticSprite{};
@@ -18,6 +20,7 @@ private:
 	int m_SelectItemIndex{};
 	int m_SelectHowToUseIndex{};
 	int m_SelectStage{};
+	int m_SelectSellingItemQuantity{};
 
 	float m_SelectItemTextureWidth = 100.0f;
 	float m_SelectItemTextureHeight = 100.0f;
@@ -36,11 +39,13 @@ public:
 	void Update();
 	void Draw();
 
+	void UpdateInventoryItemCursor();
 	void UpdateSelectItem();
 	void UpdateSelectHowToUse(Item* item);
+	void UpdateSelectSellingItem(Item* item);
 
 	
-
+	void SetSelectStage(SelectStage selectStage) { m_SelectStage = selectStage; }
 	void SetSelectHowToUse();
 	void SetSelectItem();
 

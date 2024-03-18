@@ -531,7 +531,7 @@
     ],
     "playerData": {
         "equipmentItemKey": "",
-        "money": 0,
+        "money": 200,
         "positionx": -1.0,
         "positiony": 0.0,
         "positionz": -4.0,
@@ -545,12 +545,12 @@
         ]
     },
     "timeData": {
-        "day": 18,
-        "hour": 1,
+        "day": 1,
+        "hour": 7,
         "incrementDay": 0,
         "incrementHour": 0,
         "incrementMinute": 0,
-        "minute": 50,
+        "minute": 20,
         "month": 0
     }
 }

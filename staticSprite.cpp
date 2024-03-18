@@ -97,6 +97,8 @@ void StaticSprite::Uninit()
 {
 	if (m_VertexBuffer != nullptr)m_VertexBuffer->Release();
 	if (m_Texture != nullptr)m_Texture->Release();
+	if (m_Image != nullptr) m_Image = nullptr;
+		
 }
 
 void StaticSprite::Update()

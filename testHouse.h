@@ -8,6 +8,7 @@ private:
 	class Fade* m_Fade = nullptr;
 	class SphereObject* m_Sphere = nullptr;
 	class Player* m_Player = nullptr;
+	class SceneDescription* m_SceneDescription = nullptr;
 
 public:
 	void Load()override;

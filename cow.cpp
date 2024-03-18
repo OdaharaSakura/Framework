@@ -9,6 +9,7 @@
 #include "shader.h"
 #include "animationModel.h"
 #include "animationModelContainer.h"
+#include "camera.h"
 
 void COW::Load()
 {
@@ -40,38 +41,6 @@ void COW::Update()
 {
 	GameObject::Update();
 
-
-	D3DXVECTOR3 oldPosition = m_WorldPosition;
-	Scene* scene = Manager::GetScene();
-	Player* player = scene->GetGameObject<Player>();
-
-	D3DXVECTOR3 position = player->GetPosition();
-
-	//プレイヤー当たり判定
-	D3DXVECTOR3 playerposition = player->GetPosition();
-	D3DXVECTOR3 playerscale = player->GetScale();
-
-	D3DXVECTOR3 direction = m_WorldPosition - playerposition;
-	direction.y = 0.0f;
-	float length = D3DXVec3Length(&direction);
-	playerscale.y = 0.0f;
-	float scalexz = D3DXVec3Length(&playerscale);
-	if (length < scalexz)
-	{
-		m_WorldPosition.x = oldPosition.x;
-		m_WorldPosition.z = oldPosition.z;
-	}
-	if (length < scalexz * scalexz + 3.0f)
-	{
-		m_IsHitPlayer = true;
-	}
-	else
-	{
-		m_IsHitPlayer = false;
-	}
-
-
-
 	m_Time++;
 	m_BlendRate += 0.1f;
 }
@@ -80,8 +49,18 @@ void COW::Draw()
 {
 	GameObject::Draw();
 	Scene* scene = Manager::GetScene();
-	Player* player = scene->GetGameObject<Player>();
 
+	//視錘台カリング
+	Camera* camera = scene->GetGameObject<Camera>();
+	D3DXVECTOR3 length = D3DXVECTOR3(m_Scale.x, 0.0f, m_Scale.z);
+	float objectSize = D3DXVec3Length(&length);
+
+	if (!camera->CheckViewWithBoundingSphere(m_WorldPosition, objectSize))
+	{
+		return;
+	}
+
+	Player* player = scene->GetGameObject<Player>();
 
 	// マトリクス設定
 	D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);

@@ -142,6 +142,28 @@ void Inventory::DecreaseItem(Item* itemptr)
     }
 }
 
+void Inventory::DecreaseItem(Item* itemptr, int quantity)
+{
+    if (m_PossessionItems.size() <= 0)//範囲外
+    {
+		//インベントリにアイテムが０
+		return;
+	}
+
+    for (auto it = m_PossessionItems.begin(); it != m_PossessionItems.end(); ++it)//すでにアイテムにあるか
+    {
+        if (it->GetName() == itemptr->GetName())
+        {
+			it->SubQuantity(quantity);
+		}
+	}
+
+    if (itemptr->GetQuantity() <= 0)
+    {
+		RemoveItem(itemptr);
+	}
+}
+
 void Inventory::DecreaseItem(std::string itemkey)
 {
     if (m_PossessionItems.size() <= 0)//範囲外
@@ -236,6 +258,8 @@ Item* Inventory::GetItem(int index)
 
 void Inventory::Load(PlayerData playerData)
 {
+    if(playerData.money >= 0)m_Money = playerData.money;
+
     if (playerData.possessionItemKeys.size() <= 0)
     {
         return;

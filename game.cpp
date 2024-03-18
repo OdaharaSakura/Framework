@@ -53,6 +53,8 @@
 #include "enemyObserver.h"
 #include "uiObserver.h"
 #include "gaugeFrame.h"
+#include "sceneDescription.h"
+#include "conversation.h"
 
 bool Game::m_LoadFinish = false;
 
@@ -172,6 +174,8 @@ void Game::Init()
 	AddGameObject<Polygon2D>(LAYER_OBJECT_2D);
 	AddGameObject<GaugeFrame>(LAYER_OBJECT_2D);
 	m_Time = AddGameObject<Time>(LAYER_OBJECT_2D);
+	m_SceneDescription = AddGameObject<SceneDescription>(LAYER_OBJECT_2D);
+	AddGameObject<Conversation>(LAYER_OBJECT_2D);
 
 	m_EnemyObserver = new EnemyObserver();
 	m_UIObserver = new UIObserver();
@@ -204,11 +208,6 @@ void Game::Update()
 	Scene::Update();
 
 	m_EquipmentObj->m_pMatrix = MatrixConvert(m_Player->m_Model->GetBone()["mixamorig:LeftHand"].WorldMatrix);
-}
-
-void Game::SetStaticObject()
-{
-	
 }
 
 

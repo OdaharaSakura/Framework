@@ -9,7 +9,7 @@ void GaugeFrame::Init()
 {
 	AddComponent<UnlitTexture>();
 	m_GaugeFrame = AddComponent<Sprite>();
-	m_GaugeFrame->Init(SCREEN_WIDTH - 200.0f, 20.0f, 180.0f, 24.0f, "asset/texture/GaugeFrame.dds");
+	m_GaugeFrame->Init(70.0f, SCREEN_HEIGHT - 90.0f, 320.0f, 70.0f, "asset/texture/gauge_frame.dds");
 
 }
 

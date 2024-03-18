@@ -125,7 +125,7 @@ void SaveDataManager::Save(int sceneIndex)
     auto inventory = scene->GetGameObject<Inventory>();
     auto equipment = scene->GetGameObject<IEquipment>();
     PlayerData playerData{};
-    playerData.money = 0;//Œã‚Å•Ï‚¦‚é
+    playerData.money = inventory->GetMoney();
     playerData.positionx = player->GetPosition().x;
     playerData.positiony = player->GetPosition().y;
     playerData.positionz = player->GetPosition().z;

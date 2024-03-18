@@ -80,6 +80,9 @@
     <Filter Include="1_Common\Game\Observer">
       <UniqueIdentifier>{41a64cc1-54b3-460f-99ce-1da083169b6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\shop">
+      <UniqueIdentifier>{ad33e724-c368-4142-862d-f52a826af1e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -369,8 +372,24 @@
     <ClCompile Include="enemyObserver.cpp">
       <Filter>1_Common\Game\Observer</Filter>
     </ClCompile>
-    <ClCompile Include="uiObserver.cpp" />
     <ClCompile Include="gaugeFrame.cpp" />
+    <ClCompile Include="sceneDescription.cpp" />
+    <ClCompile Include="subPanelSellingItem.cpp" />
+    <ClCompile Include="uiObserver.cpp">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>GameObject\shop</Filter>
+    </ClCompile>
+    <ClCompile Include="shopNPC.cpp">
+      <Filter>GameObject\shop</Filter>
+    </ClCompile>
+    <ClCompile Include="shopView.cpp">
+      <Filter>GameObject\shop</Filter>
+    </ClCompile>
+    <ClCompile Include="shopCursor.cpp">
+      <Filter>GameObject\shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -682,8 +701,24 @@
     <ClInclude Include="enemyObserver.h">
       <Filter>1_Common\Game\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="uiObserver.h" />
     <ClInclude Include="gaugeFrame.h" />
+    <ClInclude Include="sceneDescription.h" />
+    <ClInclude Include="subPanelSellingItem.h" />
+    <ClInclude Include="uiObserver.h">
+      <Filter>1_Common\Game\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>GameObject\shop</Filter>
+    </ClInclude>
+    <ClInclude Include="shopNPC.h">
+      <Filter>GameObject\shop</Filter>
+    </ClInclude>
+    <ClInclude Include="shopView.h">
+      <Filter>GameObject\shop</Filter>
+    </ClInclude>
+    <ClInclude Include="shopCursor.h">
+      <Filter>GameObject\shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\common.hlsl">

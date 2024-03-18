@@ -35,8 +35,7 @@ private:
 	class Inventory* m_InventoryInterface;
 	class ItemFactory* m_ItemFactory;
 	class EquipmentFactory* m_EquipmentFactory;
-
-	class Text* m_Description;//説明
+	class SceneDescription* m_Description;
 	class Conversation* m_Conversation;//会話
 	std::string m_Message;//会話中のメッセージ
 
@@ -84,7 +83,6 @@ public:
 	void SetNonAttackflg() { m_Attackflg = false; }
 	void SetConnectNetWork() { m_IsConnectNetWork = true; }
 	void SetPlayerState(int state) { m_PlayerState = state; }
-	void SetDescriptionText(std::string text);
 	void AddHp(int hp);
 	void LoadPlayerData(PlayerData playerData);
 	void UpdateAnimation(int playerAnimation);

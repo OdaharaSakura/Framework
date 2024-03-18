@@ -39,6 +39,7 @@
 #include "house.h"
 #include "fade.h"
 #include "testHouse.h"
+#include "sceneDescription.h"
 
 AnimationModel* Player::m_Model{};
 
@@ -80,10 +81,6 @@ void Player::Init()
 	SetPlayer();//Sceneにpositionを渡すための
 	m_IsPlayer = true;
 
-	m_Description = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D)->AddComponent<Text>();
-	m_Description->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 3, SCREEN_HEIGHT - 50.0f));
-
-	
 
 	AddComponent<PercentageCloserFiltering>();//影
 
@@ -109,7 +106,7 @@ void Player::Update()
 	//GameObject::Update();
 	Scene* scene = Manager::GetScene();
 	m_OldPosition = m_WorldPosition;
-	m_Description->SetText("");
+	m_Description = scene->GetGameObject<SceneDescription>();
 	m_IsAttackflg = false;
 	
 
@@ -397,6 +394,7 @@ void Player::UpdateGround()
 	if (Input::GetKeyTrigger('I'))
 	{
 		UseEquipment();
+		m_Time = 0;
 	}
 
 	//ベッド
@@ -413,12 +411,12 @@ void Player::UpdateGround()
 		{
 			if (m_countnum >= 1)
 			{
-				m_Description->SetText("ベッドで眠りました");
+				m_Description->SetDescriptionText("ベッドで眠りました");
 				m_countnum += 1;
 				if (60 <= m_countnum) m_countnum = 0;
 
 			}
-			else m_Description->SetText("L：ベッドで眠る");
+			else m_Description->SetDescriptionText("L：ベッドで眠る");
 
 			if (Input::GetKeyTrigger('L'))
 			{
@@ -438,19 +436,23 @@ void Player::UpdateGround()
 			}
 
 		}
+		else
+		{
+			m_Description->SetDescriptionText("");
+		}
 	}
 
 	//NPC
 
-	std::vector<NPC*> NPCs = scene->GetGameObjects<NPC>();
-	for (NPC* npc : NPCs)
+	auto npc = scene->GetGameObject<NPC>();
+	if (npc != nullptr)
 	{
 		if (npc->GetIsHitPlayer())
 		{
-			m_Description->SetText("L：話す");
 			if (Input::GetKeyTrigger('L'))
 			{
-				m_Conversation = scene->AddGameObject<Conversation>(LAYER_OBJECT_2D);
+				m_Conversation = scene->GetGameObject<Conversation>();
+				m_Conversation->Show();
 				m_Message = npc->GetConversation();
 				m_Conversation->SetText(m_Message);
 				m_PlayerState = PLAYER_STATE_CONVERSATION;
@@ -466,11 +468,15 @@ void Player::UpdateGround()
 		{
 			if (farmTile->GetCropState() == CropState::Harvest)
 			{
-				m_Description->SetText("L：収穫する");
+				m_Description->SetDescriptionText("L：収穫する");
 				if (Input::GetKeyTrigger('L'))
 				{
 					farmTile->Harvest();
 				}
+			}
+			else
+			{
+				m_Description->SetDescriptionText("");
 			}
 		}
 	}
@@ -487,13 +493,17 @@ void Player::UpdateGround()
 			position.z - (scale.z * 6.0f) - (scale.z / 2) < m_WorldPosition.z &&
 			m_WorldPosition.z < position.z + (scale.z * 6.0f) + (scale.z / 2))
 		{
-			m_Description->SetText("L：家に入る");
+			m_Description->SetDescriptionText("L：家に入る");
 			if (Input::GetKeyPress('L'))
 			{
 				fade->SetIsFadeOut();
 
 			}
 
+		}
+		else
+		{
+			m_Description->SetDescriptionText("");
 		}
 	}
 	if (fade->GetFadeOutFinish())
@@ -515,7 +525,8 @@ void Player::UpdateGround()
 		m_Velocity.y = 0.35f;
 		m_PlayerState = PLAYER_STATE_JUMP;
 		move = true;
-
+		
+		m_Time = 0;
 		UpdateAnimation(PlayerAnimation::Player_InPlaceJump);		
 	}
 
@@ -547,7 +558,7 @@ void Player::UpdatePlow()
 	UpdateAnimation(PlayerAnimation::Player_Plowing);
 	m_AttackDelaynum++;
 
-	if (m_AttackDelaynum > 16)
+	if (m_AttackDelaynum > 30)
 	{
 		m_PlayerState = PLAYER_STATE_GROUND;
 		m_AttackDelaynum = 0;
@@ -559,7 +570,7 @@ void Player::UpdateAttack()
 	UpdateAnimation(PlayerAnimation::Player_Attack);
 	m_AttackDelaynum++;
 
-	if (m_AttackDelaynum > 17)
+	if (m_AttackDelaynum > 30)
 	{
 		m_PlayerState = PLAYER_STATE_GROUND;
 		m_AttackDelaynum = 0;
@@ -568,9 +579,11 @@ void Player::UpdateAttack()
 
 void Player::UpdateConversation()
 {
+	Scene* scene = Manager::GetScene();
 	if (Input::GetKeyTrigger('L'))
 	{
-		m_Conversation->SetDestroy();
+		m_Conversation = scene->GetGameObject<Conversation>();
+		m_Conversation->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
 }
@@ -582,11 +595,6 @@ void Player::UpdateInventory()
 		m_InventoryInterface->Hide();
 		m_PlayerState = PLAYER_STATE_GROUND;
 	}
-}
-
-void Player::SetDescriptionText(std::string text)
-{
-		m_Description->SetText(text);
 }
 
 

@@ -14,6 +14,7 @@ private:
 
 	class SubPanel* m_SelectPanel{};
 	class SubPanelOptions* m_SelectPanelOptions{};
+	class SubPanelSellingItem* m_SubPanelSellingItem{};
 
 	bool m_IsInventoryActive{};
 public:
@@ -27,6 +28,9 @@ public:
 
 	void ShowSelectPanel(class Item* itemPtr);
 	void HideSelectPanel();
+
+	void ShowSellingItemSubPanel();
+	void HideSellingItemSubPanel();
 
 	InventoryItemIcon* GetInventoryItemIcon(int index) 
 	{

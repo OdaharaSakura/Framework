@@ -5,7 +5,6 @@
 #include "inventoryItemDescription.h"
 #include "text.h"
 #include "sprite.h"
-#include "input.h"
 #include "shader.h"
 #include "inventory.h"
 #include "inventoryItemCursor.h"

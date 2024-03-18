@@ -41,6 +41,9 @@ void Enemy::Init()
 
 	m_Hp = m_HpMax;
 
+	m_AnimationIndex = EnemyAnimation::Enemy_Idle;
+	m_NextAnimationIndex = EnemyAnimation::Enemy_Idle;
+
 	m_EnemyState = EnemyState_Wait;
 }
 
@@ -98,6 +101,14 @@ void Enemy::Update()
 		m_WorldPosition.x = oldPosition.x;
 		m_WorldPosition.z = oldPosition.z;
 	}
+
+	if (m_EnemyState == EnemyState_Wait)
+	{
+		UpdateAnimation(EnemyAnimation::Enemy_Idle);
+	}
+
+	m_Time++;
+	m_BlendRate += 0.1f;
 }
 
 void Enemy::Draw()
@@ -127,7 +138,8 @@ void Enemy::Draw()
 	m_Model->Update(m_AnimationIndex, m_Time, m_NextAnimationIndex, m_Time, m_BlendRate);
 
 
-	m_Time++;
+
+	if (m_BlendRate > 1.0f) m_BlendRate = 1.0f;
 	m_Model->Draw();
 }
 
@@ -151,7 +163,7 @@ void Enemy::UpdateWait()
 	D3DXVECTOR3 playerscale = player->GetScale();
 	playerscale.y = 0.0f;
 	float scalexz = D3DXVec3Length(&playerscale);
-	if (CheckPlayerDistance(scalexz * scalexz + 10.0f))
+	if (CheckPlayerDistance(scalexz * scalexz + 8.0f))
 	{
 		m_EnemyState = EnemyState_Tracking;
 	}
@@ -165,22 +177,25 @@ void Enemy::UpdateTracking()
 	Player* player = scene->GetGameObject<Player>();
 	D3DXVECTOR3 position = player->GetPosition();
 
+	//移動処理（プレイヤーに向かってくる）
+	D3DXVec3Lerp(&m_WorldPosition, &m_WorldPosition, &position, m_MoveSpeed);
+
 	D3DXVECTOR3 playerscale = player->GetScale();
 	playerscale.y = 0.0f;
 	float scalexz = D3DXVec3Length(&playerscale);
 
-	if (!CheckPlayerDistance(scalexz * scalexz + 10.0f))
+	if (CheckPlayerDistance(scalexz * scalexz + 2.0f))
+	{
+		m_EnemyState = EnemyState_Attack;
+		m_Time = 0;
+	}
+
+	if (!CheckPlayerDistance(scalexz * scalexz + 8.0f))
 	{
 		m_EnemyState = EnemyState_Wait;
 	}
-	if (CheckPlayerDistance(scalexz * scalexz + 3.0f))
-	{
-		m_EnemyState = EnemyState_Attack;
-	}
 
 
-	//移動処理（プレイヤーに向かってくる）
-	D3DXVec3Lerp(&m_WorldPosition,&m_WorldPosition, &position,test);
 }
 
 void Enemy::UpdateAttack()
@@ -189,7 +204,7 @@ void Enemy::UpdateAttack()
 	UpdateAnimation(EnemyAnimation::Enemy_Attack);
 	m_AnimeFrame++;
 
-	if (m_AnimeFrame >= 15)
+	if (m_AnimeFrame >= 60)
 	{
 		m_AnimeFrame = 0;
 		player->AddHp(-10);

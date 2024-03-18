@@ -4,7 +4,7 @@
 #include "scene.h"
 #include "conversation.h"
 #include "text.h"
-#include "sprite.h"
+#include "staticsprite.h"
 #include "input.h"
 #include "shader.h"
 
@@ -13,17 +13,21 @@ void Conversation::Init()
 {
 	Scene* scene = Manager::GetScene();
 	AddComponent<UnlitTexture>();
-	AddComponent<Sprite>()->Init(30.0f, SCREEN_HEIGHT - 200.0f, 1200.0f, 192.0f, "asset/texture/window_03.png");//上のとどっちでもよい
+	m_Window = AddComponent<StaticSprite>();
+	m_Window->Init(30.0f, SCREEN_HEIGHT - 200.0f, 1200.0f, 192.0f, "ConversationWindow", "window_03.png");
 	m_Text = scene->AddGameObject<GameObject>(LAYER_OBJECT_2D)->AddComponent<Text>();
 	m_Text->SetPosition(D3DXVECTOR2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 5 * 4));
 	m_Text->SetFontColor(D2D1::ColorF::Gray);
+
+	m_Window->SetIsActive(false);
+	m_Text->SetText("");
 }
 
 void Conversation::Uninit()
 {
 	//基底クラスのメソッド呼び出し
 	GameObject::Uninit();
-	m_Text->SetText("");
+	if (m_Text != nullptr)m_Text->SetDestroy();
 }
 
 void Conversation::Update()
@@ -40,6 +44,17 @@ void Conversation::Draw()
 
 	//基底クラスのメソッド呼び出し
 	GameObject::Draw();
+}
+
+void Conversation::Show()
+{
+	m_Window->SetIsActive(true);
+}
+
+void Conversation::Hide()
+{
+	m_Window->SetIsActive(false);
+	m_Text->SetText("");
 }
 
 void Conversation::SetText(const std::string& text)

@@ -12,6 +12,9 @@
 #include "item.h"
 #include "subPanel.h"
 #include "subPanelOptions.h"
+#include "subPanelSellingItem.h"
+#include "sceneDescription.h"
+
 
 void InventoryView::Init()
 {
@@ -72,12 +75,15 @@ void InventoryView::ShowInventory()
 	m_InventoryItemCursor->SetIsActive(true);
 	m_InventoryItemDescription = scene->AddGameObject<InventoryItemDescription>(LAYER_OBJECT_2D);
 
+	scene->GetGameObject<SceneDescription>()->SetDescriptionText("Lキー：決定・Kキー：戻る・Tabキー：閉じる");
+
 	m_IsInventoryActive = true;
 	
 }
 
 void InventoryView::HideInventory()
 {
+	Scene* scene = Manager::GetScene();
 	for (int i = 0; i < m_InventoryInterface->GetItems().size(); i++)
 	{
 		m_InventoryItemIcons[i]->SetIsActive(false);
@@ -90,6 +96,7 @@ void InventoryView::HideInventory()
 	m_InventoryItemDescription->SetDestroy();
 
 	HideSelectPanel();
+	scene->GetGameObject<SceneDescription>()->SetDescriptionText("");
 
 	m_IsInventoryActive = false;
 }
@@ -124,4 +131,15 @@ void InventoryView::HideSelectPanel()
 {
 	m_SelectPanel->SetIsActive(false);
 	m_SelectPanelOptions->SetIsActive(false);
+}
+
+void InventoryView::ShowSellingItemSubPanel()
+{
+	Scene* scene = Manager::GetScene();
+	m_SubPanelSellingItem = scene->AddGameObject<SubPanelSellingItem>(LAYER_OBJECT_2D);
+}
+
+void InventoryView::HideSellingItemSubPanel()
+{
+	m_SubPanelSellingItem->SetDestroy();
 }

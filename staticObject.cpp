@@ -27,8 +27,7 @@ void StaticObject::Uninit()
 
 void StaticObject::Update()
 {
-	//sphere->SetPosition(m_WorldPosition);
-	//sphere->SetScale(m_Scale);
+
 }
 
 void StaticObject::Draw()

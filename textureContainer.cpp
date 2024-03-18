@@ -29,7 +29,7 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("BuyingPanel", "Shop_Buying.dds");//ショップパネル
         LoadImageData("InventoryItemIconCursor", "sentaku_frame.dds");//インベントリパネルフレーム
         LoadImageData("SubPanel", "subpanel.dds");//サブパネル
-        LoadImageData("SellSubPanel", "subpanel_selling.dds");//売却パネル
+        LoadImageData("SubPanelSellingItem", "subpanel_selling.dds");//売却パネル
         LoadImageData("SubPanelCursor", "subpanelCursor.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_Equipment", "subpanel1-1.dds");//サブパネル
         LoadImageData("SubPanelOptions_Inventory_Eat", "subpanel2-1.dds");//サブパネル
@@ -43,6 +43,7 @@ void TextureContainer::Load(int sceneIndex)
         LoadImageData("TIPS_UO", "TIPS_UO.dds");//カメラ回転キー
         LoadImageData("TIPS_WASD", "TIPS_WASD.dds");//上下左右キー
         LoadImageData("TIPS_Space_DEC", "TIPS_Space_DEC.dds");//決定キー
+        LoadImageData("ConversationWindow", "window_03.png");//会話ウィンドウ
         break;
 
     case SCENE_HOUSEROOM:

@@ -27,7 +27,7 @@ private:
 	int m_Hp;
 	int m_HpMax = 300;
 
-	float test = 0.005f;
+	float m_MoveSpeed = 0.005f;
 
 
 	int m_Time{};

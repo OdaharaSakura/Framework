@@ -11,6 +11,7 @@
 #include "input.h"
 #include "item.h"
 #include "subPanelOptions.h"
+#include "subPanelSellingItem.h"
 
 void InventoryItemCursor::Init()
 {
@@ -45,16 +46,22 @@ void InventoryItemCursor::Update()
 
 	switch (m_SelectStage)
 	{
-		case SelectItem:
+	case SelectItem:
+	case SelectSellingItem:
 		UpdateSelectItem();
 		break;
 
-		case SelectHowToUse:
+	case SelectHowToUse:
 		UpdateSelectHowToUse(GetSelectItem());
 		break;
 
-	}
+	case SelectSellingItemQuantity:
+		UpdateSelectSellingItem(GetSelectItem());
+		break;
 
+	default:
+		break;
+	}
 }
 
 void InventoryItemCursor::Draw()
@@ -66,7 +73,7 @@ void InventoryItemCursor::Draw()
 	GameObject::Draw();
 }
 
-void InventoryItemCursor::UpdateSelectItem()
+void InventoryItemCursor::UpdateInventoryItemCursor()
 {
 	Scene* scene = Manager::GetScene();
 	m_Inventory = scene->GetGameObject<Inventory>();
@@ -111,14 +118,28 @@ void InventoryItemCursor::UpdateSelectItem()
 	m_WorldPosition.x = 227.5f + (m_SelectItemIndex % 7) * 120.0f;
 	m_WorldPosition.y = 170.0f + (m_SelectItemIndex / 7) * 107.5f;
 	m_StaticSprite->SetPosition(D3DXVECTOR2(m_WorldPosition.x, m_WorldPosition.y));
+}
+
+void InventoryItemCursor::UpdateSelectItem()
+{
+	UpdateInventoryItemCursor();
 
 	if (Input::GetKeyTrigger('L'))
 	{
 		if (!GetSelectItem()) return;
 
-		m_InventoryView->ShowSelectPanel(GetSelectItem());
-		SetSelectHowToUse();
-		m_SelectStage = SelectHowToUse;
+		if (m_SelectStage == SelectSellingItem)
+		{
+			m_InventoryView->ShowSellingItemSubPanel();
+			m_SelectStage = SelectSellingItemQuantity;
+
+		}
+		else
+		{
+			m_InventoryView->ShowSelectPanel(GetSelectItem());
+			SetSelectHowToUse();
+			m_SelectStage = SelectHowToUse;
+		}
 	}
 }
 
@@ -166,6 +187,54 @@ void InventoryItemCursor::UpdateSelectHowToUse(Item* item)
 		SetSelectItem();
 		m_InventoryView->HideSelectPanel();
 		m_SelectStage = SelectItem;
+	}
+}
+
+void InventoryItemCursor::UpdateSelectSellingItem(Item* item)
+{
+	Scene* scene = Manager::GetScene();
+	auto subPanelSellingItem = scene->GetGameObject<SubPanelSellingItem>();
+	auto inventory = scene->GetGameObject<Inventory>();
+	m_SelectSellingItemQuantity = 0;
+
+	if (Input::GetKeyTrigger('W'))
+	{
+		m_SelectSellingItemQuantity--;
+		if (m_SelectSellingItemQuantity < 0)
+		{
+			m_SelectSellingItemQuantity = item->GetQuantity();
+		}
+	}
+
+	if (Input::GetKeyTrigger('S'))
+	{
+		m_SelectSellingItemQuantity++;
+		if (m_SelectSellingItemQuantity > item->GetQuantity())
+		{
+			m_SelectSellingItemQuantity = 0;
+		}
+	}
+
+	subPanelSellingItem->SetSellingItemQuantity(m_SelectSellingItemQuantity);
+
+	if (Input::GetKeyTrigger('L'))
+	{
+		subPanelSellingItem->SellingItem(m_SelectSellingItemQuantity, item);
+		Scene* scene = Manager::GetScene();
+		m_InventoryView = scene->GetGameObject<InventoryView>();
+		SetSelectItem();
+		m_SelectStage = SelectSellingItem;
+		m_InventoryView->HideSellingItemSubPanel();
+	}
+
+
+	if (Input::GetKeyTrigger('K'))
+	{
+		Scene* scene = Manager::GetScene();
+		m_InventoryView = scene->GetGameObject<InventoryView>();
+		SetSelectItem();
+		m_SelectStage = SelectSellingItem;
+		m_InventoryView->HideSellingItemSubPanel();
 	}
 }
 

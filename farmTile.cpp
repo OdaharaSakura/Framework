@@ -13,6 +13,7 @@
 #include "gameObject.h"
 #include "cropFactory.h"
 #include "time.h"
+#include "camera.h"
 
 void FarmTile::Init()
 {
@@ -52,6 +53,19 @@ void FarmTile::Update()
 void FarmTile::Draw()
 {
 	if(m_FarmTileModel == nullptr) return;
+
+	Scene* scene = Manager::GetScene();
+
+	//視錘台カリング
+	Camera* camera = scene->GetGameObject<Camera>();
+	D3DXVECTOR3 length = D3DXVECTOR3(m_Scale.x, 0.0f, m_Scale.z);
+	float objectSize = D3DXVec3Length(&length);
+
+	if (!camera->CheckViewWithBoundingSphere(m_WorldPosition, objectSize))
+	{
+		return;
+	}
+
 	// マトリクス設定
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);

@@ -22,6 +22,7 @@
 #include "modelContainer.h"
 #include "itemDataContainer.h"
 #include "saveDataManager.h"
+#include "sceneDescription.h"
 
 void TestHouse::Load()
 {
@@ -83,6 +84,8 @@ void TestHouse::Init()
 	playerGauge->SetPlayerParent(m_Player);
 	Time* time = AddGameObject<Time>(LAYER_OBJECT_2D);
 
+	m_SceneDescription = AddGameObject<SceneDescription>(LAYER_OBJECT_2D);
+
 	m_Fade = AddGameObject<Fade>(LAYER_OBJECT_2D);
 
 	if (Manager::GetIsLoad())
@@ -116,7 +119,7 @@ void TestHouse::Update()
 	float lengthxz = D3DXVec3Length(&scalexz);
 	if (length <= lengthxz * lengthxz)
 	{
-		m_Player->SetDescriptionText("L：家を出る");
+		m_SceneDescription->SetDescriptionText("L：家を出る");
 		if (Input::GetKeyTrigger('L'))
 		{
 			m_Fade->SetIsFadeOut();

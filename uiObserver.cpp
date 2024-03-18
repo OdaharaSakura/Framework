@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "manager.h"
 #include "polygon2D.h"
+#include "sceneDescription.h"
 
 UIObserver::UIObserver()
 {
@@ -22,6 +23,10 @@ void UIObserver::UpdateMinute()
 {
 	Scene* scene = Manager::GetScene();
 	Polygon2D* polygon2D = scene->GetGameObject<Polygon2D>();
+	SceneDescription* sceneDescription = scene->GetGameObject<SceneDescription>();
+
+	sceneDescription->SetDescriptionText("");
+
 	m_Minute += 10; // •ª‚ð‰ÁŽZ
 	if (m_Minute >= 60 && !polygon2D->GetIsChangeUI())
 	{

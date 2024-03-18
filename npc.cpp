@@ -9,6 +9,7 @@
 #include "shader.h"
 #include "animationModel.h"
 #include "animationModelContainer.h"
+#include "sceneDescription.h"
 
 
 void NPC::Load()
@@ -25,11 +26,11 @@ void NPC::Init()
 {
 	Scene* scene = Manager::GetScene();
 	m_Model = new AnimationModel();
-	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_NPCBlue);
+	m_Model = AnimationModelContainer::GetAnimationModel_Key(FBXModel::FBXModel_NPC1);
 
 	AddComponent<VertexLighting>();
 
-	m_Conversation = "こんにちは！\nいい天気ね！";
+	m_Conversation = "こんにちは！\nいい天気だね！";
 
 
 
@@ -49,6 +50,7 @@ void NPC::Update()
 	D3DXVECTOR3 oldPosition = m_WorldPosition;
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
+	m_Description = scene->GetGameObject<SceneDescription>();
 
 	D3DXVECTOR3 position = player->GetPosition();
 
@@ -64,6 +66,7 @@ void NPC::Update()
 	if (length < scalexz * scalexz + 3.0f)
 	{
 		m_IsHitPlayer = true;
+		m_Description->SetDescriptionText("L：話す");
 	}
 	else
 	{

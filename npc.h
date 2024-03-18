@@ -7,6 +7,7 @@ class NPC : public GameObject//åpè≥
 {
 private:
 	class AnimationModel* m_Model;
+	class SceneDescription* m_Description;
 
 	D3DXVECTOR3 m_StartPosition{};
 
